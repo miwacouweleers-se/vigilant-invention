@@ -2,6 +2,12 @@
 
 Lo-fi wireframe of the **Primary Inventory** page, styled with [Doodle CSS](https://github.com/chr15m/DoodleCSS) for a hand-drawn look.
 
+## Live URL (GitHub Pages)
+
+**https://miwacouweleers-se.github.io/vigilant-invention/**
+
+*(Enable GitHub Pages in repo Settings → Pages → Deploy from branch → main → / (root).)*
+
 ## Preview locally
 
 ```bash
