@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Primary Inventory – Wireframe (Doodle CSS)</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/chr15m/DoodleCSS@main/doodle.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Short+Stack&display=swap');
+    body.doodle { font-family: 'Short Stack', cursive; margin: 0; padding: 0; }
+    .app { display: flex; min-height: 100vh; }
+    /* Top bar - spans above sidebar + main */
+    .top-bar { position: fixed; top: 0; left: 0; right: 0; height: 3rem; display: flex; align-items: center; justify-content: space-between; padding: 0 1rem; border-bottom: 1px solid currentColor; background: #fff; z-index: 10; }
+    .top-bar-left { display: flex; align-items: center; gap: 0.5rem; }
+    .logo { width: 1.5rem; height: 1.5rem; border: 2px solid #166534; border-radius: 50%; }
+    .top-bar-right { display: flex; align-items: center; gap: 0.75rem; }
+    .top-bar-right button { min-width: 2rem; }
+    /* Sidebar */
+    .sidebar { width: 4rem; flex-shrink: 0; padding-top: 3rem; border-right: 1px solid currentColor; background: #fff; }
+    .sidebar-nav { display: flex; flex-direction: column; padding: 0.5rem 0; }
+    .sidebar-nav a, .sidebar-nav button { display: flex; align-items: center; justify-content: center; padding: 0.75rem; text-align: center; background: none; border: none; cursor: pointer; font-family: inherit; font-size: 0.85rem; text-decoration: none; color: inherit; }
+    .sidebar-nav .menu-label { padding: 0.5rem; justify-content: flex-start; gap: 0.25rem; }
+    .sidebar-nav .active { border-left: 3px solid #166534; background: rgba(22,101,52,0.08); }
+    /* Main content */
+    .main { flex: 1; margin-left: 4rem; margin-top: 3rem; padding: 1.5rem; max-width: 1200px; }
+    .page-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem; }
+    .page-header h1 { margin: 0; font-size: 1.5rem; }
+    .page-header .subtitle { margin: 0.25rem 0 0 0; font-size: 0.9rem; opacity: 0.8; max-width: 42rem; }
+    .header-actions { display: flex; align-items: center; gap: 0.5rem; }
+    .btn-primary { background: #166534; color: #fff; }
+    .date-row { margin-bottom: 1rem; }
+    .date-row button { padding: 0.5rem 0.75rem; }
+    /* Tabs */
+    .tab-bar { display: flex; gap: 0; border-bottom: 2px solid #e5e5e5; margin-bottom: 1rem; }
+    .tab-bar button { padding: 0.5rem 1rem; background: none; border: none; border-bottom: 3px solid transparent; margin-bottom: -2px; cursor: pointer; font-family: inherit; font-size: 1rem; }
+    .tab-bar button.active { border-bottom-color: #166534; font-weight: bold; }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+    /* Summary tab */
+    .sub-tabs { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
+    .sub-tabs .pill { padding: 0.4rem 0.8rem; border-radius: 999px; border: 1px solid #ccc; background: #fff; cursor: pointer; font-family: inherit; }
+    .sub-tabs .pill.active { background: #0d9488; color: #fff; border-color: #0d9488; }
+    .summary-toolbar { display: flex; justify-content: flex-end; margin-bottom: 0.5rem; }
+    .summary-list { list-style: none; margin: 0; padding: 0; }
+    .summary-list li { display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0; border-bottom: 1px solid #eee; }
+    .summary-list li .expand { opacity: 0.6; }
+    .summary-totals { margin-top: 1rem; padding-top: 0.5rem; }
+    .summary-totals .grand { font-weight: bold; font-size: 1.1rem; }
+    /* Scope tabs - cards */
+    .scope-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+    .scope-card { padding: 1rem; }
+    .scope-card .value { font-size: 1.25rem; font-weight: bold; }
+    .scope-card .label { font-size: 0.85rem; opacity: 0.8; }
+    .scope-card .trend { font-size: 0.85rem; color: #166534; margin-top: 0.25rem; }
+    .pie-placeholder { width: 80px; height: 80px; border-radius: 50%; border: 3px solid #ccc; margin: 0.5rem 0; }
+    .legend { font-size: 0.85rem; margin-top: 0.5rem; }
+    .legend span { display: block; }
+    /* Table toolbar */
+    .table-toolbar { display: flex; justify-content: space-between; align-items: center; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 0.75rem; }
+    .table-toolbar-left { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+    .table-toolbar-left input { padding: 0.4rem 0.75rem; min-width: 12rem; }
+    .table-toolbar-right { display: flex; align-items: center; gap: 0.5rem; }
+    .badge { padding: 0.2rem 0.5rem; border-radius: 999px; background: #e5e5e5; font-size: 0.85rem; }
+    table { width: 100%; border-collapse: collapse; margin-top: 0.5rem; }
+    th, td { padding: 0.5rem 0.75rem; text-align: left; }
+    th { font-weight: bold; }
+    .num { text-align: right; }
+    .alert-issue { padding: 0.2rem 0.5rem; background: #fecaca; color: #b91c1c; border-radius: 4px; font-size: 0.85rem; }
+    .pagination { display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; padding-top: 0.75rem; border-top: 1px solid currentColor; flex-wrap: wrap; gap: 0.5rem; }
+    .pagination-nav { display: flex; align-items: center; gap: 0.25rem; }
+    .pagination-nav button { min-width: 2rem; }
+    .pagination-nav button.current { font-weight: bold; }
+  </style>
+</head>
+<body class="doodle">
+  <div class="top-bar">
+    <div class="top-bar-left">
+      <span class="logo" aria-hidden="true"></span>
+      <button>Client name ▾</button>
+      <span>Monitor / Inventory</span>
+    </div>
+    <div class="top-bar-right">
+      <button title="Apps">⊞</button>
+      <button title="Notifications">🔔</button>
+      <button title="Help">?</button>
+      <button title="Profile">MA</button>
+    </div>
+  </div>
+
+  <div class="app">
+    <aside class="sidebar">
+      <nav class="sidebar-nav">
+        <button class="menu-label">Menu ▸</button>
+        <a href="#">⌂ Home</a>
+        <a href="#">▤ Collect</a>
+        <a href="#" class="active">▦ Monitor</a>
+        <a href="#">▤ Report</a>
+        <a href="#">◇ Strategy</a>
+        <a href="#">⚙ Configure</a>
+      </nav>
+    </aside>
+
+    <main class="main">
+      <header class="page-header">
+        <div>
+          <h1>Primary Inventory</h1>
+          <p class="subtitle">Review and manage your emissions inventory to ensure accuracy and completeness and your readiness for reporting.</p>
+        </div>
+        <div class="header-actions">
+          <button>Create statement</button>
+          <button class="btn-primary">Add data ▾</button>
+          <button title="More">⋮</button>
+        </div>
+      </header>
+
+      <div class="date-row">
+        <button>📅 Last calendar year (2024) ▾</button>
+      </div>
+
+      <div class="tab-container" id="tabs">
+        <div class="tab-bar">
+          <button type="button" data-tab="summary" class="active">Summary</button>
+          <button type="button" data-tab="scope1">Scope 1</button>
+          <button type="button" data-tab="scope2">Scope 2</button>
+          <button type="button" data-tab="scope3">Scope 3</button>
+        </div>
+
+        <!-- Summary tab -->
+        <div class="tab-panel active" data-tab="summary">
+          <div class="sub-tabs">
+            <button class="pill active">Market-based</button>
+            <button class="pill">Location-based</button>
+            <button style="margin-left: auto;">Export</button>
+          </div>
+          <div class="content-card doodle-border" style="padding: 1rem;">
+            <table class="wf-table">
+              <thead>
+                <tr>
+                  <th>GHG emissions <span aria-hidden="true">ⓘ</span></th>
+                  <th class="num">Market-based MT CO2e</th>
+                  <th>Breakdown</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Scope 1</td><td class="num">92,608</td><td class="expand">▾</td></tr>
+                <tr><td>Scope 2</td><td class="num">141,759</td><td class="expand">▾</td></tr>
+                <tr><td>Scope 3 - Purchased goods and services</td><td class="num">36</td><td class="expand">▾</td></tr>
+                <tr><td>Scope 3 - Other categories</td><td class="num">…</td><td class="expand">▾</td></tr>
+              </tbody>
+            </table>
+            <div class="summary-totals">
+              <div>Total scope 3 emissions: 15,365</div>
+              <div class="grand">Total emissions across scopes: 234,367</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Scope 1 tab -->
+        <div class="tab-panel" data-tab="scope1">
+          <div class="scope-cards">
+            <div class="scope-card doodle-border">
+              <div class="label">Total</div>
+              <div class="value">141,759 MT CO2e</div>
+              <div class="trend">↓ 0.5% decrease from previous year</div>
+            </div>
+            <div class="scope-card doodle-border">
+              <div class="label">Breakdown by category</div>
+              <div class="pie-placeholder" aria-hidden="true"></div>
+              <div class="legend">
+                <span>Mobile combustion: 14,760 MT CO2e</span>
+                <span>Stationary combustion: 420 MT CO2e</span>
+                <span>Onsite generation: 4,230 MT CO2e</span>
+                <span>Refrigerants: 1,350 MT CO2e</span>
+              </div>
+            </div>
+            <div class="scope-card doodle-border">
+              <div class="label">Estimated activity</div>
+              <div class="value">23%</div>
+              <div class="label">from estimated source data records</div>
+              <div style="margin-top: 0.5rem; font-size: 0.85rem;">416 emission records of 3,200</div>
+            </div>
+          </div>
+          <div class="table-toolbar">
+            <div class="table-toolbar-left">
+              <input type="search" placeholder="Search" />
+              <button>Filters <span class="badge">5</span> ▾</button>
+            </div>
+            <div class="table-toolbar-right">
+              <button>Save view ▾</button>
+              <button>Columns ▾</button>
+              <button>Export</button>
+            </div>
+          </div>
+          <div class="content-card doodle-border" style="padding: 0.5rem;">
+            <table>
+              <thead>
+                <tr>
+                  <th><input type="checkbox" aria-label="Select all" /></th>
+                  <th>Emission ID</th>
+                  <th>Business entity</th>
+                  <th>Start date</th>
+                  <th>End date</th>
+                  <th class="num">Activity value</th>
+                  <th>Unit of measure</th>
+                  <th>Emission factor</th>
+                  <th class="num">Total tCO2e</th>
+                  <th>Alerts</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type="checkbox" /></td>
+                  <td><a href="#">GHG1239</a></td>
+                  <td>Alaska Regional Hospital</td>
+                  <td>01/05/2024</td>
+                  <td>04/01/2024</td>
+                  <td class="num">231</td>
+                  <td>kWh</td>
+                  <td>—</td>
+                  <td class="num">0.88</td>
+                  <td><span class="alert-issue">Issue</span></td>
+                  <td><button>⋮</button></td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" /></td>
+                  <td><a href="#">GHG1238</a></td>
+                  <td>Alaska Regional Hospital</td>
+                  <td>12/31/2024</td>
+                  <td>05/15/2024</td>
+                  <td class="num">231</td>
+                  <td>kWh</td>
+                  <td>—</td>
+                  <td class="num">0.37</td>
+                  <td><span class="alert-issue">Issue</span></td>
+                  <td><button>⋮</button></td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" /></td>
+                  <td><a href="#">GHG1237</a></td>
+                  <td>North Suburban Medical Cen…</td>
+                  <td>02/12/2024</td>
+                  <td>06/22/2024</td>
+                  <td class="num">654</td>
+                  <td>kWh</td>
+                  <td class="num">0.23</td>
+                  <td class="num">0.50</td>
+                  <td><span class="alert-issue">Issue</span></td>
+                  <td><button>⋮</button></td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" /></td>
+                  <td><a href="#">GHG1236</a></td>
+                  <td>Presbyterian / St. Luke's Med…</td>
+                  <td>03/20/2024</td>
+                  <td>07/04/2024</td>
+                  <td class="num">242</td>
+                  <td>kWh</td>
+                  <td class="num">0.78</td>
+                  <td class="num">0.65</td>
+                  <td>—</td>
+                  <td><button>⋮</button></td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" /></td>
+                  <td><a href="#">GHG1235</a></td>
+                  <td>Rose Medical Center</td>
+                  <td>10/10/2024</td>
+                  <td>08/18/2024</td>
+                  <td class="num">982</td>
+                  <td>tonnes</td>
+                  <td class="num">0.45</td>
+                  <td class="num">0.04</td>
+                  <td>—</td>
+                  <td><button>⋮</button></td>
+                </tr>
+              </tbody>
+            </table>
+            <nav class="pagination">
+              <span>Showing 1-10 of 2,500 records</span>
+              <div class="pagination-nav">
+                <button>‹</button>
+                <button class="current">1</button>
+                <button>2</button>
+                <span>…</span>
+                <button>7</button>
+                <button>›</button>
+              </div>
+            </nav>
+          </div>
+        </div>
+
+        <!-- Scope 2 tab (same as Scope 1 + Market-based / Location-based sub-tabs) -->
+        <div class="tab-panel" data-tab="scope2">
+          <div class="sub-tabs" style="margin-bottom: 1rem;">
+            <button class="pill active">Market-based</button>
+            <button class="pill">Location-based</button>
+          </div>
+          <div class="scope-cards">
+            <div class="scope-card doodle-border">
+              <div class="label">Market-based total</div>
+              <div class="value">141,759 MT CO2e</div>
+              <div class="trend">↓ 0.5% decrease from previous year</div>
+            </div>
+            <div class="scope-card doodle-border">
+              <div class="label">Breakdown by category</div>
+              <div class="pie-placeholder" aria-hidden="true"></div>
+              <div class="legend">
+                <span>Electric power: 14,760 MT CO2e</span>
+                <span>Steam: 420 MT CO2e</span>
+                <span>Heating: 4,230 MT CO2e</span>
+                <span>Cooling: 1,350 MT CO2e</span>
+              </div>
+            </div>
+            <div class="scope-card doodle-border">
+              <div class="label">Estimated activity</div>
+              <div class="value">23%</div>
+              <div class="label">from estimated source data records</div>
+              <div style="margin-top: 0.5rem; font-size: 0.85rem;">416 emission records of 3,200</div>
+            </div>
+          </div>
+          <div class="table-toolbar">
+            <div class="table-toolbar-left">
+              <input type="search" placeholder="Search" />
+              <button>Filters <span class="badge">5</span> ▾</button>
+            </div>
+            <div class="table-toolbar-right">
+              <button>Save view ▾</button>
+              <button>Columns ▾</button>
+              <button>Export</button>
+            </div>
+          </div>
+          <div class="content-card doodle-border" style="padding: 0.5rem;">
+            <table>
+              <thead>
+                <tr>
+                  <th><input type="checkbox" aria-label="Select all" /></th>
+                  <th>Emission ID</th>
+                  <th>Business entity</th>
+                  <th>Start date</th>
+                  <th>End date</th>
+                  <th class="num">Activity value</th>
+                  <th>Unit of measure</th>
+                  <th>Emission factor</th>
+                  <th class="num">Total tCO2e</th>
+                  <th>Alerts</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type="checkbox" /></td>
+                  <td><a href="#">GHG1239</a></td>
+                  <td>Alaska Regional Hospital</td>
+                  <td>01/05/2024</td>
+                  <td>04/01/2024</td>
+                  <td class="num">231</td>
+                  <td>kWh</td>
+                  <td>—</td>
+                  <td class="num">0.88</td>
+                  <td><span class="alert-issue">Issue</span></td>
+                  <td><button>⋮</button></td>
+                </tr>
+                <tr>
+                  <td><input type="checkbox" /></td>
+                  <td><a href="#">GHG1238</a></td>
+                  <td>Alaska Regional Hospital</td>
+                  <td>12/31/2024</td>
+                  <td>05/15/2024</td>
+                  <td class="num">231</td>
+                  <td>kWh</td>
+                  <td>—</td>
+                  <td class="num">0.37</td>
+                  <td><span class="alert-issue">Issue</span></td>
+                  <td><button>⋮</button></td>
+                </tr>
+                <tr><td colspan="11" style="text-align: center; padding: 1rem;">… more rows …</td></tr>
+              </tbody>
+            </table>
+            <nav class="pagination">
+              <span>Showing 1-10 of 2,500 records</span>
+              <div class="pagination-nav">
+                <button>‹</button>
+                <button class="current">1</button>
+                <button>2</button>
+                <span>…</span>
+                <button>7</button>
+                <button>›</button>
+              </div>
+            </nav>
+          </div>
+        </div>
+
+        <!-- Scope 3 tab -->
+        <div class="tab-panel" data-tab="scope3">
+          <div class="date-row" style="margin-bottom: 1rem;">
+            <button>📅 Last fiscal year (Mar 2024 - Feb 2025) ▾</button>
+          </div>
+          <div class="scope-cards">
+            <div class="scope-card doodle-border">
+              <div class="label">Total</div>
+              <div class="value">141,759 MT CO2e</div>
+              <div class="trend">↓ 0.5% decrease from previous year</div>
+            </div>
+            <div class="scope-card doodle-border">
+              <div class="label">Breakdown by category</div>
+              <div class="pie-placeholder" aria-hidden="true"></div>
+              <div class="legend">
+                <span>Category 1: 65,000 MT CO2e</span>
+                <span>Category 11: 25,000 MT CO2e</span>
+                <span>Category 2: 15,000 MT CO2e</span>
+              </div>
+              <a href="#">See full breakdown</a>
+            </div>
+            <div class="scope-card doodle-border">
+              <div class="label">Estimated activity</div>
+              <div class="value">23%</div>
+              <div class="label">from estimated source data records</div>
+              <div style="margin-top: 0.5rem; font-size: 0.85rem;">416 emission records of 3,200</div>
+            </div>
+          </div>
+          <div class="table-toolbar">
+            <div class="table-toolbar-left">
+              <input type="search" placeholder="Search" />
+              <button>Filters <span class="badge">5</span> ▾</button>
+            </div>
+            <div class="table-toolbar-right">
+              <button>Save view ▾</button>
+              <button>Columns ▾</button>
+              <button>Export</button>
+            </div>
+          </div>
+          <div class="content-card doodle-border" style="padding: 0.5rem;">
+            <table>
+              <thead>
+                <tr>
+                  <th><input type="checkbox" aria-label="Select all" /></th>
+                  <th>Emission ID</th>
+                  <th>Business entity</th>
+                  <th>Start date</th>
+                  <th>End date</th>
+                  <th class="num">Activity value</th>
+                  <th>Unit of measure</th>
+                  <th>Emission factor</th>
+                  <th class="num">Total tCO2e</th>
+                  <th>Alerts</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type="checkbox" /></td>
+                  <td><a href="#">GHG1239</a></td>
+                  <td>Alaska Regional Hospital</td>
+                  <td>01/05/2024</td>
+                  <td>04/01/2024</td>
+                  <td class="num">231</td>
+                  <td>kWh</td>
+                  <td>—</td>
+                  <td class="num">0.88</td>
+                  <td><span class="alert-issue">Issue</span></td>
+                  <td><button>⋮</button></td>
+                </tr>
+                <tr><td colspan="11" style="text-align: center; padding: 1rem;">… more rows …</td></tr>
+              </tbody>
+            </table>
+            <nav class="pagination">
+              <span>Showing 1-10 of 2,500 records</span>
+              <div class="pagination-nav">
+                <button>‹</button>
+                <button class="current">1</button>
+                <button>2</button>
+                <span>…</span>
+                <button>7</button>
+                <button>›</button>
+              </div>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    (function() {
+      var container = document.getElementById('tabs');
+      var tabButtons = container.querySelectorAll('.tab-bar button[data-tab]');
+      var panels = container.querySelectorAll('.tab-panel[data-tab]');
+      tabButtons.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var tab = btn.getAttribute('data-tab');
+          tabButtons.forEach(function(b) { b.classList.remove('active'); });
+          btn.classList.add('active');
+          panels.forEach(function(p) {
+            p.classList.toggle('active', p.getAttribute('data-tab') === tab);
+          });
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

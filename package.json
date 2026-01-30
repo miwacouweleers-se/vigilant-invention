@@ -1,0 +1,10 @@
+{
+  "name": "vigilant-invention",
+  "version": "1.0.0",
+  "description": "Primary Inventory wireframe prototype (Doodle CSS)",
+  "private": true,
+  "scripts": {
+    "start": "npx --yes serve . -p 3333",
+    "serve": "npx --yes serve . -p 3333"
+  }
+}
