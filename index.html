@@ -70,6 +70,31 @@
     .pagination-nav { display: flex; align-items: center; gap: 0.25rem; }
     .pagination-nav button { min-width: 2rem; }
     .pagination-nav button.current { font-weight: bold; }
+    /* Advice page styles */
+    .advice-section { margin-bottom: 2rem; }
+    .advice-section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+    .advice-section-title { font-size: 1.1rem; font-weight: bold; display: flex; align-items: center; gap: 0.5rem; }
+    .advice-section-title .info-icon { font-size: 0.9rem; opacity: 0.6; cursor: help; }
+    .advice-cards { display: flex; flex-direction: column; gap: 1rem; }
+    .advice-card { padding: 1.25rem; border: 1px solid currentColor; border-radius: 8px; background: #fff; }
+    .advice-card-header { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 0.75rem; }
+    .advice-card-icon { width: 3rem; height: 3rem; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0; }
+    .advice-card-icon.setup { background: rgba(59, 130, 246, 0.1); border: 2px solid #3b82f6; }
+    .advice-card-icon.configure { background: rgba(16, 185, 129, 0.1); border: 2px solid #10b981; }
+    .advice-card-icon.ingest { background: rgba(139, 92, 246, 0.1); border: 2px solid #8b5cf6; }
+    .advice-card-content { flex: 1; }
+    .advice-card-label { display: inline-block; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.75rem; font-weight: bold; margin-bottom: 0.5rem; }
+    .advice-card-label.setup { background: rgba(59, 130, 246, 0.15); color: #1e40af; }
+    .advice-card-label.configure { background: rgba(16, 185, 129, 0.15); color: #065f46; }
+    .advice-card-label.ingest { background: rgba(139, 92, 246, 0.15); color: #5b21b6; }
+    .advice-card-title { font-size: 1.1rem; font-weight: bold; margin-bottom: 0.5rem; }
+    .advice-card-description { font-size: 0.9rem; opacity: 0.8; line-height: 1.5; margin-bottom: 0.75rem; }
+    .advice-card-status { font-size: 0.85rem; font-weight: bold; color: #dc2626; }
+    .advice-card-status.completed { color: #16a34a; }
+    .show-completed { display: flex; align-items: center; gap: 0.5rem; color: #166534; font-size: 0.9rem; margin-top: 0.5rem; cursor: pointer; }
+    .show-completed:hover { text-decoration: underline; }
+    .page-content { display: none; }
+    .page-content.active { display: block; }
   </style>
 </head>
 <body class="doodle">
@@ -91,33 +116,36 @@
     <aside class="sidebar">
       <nav class="sidebar-nav">
         <button class="menu-label">Menu ▸</button>
-        <a href="#">⌂ Home</a>
-        <a href="#">▤ Collect</a>
-        <a href="#" class="active">▦ Monitor</a>
-        <a href="#">▤ Report</a>
-        <a href="#">◇ Strategy</a>
-        <a href="#">⚙ Configure</a>
+        <a href="#" data-page="home">⌂ Home</a>
+        <a href="#" data-page="collect">▤ Collect</a>
+        <a href="#" data-page="monitor" class="active">▦ Monitor</a>
+        <a href="#" data-page="report">▤ Report</a>
+        <a href="#" data-page="strategy">◇ Strategy</a>
+        <a href="#" data-page="configure">⚙ Configure</a>
+        <a href="#" data-page="advice">💡 Advice</a>
       </nav>
     </aside>
 
     <main class="main">
-      <header class="page-header">
-        <div>
-          <h1>Primary Inventory</h1>
-          <p class="subtitle">Review and manage your emissions inventory to ensure accuracy and completeness and your readiness for reporting.</p>
-        </div>
-        <div class="header-actions">
-          <button>Create statement</button>
-          <button class="btn-primary">Add data ▾</button>
-          <button title="More">⋮</button>
-        </div>
-      </header>
+      <!-- Primary Inventory Page -->
+      <div class="page-content active" data-page="monitor">
+        <header class="page-header">
+          <div>
+            <h1>Primary Inventory</h1>
+            <p class="subtitle">Review and manage your emissions inventory to ensure accuracy and completeness and your readiness for reporting.</p>
+          </div>
+          <div class="header-actions">
+            <button>Create statement</button>
+            <button class="btn-primary">Add data ▾</button>
+            <button title="More">⋮</button>
+          </div>
+        </header>
 
-      <div class="date-row">
-        <button>📅 Last calendar year (2024) ▾</button>
-      </div>
+        <div class="date-row">
+          <button>📅 Last calendar year (2024) ▾</button>
+        </div>
 
-      <div class="tab-container" id="tabs">
+        <div class="tab-container" id="tabs">
         <div class="tab-bar">
           <button type="button" data-tab="summary" class="active">Summary</button>
           <button type="button" data-tab="scope1">Scope 1</button>
@@ -478,21 +506,119 @@
           </div>
         </div>
       </div>
+      </div>
+
+      <!-- Advice Page -->
+      <div class="page-content" data-page="advice">
+        <header class="page-header">
+          <div>
+            <h1>Advice</h1>
+            <p class="subtitle">Complete these tasks to get the most out of the platform and ensure accurate emissions tracking and reporting.</p>
+          </div>
+        </header>
+
+        <div class="advice-section">
+          <div class="advice-section-header">
+            <div class="advice-section-title">
+              <span>Recommendations</span>
+              <span class="info-icon" title="These recommendations help you set up and optimize your emissions tracking">ⓘ</span>
+            </div>
+          </div>
+
+          <div class="advice-section" style="margin-bottom: 1.5rem;">
+            <div class="advice-section-header">
+              <div class="advice-section-title">
+                <span>Essential advice</span>
+                <span class="info-icon" title="Complete these tasks first to get started">ⓘ</span>
+              </div>
+            </div>
+            <div class="advice-cards">
+              <!-- Task 1: Set up emission factor preferences -->
+              <div class="advice-card doodle-border">
+                <div class="advice-card-header">
+                  <div class="advice-card-icon setup">⚙</div>
+                  <div class="advice-card-content">
+                    <span class="advice-card-label setup">SETUP</span>
+                    <div class="advice-card-title">Set up emission factor preferences</div>
+                    <div class="advice-card-description">
+                      Configure your default emission factors and preferences to ensure accurate calculations. This includes selecting your preferred emission factor databases, setting default units, and configuring how the system should handle missing or incomplete data. Proper setup will help automate emissions calculations and reduce manual work.
+                    </div>
+                    <div class="advice-card-status">NOT STARTED • 5 TASKS TO COMPLETE</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Task 2: Set up reporting settings -->
+              <div class="advice-card doodle-border">
+                <div class="advice-card-header">
+                  <div class="advice-card-icon configure">📊</div>
+                  <div class="advice-card-content">
+                    <span class="advice-card-label configure">CONFIGURE</span>
+                    <div class="advice-card-title">Set up reporting settings</div>
+                    <div class="advice-card-description">
+                      Configure your reporting preferences including reporting periods, scope boundaries, organizational structure, and compliance frameworks. Setting this up early ensures that your data collection aligns with your reporting requirements and helps avoid rework later.
+                    </div>
+                    <div class="advice-card-status">NOT STARTED • 7 TASKS TO COMPLETE</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Task 3: Ingest data for the first time -->
+              <div class="advice-card doodle-border">
+                <div class="advice-card-header">
+                  <div class="advice-card-icon ingest">📥</div>
+                  <div class="advice-card-content">
+                    <span class="advice-card-label ingest">INGEST</span>
+                    <div class="advice-card-title">Ingest data for the first time</div>
+                    <div class="advice-card-description">
+                      Import your initial emissions data into the system. This includes setting up data sources, mapping your data fields, validating data quality, and performing your first data ingestion. Once complete, you'll be able to view and analyze your emissions inventory.
+                    </div>
+                    <div class="advice-card-status">NOT STARTED • 8 TASKS TO COMPLETE</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
   </div>
 
   <script>
     (function() {
+      // Tab switching for Primary Inventory page
       var container = document.getElementById('tabs');
-      var tabButtons = container.querySelectorAll('.tab-bar button[data-tab]');
-      var panels = container.querySelectorAll('.tab-panel[data-tab]');
-      tabButtons.forEach(function(btn) {
-        btn.addEventListener('click', function() {
-          var tab = btn.getAttribute('data-tab');
-          tabButtons.forEach(function(b) { b.classList.remove('active'); });
-          btn.classList.add('active');
-          panels.forEach(function(p) {
-            p.classList.toggle('active', p.getAttribute('data-tab') === tab);
+      if (container) {
+        var tabButtons = container.querySelectorAll('.tab-bar button[data-tab]');
+        var panels = container.querySelectorAll('.tab-panel[data-tab]');
+        tabButtons.forEach(function(btn) {
+          btn.addEventListener('click', function() {
+            var tab = btn.getAttribute('data-tab');
+            tabButtons.forEach(function(b) { b.classList.remove('active'); });
+            btn.classList.add('active');
+            panels.forEach(function(p) {
+              p.classList.toggle('active', p.getAttribute('data-tab') === tab);
+            });
+          });
+        });
+      }
+
+      // Page navigation
+      var navLinks = document.querySelectorAll('.sidebar-nav a[data-page]');
+      var pages = document.querySelectorAll('.page-content[data-page]');
+      
+      navLinks.forEach(function(link) {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          var page = link.getAttribute('data-page');
+          
+          // Update active nav link
+          navLinks.forEach(function(l) { l.classList.remove('active'); });
+          link.classList.add('active');
+          
+          // Show/hide pages
+          pages.forEach(function(p) {
+            p.classList.toggle('active', p.getAttribute('data-page') === page);
           });
         });
       });
