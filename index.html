@@ -620,11 +620,15 @@
 
   <script>
     (function() {
-      // Ensure Advice appears between Strategy and Configure in the sidebar
+      // Ensure Advice appears between Strategy and Configure (fixes old cached/deployed HTML too)
       var nav = document.querySelector('.sidebar-nav');
       if (nav) {
         var adviceLink = nav.querySelector('a[data-page="advice"]');
         var strategyLink = nav.querySelector('a[data-page="strategy"]');
+        if (adviceLink) {
+          adviceLink.classList.remove('nav-bottom');
+          adviceLink.style.marginTop = '0'; // override old .nav-bottom CSS if still deployed
+        }
         if (adviceLink && strategyLink && strategyLink.nextElementSibling !== adviceLink) {
           strategyLink.insertAdjacentElement('afterend', adviceLink);
         }
