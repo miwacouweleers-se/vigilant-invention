@@ -621,6 +621,16 @@
 
   <script>
     (function() {
+      // Ensure Advice appears between Strategy and Configure in the sidebar
+      var nav = document.querySelector('.sidebar-nav');
+      if (nav) {
+        var adviceLink = nav.querySelector('a[data-page="advice"]');
+        var strategyLink = nav.querySelector('a[data-page="strategy"]');
+        if (adviceLink && strategyLink && strategyLink.nextElementSibling !== adviceLink) {
+          strategyLink.insertAdjacentElement('afterend', adviceLink);
+        }
+      }
+
       // Tab switching for Primary Inventory page
       var container = document.getElementById('tabs');
       if (container) {
