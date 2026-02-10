@@ -145,6 +145,24 @@
     .multi-select-mock { border: 1px solid #ccc; border-radius: 4px; padding: 0.5rem; min-height: 6rem; background: #fafafa; }
     .multi-select-mock label { display: flex; align-items: center; gap: 0.5rem; padding: 0.25rem 0; cursor: pointer; }
     .multi-select-mock input[type="checkbox"] { width: 1rem; height: 1rem; }
+    /* Wizard modal */
+    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; padding: 2rem; box-sizing: border-box; }
+    .modal-overlay.is-open { display: flex; }
+    .wizard-modal { background: #fff; border-radius: 12px; border: 2px solid #166534; box-shadow: 0 20px 60px rgba(0,0,0,0.2); max-width: 52rem; width: 100%; max-height: 90vh; display: flex; flex-direction: column; }
+    .wizard-modal-header { display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.25rem; border-bottom: 1px solid #e5e7eb; flex-shrink: 0; }
+    .wizard-modal-title { font-size: 1.25rem; font-weight: bold; margin: 0; }
+    .wizard-modal-close { background: none; border: none; font-size: 1.5rem; cursor: pointer; padding: 0.25rem; line-height: 1; color: #4b5563; }
+    .wizard-modal-close:hover { color: #000; }
+    .wizard-steps { display: flex; gap: 0.5rem; padding: 0.75rem 1.25rem; border-bottom: 1px solid #e5e7eb; flex-shrink: 0; }
+    .wizard-step-dot { width: 0.5rem; height: 0.5rem; border-radius: 50%; background: #d1d5db; }
+    .wizard-step-dot.active { background: #166534; transform: scale(1.2); }
+    .wizard-step-dot.done { background: #16a34a; }
+    .wizard-modal-body { padding: 1.25rem; overflow-y: auto; flex: 1; min-height: 0; }
+    .wizard-step-panel { display: none; }
+    .wizard-step-panel.active { display: block; }
+    .wizard-modal-footer { display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.25rem; border-top: 1px solid #e5e7eb; flex-shrink: 0; gap: 0.75rem; flex-wrap: wrap; }
+    .wizard-modal-footer .btn-secondary { background: #fff; color: #166534; padding: 0.5rem 1rem; border-radius: 6px; border: 2px solid #166534; font-family: inherit; font-weight: 600; cursor: pointer; }
+    .wizard-modal-footer .btn-primary { background: #166534; color: #fff; padding: 0.5rem 1rem; border-radius: 6px; border: none; font-family: inherit; font-weight: 600; cursor: pointer; }
   </style>
 </head>
 <body class="doodle">
@@ -1371,7 +1389,7 @@
             <p class="subtitle">Orchestrate data gathering from multiple contributors across entities and activities with data collection campaigns.</p>
           </div>
           <div class="header-actions">
-            <button class="btn-primary">Create campaign</button>
+            <button type="button" class="btn-primary" id="open-campaign-wizard">Create campaign</button>
           </div>
         </header>
 
@@ -1415,111 +1433,134 @@
           </div>
         </div>
 
-        <div class="campaign-section">
-          <div class="campaign-section-title">Create campaign (or edit draft)</div>
-          <div class="campaign-card doodle-border">
-            <div class="campaign-form-grid">
-              <div class="campaign-field">
-                <label for="campaign-name">Name</label>
-                <input id="campaign-name" type="text" value="Q1 2025 Data Collection" placeholder="e.g. Q1 2025 Data Collection" />
-              </div>
-              <div class="campaign-field"></div>
-              <div class="campaign-field">
-                <label>Reporting period</label>
-                <div style="display: flex; gap: 0.5rem; align-items: center;">
-                  <input type="date" value="2025-01-01" /> to <input type="date" value="2025-03-31" />
+        <!-- Campaign wizard modal (opened by "Create campaign") -->
+        <div class="modal-overlay" id="campaign-wizard-overlay" aria-hidden="true">
+          <div class="wizard-modal doodle-border" role="dialog" aria-labelledby="wizard-modal-title">
+            <div class="wizard-modal-header">
+              <h2 class="wizard-modal-title" id="wizard-modal-title">Create campaign</h2>
+              <button type="button" class="wizard-modal-close" id="close-campaign-wizard" aria-label="Close">×</button>
+            </div>
+            <div class="wizard-steps" id="wizard-step-dots">
+              <span class="wizard-step-dot active" data-step="0" aria-current="step"></span>
+              <span class="wizard-step-dot" data-step="1"></span>
+              <span class="wizard-step-dot" data-step="2"></span>
+              <span class="wizard-step-dot" data-step="3"></span>
+            </div>
+            <div class="wizard-modal-body">
+              <div class="wizard-step-panel active" data-step="0">
+                <div class="campaign-section-title">Step 1: Campaign details</div>
+                <div class="campaign-card doodle-border" style="margin-top: 0.75rem;">
+                  <div class="campaign-form-grid">
+                    <div class="campaign-field">
+                      <label for="campaign-name">Name</label>
+                      <input id="campaign-name" type="text" value="Q1 2025 Data Collection" placeholder="e.g. Q1 2025 Data Collection" />
+                    </div>
+                    <div class="campaign-field"></div>
+                    <div class="campaign-field">
+                      <label>Reporting period</label>
+                      <div style="display: flex; gap: 0.5rem; align-items: center;">
+                        <input type="date" value="2025-01-01" /> to <input type="date" value="2025-03-31" />
+                      </div>
+                    </div>
+                    <div class="campaign-field">
+                      <label>Deadline</label>
+                      <input type="date" value="2025-04-15" placeholder="When all data must be submitted" />
+                    </div>
+                    <div class="campaign-field full">
+                      <label>Description (optional)</label>
+                      <textarea placeholder="Context for contributors">Please submit meter readings and any supporting files for the quarter. Contact support if you need an extension.</textarea>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div class="campaign-field">
-                <label>Deadline</label>
-                <input type="date" value="2025-04-15" placeholder="When all data must be submitted" />
-              </div>
-              <div class="campaign-field full">
-                <label>Description (optional)</label>
-                <textarea placeholder="Context for contributors">Please submit meter readings and any supporting files for the quarter. Contact support if you need an extension.</textarea>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="campaign-section">
-          <div class="campaign-section-title">Entities &amp; activities</div>
-          <div class="campaign-card doodle-border">
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
-              <div class="campaign-field">
-                <label>Entities (multi-select from org hierarchy)</label>
-                <div class="multi-select-mock">
-                  <label><input type="checkbox" checked /> Boston Office</label>
-                  <label><input type="checkbox" checked /> Denver HQ</label>
-                  <label><input type="checkbox" checked /> Phoenix Distribution</label>
-                  <label><input type="checkbox" /> Seattle Regional</label>
+              <div class="wizard-step-panel" data-step="1">
+                <div class="campaign-section-title">Step 2: Entities &amp; activities</div>
+                <div class="campaign-card doodle-border" style="margin-top: 0.75rem;">
+                  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                    <div class="campaign-field">
+                      <label>Entities (multi-select from org hierarchy)</label>
+                      <div class="multi-select-mock">
+                        <label><input type="checkbox" checked /> Boston Office</label>
+                        <label><input type="checkbox" checked /> Denver HQ</label>
+                        <label><input type="checkbox" checked /> Phoenix Distribution</label>
+                        <label><input type="checkbox" /> Seattle Regional</label>
+                      </div>
+                    </div>
+                    <div class="campaign-field">
+                      <label>Activities (select which to collect per entity)</label>
+                      <div class="multi-select-mock">
+                        <label><input type="checkbox" checked /> Natural Gas</label>
+                        <label><input type="checkbox" checked /> Electricity</label>
+                        <label><input type="checkbox" checked /> Water</label>
+                        <label><input type="checkbox" /> Fleet (diesel)</label>
+                        <label><input type="checkbox" /> Refrigerants</label>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div class="campaign-field">
-                <label>Activities (select which to collect per entity)</label>
-                <div class="multi-select-mock">
-                  <label><input type="checkbox" checked /> Natural Gas</label>
-                  <label><input type="checkbox" checked /> Electricity</label>
-                  <label><input type="checkbox" checked /> Water</label>
-                  <label><input type="checkbox" /> Fleet (diesel)</label>
-                  <label><input type="checkbox" /> Refrigerants</label>
+              <div class="wizard-step-panel" data-step="2">
+                <div class="campaign-section-title">Step 3: Contributor assignment</div>
+                <p style="margin: 0.5rem 0 0.75rem 0; font-size: 0.9rem; opacity: 0.85;">Assign contributors to entity × activity combinations. Same contributor can have multiple cells; multiple contributors per cell allowed (team-based).</p>
+                <div class="campaign-card doodle-border">
+                  <div style="margin-bottom: 0.75rem;">
+                    <button type="button" class="btn-secondary">+ Add new contributor</button>
+                    <span style="margin-left: 0.5rem; font-size: 0.85rem;">If not in system, add email/name and assign in one step.</span>
+                  </div>
+                  <div class="campaign-matrix-wrap">
+                    <table class="campaign-matrix">
+                      <thead>
+                        <tr>
+                          <th>Entity</th>
+                          <th>Natural Gas</th>
+                          <th>Electricity</th>
+                          <th>Water</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Boston Office</td>
+                          <td class="cell-assign"><span class="contributor-tag">John Doe</span> <button type="button">+</button></td>
+                          <td class="cell-assign"><span class="contributor-tag">John Doe</span> <button type="button">+</button></td>
+                          <td class="cell-assign"><span class="contributor-tag">Jane Smith</span> <button type="button">+</button></td>
+                        </tr>
+                        <tr>
+                          <td>Denver HQ</td>
+                          <td class="cell-assign"><span class="contributor-tag">Alex Lee</span> <button type="button">+</button></td>
+                          <td class="cell-assign"><span class="contributor-tag">Alex Lee</span>, <span class="contributor-tag">Sam Wilson</span> <button type="button">+</button></td>
+                          <td class="cell-assign"><span class="contributor-tag">Alex Lee</span> <button type="button">+</button></td>
+                        </tr>
+                        <tr>
+                          <td>Phoenix Distribution</td>
+                          <td class="cell-assign"><button type="button">Assign</button></td>
+                          <td class="cell-assign"><span class="contributor-tag">Pat Jones</span> <button type="button">+</button></td>
+                          <td class="cell-assign"><button type="button">Assign</button></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div class="wizard-step-panel" data-step="3">
+                <div class="campaign-section-title">Step 4: Deploy &amp; status</div>
+                <div class="campaign-card doodle-border" style="margin-top: 0.75rem;">
+                  <p style="margin: 0 0 0.75rem 0; font-size: 0.9rem;"><strong>Status:</strong> <span class="campaign-status draft">Draft</span> — Campaign created but not deployed. Click <strong>Deploy Campaign</strong> to generate task lists and send personalized email notifications (campaign name, assignments, deadline, direct link to data entry, estimated time).</p>
+                  <p style="margin: 0 0 1rem 0; font-size: 0.9rem;">After deployment: <strong>Active</strong> = contributors can submit data. <strong>Closed</strong> = deadline passed or manually closed. You can add/remove entities, activities, or contributors while Active; affected contributors are notified. Deployed campaigns cannot be deleted (audit trail).</p>
+                  <div class="campaign-actions">
+                    <button type="button" class="btn-primary" id="wizard-deploy-btn">Deploy Campaign</button>
+                    <button type="button" class="btn-secondary" id="wizard-save-draft-btn">Save as draft</button>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-
-        <div class="campaign-section">
-          <div class="campaign-section-title">Contributor assignment</div>
-          <p style="margin-bottom: 0.75rem; font-size: 0.9rem; opacity: 0.85;">Assign contributors to entity × activity combinations. Same contributor can have multiple cells; multiple contributors per cell allowed (team-based).</p>
-          <div class="campaign-card doodle-border">
-            <div style="margin-bottom: 0.75rem;">
-              <button type="button" class="btn-secondary">+ Add new contributor</button>
-              <span style="margin-left: 0.5rem; font-size: 0.85rem;">If not in system, add email/name and assign in one step.</span>
-            </div>
-            <div class="campaign-matrix-wrap">
-              <table class="campaign-matrix">
-                <thead>
-                  <tr>
-                    <th>Entity</th>
-                    <th>Natural Gas</th>
-                    <th>Electricity</th>
-                    <th>Water</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Boston Office</td>
-                    <td class="cell-assign"><span class="contributor-tag">John Doe</span> <button type="button" style="margin-left: 0.25rem;">+</button></td>
-                    <td class="cell-assign"><span class="contributor-tag">John Doe</span> <button type="button">+</button></td>
-                    <td class="cell-assign"><span class="contributor-tag">Jane Smith</span> <button type="button">+</button></td>
-                  </tr>
-                  <tr>
-                    <td>Denver HQ</td>
-                    <td class="cell-assign"><span class="contributor-tag">Alex Lee</span> <button type="button">+</button></td>
-                    <td class="cell-assign"><span class="contributor-tag">Alex Lee</span>, <span class="contributor-tag">Sam Wilson</span> <button type="button">+</button></td>
-                    <td class="cell-assign"><span class="contributor-tag">Alex Lee</span> <button type="button">+</button></td>
-                  </tr>
-                  <tr>
-                    <td>Phoenix Distribution</td>
-                    <td class="cell-assign"><button type="button">Assign</button></td>
-                    <td class="cell-assign"><span class="contributor-tag">Pat Jones</span> <button type="button">+</button></td>
-                    <td class="cell-assign"><button type="button">Assign</button></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-
-        <div class="campaign-section">
-          <div class="campaign-section-title">Deploy &amp; status</div>
-          <div class="campaign-card doodle-border">
-            <p style="margin: 0 0 0.75rem 0; font-size: 0.9rem;"><strong>Status:</strong> <span class="campaign-status draft">Draft</span> — Campaign created but not deployed. Click <strong>Deploy Campaign</strong> to generate task lists and send personalized email notifications (campaign name, assignments, deadline, direct link to data entry, estimated time).</p>
-            <p style="margin: 0 0 1rem 0; font-size: 0.9rem;">After deployment: <strong>Active</strong> = contributors can submit data. <strong>Closed</strong> = deadline passed or manually closed. You can add/remove entities, activities, or contributors while Active; affected contributors are notified. Deployed campaigns cannot be deleted (audit trail).</p>
-            <div class="campaign-actions">
-              <button type="button" class="btn-primary">Deploy Campaign</button>
-              <button type="button" class="btn-secondary">Save as draft</button>
+            <div class="wizard-modal-footer">
+              <div>
+                <button type="button" class="btn-secondary" id="wizard-back-btn" style="display: none;">Back</button>
+              </div>
+              <div style="display: flex; gap: 0.5rem;">
+                <button type="button" class="btn-secondary" id="wizard-cancel-btn">Cancel</button>
+                <button type="button" class="btn-primary" id="wizard-next-btn">Next</button>
+              </div>
             </div>
           </div>
         </div>
@@ -1784,6 +1825,72 @@
 
         showPage(1);
       });
+
+      // Campaign wizard modal
+      var overlay = document.getElementById('campaign-wizard-overlay');
+      var openBtn = document.getElementById('open-campaign-wizard');
+      var closeBtn = document.getElementById('close-campaign-wizard');
+      var cancelBtn = document.getElementById('wizard-cancel-btn');
+      var nextBtn = document.getElementById('wizard-next-btn');
+      var backBtn = document.getElementById('wizard-back-btn');
+      var deployBtn = document.getElementById('wizard-deploy-btn');
+      var saveDraftBtn = document.getElementById('wizard-save-draft-btn');
+      var stepPanels = document.querySelectorAll('.wizard-step-panel');
+      var stepDots = document.querySelectorAll('.wizard-step-dot');
+      var totalSteps = 4;
+      var currentStep = 0;
+
+      function showWizardStep(step) {
+        currentStep = Math.max(0, Math.min(step, totalSteps - 1));
+        stepPanels.forEach(function(panel, i) {
+          panel.classList.toggle('active', i === currentStep);
+        });
+        stepDots.forEach(function(dot, i) {
+          dot.classList.remove('active');
+          dot.classList.remove('done');
+          dot.removeAttribute('aria-current');
+          if (i === currentStep) {
+            dot.classList.add('active');
+            dot.setAttribute('aria-current', 'step');
+          } else if (i < currentStep) dot.classList.add('done');
+        });
+        backBtn.style.display = currentStep > 0 ? '' : 'none';
+        nextBtn.style.display = currentStep < totalSteps - 1 ? '' : 'none';
+        if (currentStep === totalSteps - 1) {
+          nextBtn.style.display = 'none';
+        } else {
+          nextBtn.style.display = '';
+        }
+      }
+
+      function openWizard() {
+        if (overlay) {
+          overlay.classList.add('is-open');
+          overlay.setAttribute('aria-hidden', 'false');
+          currentStep = 0;
+          showWizardStep(0);
+        }
+      }
+
+      function closeWizard() {
+        if (overlay) {
+          overlay.classList.remove('is-open');
+          overlay.setAttribute('aria-hidden', 'true');
+        }
+      }
+
+      if (openBtn) openBtn.addEventListener('click', openWizard);
+      if (closeBtn) closeBtn.addEventListener('click', closeWizard);
+      if (cancelBtn) cancelBtn.addEventListener('click', closeWizard);
+      if (overlay) {
+        overlay.addEventListener('click', function(e) {
+          if (e.target === overlay) closeWizard();
+        });
+      }
+      if (nextBtn) nextBtn.addEventListener('click', function() { showWizardStep(currentStep + 1); });
+      if (backBtn) backBtn.addEventListener('click', function() { showWizardStep(currentStep - 1); });
+      if (deployBtn) deployBtn.addEventListener('click', closeWizard);
+      if (saveDraftBtn) saveDraftBtn.addEventListener('click', closeWizard);
     })();
   </script>
 </body>
