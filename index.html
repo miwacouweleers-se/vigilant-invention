@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Primary Inventory – Wireframe (Doodle CSS)</title>
+  <title>Vertex Measure – Prototype (based on vertex-ui-measure)</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/chr15m/DoodleCSS@main/doodle.css">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Short+Stack&display=swap');
@@ -120,6 +120,31 @@
     .show-completed:hover { text-decoration: underline; }
     .page-content { display: none; }
     .page-content.active { display: block; }
+    /* Data campaign (Collect) styles */
+    .campaign-section { margin-bottom: 2rem; }
+    .campaign-section-title { font-size: 1.1rem; font-weight: bold; margin-bottom: 0.75rem; }
+    .campaign-card { padding: 1.25rem; border: 1px solid currentColor; border-radius: 8px; background: #fff; margin-bottom: 1rem; }
+    .campaign-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem 2rem; max-width: 48rem; }
+    .campaign-form-grid.full { grid-template-columns: 1fr; }
+    .campaign-field label { display: block; font-weight: 600; font-size: 0.875rem; margin-bottom: 0.25rem; }
+    .campaign-field input, .campaign-field textarea { width: 100%; padding: 0.5rem 0.75rem; font-family: inherit; border: 1px solid #ccc; border-radius: 4px; }
+    .campaign-field textarea { min-height: 4rem; resize: vertical; }
+    .campaign-matrix-wrap { overflow-x: auto; margin-top: 1rem; }
+    .campaign-matrix { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+    .campaign-matrix th, .campaign-matrix td { border: 1px solid #ccc; padding: 0.5rem 0.75rem; text-align: left; }
+    .campaign-matrix th { background: #f5f5f5; font-weight: 600; }
+    .campaign-matrix .cell-assign { min-width: 10rem; }
+    .campaign-matrix .contributor-tag { display: inline-block; padding: 0.2rem 0.5rem; margin: 0.1rem; border-radius: 4px; background: #e5e7eb; font-size: 0.8rem; }
+    .campaign-status { display: inline-block; padding: 0.25rem 0.6rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600; }
+    .campaign-status.draft { background: #fef3c7; color: #92400e; }
+    .campaign-status.active { background: #d1fae5; color: #065f46; }
+    .campaign-status.closed { background: #e5e7eb; color: #4b5563; }
+    .campaign-actions { display: flex; gap: 0.5rem; margin-top: 1rem; flex-wrap: wrap; }
+    .campaign-actions .btn-primary { background: #166534; color: #fff; padding: 0.5rem 1rem; border-radius: 6px; border: none; font-family: inherit; font-weight: 600; cursor: pointer; }
+    .campaign-actions .btn-secondary { background: #fff; color: #166534; padding: 0.5rem 1rem; border-radius: 6px; border: 2px solid #166534; font-family: inherit; font-weight: 600; cursor: pointer; }
+    .multi-select-mock { border: 1px solid #ccc; border-radius: 4px; padding: 0.5rem; min-height: 6rem; background: #fafafa; }
+    .multi-select-mock label { display: flex; align-items: center; gap: 0.5rem; padding: 0.25rem 0; cursor: pointer; }
+    .multi-select-mock input[type="checkbox"] { width: 1rem; height: 1rem; }
   </style>
 </head>
 <body class="doodle">
@@ -127,7 +152,7 @@
     <div class="top-bar-left">
       <span class="logo" aria-hidden="true"></span>
       <button>Client name ▾</button>
-      <span>Monitor / Inventory</span>
+      <span>Measure / Inventory</span>
     </div>
     <div class="top-bar-right">
       <button title="Apps">⊞</button>
@@ -141,22 +166,23 @@
     <aside class="sidebar">
       <nav class="sidebar-nav">
         <button class="menu-label">Menu ▸</button>
-        <a href="#" data-page="home">⌂ Home</a>
+        <a href="#" data-page="inventory" class="active">▦ Inventory</a>
         <a href="#" data-page="collect">▤ Collect</a>
-        <a href="#" data-page="monitor" class="active">▦ Monitor</a>
-        <a href="#" data-page="report">▤ Report</a>
-        <a href="#" data-page="strategy">◇ Strategy</a>
+        <a href="#" data-page="statements">📋 Statements</a>
+        <a href="#" data-page="imports">📥 Imports</a>
+        <a href="#" data-page="emissions">📊 Emissions</a>
+        <a href="#" data-page="audits">📑 Audits</a>
+        <a href="#" data-page="activity">◇ Activity</a>
         <a href="#" data-page="advice" title="Advice">💡 Advice</a>
-        <a href="#" data-page="configure">⚙ Configure</a>
       </nav>
     </aside>
 
     <main class="main">
-      <!-- Primary Inventory Page -->
-      <div class="page-content active" data-page="monitor">
+      <!-- Inventory (Primary Inventory) - matches vertex-ui-measure /inventory -->
+      <div class="page-content active" data-page="inventory">
         <header class="page-header">
           <div>
-            <h1>Primary Inventory</h1>
+            <h1>Inventory</h1>
             <p class="subtitle">Review and manage your emissions inventory to ensure accuracy and completeness and your readiness for reporting.</p>
           </div>
           <div class="header-actions">
@@ -1337,6 +1363,252 @@
       </div>
       </div>
 
+      <!-- Collect – Data campaign (FR1: Data Collection Campaign Management) -->
+      <div class="page-content" data-page="collect">
+        <header class="page-header">
+          <div>
+            <h1>Collect</h1>
+            <p class="subtitle">Orchestrate data gathering from multiple contributors across entities and activities with data collection campaigns.</p>
+          </div>
+          <div class="header-actions">
+            <button class="btn-primary">Create campaign</button>
+          </div>
+        </header>
+
+        <div class="campaign-section">
+          <div class="campaign-section-title">Data campaigns</div>
+          <div class="content-card doodle-border" style="padding: 0.75rem;">
+            <table class="wf-table" style="width: 100%;">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Reporting period</th>
+                  <th>Deadline</th>
+                  <th>Status</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><a href="#">Q1 2025 Data Collection</a></td>
+                  <td>Jan 1, 2025 – Mar 31, 2025</td>
+                  <td>Apr 15, 2025</td>
+                  <td><span class="campaign-status active">Active</span></td>
+                  <td><button>⋮</button></td>
+                </tr>
+                <tr>
+                  <td><a href="#">Q4 2024 Data Collection</a></td>
+                  <td>Oct 1, 2024 – Dec 31, 2024</td>
+                  <td>Jan 20, 2025</td>
+                  <td><span class="campaign-status closed">Closed</span></td>
+                  <td><button>⋮</button></td>
+                </tr>
+                <tr>
+                  <td><a href="#">Q2 2025 Data Collection</a></td>
+                  <td>Apr 1, 2025 – Jun 30, 2025</td>
+                  <td>Jul 10, 2025</td>
+                  <td><span class="campaign-status draft">Draft</span></td>
+                  <td><button>⋮</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="campaign-section">
+          <div class="campaign-section-title">Create campaign (or edit draft)</div>
+          <div class="campaign-card doodle-border">
+            <div class="campaign-form-grid">
+              <div class="campaign-field">
+                <label for="campaign-name">Name</label>
+                <input id="campaign-name" type="text" value="Q1 2025 Data Collection" placeholder="e.g. Q1 2025 Data Collection" />
+              </div>
+              <div class="campaign-field"></div>
+              <div class="campaign-field">
+                <label>Reporting period</label>
+                <div style="display: flex; gap: 0.5rem; align-items: center;">
+                  <input type="date" value="2025-01-01" /> to <input type="date" value="2025-03-31" />
+                </div>
+              </div>
+              <div class="campaign-field">
+                <label>Deadline</label>
+                <input type="date" value="2025-04-15" placeholder="When all data must be submitted" />
+              </div>
+              <div class="campaign-field full">
+                <label>Description (optional)</label>
+                <textarea placeholder="Context for contributors">Please submit meter readings and any supporting files for the quarter. Contact support if you need an extension.</textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="campaign-section">
+          <div class="campaign-section-title">Entities &amp; activities</div>
+          <div class="campaign-card doodle-border">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+              <div class="campaign-field">
+                <label>Entities (multi-select from org hierarchy)</label>
+                <div class="multi-select-mock">
+                  <label><input type="checkbox" checked /> Boston Office</label>
+                  <label><input type="checkbox" checked /> Denver HQ</label>
+                  <label><input type="checkbox" checked /> Phoenix Distribution</label>
+                  <label><input type="checkbox" /> Seattle Regional</label>
+                </div>
+              </div>
+              <div class="campaign-field">
+                <label>Activities (select which to collect per entity)</label>
+                <div class="multi-select-mock">
+                  <label><input type="checkbox" checked /> Natural Gas</label>
+                  <label><input type="checkbox" checked /> Electricity</label>
+                  <label><input type="checkbox" checked /> Water</label>
+                  <label><input type="checkbox" /> Fleet (diesel)</label>
+                  <label><input type="checkbox" /> Refrigerants</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="campaign-section">
+          <div class="campaign-section-title">Contributor assignment</div>
+          <p style="margin-bottom: 0.75rem; font-size: 0.9rem; opacity: 0.85;">Assign contributors to entity × activity combinations. Same contributor can have multiple cells; multiple contributors per cell allowed (team-based).</p>
+          <div class="campaign-card doodle-border">
+            <div style="margin-bottom: 0.75rem;">
+              <button type="button" class="btn-secondary">+ Add new contributor</button>
+              <span style="margin-left: 0.5rem; font-size: 0.85rem;">If not in system, add email/name and assign in one step.</span>
+            </div>
+            <div class="campaign-matrix-wrap">
+              <table class="campaign-matrix">
+                <thead>
+                  <tr>
+                    <th>Entity</th>
+                    <th>Natural Gas</th>
+                    <th>Electricity</th>
+                    <th>Water</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Boston Office</td>
+                    <td class="cell-assign"><span class="contributor-tag">John Doe</span> <button type="button" style="margin-left: 0.25rem;">+</button></td>
+                    <td class="cell-assign"><span class="contributor-tag">John Doe</span> <button type="button">+</button></td>
+                    <td class="cell-assign"><span class="contributor-tag">Jane Smith</span> <button type="button">+</button></td>
+                  </tr>
+                  <tr>
+                    <td>Denver HQ</td>
+                    <td class="cell-assign"><span class="contributor-tag">Alex Lee</span> <button type="button">+</button></td>
+                    <td class="cell-assign"><span class="contributor-tag">Alex Lee</span>, <span class="contributor-tag">Sam Wilson</span> <button type="button">+</button></td>
+                    <td class="cell-assign"><span class="contributor-tag">Alex Lee</span> <button type="button">+</button></td>
+                  </tr>
+                  <tr>
+                    <td>Phoenix Distribution</td>
+                    <td class="cell-assign"><button type="button">Assign</button></td>
+                    <td class="cell-assign"><span class="contributor-tag">Pat Jones</span> <button type="button">+</button></td>
+                    <td class="cell-assign"><button type="button">Assign</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="campaign-section">
+          <div class="campaign-section-title">Deploy &amp; status</div>
+          <div class="campaign-card doodle-border">
+            <p style="margin: 0 0 0.75rem 0; font-size: 0.9rem;"><strong>Status:</strong> <span class="campaign-status draft">Draft</span> — Campaign created but not deployed. Click <strong>Deploy Campaign</strong> to generate task lists and send personalized email notifications (campaign name, assignments, deadline, direct link to data entry, estimated time).</p>
+            <p style="margin: 0 0 1rem 0; font-size: 0.9rem;">After deployment: <strong>Active</strong> = contributors can submit data. <strong>Closed</strong> = deadline passed or manually closed. You can add/remove entities, activities, or contributors while Active; affected contributors are notified. Deployed campaigns cannot be deleted (audit trail).</p>
+            <div class="campaign-actions">
+              <button type="button" class="btn-primary">Deploy Campaign</button>
+              <button type="button" class="btn-secondary">Save as draft</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Statements - matches vertex-ui-measure /statements -->
+      <div class="page-content" data-page="statements">
+        <header class="page-header">
+          <div>
+            <h1>Statements</h1>
+            <p class="subtitle">Create and manage your emissions statements for reporting and verification.</p>
+          </div>
+          <div class="header-actions">
+            <button class="btn-primary">Create statement</button>
+          </div>
+        </header>
+        <div class="content-card doodle-border" style="padding: 1.5rem;">
+          <p style="margin: 0 0 1rem 0; opacity: 0.85;">Prototype placeholder. In production (vertex-ui-measure) this page lists statements with search, year filter, and columns for name, status, dates, and actions.</p>
+          <table class="wf-table">
+            <thead><tr><th>Name</th><th>Status</th><th>Created</th><th></th></tr></thead>
+            <tbody>
+              <tr><td><a href="#">FY 2024 emissions statement</a></td><td><span class="badge">Ready for reporting</span></td><td>Mar 15, 2025</td><td><button>⋮</button></td></tr>
+              <tr><td><a href="#">FY 2023 emissions statement</a></td><td><span class="badge">Verified</span></td><td>Feb 1, 2024</td><td><button>⋮</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Imports - matches vertex-ui-measure /imports -->
+      <div class="page-content" data-page="imports">
+        <header class="page-header">
+          <div>
+            <h1>Imports</h1>
+            <p class="subtitle">Upload and manage data imports for your emissions inventory.</p>
+          </div>
+          <div class="header-actions">
+            <button class="btn-primary">Import data</button>
+          </div>
+        </header>
+        <div class="content-card doodle-border" style="padding: 1.5rem;">
+          <p style="margin: 0 0 1rem 0; opacity: 0.85;">Prototype placeholder. In production this page shows import history, templates, and file upload with column mapping.</p>
+          <table class="wf-table">
+            <thead><tr><th>Document</th><th>Status</th><th>Uploaded</th><th></th></tr></thead>
+            <tbody>
+              <tr><td><a href="#">Q1 2024 activity data.xlsx</a></td><td>Completed</td><td>Apr 10, 2024</td><td><button>⋮</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Emissions - matches vertex-ui-measure /emissions -->
+      <div class="page-content" data-page="emissions">
+        <header class="page-header">
+          <div>
+            <h1>Emissions</h1>
+            <p class="subtitle">View and manage emissions calculations and parameters.</p>
+          </div>
+        </header>
+        <div class="content-card doodle-border" style="padding: 1.5rem;">
+          <p style="margin: 0 0 1rem 0; opacity: 0.85;">Prototype placeholder. In production this page provides emissions calculations view and calculation parameters.</p>
+        </div>
+      </div>
+
+      <!-- Audits - matches vertex-ui-measure /audits -->
+      <div class="page-content" data-page="audits">
+        <header class="page-header">
+          <div>
+            <h1>Audits</h1>
+            <p class="subtitle">View audit history and changes to your emissions data.</p>
+          </div>
+        </header>
+        <div class="content-card doodle-border" style="padding: 1.5rem;">
+          <p style="margin: 0 0 1rem 0; opacity: 0.85;">Prototype placeholder. In production this page lists audit events, user, timestamp, and changes.</p>
+        </div>
+      </div>
+
+      <!-- Activity - matches vertex-ui-measure /activity -->
+      <div class="page-content" data-page="activity">
+        <header class="page-header">
+          <div>
+            <h1>Activity</h1>
+            <p class="subtitle">View and edit activity-level details and emission factors.</p>
+          </div>
+        </header>
+        <div class="content-card doodle-border" style="padding: 1.5rem;">
+          <p style="margin: 0 0 1rem 0; opacity: 0.85;">Prototype placeholder. In production this route shows activity details (e.g. /activity/:id) with activity data, calculation breakdown, and emission factor configuration.</p>
+        </div>
+      </div>
+
       <!-- Advice Page -->
       <div class="page-content" data-page="advice">
         <header class="page-header">
@@ -1424,20 +1696,6 @@
 
   <script>
     (function() {
-      // Ensure Advice appears between Strategy and Configure (fixes old cached/deployed HTML too)
-      var nav = document.querySelector('.sidebar-nav');
-      if (nav) {
-        var adviceLink = nav.querySelector('a[data-page="advice"]');
-        var strategyLink = nav.querySelector('a[data-page="strategy"]');
-        if (adviceLink) {
-          adviceLink.classList.remove('nav-bottom');
-          adviceLink.style.marginTop = '0'; // override old .nav-bottom CSS if still deployed
-        }
-        if (adviceLink && strategyLink && strategyLink.nextElementSibling !== adviceLink) {
-          strategyLink.insertAdjacentElement('afterend', adviceLink);
-        }
-      }
-
       // Tab switching for Primary Inventory page
       var container = document.getElementById('tabs');
       if (container) {
