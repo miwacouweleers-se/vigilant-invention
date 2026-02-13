@@ -3936,6 +3936,37 @@
     }
     .toggle-switch.on .toggle-switch-knob { transform: translateX(26px); }
     .toggle-switch-input { position: absolute; opacity: 0; width: 0; height: 0; }
+    /* Vendors published: tooltip when only one can be on */
+    .ef-vendors-toggle-wrap {
+      position: relative;
+      display: inline-block;
+    }
+    .ef-vendors-one-only-tooltip {
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      margin-bottom: 8px;
+      padding: 8px 12px;
+      background: var(--ghg-text);
+      color: #fff;
+      font-size: 12px;
+      line-height: 1.35;
+      border-radius: 6px;
+      white-space: normal;
+      max-width: 220px;
+      text-align: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.2s ease, visibility 0.2s ease;
+      pointer-events: none;
+      z-index: 20;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    .ef-vendors-toggle-wrap.show-tooltip .ef-vendors-one-only-tooltip {
+      opacity: 1;
+      visibility: visible;
+    }
     .ef-prefs-category-content { display: block; }
     .ef-prefs-category-content.hidden { display: none !important; }
     .ef-drag-handle {
@@ -11515,13 +11546,13 @@
                   <td>Global</td>
                   <td>Vendor specific emission factors - Meets scope 2 criteria</td>
                   <td>Vendor</td>
-                  <td><label class="toggle-switch on" onclick="toggleEfSet(this, event)"><input type="checkbox" class="toggle-switch-input" checked><span class="toggle-switch-knob"></span></label></td>
+                  <td><span class="ef-vendors-toggle-wrap" onmouseenter="efVendorsToggleWrapEnter(this)" onmouseleave="efVendorsToggleWrapLeave(this)"><label class="toggle-switch on" onclick="toggleEfSet(this, event)"><input type="checkbox" class="toggle-switch-input" checked><span class="toggle-switch-knob"></span></label><span class="ef-vendors-one-only-tooltip" role="tooltip">Only one of the options can be active at a time in this section.</span></span></td>
                 </tr>
                 <tr>
                   <td>Global</td>
                   <td>Vendor specific emission factors - All</td>
                   <td>Vendor</td>
-                  <td><label class="toggle-switch" onclick="toggleEfSet(this, event)"><input type="checkbox" class="toggle-switch-input"><span class="toggle-switch-knob"></span></label></td>
+                  <td><span class="ef-vendors-toggle-wrap" onmouseenter="efVendorsToggleWrapEnter(this)" onmouseleave="efVendorsToggleWrapLeave(this)"><label class="toggle-switch" onclick="toggleEfSet(this, event)"><input type="checkbox" class="toggle-switch-input"><span class="toggle-switch-knob"></span></label><span class="ef-vendors-one-only-tooltip" role="tooltip">Only one of the options can be active at a time in this section.</span></span></td>
                 </tr>
               </tbody>
             </table>
@@ -13830,7 +13861,7 @@
       if (!input) return;
       const table = labelEl.closest('.ef-prefs-table-vendors');
       if (table) {
-        // Vendors published: only one toggle can be on
+        // Vendors published: only one toggle can be on; both can be off
         const willBeOn = !input.checked;
         if (willBeOn) {
           table.querySelectorAll('.toggle-switch').forEach((other) => {
@@ -13838,12 +13869,42 @@
               const otherInput = other.querySelector('.toggle-switch-input');
               if (otherInput) { otherInput.checked = false; }
               other.classList.remove('on');
+              // Show tooltip on the toggle that was just turned off
+              const wrap = other.closest('.ef-vendors-toggle-wrap');
+              if (wrap) {
+                wrap.classList.add('show-tooltip');
+                wrap._efTooltipProgrammatic = true;
+                clearTimeout(wrap._efTooltipTimeout);
+                wrap._efTooltipTimeout = setTimeout(function() {
+                  wrap.classList.remove('show-tooltip');
+                  wrap._efTooltipProgrammatic = false;
+                }, 4000);
+              }
             }
           });
         }
       }
       input.checked = !input.checked;
       labelEl.classList.toggle('on', input.checked);
+    }
+
+    function efVendorsToggleWrapEnter(wrap) {
+      if (!wrap) return;
+      const label = wrap.querySelector('.toggle-switch');
+      if (label && !label.classList.contains('on')) {
+        wrap.classList.add('show-tooltip');
+        clearTimeout(wrap._efTooltipTimeout);
+        wrap._efTooltipTimeout = null;
+      }
+    }
+
+    function efVendorsToggleWrapLeave(wrap) {
+      if (!wrap) return;
+      if (!wrap._efTooltipProgrammatic) {
+        wrap.classList.remove('show-tooltip');
+      }
+      clearTimeout(wrap._efTooltipTimeout);
+      wrap._efTooltipTimeout = null;
     }
 
     function revertEfPrefsToDefault() {
