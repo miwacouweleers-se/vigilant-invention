@@ -3972,14 +3972,15 @@
       position: fixed;
       left: 0;
       top: 0;
-      padding: 8px 12px;
+      padding: 10px 16px;
       background: var(--ghg-text);
       color: #fff;
-      font-size: 12px;
-      line-height: 1.35;
-      border-radius: 6px;
+      font-size: 13px;
+      line-height: 1.4;
+      border-radius: 8px;
       white-space: normal;
-      max-width: 220px;
+      width: 280px;
+      max-width: min(320px, calc(100vw - 24px));
       text-align: center;
       box-shadow: 0 4px 12px rgba(0,0,0,0.15);
       z-index: 10000;
@@ -13887,8 +13888,9 @@
       var el = document.getElementById('ef-vendors-global-tooltip');
       if (!el || !wrap) return;
       var r = wrap.getBoundingClientRect();
+      var gapAbove = 24;
       el.style.left = (r.left + r.width / 2) + 'px';
-      el.style.top = (r.top - 8) + 'px';
+      el.style.top = (r.top - gapAbove) + 'px';
       el.style.transform = 'translate(-50%, -100%)';
       el.classList.add('visible');
     }
@@ -13942,11 +13944,10 @@
 
     function efVendorsToggleWrapLeave(wrap) {
       if (!wrap) return;
-      if (!_efVendorsTooltipProgrammatic) {
-        hideEfVendorsTooltip();
-      }
-      clearTimeout(wrap._efTooltipTimeout);
-      wrap._efTooltipTimeout = null;
+      hideEfVendorsTooltip();
+      clearTimeout(_efVendorsTooltipHideTimeout);
+      _efVendorsTooltipHideTimeout = null;
+      _efVendorsTooltipProgrammatic = false;
     }
 
     function revertEfPrefsToDefault() {
