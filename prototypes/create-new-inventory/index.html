@@ -3967,6 +3967,31 @@
       opacity: 1;
       visibility: visible;
     }
+    /* Global tooltip (body-level) so it is never clipped by overflow */
+    #ef-vendors-global-tooltip {
+      position: fixed;
+      left: 0;
+      top: 0;
+      padding: 8px 12px;
+      background: var(--ghg-text);
+      color: #fff;
+      font-size: 12px;
+      line-height: 1.35;
+      border-radius: 6px;
+      white-space: normal;
+      max-width: 220px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      z-index: 10000;
+      pointer-events: none;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.2s ease, visibility 0.2s ease;
+    }
+    #ef-vendors-global-tooltip.visible {
+      opacity: 1;
+      visibility: visible;
+    }
     .ef-prefs-category-content { display: block; }
     .ef-prefs-category-content.hidden { display: none !important; }
     .ef-drag-handle {
@@ -13855,6 +13880,24 @@
       updateWizardUI();
     }
 
+    var _efVendorsTooltipProgrammatic = false;
+    var _efVendorsTooltipHideTimeout = null;
+
+    function showEfVendorsTooltip(wrap) {
+      var el = document.getElementById('ef-vendors-global-tooltip');
+      if (!el || !wrap) return;
+      var r = wrap.getBoundingClientRect();
+      el.style.left = (r.left + r.width / 2) + 'px';
+      el.style.top = (r.top - 8) + 'px';
+      el.style.transform = 'translate(-50%, -100%)';
+      el.classList.add('visible');
+    }
+
+    function hideEfVendorsTooltip() {
+      var el = document.getElementById('ef-vendors-global-tooltip');
+      if (el) el.classList.remove('visible');
+    }
+
     function toggleEfSet(labelEl, e) {
       if (e) { e.preventDefault(); e.stopPropagation(); }
       const input = labelEl.querySelector('.toggle-switch-input');
@@ -13869,15 +13912,14 @@
               const otherInput = other.querySelector('.toggle-switch-input');
               if (otherInput) { otherInput.checked = false; }
               other.classList.remove('on');
-              // Show tooltip on the toggle that was just turned off
               const wrap = other.closest('.ef-vendors-toggle-wrap');
               if (wrap) {
-                wrap.classList.add('show-tooltip');
-                wrap._efTooltipProgrammatic = true;
-                clearTimeout(wrap._efTooltipTimeout);
-                wrap._efTooltipTimeout = setTimeout(function() {
-                  wrap.classList.remove('show-tooltip');
-                  wrap._efTooltipProgrammatic = false;
+                _efVendorsTooltipProgrammatic = true;
+                showEfVendorsTooltip(wrap);
+                clearTimeout(_efVendorsTooltipHideTimeout);
+                _efVendorsTooltipHideTimeout = setTimeout(function() {
+                  hideEfVendorsTooltip();
+                  _efVendorsTooltipProgrammatic = false;
                 }, 4000);
               }
             }
@@ -13892,16 +13934,16 @@
       if (!wrap) return;
       const label = wrap.querySelector('.toggle-switch');
       if (label && !label.classList.contains('on')) {
-        wrap.classList.add('show-tooltip');
         clearTimeout(wrap._efTooltipTimeout);
         wrap._efTooltipTimeout = null;
+        showEfVendorsTooltip(wrap);
       }
     }
 
     function efVendorsToggleWrapLeave(wrap) {
       if (!wrap) return;
-      if (!wrap._efTooltipProgrammatic) {
-        wrap.classList.remove('show-tooltip');
+      if (!_efVendorsTooltipProgrammatic) {
+        hideEfVendorsTooltip();
       }
       clearTimeout(wrap._efTooltipTimeout);
       wrap._efTooltipTimeout = null;
@@ -15939,5 +15981,6 @@
     initEFEntityTable();
     console.log('GHG Calculation Engine prototype initialized');
   </script>
+  <div id="ef-vendors-global-tooltip" aria-hidden="true">Only one of the options can be active at a time in this section.</div>
 </body>
 </html>
