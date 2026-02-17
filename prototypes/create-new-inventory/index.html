@@ -696,6 +696,55 @@
       margin-bottom: 16px;
       flex-wrap: wrap;
     }
+    .uom-cross-filter-pills {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .uom-cross-filter-pills.hidden {
+      display: none;
+    }
+    .uom-filter-pills-label {
+      font-size: 14px;
+      color: var(--ghg-text-secondary);
+    }
+    .uom-filter-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      border-radius: 8px;
+      background: var(--ghg-primary-light);
+      color: var(--ghg-primary-dark);
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .uom-filter-pill-remove {
+      padding: 0;
+      margin: 0;
+      background: none;
+      border: none;
+      color: inherit;
+      cursor: pointer;
+      opacity: 0.8;
+      line-height: 1;
+    }
+    .uom-filter-pill-remove:hover {
+      opacity: 1;
+    }
+    .uom-clear-all-filters {
+      font-size: 14px;
+      color: var(--ghg-primary);
+      text-decoration: none;
+    }
+    .uom-clear-all-filters:hover {
+      text-decoration: underline;
+    }
+    #crossGroupPanel.unmapped-filter-active tbody tr.material-row-clickable:not(.row-unmapped) {
+      display: none;
+    }
     .uom-cross-toolbar .search-input-wrapper {
       flex: 1;
       min-width: 220px;
@@ -10874,10 +10923,6 @@
                 </select>
                 </span>
                 <div class="uom-filter-row-spacer"></div>
-                <button type="button" class="btn btn-primary">
-                  <i class="fa-light fa-plus"></i>
-                  Add Unit Group
-                </button>
               </div>
               
               <div class="card">
@@ -10946,13 +10991,13 @@
             </div>
             
             <!-- Panel: Cross-group conversions (materials by source) -->
-            <div class="unit-measure-panel hidden" data-uom-panel="cross-group">
+            <div class="unit-measure-panel hidden" data-uom-panel="cross-group" id="crossGroupPanel">
               <div class="uom-unmapped-alert">
                 <span>
                   <i class="fa-solid fa-triangle-exclamation"></i>
-                  There are 14 materials that are not mapped to data assets
+                  There are 5 materials that are not mapped to data assets
                 </span>
-                <button type="button" class="btn btn-secondary btn-sm">Filter by unmapped</button>
+                <button type="button" class="btn btn-secondary btn-sm" id="crossGroupFilterUnmappedBtn" onclick="applyCrossGroupUnmappedFilter(true)">Filter by unmapped</button>
               </div>
               
               <div class="uom-cross-toolbar">
@@ -10970,6 +11015,15 @@
                   <i class="fa-light fa-plus"></i>
                   Bulk upload materials
                 </button>
+              </div>
+              
+              <div class="uom-cross-filter-pills hidden" id="crossGroupFilterPills">
+                <span class="uom-filter-pills-label">Data asset:</span>
+                <span class="uom-filter-pill">
+                  Unmapped
+                  <button type="button" class="uom-filter-pill-remove" onclick="applyCrossGroupUnmappedFilter(false)" aria-label="Remove Unmapped filter"><i class="fa-light fa-xmark"></i></button>
+                </span>
+                <a href="#" class="uom-clear-all-filters" onclick="applyCrossGroupUnmappedFilter(false); return false;">Clear all filters</a>
               </div>
               
               <div class="uom-section" data-uom-section="defra">
@@ -11118,8 +11172,93 @@
                 </div>
                 <div class="uom-section-body">
                   <div class="card" style="border: none; border-radius: 0; margin: 0;">
-                    <div class="card-body" style="padding: 16px; color: var(--ghg-text-muted); font-size: 14px;">
-                      Table content for EPA materials would appear here when expanded.
+                    <div class="card-body" style="padding: 0;">
+                      <table class="data-table uom-table">
+                        <thead>
+                          <tr>
+                            <th class="sortable">Name <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                            <th class="sortable">Data asset <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                            <th class="sortable">Heating values <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                            <th class="sortable">Factor <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                            <th class="sortable">Unit <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                            <th class="sortable">Applicability <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                            <th class="sortable">Access <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                            <th style="width: 40px;"></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
+                            <td>Natural gas (pipeline)</td>
+                            <td>Natural gas</td>
+                            <td>Low heating values (LHV)</td>
+                            <td class="numeric">0.000054</td>
+                            <td>kg CO₂e/therm</td>
+                            <td>01/2023 - 12/2024</td>
+                            <td><span class="access-tag">Global</span></td>
+                            <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                          </tr>
+                          <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
+                            <td>Distillate fuel oil (No. 2)</td>
+                            <td>Heating oil</td>
+                            <td>High heating values (HHV)</td>
+                            <td class="numeric">0.010180</td>
+                            <td>kg CO₂e/gallon</td>
+                            <td>01/2023 - 12/2024</td>
+                            <td><span class="access-tag">Global</span></td>
+                            <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                          </tr>
+                          <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
+                            <td>Residual fuel oil</td>
+                            <td>Fuel oil</td>
+                            <td>High heating values (HHV)</td>
+                            <td class="numeric">0.011430</td>
+                            <td>kg CO₂e/gallon</td>
+                            <td>01/2023 - 12/2024</td>
+                            <td><span class="access-tag">Global</span></td>
+                            <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                          </tr>
+                          <tr class="material-row-clickable row-unmapped" onclick="openMaterialDrawer(this)">
+                            <td>Kerosene</td>
+                            <td><span class="data-asset-unmapped"><i class="fa-solid fa-triangle-exclamation"></i> Unmapped</span></td>
+                            <td>Low heating values (LHV)</td>
+                            <td class="numeric">0.009520</td>
+                            <td>kg CO₂e/gallon</td>
+                            <td>01/2023 - 12/2024</td>
+                            <td><span class="access-tag">Custom</span></td>
+                            <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                          </tr>
+                          <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
+                            <td>Propane</td>
+                            <td>LPG</td>
+                            <td>High heating values (HHV)</td>
+                            <td class="numeric">0.005770</td>
+                            <td>kg CO₂e/gallon</td>
+                            <td>01/2023 - 12/2024</td>
+                            <td><span class="access-tag">Global</span></td>
+                            <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                          </tr>
+                          <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
+                            <td>Motor gasoline</td>
+                            <td>Petrol</td>
+                            <td>Low heating values (LHV)</td>
+                            <td class="numeric">0.008780</td>
+                            <td>kg CO₂e/gallon</td>
+                            <td>01/2023 - 12/2024</td>
+                            <td><span class="access-tag">Global</span></td>
+                            <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                          </tr>
+                          <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
+                            <td>Coal (bituminous)</td>
+                            <td>Coal</td>
+                            <td>High heating values (HHV)</td>
+                            <td class="numeric">0.002420</td>
+                            <td>kg CO₂e/lb</td>
+                            <td>01/2023 - 12/2024</td>
+                            <td><span class="access-tag">Global</span></td>
+                            <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                          </tr>
+                        </tbody>
+                      </table>
                     </div>
                   </div>
                 </div>
@@ -11132,8 +11271,83 @@
                 </div>
                 <div class="uom-section-body">
                   <div class="card" style="border: none; border-radius: 0; margin: 0;">
-                    <div class="card-body" style="padding: 16px; color: var(--ghg-text-muted); font-size: 14px;">
-                      Table content for EIA materials would appear here when expanded.
+                    <div class="card-body" style="padding: 0;">
+                      <table class="data-table uom-table">
+                        <thead>
+                          <tr>
+                            <th class="sortable">Name <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                            <th class="sortable">Data asset <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                            <th class="sortable">Heating values <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                            <th class="sortable">Factor <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                            <th class="sortable">Unit <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                            <th class="sortable">Applicability <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                            <th class="sortable">Access <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                            <th style="width: 40px;"></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
+                            <td>Electricity (US grid, annual)</td>
+                            <td>Grid electricity</td>
+                            <td>—</td>
+                            <td class="numeric">0.000386</td>
+                            <td>kg CO₂e/kWh</td>
+                            <td>01/2024 - 12/2024</td>
+                            <td><span class="access-tag">Global</span></td>
+                            <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                          </tr>
+                          <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
+                            <td>Jet fuel (kerosene)</td>
+                            <td>Aviation fuel</td>
+                            <td>Low heating values (LHV)</td>
+                            <td class="numeric">0.002540</td>
+                            <td>kg CO₂e/lb</td>
+                            <td>01/2024 - 12/2024</td>
+                            <td><span class="access-tag">Global</span></td>
+                            <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                          </tr>
+                          <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
+                            <td>Diesel (on-road)</td>
+                            <td>Diesel</td>
+                            <td>Low heating values (LHV)</td>
+                            <td class="numeric">0.010150</td>
+                            <td>kg CO₂e/gallon</td>
+                            <td>01/2024 - 12/2024</td>
+                            <td><span class="access-tag">Global</span></td>
+                            <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                          </tr>
+                          <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
+                            <td>Natural gas (commercial)</td>
+                            <td>Natural gas</td>
+                            <td>Low heating values (LHV)</td>
+                            <td class="numeric">0.000053</td>
+                            <td>kg CO₂e/therm</td>
+                            <td>01/2024 - 12/2024</td>
+                            <td><span class="access-tag">Global</span></td>
+                            <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                          </tr>
+                          <tr class="material-row-clickable row-unmapped" onclick="openMaterialDrawer(this)">
+                            <td>Steam (district heating)</td>
+                            <td><span class="data-asset-unmapped"><i class="fa-solid fa-triangle-exclamation"></i> Unmapped</span></td>
+                            <td>—</td>
+                            <td class="numeric">0.000053</td>
+                            <td>kg CO₂e/lb steam</td>
+                            <td>01/2024 - 12/2024</td>
+                            <td><span class="access-tag">Custom</span></td>
+                            <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                          </tr>
+                          <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
+                            <td>Renewable electricity (REC)</td>
+                            <td>Green electricity</td>
+                            <td>—</td>
+                            <td class="numeric">0.000000</td>
+                            <td>kg CO₂e/kWh</td>
+                            <td>01/2024 - 12/2024</td>
+                            <td><span class="access-tag">Global</span></td>
+                            <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                          </tr>
+                        </tbody>
+                      </table>
                     </div>
                   </div>
                 </div>
@@ -14569,6 +14783,20 @@
       if (!view) return;
       var section = view.querySelector('.uom-section[data-uom-section="' + sectionId + '"]');
       if (section) section.classList.toggle('collapsed');
+    }
+    function applyCrossGroupUnmappedFilter(active) {
+      var panel = document.getElementById('crossGroupPanel');
+      var pills = document.getElementById('crossGroupFilterPills');
+      if (!panel || !pills) return;
+      if (active) {
+        panel.classList.add('unmapped-filter-active');
+        pills.classList.remove('hidden');
+        var sections = panel.querySelectorAll('.uom-section');
+        for (var i = 0; i < sections.length; i++) sections[i].classList.remove('collapsed');
+      } else {
+        panel.classList.remove('unmapped-filter-active');
+        pills.classList.add('hidden');
+      }
     }
     
     function openMaterialDrawer(rowEl) {
