@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Open Create New Inventory Prototype</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; margin: 0; padding: 2rem; max-width: 520px; }
+    h1 { font-size: 1.25rem; margin-bottom: 0.5rem; }
+    p { color: #555; margin-bottom: 1.5rem; }
+    a { display: inline-block; padding: 12px 20px; background: #06B6D4; color: #fff; text-decoration: none; border-radius: 8px; font-weight: 600; }
+    a:hover { background: #0891B2; }
+    .url { margin-top: 1rem; font-size: 0.85rem; color: #64748B; word-break: break-all; }
+  </style>
+</head>
+<body>
+  <h1>Create New Inventory prototype</h1>
+  <p>Use the link below. If it does not load, start the server first (see instructions).</p>
+  <a href="prototypes/create-new-inventory/">Open Create New Inventory prototype</a>
+  <p class="url">URL: <span id="url"></span></p>
+  <script>document.getElementById('url').textContent = location.origin + location.pathname.replace(/\/?start-here\.html?$/, '') + '/prototypes/create-new-inventory/';</script>
+  <hr style="margin: 2rem 0; border: none; border-top: 1px solid #eee;">
+  <p style="font-size: 0.9rem;"><strong>To start the server</strong> (if the link above does not work):<br>
+  In Terminal, run from this project folder:<br>
+  <code style="background: #f1f5f9; padding: 2px 6px; border-radius: 4px;">python3 -m http.server 3333</code><br>
+  Then open: <strong>http://localhost:3333/prototypes/create-new-inventory/</strong></p>
+</body>
+</html>

@@ -538,6 +538,222 @@
     }
     
     /* ============================================== */
+    /* Unit Measure Management (Settings)            */
+    /* ============================================== */
+    
+    .unit-measure-tabs {
+      display: flex;
+      gap: 0;
+      border-bottom: 2px solid var(--ghg-border);
+      margin-bottom: 20px;
+    }
+    .unit-measure-tab {
+      padding: 10px 16px;
+      background: none;
+      border: none;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -2px;
+      font-family: var(--font-sans);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ghg-text-secondary);
+      cursor: pointer;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .unit-measure-tab:hover {
+      color: var(--ghg-text);
+    }
+    .unit-measure-tab.active {
+      color: var(--ghg-primary-dark);
+      font-weight: 600;
+      border-bottom-color: var(--ghg-primary);
+    }
+    .uom-filter-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .uom-group-inline {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+    .uom-group-label {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ghg-text);
+      white-space: nowrap;
+    }
+    .uom-group-select {
+      width: 52px;
+      min-width: 52px;
+    }
+    .uom-filter-row-spacer {
+      flex: 1;
+    }
+    .uom-table .source-unit-name {
+      display: block;
+      font-weight: 500;
+    }
+    .uom-table .source-unit-sub {
+      display: block;
+      font-size: 12px;
+      color: var(--ghg-text-muted);
+      margin-top: 2px;
+    }
+    .access-tag {
+      display: inline-block;
+      padding: 4px 10px;
+      background: var(--ghg-surface-elevated);
+      color: var(--ghg-text-secondary);
+      font-size: 12px;
+      font-weight: 500;
+      border-radius: 999px;
+      border: 1px solid var(--ghg-border);
+    }
+    .uom-table .last-updated {
+      font-size: 14px;
+      color: var(--ghg-text);
+    }
+    .uom-table .last-updated-meta {
+      font-size: 12px;
+      color: var(--ghg-text-muted);
+    }
+    .add-unit-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 16px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ghg-primary-dark);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .add-unit-link:hover {
+      color: var(--ghg-primary);
+    }
+    .btn-icon {
+      padding: 6px 10px;
+      min-width: auto;
+    }
+    .unit-measure-panel {
+      display: block;
+    }
+    .unit-measure-panel.hidden {
+      display: none;
+    }
+    .uom-placeholder-card {
+      background: var(--ghg-surface);
+      border: 1px solid var(--ghg-border);
+      border-radius: 12px;
+      padding: 48px 24px;
+      text-align: center;
+      color: var(--ghg-text-secondary);
+    }
+    .uom-placeholder-card i {
+      font-size: 48px;
+      color: var(--ghg-text-muted);
+      margin-bottom: 16px;
+      display: block;
+    }
+    .uom-placeholder-card h3 {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--ghg-text);
+      margin: 0 0 8px 0;
+    }
+    .uom-placeholder-card p {
+      margin: 0;
+      font-size: 14px;
+    }
+    
+    /* Cross-group: alert banner & materials layout */
+    .uom-unmapped-alert {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 16px;
+      margin-bottom: 16px;
+      border-radius: 8px;
+      background: var(--ghg-danger-light);
+      border: 1px solid var(--ghg-danger);
+      color: var(--ghg-text);
+      font-size: 14px;
+    }
+    .uom-unmapped-alert i {
+      color: var(--ghg-danger);
+      margin-right: 4px;
+    }
+    .uom-cross-toolbar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .uom-cross-toolbar .search-input-wrapper {
+      flex: 1;
+      min-width: 220px;
+    }
+    .uom-section {
+      border: 1px solid var(--ghg-border);
+      border-radius: 8px;
+      margin-bottom: 12px;
+      overflow: hidden;
+    }
+    .uom-section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      background: var(--ghg-surface-elevated);
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--ghg-text);
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.2s;
+    }
+    .uom-section-header:hover {
+      background: var(--ghg-surface-hover);
+    }
+    .uom-section-header .section-count {
+      font-weight: 500;
+      color: var(--ghg-text-muted);
+      margin-left: 8px;
+    }
+    .uom-section-header .section-toggle {
+      color: var(--ghg-text-muted);
+      transition: transform 0.2s;
+    }
+    .uom-section.collapsed .uom-section-toggle {
+      transform: rotate(-90deg);
+    }
+    .uom-section-body {
+      display: block;
+    }
+    .uom-section.collapsed .uom-section-body {
+      display: none;
+    }
+    .uom-table .data-asset-unmapped {
+      color: var(--ghg-danger);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .material-drawer .detail-value.data-asset-unmapped {
+      color: var(--ghg-danger);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    
+    /* ============================================== */
     /* Breakdown View Styles                          */
     /* ============================================== */
     
@@ -935,6 +1151,892 @@
       display: flex;
       justify-content: flex-end;
       gap: 12px;
+    }
+    
+    /* Material details side drawer (Cross-group conversions) */
+    .material-drawer-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.4);
+      z-index: 2000;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.25s ease, visibility 0.25s ease;
+    }
+    .material-drawer-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+    .material-drawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 100%;
+      max-width: 480px;
+      height: 100%;
+      background: var(--ghg-surface);
+      box-shadow: -8px 0 24px rgba(0,0,0,0.12);
+      z-index: 2001;
+      display: flex;
+      flex-direction: column;
+      transform: translateX(100%);
+      transition: transform 0.25s ease;
+      overflow: hidden;
+    }
+    .material-drawer-overlay.open .material-drawer {
+      transform: translateX(0);
+    }
+    .material-drawer-header {
+      position: relative;
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--ghg-border);
+      flex-shrink: 0;
+    }
+    .material-drawer-header .drawer-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: none;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      color: var(--ghg-text-secondary);
+      font-size: 18px;
+    }
+    .material-drawer-header .drawer-close:hover {
+      background: var(--ghg-surface-elevated);
+      color: var(--ghg-text);
+    }
+    .material-drawer-header .drawer-subtitle {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--ghg-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 4px;
+    }
+    .material-drawer-header .drawer-title {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--ghg-text);
+      margin: 0;
+      padding-right: 44px;
+    }
+    .material-drawer-body {
+      padding: 24px;
+      overflow-y: auto;
+      flex: 1;
+    }
+    .material-drawer-section {
+      margin-bottom: 24px;
+    }
+    .material-drawer-section:last-child {
+      margin-bottom: 0;
+    }
+    .material-drawer-section h3 {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--ghg-text);
+      margin: 0 0 12px 0;
+    }
+    .material-drawer-section h3 .section-edit {
+      color: var(--ghg-text-muted);
+      font-size: 12px;
+      cursor: pointer;
+    }
+    .material-drawer-detail-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--ghg-border);
+      font-size: 14px;
+    }
+    .material-drawer-detail-row:last-child {
+      border-bottom: none;
+    }
+    .material-drawer-detail-row .detail-label {
+      color: var(--ghg-text-muted);
+      flex-shrink: 0;
+    }
+    .material-drawer-detail-row .detail-value {
+      color: var(--ghg-text);
+      text-align: right;
+    }
+    .material-drawer-detail-row .detail-value a {
+      color: var(--ghg-primary-dark);
+      text-decoration: none;
+    }
+    .material-drawer-detail-row .detail-value a:hover {
+      text-decoration: underline;
+    }
+    .material-drawer-doc-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .material-drawer-doc-list li {
+      padding: 6px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+    }
+    .material-drawer-doc-list li a {
+      color: var(--ghg-primary-dark);
+      text-decoration: none;
+    }
+    .material-drawer-doc-list li a:hover {
+      text-decoration: underline;
+    }
+    .material-drawer-doc-list .show-more {
+      color: var(--ghg-primary-dark);
+      cursor: pointer;
+      font-size: 13px;
+      margin-top: 4px;
+    }
+    
+    /* Edit Material full-page modal */
+    .edit-material-overlay {
+      position: fixed;
+      inset: 0;
+      background: var(--ghg-surface);
+      z-index: 1900;
+      overflow-y: auto;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.25s ease, visibility 0.25s ease;
+    }
+    .edit-material-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+    .edit-material-close-btn {
+      position: fixed;
+      top: 24px;
+      right: 24px;
+      z-index: 2002;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: none;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      color: var(--ghg-text-secondary);
+      font-size: 18px;
+      transition: all 0.15s ease;
+    }
+    .edit-material-close-btn:hover {
+      background: var(--ghg-surface-elevated);
+      color: var(--ghg-text);
+    }
+    .edit-material-content {
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 24px 32px 48px;
+    }
+    .edit-material-title {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--ghg-text);
+      margin: 0 0 8px 0;
+    }
+    .edit-material-desc {
+      font-size: 14px;
+      color: var(--ghg-text-secondary);
+      margin-bottom: 24px;
+    }
+    .edit-material-tabs {
+      display: flex;
+      gap: 0;
+      border-bottom: 2px solid var(--ghg-border);
+      margin-bottom: 24px;
+    }
+    .edit-material-tabs button {
+      padding: 10px 16px;
+      background: none;
+      border: none;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -2px;
+      font-family: var(--font-sans);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ghg-text-secondary);
+      cursor: pointer;
+    }
+    .edit-material-tabs button.active {
+      color: var(--ghg-primary-dark);
+      font-weight: 600;
+      border-bottom-color: var(--ghg-primary);
+    }
+    .edit-material-form .form-group {
+      margin-bottom: 20px;
+    }
+    .edit-material-form .form-group label {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ghg-text);
+      margin-bottom: 6px;
+    }
+    .edit-material-form .form-group label .required {
+      color: var(--ghg-danger);
+    }
+    .edit-material-form .form-group .form-input,
+    .edit-material-form .form-group .form-select {
+      width: 100%;
+      max-width: 400px;
+    }
+    .edit-material-form .form-group textarea.form-input {
+      min-height: 100px;
+      resize: vertical;
+    }
+    .edit-material-form .form-row {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .edit-material-form .form-row .form-group {
+      flex: 1;
+      min-width: 160px;
+    }
+    .edit-material-form .form-group .readonly-value {
+      font-size: 14px;
+      color: var(--ghg-text-secondary);
+      padding: 8px 0;
+    }
+    .edit-material-form .unit-pair {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .edit-material-form .unit-pair .form-select {
+      flex: 1;
+      min-width: 120px;
+    }
+    .edit-material-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 32px;
+      padding-top: 24px;
+      border-top: 1px solid var(--ghg-border);
+    }
+    .edit-material-panel {
+      display: block;
+    }
+    .edit-material-panel.hidden {
+      display: none;
+    }
+    .edit-material-details-panel {
+      padding-top: 0;
+    }
+    .edit-material-details {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      max-width: 640px;
+    }
+    .edit-material-details .details-row {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 16px;
+      align-items: start;
+    }
+    @media (max-width: 560px) {
+      .edit-material-details .details-row {
+        grid-template-columns: 1fr;
+      }
+    }
+    .edit-material-details .details-label {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ghg-text);
+      padding-top: 10px;
+    }
+    .edit-material-details .details-value .details-input,
+    .edit-material-details .details-value .details-textarea,
+    .edit-material-details .details-value .form-select {
+      width: 100%;
+      max-width: 100%;
+    }
+    .edit-material-details .details-value .details-textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+    .edit-material-details .details-input-narrow {
+      max-width: 120px;
+    }
+    .edit-material-details .details-pill-select {
+      max-width: 140px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 500;
+    }
+    .edit-material-details #editDetailsGwpVersion {
+      background: var(--ghg-primary-light);
+      color: var(--ghg-primary-dark);
+      border-color: var(--ghg-primary);
+    }
+    .edit-material-details #editDetailsAccessType {
+      background: var(--ghg-surface-elevated);
+      color: var(--ghg-text);
+      border-color: var(--ghg-border);
+    }
+    .details-attachments-list {
+      list-style: none;
+      margin: 0 0 12px 0;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .details-attachment-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      background: var(--ghg-surface-elevated);
+      border: 1px solid var(--ghg-border);
+      border-radius: 8px;
+      font-size: 14px;
+    }
+    .details-attachment-link {
+      color: var(--ghg-primary);
+      text-decoration: none;
+    }
+    .details-attachment-link:hover {
+      text-decoration: underline;
+    }
+    .details-attachment-file {
+      color: var(--ghg-text-secondary);
+    }
+    .details-attachment-remove {
+      padding: 4px;
+      background: none;
+      border: none;
+      color: var(--ghg-text-muted);
+      cursor: pointer;
+      border-radius: 4px;
+      margin-left: 4px;
+    }
+    .details-attachment-remove:hover {
+      color: var(--ghg-danger);
+      background: var(--ghg-danger-light);
+    }
+    .details-attachment-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .details-attachment-actions .btn-sm {
+      padding: 6px 12px;
+      font-size: 13px;
+    }
+    .details-attachment-input-label {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--ghg-text-secondary);
+      display: inline-block;
+      margin-right: 4px;
+    }
+    .details-attachment-inline-input {
+      font-size: 14px;
+      padding: 6px 10px;
+    }
+    .details-attachment-link-editable {
+      flex-wrap: wrap;
+    }
+    .details-link-wrapper {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .details-link-view {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+    }
+    .details-link-view.hidden {
+      display: none;
+    }
+    .details-link-display {
+      display: inline-flex;
+      align-items: center;
+      color: var(--ghg-primary);
+      text-decoration: underline;
+      cursor: pointer;
+      font-size: 14px;
+      padding: 4px 6px;
+      margin: -4px -6px;
+      border-radius: 4px;
+    }
+    .details-link-display:hover {
+      background: var(--ghg-primary-light);
+    }
+    .details-link-bubble {
+      position: absolute;
+      left: 0;
+      bottom: 100%;
+      margin-bottom: 8px;
+      padding: 8px 12px;
+      background: var(--ghg-text);
+      color: var(--ghg-surface);
+      border-radius: 8px;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.15s, visibility 0.15s;
+      z-index: 50;
+    }
+    .details-link-bubble::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 16px;
+      border: 6px solid transparent;
+      border-top-color: var(--ghg-text);
+    }
+    .details-link-view:hover .details-link-bubble {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+    .details-link-bubble-open {
+      color: var(--ghg-surface);
+      text-decoration: underline;
+      max-width: 220px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .details-link-bubble-open:hover {
+      color: var(--ghg-primary-light);
+    }
+    .details-link-bubble-edit {
+      padding: 4px 10px;
+      background: rgba(255,255,255,0.2);
+      border: none;
+      border-radius: 6px;
+      color: var(--ghg-surface);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .details-link-bubble-edit:hover {
+      background: rgba(255,255,255,0.3);
+    }
+    .details-attachment-file-input {
+      font-size: 13px;
+      max-width: 160px;
+    }
+    .details-attachment-clickable {
+      cursor: pointer;
+    }
+    .details-attachment-clickable:hover {
+      text-decoration: underline;
+      color: var(--ghg-primary);
+    }
+    .document-preview-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 2100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.2s, visibility 0.2s;
+    }
+    .document-preview-backdrop:not(.hidden) {
+      opacity: 1;
+      visibility: visible;
+    }
+    .document-preview-modal {
+      background: var(--ghg-surface);
+      border-radius: 12px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+      max-width: 90vw;
+      max-height: 85vh;
+      width: 800px;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.2s, visibility 0.2s;
+    }
+    .document-preview-backdrop:not(.hidden) .document-preview-modal {
+      opacity: 1;
+      visibility: visible;
+    }
+    .document-preview-modal {
+      position: relative;
+    }
+    .document-preview-modal .document-preview-header {
+      display: flex;
+      align-items: center;
+      padding: 14px 44px 14px 16px;
+      border-bottom: 1px solid var(--ghg-border);
+      flex-shrink: 0;
+    }
+    .document-preview-modal .document-preview-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--ghg-text);
+      margin: 0;
+    }
+    .document-preview-modal .document-preview-close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      padding: 8px;
+      background: none;
+      border: none;
+      color: var(--ghg-text-muted);
+      cursor: pointer;
+      border-radius: 8px;
+      z-index: 1;
+    }
+    .document-preview-modal .document-preview-close:hover {
+      color: var(--ghg-text);
+      background: var(--ghg-surface-elevated);
+    }
+    .document-preview-modal .document-preview-body {
+      flex: 1;
+      min-height: 400px;
+      padding: 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .document-preview-modal .document-preview-iframe-wrap {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .document-preview-modal .document-preview-iframe-wrap iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    .document-preview-modal .document-preview-empty {
+      display: none;
+      padding: 32px;
+      text-align: center;
+      color: var(--ghg-text-secondary);
+      font-size: 14px;
+    }
+    .edit-link-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.35);
+      z-index: 2150;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.2s, visibility 0.2s;
+    }
+    .edit-link-backdrop:not(.hidden) {
+      opacity: 1;
+      visibility: visible;
+    }
+    .edit-link-modal {
+      background: var(--ghg-surface-elevated);
+      border-radius: 12px;
+      box-shadow: 0 12px 32px rgba(0,0,0,0.15);
+      width: 100%;
+      max-width: 440px;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.2s, visibility 0.2s;
+    }
+    .edit-link-backdrop:not(.hidden) .edit-link-modal {
+      opacity: 1;
+      visibility: visible;
+    }
+    .edit-link-modal .edit-link-header {
+      position: relative;
+      padding: 20px 44px 16px 20px;
+      border-bottom: 1px solid var(--ghg-border);
+    }
+    .edit-link-modal .edit-link-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--ghg-text);
+      margin: 0;
+    }
+    .edit-link-modal .edit-link-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      padding: 6px;
+      background: none;
+      border: none;
+      color: var(--ghg-text-muted);
+      cursor: pointer;
+      border-radius: 6px;
+    }
+    .edit-link-modal .edit-link-close:hover {
+      color: var(--ghg-text);
+      background: var(--ghg-border);
+    }
+    .edit-link-modal .edit-link-body {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .edit-link-modal .edit-link-label {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ghg-text);
+      display: block;
+      margin-bottom: 4px;
+    }
+    .edit-link-modal .edit-link-input {
+      width: 100%;
+      padding: 10px 12px;
+      font-size: 14px;
+      border: 1px solid var(--ghg-border);
+      border-radius: 8px;
+      background: var(--ghg-surface);
+    }
+    .edit-link-modal .edit-link-footer {
+      padding: 16px 20px 20px;
+      border-top: 1px solid var(--ghg-border);
+    }
+    .edit-link-modal .edit-link-save-btn {
+      padding: 10px 20px;
+      font-size: 14px;
+      font-weight: 500;
+      background: var(--ghg-surface);
+      color: var(--ghg-text);
+      border: 1px solid var(--ghg-border);
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .edit-link-modal .edit-link-save-btn:hover {
+      background: var(--ghg-surface-elevated);
+      border-color: var(--ghg-border-strong);
+    }
+    .data-asset-dropdown {
+      position: relative;
+      max-width: 400px;
+    }
+    .data-asset-trigger {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 10px 14px;
+      font-family: var(--font-sans);
+      font-size: 14px;
+      color: var(--ghg-text);
+      background: var(--ghg-surface);
+      border: 1px solid var(--ghg-border);
+      border-radius: 8px;
+      cursor: pointer;
+      text-align: left;
+      transition: border-color 0.2s;
+    }
+    .data-asset-trigger:hover {
+      border-color: var(--ghg-border-strong);
+    }
+    .data-asset-value {
+      flex: 1;
+      color: var(--ghg-text-muted);
+    }
+    .data-asset-value.selected {
+      color: var(--ghg-text);
+    }
+    .data-asset-chevron {
+      color: var(--ghg-text-muted);
+      font-size: 12px;
+      transition: transform 0.2s;
+    }
+    .data-asset-dropdown.open .data-asset-chevron {
+      transform: rotate(180deg);
+    }
+    .data-asset-panel {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      margin-top: 4px;
+      background: var(--ghg-surface);
+      border: 1px solid var(--ghg-border);
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+      z-index: 100;
+      overflow: hidden;
+    }
+    .data-asset-panel.hidden {
+      display: none;
+    }
+    .data-asset-list {
+      list-style: none;
+      margin: 0;
+      padding: 0 0 8px 0;
+      max-height: 220px;
+      overflow-y: auto;
+    }
+    .data-asset-list li {
+      padding: 10px 14px;
+      font-size: 14px;
+      color: var(--ghg-text);
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .data-asset-list li:hover {
+      background: var(--ghg-surface-elevated);
+    }
+    .data-asset-list li.selected {
+      background: var(--ghg-primary-light);
+      color: var(--ghg-primary-dark);
+    }
+    .data-asset-list li.filtered-out {
+      display: none;
+    }
+    .material-linkage-section {
+      margin-top: 24px;
+    }
+    .material-linkage-section.hidden {
+      display: none;
+    }
+    .material-linkage-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--ghg-text);
+      margin: 0;
+    }
+    .material-linkage-default-th {
+      white-space: nowrap;
+      font-weight: 600;
+    }
+    .material-linkage-default-th .fa-circle-info {
+      margin-left: 4px;
+      color: var(--ghg-text-muted);
+      font-size: 12px;
+    }
+    .material-linkage-table .default-radio-cell {
+      width: 1%;
+      white-space: nowrap;
+      vertical-align: middle;
+    }
+    .material-linkage-table .default-radio-cell input[type="radio"] {
+      cursor: pointer;
+      accent-color: var(--ghg-primary);
+    }
+    .material-linkage-table .material-name-cell {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .material-linkage-table .material-linkage-current-tag {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      background: var(--ghg-primary-light);
+      color: var(--ghg-primary-dark);
+    }
+    .material-linkage-table .status-pill {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+    .material-linkage-table .status-pill.active {
+      background: var(--ghg-success-light);
+      color: var(--ghg-success);
+    }
+    .uom-table tr.material-row-clickable {
+      cursor: pointer;
+    }
+    .uom-table tr.material-row-clickable:hover td {
+      background: var(--ghg-surface-elevated);
+    }
+    .material-row-menu {
+      position: fixed;
+      display: none;
+      min-width: 180px;
+      background: var(--ghg-surface);
+      border: 1px solid var(--ghg-border);
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+      z-index: 1500;
+      padding: 6px 0;
+      list-style: none;
+      margin: 0;
+    }
+    .material-row-menu.open {
+      display: block;
+    }
+    .material-row-menu li {
+      margin: 0;
+      padding: 0;
+    }
+    .material-row-menu button {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 14px;
+      border: none;
+      background: none;
+      font-family: var(--font-sans);
+      font-size: 14px;
+      color: var(--ghg-text);
+      cursor: pointer;
+      text-align: left;
+      transition: background 0.15s;
+    }
+    .material-row-menu button:hover {
+      background: var(--ghg-surface-elevated);
+    }
+    .material-row-menu button .menu-item-icon {
+      color: var(--ghg-text-muted);
+      font-size: 14px;
+    }
+    .material-row-menu button.menu-item-delete,
+    .material-row-menu button.menu-item-delete .menu-item-icon {
+      color: var(--ghg-danger);
+    }
+    .material-row-menu button.menu-item-delete:hover {
+      background: var(--ghg-danger-light);
     }
     
     /* ============================================== */
@@ -8643,6 +9745,7 @@
         <nav class="submenu-nav">
           <a href="#" class="submenu-item">Organization</a>
           <a href="#" class="submenu-item">Users</a>
+          <a href="#" class="submenu-item" data-view="unit-measure">Unit of measurement conversions</a>
         </nav>
       </div>
     </aside>
@@ -9713,6 +10816,327 @@
                     </tr>
                   </tbody>
                 </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- ============================================== -->
+        <!-- VIEW: UNIT MEASURE MANAGEMENT (Settings)        -->
+        <!-- ============================================== -->
+        <div id="view-unit-measure" class="view">
+          <div class="page-header">
+            <div class="page-header-left">
+              <div class="page-breadcrumb">
+                <a href="#">Dashboard</a>
+                <i class="fa-light fa-chevron-right"></i>
+                <span>Unit Measure Management</span>
+              </div>
+              <h1 class="page-title">Unit Measure Management</h1>
+              <p class="page-subtitle">Manage conversions, densities, and mappings in one place.</p>
+            </div>
+          </div>
+          
+          <div class="content-container">
+            <div class="unit-measure-tabs">
+              <button type="button" class="unit-measure-tab" data-uom-tab="converter" onclick="switchUnitMeasureTab('converter')">Converter tool</button>
+              <button type="button" class="unit-measure-tab active" data-uom-tab="group" onclick="switchUnitMeasureTab('group')">Group conversions</button>
+              <button type="button" class="unit-measure-tab" data-uom-tab="cross-group" onclick="switchUnitMeasureTab('cross-group')">Cross-group conversions</button>
+            </div>
+            
+            <!-- Panel: Converter tool -->
+            <div class="unit-measure-panel hidden" data-uom-panel="converter">
+              <div class="uom-placeholder-card">
+                <i class="fa-light fa-calculator"></i>
+                <h3>Converter tool</h3>
+                <p>Convert values between units. This tool will be available here.</p>
+              </div>
+            </div>
+            
+            <!-- Panel: Group conversions -->
+            <div class="unit-measure-panel" data-uom-panel="group">
+              <div class="uom-filter-row">
+                <span class="uom-group-inline">
+                  <label class="uom-group-label">UoM group:</label>
+                  <select class="form-select uom-group-select">
+                  <option selected>Area</option>
+                  <option>Data storage</option>
+                  <option>Density</option>
+                  <option>Distance</option>
+                  <option>Emission</option>
+                  <option>Energy</option>
+                  <option>Energy transfer</option>
+                  <option>Flow rate</option>
+                  <option>Freight</option>
+                  <option>General</option>
+                  <option>Intensity</option>
+                  <option>Mass</option>
+                </select>
+                </span>
+                <div class="uom-filter-row-spacer"></div>
+                <button type="button" class="btn btn-primary">
+                  <i class="fa-light fa-plus"></i>
+                  Add Unit Group
+                </button>
+              </div>
+              
+              <div class="card">
+                <div class="card-body" style="padding: 0;">
+                  <table class="data-table uom-table">
+                    <thead>
+                      <tr>
+                        <th class="sortable">Source Unit <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                        <th class="sortable">Abbreviation <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                        <th class="sortable">Source <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                        <th class="sortable">Access <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                        <th class="sortable">Factor <i class="fa-light fa-circle-info sort-icon" title="Conversion factor"></i><i class="fa-light fa-chevron-down sort-icon"></i></th>
+                        <th class="sortable">Last updated <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                        <th style="width: 40px;"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <span class="source-unit-name">Square foot</span>
+                          <span class="source-unit-sub">Base Value</span>
+                        </td>
+                        <td>sq ft</td>
+                        <td>US Customary / Imperial</td>
+                        <td><span class="access-tag">Custom</span></td>
+                        <td class="numeric">1</td>
+                        <td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/26 at 10:30 CST</span></td>
+                        <td><button type="button" class="btn-ghost btn-icon" title="Actions"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                      </tr>
+                      <tr>
+                        <td><span class="source-unit-name">1000 Square Feet</span></td>
+                        <td>1000 sq ft</td>
+                        <td>US Customary / Imperial</td>
+                        <td><span class="access-tag">Global</span></td>
+                        <td class="numeric">1000</td>
+                        <td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/26 at 10:30 CST</span></td>
+                        <td><button type="button" class="btn-ghost btn-icon" title="Actions"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                      </tr>
+                      <tr>
+                        <td><span class="source-unit-name">Square meter</span></td>
+                        <td>sqm</td>
+                        <td>SI</td>
+                        <td><span class="access-tag">Global</span></td>
+                        <td class="numeric">0.011111</td>
+                        <td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/26 at 10:30 CST</span></td>
+                        <td><button type="button" class="btn-ghost btn-icon" title="Actions"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                      </tr>
+                      <tr>
+                        <td><span class="source-unit-name">Thousands Of Circular Mils</span></td>
+                        <td>tcm</td>
+                        <td>US Customary / Imperial</td>
+                        <td><span class="access-tag">Global</span></td>
+                        <td class="numeric">0.092903</td>
+                        <td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/26 at 10:30 CST</span></td>
+                        <td><button type="button" class="btn-ghost btn-icon" title="Actions"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              
+              <a href="#" class="add-unit-link">
+                <i class="fa-light fa-plus"></i>
+                Add Unit
+              </a>
+            </div>
+            
+            <!-- Panel: Cross-group conversions (materials by source) -->
+            <div class="unit-measure-panel hidden" data-uom-panel="cross-group">
+              <div class="uom-unmapped-alert">
+                <span>
+                  <i class="fa-solid fa-triangle-exclamation"></i>
+                  There are 14 materials that are not mapped to data assets
+                </span>
+                <button type="button" class="btn btn-secondary btn-sm">Filter by unmapped</button>
+              </div>
+              
+              <div class="uom-cross-toolbar">
+                <div class="search-input-wrapper">
+                  <i class="fa-light fa-search"></i>
+                  <input type="text" class="form-input" placeholder="Search within Unit of measures">
+                </div>
+                <button type="button" class="btn btn-secondary">
+                  <i class="fa-light fa-filter"></i>
+                  Filters
+                </button>
+                <button type="button" class="btn btn-secondary btn-export">Export <i class="fa-light fa-chevron-down"></i></button>
+                <div style="flex: 1;"></div>
+                <button type="button" class="btn btn-primary">
+                  <i class="fa-light fa-plus"></i>
+                  Bulk upload materials
+                </button>
+              </div>
+              
+              <div class="uom-section" data-uom-section="defra">
+                <div class="uom-section-header" onclick="toggleUomSection('defra')">
+                  <span>UK Government Department of Environment, Food &amp; Rural Affairs (DEFRA) <span class="section-count">11</span></span>
+                  <i class="fa-light fa-chevron-down section-toggle uom-section-toggle"></i>
+                </div>
+                <div class="uom-section-body">
+                  <div class="card" style="border: none; border-radius: 0; margin: 0;">
+                    <div class="card-body" style="padding: 0;">
+                      <table class="data-table uom-table">
+                        <thead>
+                          <tr>
+                            <th class="sortable">Name <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                            <th class="sortable">Data asset <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                            <th class="sortable">Heating values <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                            <th class="sortable">Factor <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                            <th class="sortable">Unit <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                            <th class="sortable">Applicability <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                            <th class="sortable">Access <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                            <th style="width: 40px;"></th>
+                          </tr>
+                        </thead>
+                        <tbody id="crossGroupMaterialsTbody">
+                          <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
+                            <td>Aluminum Cans (uncompacted)</td>
+                            <td>Metal waste</td>
+                            <td>Low heating values (LHV)</td>
+                            <td class="numeric">0.001443</td>
+                            <td>yr³/pound</td>
+                            <td>08/2020 - 08/2024</td>
+                            <td><span class="access-tag">Global</span></td>
+                            <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                          </tr>
+                          <tr class="material-row-clickable row-unmapped" onclick="openMaterialDrawer(this)">
+                            <td>Ash</td>
+                            <td><span class="data-asset-unmapped"><i class="fa-solid fa-triangle-exclamation"></i> Unmapped</span></td>
+                            <td>Density</td>
+                            <td class="numeric">0.002000</td>
+                            <td>kWh/pound</td>
+                            <td>08/2020 - 08/2024</td>
+                            <td><span class="access-tag">Global</span></td>
+                            <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                          </tr>
+                          <tr class="material-row-clickable row-unmapped" onclick="openMaterialDrawer(this)">
+                            <td>Asphalt and Road Oil</td>
+                            <td><span class="data-asset-unmapped"><i class="fa-solid fa-triangle-exclamation"></i> Unmapped</span></td>
+                            <td>High heating values (HHV)</td>
+                            <td class="numeric">0.001892</td>
+                            <td>yr³/pound</td>
+                            <td>08/2020 - 08/2024</td>
+                            <td><span class="access-tag">Global</span></td>
+                            <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                          </tr>
+                          <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
+                            <td>Aviation Gasoline</td>
+                            <td>Aviation Gasoline</td>
+                            <td>Low heating values (LHV)</td>
+                            <td class="numeric">0.001552</td>
+                            <td>yr³/pound</td>
+                            <td>08/2020 - 08/2024</td>
+                            <td><span class="access-tag">Global</span></td>
+                            <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                          </tr>
+                          <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
+                            <td>Biodiesel (100%)</td>
+                            <td>Biodiesel</td>
+                            <td>Low heating values (LHV)</td>
+                            <td class="numeric">0.001421</td>
+                            <td>kWh/pound</td>
+                            <td>08/2020 - 08/2024</td>
+                            <td><span class="access-tag">Global</span></td>
+                            <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                          </tr>
+                          <tr class="material-row-clickable row-unmapped" onclick="openMaterialDrawer(this)">
+                            <td>BioETBE</td>
+                            <td><span class="data-asset-unmapped"><i class="fa-solid fa-triangle-exclamation"></i> Unmapped</span></td>
+                            <td>Density</td>
+                            <td class="numeric">0.001398</td>
+                            <td>yr³/pound</td>
+                            <td>08/2020 - 08/2024</td>
+                            <td><span class="access-tag">Global</span></td>
+                            <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                          </tr>
+                          <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
+                            <td>Biomass (wood)</td>
+                            <td>Biomass</td>
+                            <td>High heating values (HHV)</td>
+                            <td class="numeric">0.002103</td>
+                            <td>kWh/pound</td>
+                            <td>08/2020 - 08/2024</td>
+                            <td><span class="access-tag">Global</span></td>
+                            <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                          </tr>
+                          <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
+                            <td>Carbon Dioxide (liquid)</td>
+                            <td>CO₂</td>
+                            <td>Low heating values (LHV)</td>
+                            <td class="numeric">0.000198</td>
+                            <td>yr³/pound</td>
+                            <td>08/2020 - 08/2024</td>
+                            <td><span class="access-tag">Global</span></td>
+                            <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                          </tr>
+                          <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
+                            <td>Coal (anthracite)</td>
+                            <td>Coal</td>
+                            <td>High heating values (HHV)</td>
+                            <td class="numeric">0.003102</td>
+                            <td>kWh/pound</td>
+                            <td>08/2020 - 08/2024</td>
+                            <td><span class="access-tag">Global</span></td>
+                            <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                          </tr>
+                          <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
+                            <td>Diesel</td>
+                            <td>Diesel</td>
+                            <td>Low heating values (LHV)</td>
+                            <td class="numeric">0.001552</td>
+                            <td>yr³/pound</td>
+                            <td>08/2020 - 08/2024</td>
+                            <td><span class="access-tag">Global</span></td>
+                            <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                          </tr>
+                          <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
+                            <td>Ethanol</td>
+                            <td>Ethanol</td>
+                            <td>Density</td>
+                            <td class="numeric">0.001298</td>
+                            <td>kWh/pound</td>
+                            <td>08/2020 - 08/2024</td>
+                            <td><span class="access-tag">Global</span></td>
+                            <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="uom-section collapsed" data-uom-section="epa">
+                <div class="uom-section-header" onclick="toggleUomSection('epa')">
+                  <span>Environmental Protection Agency (EPA) <span class="section-count">7</span></span>
+                  <i class="fa-light fa-chevron-down section-toggle uom-section-toggle"></i>
+                </div>
+                <div class="uom-section-body">
+                  <div class="card" style="border: none; border-radius: 0; margin: 0;">
+                    <div class="card-body" style="padding: 16px; color: var(--ghg-text-muted); font-size: 14px;">
+                      Table content for EPA materials would appear here when expanded.
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="uom-section collapsed" data-uom-section="eia">
+                <div class="uom-section-header" onclick="toggleUomSection('eia')">
+                  <span>Energy Information Administration (EIA) <span class="section-count">6</span></span>
+                  <i class="fa-light fa-chevron-down section-toggle uom-section-toggle"></i>
+                </div>
+                <div class="uom-section-body">
+                  <div class="card" style="border: none; border-radius: 0; margin: 0;">
+                    <div class="card-body" style="padding: 16px; color: var(--ghg-text-muted); font-size: 14px;">
+                      Table content for EIA materials would appear here when expanded.
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -13129,6 +14553,396 @@
       }
     }
     
+    function switchUnitMeasureTab(tabId) {
+      var view = document.getElementById('view-unit-measure');
+      if (!view) return;
+      view.querySelectorAll('.unit-measure-tab').forEach(function(tab) {
+        tab.classList.toggle('active', tab.getAttribute('data-uom-tab') === tabId);
+      });
+      view.querySelectorAll('.unit-measure-panel').forEach(function(panel) {
+        panel.classList.toggle('hidden', panel.getAttribute('data-uom-panel') !== tabId);
+      });
+    }
+    
+    function toggleUomSection(sectionId) {
+      var view = document.getElementById('view-unit-measure');
+      if (!view) return;
+      var section = view.querySelector('.uom-section[data-uom-section="' + sectionId + '"]');
+      if (section) section.classList.toggle('collapsed');
+    }
+    
+    function openMaterialDrawer(rowEl) {
+      var cells = rowEl.cells;
+      if (!cells || cells.length < 7) return;
+      var name = (cells[0] && cells[0].textContent) ? cells[0].textContent.trim() : '—';
+      var dataAsset = (cells[1] && cells[1].textContent) ? cells[1].textContent.trim() : '—';
+      var heatingValue = (cells[2] && cells[2].textContent) ? cells[2].textContent.trim() : '—';
+      var factor = (cells[3] && cells[3].textContent) ? cells[3].textContent.trim() : '—';
+      var unit = (cells[4] && cells[4].textContent) ? cells[4].textContent.trim() : '—';
+      var applicability = (cells[5] && cells[5].textContent) ? cells[5].textContent.trim() : '—';
+      var access = (cells[6] && cells[6].textContent) ? cells[6].textContent.trim() : '—';
+      document.getElementById('materialDrawerTitle').textContent = name;
+      var drawerDataAssetEl = document.getElementById('drawerDataAsset');
+      if (dataAsset === 'Unmapped' || (dataAsset && dataAsset.indexOf('Unmapped') !== -1)) {
+        drawerDataAssetEl.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Unmapped';
+        drawerDataAssetEl.classList.add('data-asset-unmapped');
+      } else {
+        drawerDataAssetEl.textContent = dataAsset || '—';
+        drawerDataAssetEl.classList.remove('data-asset-unmapped');
+      }
+      document.getElementById('drawerHeatingValue').textContent = heatingValue;
+      document.getElementById('drawerAccess').textContent = access;
+      document.getElementById('drawerApplicability').textContent = applicability;
+      document.getElementById('drawerFactor').textContent = factor;
+      document.getElementById('drawerUnit').textContent = unit;
+      document.getElementById('materialDrawerOverlay').classList.add('open');
+    }
+    
+    function closeMaterialDrawer() {
+      document.getElementById('materialDrawerOverlay').classList.remove('open');
+    }
+    
+    var _materialRowMenuRow = null;
+    function toggleMaterialRowMenu(ev, btn) {
+      ev.preventDefault();
+      ev.stopPropagation();
+      var row = btn.closest('tr');
+      var menu = document.getElementById('materialRowMenu');
+      if (menu.classList.contains('open') && _materialRowMenuRow === row) {
+        closeMaterialRowMenu();
+        return;
+      }
+      _materialRowMenuRow = row;
+      var rect = btn.getBoundingClientRect();
+      var padding = 8;
+      menu.style.left = rect.left + 'px';
+      menu.style.top = (rect.bottom + 4) + 'px';
+      menu.classList.add('open');
+      requestAnimationFrame(function() {
+        var menuRect = menu.getBoundingClientRect();
+        var left = parseFloat(menu.style.left) || rect.left;
+        var top = parseFloat(menu.style.top) || rect.bottom + 4;
+        if (left + menuRect.width > window.innerWidth - padding) left = window.innerWidth - menuRect.width - padding;
+        if (left < padding) left = padding;
+        if (top + menuRect.height > window.innerHeight - padding) top = rect.top - menuRect.height - 4;
+        if (top < padding) top = padding;
+        menu.style.left = left + 'px';
+        menu.style.top = top + 'px';
+      });
+      setTimeout(function() {
+        document.addEventListener('click', _closeMaterialRowMenuOnClick);
+      }, 0);
+    }
+    function _closeMaterialRowMenuOnClick() {
+      document.removeEventListener('click', _closeMaterialRowMenuOnClick);
+      closeMaterialRowMenu();
+    }
+    function closeMaterialRowMenu() {
+      document.getElementById('materialRowMenu').classList.remove('open');
+      _materialRowMenuRow = null;
+    }
+    function materialMenuViewDetails() {
+      if (_materialRowMenuRow) openMaterialDrawer(_materialRowMenuRow);
+      closeMaterialRowMenu();
+    }
+    function materialMenuEdit() {
+      var row = _materialRowMenuRow;
+      closeMaterialRowMenu();
+      if (row) openEditMaterialModal(row);
+    }
+    function openEditMaterialModal(rowEl) {
+      var cells = rowEl && rowEl.cells;
+      var name = (cells && cells[0]) ? cells[0].textContent.trim() : '';
+      var factor = (cells && cells[3]) ? cells[3].textContent.trim() : '0.00043';
+      var heatingVal = (cells && cells[2]) ? cells[2].textContent.trim() : 'Low heating value';
+      document.getElementById('editMaterialTitle').textContent = name || 'Edit Material';
+      document.getElementById('editMaterialName').value = name || '';
+      document.getElementById('editMaterialFactor').value = factor || '0.00043';
+      document.getElementById('editMaterialHeatingValue').textContent = heatingVal || 'Low heating value';
+      var descEl = document.getElementById('editMaterialDescription');
+      if (descEl) {
+        descEl.value = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eget est lorem.';
+      }
+      switchEditMaterialTab('overview');
+      var valEl = document.getElementById('dataAssetValue');
+      var hidEl = document.getElementById('dataAssetHidden');
+      if (valEl) { valEl.textContent = 'Select Data Asset'; valEl.classList.remove('selected'); }
+      if (hidEl) hidEl.value = '';
+      document.querySelectorAll('#dataAssetList li.selected').forEach(function(li) { li.classList.remove('selected'); });
+      var dd = document.getElementById('dataAssetDropdown');
+      if (dd) { dd.classList.remove('open'); }
+      var pan = document.getElementById('dataAssetPanel');
+      if (pan) pan.classList.add('hidden');
+      var linkSection = document.getElementById('materialLinkageSection');
+      if (linkSection) linkSection.classList.add('hidden');
+      document.getElementById('editMaterialOverlay').classList.add('open');
+    }
+    function closeEditMaterialModal() {
+      document.getElementById('editMaterialOverlay').classList.remove('open');
+    }
+    function switchEditMaterialTab(tabId) {
+      document.querySelectorAll('.edit-material-tabs button').forEach(function(btn) {
+        btn.classList.toggle('active', btn.getAttribute('data-edit-tab') === tabId);
+      });
+      document.querySelectorAll('.edit-material-panel').forEach(function(panel) {
+        panel.classList.toggle('hidden', panel.getAttribute('data-edit-panel') !== tabId);
+      });
+    }
+    function addDetailsAttachment(type) {
+      var list = document.getElementById('detailsAttachmentsList');
+      if (!list) return;
+      var li = document.createElement('li');
+      li.className = 'details-attachment-item';
+      if (type === 'link') {
+        li.className = 'details-attachment-item details-attachment-link-editable';
+        li.innerHTML = '<i class="fa-light fa-link"></i><div class="details-link-wrapper"><div class="details-link-view"><span class="details-link-display" data-url="" tabindex="0" role="button" onclick="openDetailsLinkInNewTab(this)" onkeydown="if (event.key === \'Enter\' || event.key === \' \') { event.preventDefault(); openDetailsLinkInNewTab(this); }">New link</span><div class="details-link-bubble"><a class="details-link-bubble-open" href="#" target="_blank" rel="noopener" onclick="if (!this.href || this.href.endsWith(\'#\')) event.preventDefault();"><i class="fa-light fa-link"></i> <span class="details-link-bubble-url-text">Open (add URL)</span></a><button type="button" class="details-link-bubble-edit" onclick="detailsLinkEnterEdit(this)">Edit</button></div></div></div><button type="button" class="details-attachment-remove" onclick="removeDetailsAttachment(this)" aria-label="Remove"><i class="fa-light fa-xmark"></i></button>';
+      } else {
+        li.innerHTML = '<span class="details-attachment-file details-attachment-clickable" onclick="openPdfInNewTab(this.closest(\'.details-attachment-item\'))" onkeydown="if (event.key === \'Enter\' || event.key === \' \') { event.preventDefault(); openPdfInNewTab(this.closest(\'.details-attachment-item\')); }" role="button" tabindex="0" title="Open in new tab"><i class="fa-light fa-file-pdf"></i> <input type="file" class="details-attachment-file-input" accept=".pdf" aria-label="Choose PDF" onclick="event.stopPropagation()"> New PDF</span> <button type="button" class="details-attachment-remove" onclick="removeDetailsAttachment(this)" aria-label="Remove"><i class="fa-light fa-xmark"></i></button>';
+      }
+      list.appendChild(li);
+    }
+    function removeDetailsAttachment(btn) {
+      if (!confirm('Remove this document from supporting documentation? You may lose access to it.')) return;
+      var li = btn && btn.closest('.details-attachment-item');
+      if (li) li.remove();
+    }
+    function truncateUrlForDisplay(url, maxLen) {
+      if (!url) return '';
+      maxLen = maxLen || 42;
+      try {
+        var u = url.replace(/^https?:\/\//i, '');
+        if (u.length <= maxLen) return u;
+        return u.slice(0, maxLen - 3) + '...';
+      } catch (e) { return url; }
+    }
+    var currentEditLinkWrapper = null;
+    function detailsLinkEnterEdit(btn) {
+      var wrapper = btn.closest('.details-link-wrapper');
+      if (!wrapper) return;
+      var display = wrapper.querySelector('.details-link-display');
+      if (!display) return;
+      currentEditLinkWrapper = wrapper;
+      document.getElementById('editLinkUrlInput').value = display.getAttribute('data-url') || '';
+      document.getElementById('editLinkDisplayInput').value = (display.textContent || '').trim() || '';
+      document.getElementById('editLinkBackdrop').classList.remove('hidden');
+    }
+    function closeEditLinkModal() {
+      document.getElementById('editLinkBackdrop').classList.add('hidden');
+      currentEditLinkWrapper = null;
+    }
+    function saveEditLinkModal() {
+      if (!currentEditLinkWrapper) { closeEditLinkModal(); return; }
+      var url = (document.getElementById('editLinkUrlInput').value || '').trim();
+      var label = (document.getElementById('editLinkDisplayInput').value || '').trim() || 'Link';
+      var display = currentEditLinkWrapper.querySelector('.details-link-display');
+      var bubbleOpen = currentEditLinkWrapper.querySelector('.details-link-bubble-open');
+      if (display) {
+        display.setAttribute('data-url', url);
+        display.textContent = label;
+      }
+      if (bubbleOpen) {
+        bubbleOpen.href = url || '#';
+        var urlText = bubbleOpen.querySelector('.details-link-bubble-url-text');
+        if (urlText) urlText.textContent = 'Open ' + truncateUrlForDisplay(url);
+      }
+      closeEditLinkModal();
+    }
+    function openDetailsLinkInNewTab(displayEl) {
+      var url = (displayEl.getAttribute('data-url') || '').trim();
+      if (url && url !== '#') window.open(url, '_blank', 'noopener,noreferrer');
+    }
+    function openPdfInNewTab(itemEl) {
+      var fileInput = itemEl.querySelector('input[type="file"]');
+      if (fileInput && fileInput.files && fileInput.files[0]) {
+        var url = URL.createObjectURL(fileInput.files[0]);
+        window.open(url, '_blank', 'noopener,noreferrer');
+        return;
+      }
+      var span = itemEl.querySelector('.details-attachment-file');
+      var pdfUrl = span && span.getAttribute('data-pdf-url');
+      if (pdfUrl) window.open(pdfUrl, '_blank', 'noopener,noreferrer');
+    }
+    function getMockDocumentHtml(docTitle) {
+      var title = docTitle || 'Document';
+      return '<!DOCTYPE html><html><head><meta charset="utf-8"><style>body{font-family:Georgia,serif;margin:40px auto;max-width:720px;padding:0 24px;line-height:1.6;color:#333;}h1{font-size:1.75rem;border-bottom:1px solid #ddd;padding-bottom:8px;} .meta{color:#666;font-size:0.9rem;margin:16px 0 24px;}p{margin:0 0 1em;}</style></head><body><h1>' + title.replace(/</g, '&lt;').replace(/>/g, '&gt;') + '</h1><p class="meta">Supporting documentation · Last updated October 2024</p><p>This document provides the methodology and conversion factors used for greenhouse gas emissions reporting. The data is sourced from official government publications and is subject to annual review.</p><p>Conversion factors are applied according to the chosen reporting standard (e.g. GHG Protocol, ISO 14064) and the selected global warming potential (GWP) version. Ensure your active year and regionality settings align with the source publication.</p><p>For questions regarding this material or its application, refer to the Version URL and supporting links provided in the material details.</p></body></html>';
+    }
+    function openDetailsAttachmentPreview(itemEl) {
+      if (!itemEl) return;
+      var modal = document.getElementById('documentPreviewModal');
+      var backdrop = document.getElementById('documentPreviewBackdrop');
+      var titleEl = document.getElementById('documentPreviewTitle');
+      var frameWrap = document.getElementById('documentPreviewFrame');
+      var emptyEl = document.getElementById('documentPreviewEmpty');
+      if (!modal || !backdrop || !titleEl || !frameWrap || !emptyEl) return;
+      var wrapper = itemEl.querySelector('.details-link-wrapper');
+      var urlInput = itemEl.querySelector('.details-link-url-input');
+      var labelInput = itemEl.querySelector('input[type="text"]');
+      var display = wrapper ? wrapper.querySelector('.details-link-display') : null;
+      var fileInput = itemEl.querySelector('input[type="file"]');
+      var fileLabel = itemEl.querySelector('.details-attachment-file');
+      var title = '';
+      if (wrapper) {
+        var edit = wrapper.querySelector('.details-link-edit');
+        if (edit && !edit.classList.contains('hidden') && urlInput) title = labelInput ? labelInput.value.trim() || 'Link' : 'Link';
+        else if (display) title = (display.textContent || '').trim() || 'Link';
+      } else if (urlInput && labelInput) {
+        title = labelInput.value.trim() || 'Link';
+      } else if (fileInput && fileInput.files && fileInput.files[0]) {
+        title = fileInput.files[0].name || 'PDF';
+      } else if (fileLabel) {
+        title = (fileLabel.textContent || '').trim() || 'PDF';
+      }
+      if (!title && wrapper && display) title = (display.textContent || '').trim() || 'Link';
+      title = title || 'Document preview';
+      titleEl.textContent = title;
+      emptyEl.style.display = 'none';
+      frameWrap.style.display = 'block';
+      var iframe = frameWrap.querySelector('iframe');
+      if (iframe) {
+        iframe.src = '';
+        iframe.srcdoc = getMockDocumentHtml(title);
+      }
+      backdrop.classList.remove('hidden');
+      modal.classList.remove('hidden');
+    }
+    function closeDetailsAttachmentPreview() {
+      var modal = document.getElementById('documentPreviewModal');
+      var backdrop = document.getElementById('documentPreviewBackdrop');
+      var frameWrap = document.getElementById('documentPreviewFrame');
+      if (backdrop) backdrop.classList.add('hidden');
+      if (modal) modal.classList.add('hidden');
+      var iframe = frameWrap && frameWrap.querySelector('iframe');
+      if (iframe) {
+        if (iframe.src && iframe.src.indexOf('blob:') === 0) URL.revokeObjectURL(iframe.src);
+        iframe.src = '';
+        iframe.srcdoc = '';
+      }
+    }
+    function saveEditMaterial() {
+      closeEditMaterialModal();
+      if (typeof showToast === 'function') showToast('Changes saved (prototype)', 'success');
+    }
+    
+    function toggleDataAssetDropdown() {
+      var wrap = document.getElementById('dataAssetDropdown');
+      var panel = document.getElementById('dataAssetPanel');
+      if (!wrap || !panel) return;
+      var isOpen = wrap.classList.toggle('open');
+      panel.classList.toggle('hidden', !isOpen);
+      if (isOpen) {
+        document.getElementById('dataAssetSearch').value = '';
+        filterDataAssetOptions();
+        setTimeout(function() { document.addEventListener('click', _closeDataAssetDropdownOnClick); }, 0);
+      } else {
+        document.removeEventListener('click', _closeDataAssetDropdownOnClick);
+      }
+    }
+    function closeDataAssetDropdown() {
+      var wrap = document.getElementById('dataAssetDropdown');
+      if (wrap) wrap.classList.remove('open');
+      var panel = document.getElementById('dataAssetPanel');
+      if (panel) panel.classList.add('hidden');
+      document.removeEventListener('click', _closeDataAssetDropdownOnClick);
+    }
+    function _closeDataAssetDropdownOnClick(e) {
+      var wrap = document.getElementById('dataAssetDropdown');
+      if (wrap && !wrap.contains(e.target)) closeDataAssetDropdown();
+    }
+    function filterDataAssetOptions() {
+      var q = (document.getElementById('dataAssetSearch').value || '').trim().toLowerCase();
+      var list = document.getElementById('dataAssetList');
+      if (!list) return;
+      var items = list.querySelectorAll('li');
+      items.forEach(function(li) {
+        var text = (li.getAttribute('data-value') || li.textContent || '').toLowerCase();
+        li.classList.toggle('filtered-out', q && text.indexOf(q) === -1);
+      });
+    }
+    var materialLinkageDefault = {};
+    var materialLinkageData = {
+      'Biodiesel (Commodity)': [
+        { name: 'Biodiesel (ME)', source: 'UK Government Department of Environment, Food & Rural Affairs (DEFRA).', regionality: 'EU', effectiveDates: '01/01/2024', status: 'Active' },
+        { name: 'Biodiesel (UO)', source: 'UK Government Department of Environment, Food & Rural Affairs (DEFRA).', regionality: 'EU', effectiveDates: '01/01/2024', status: 'Active' },
+        { name: 'Standard Biodiesel', source: 'UK Government Department of Environment, Food & Rural Affairs (DEFRA).', regionality: 'EU', effectiveDates: '01/01/2024', status: 'Active' }
+      ],
+      'Asphalt (Commodity)': [
+        { name: 'Asphalt (Road)', source: 'UK Government Department of Environment, Food & Rural Affairs (DEFRA).', regionality: 'EU', effectiveDates: '01/01/2024', status: 'Active' },
+        { name: 'Asphalt (General)', source: 'UK Government Department of Environment, Food & Rural Affairs (DEFRA).', regionality: 'EU', effectiveDates: '01/01/2024', status: 'Active' }
+      ],
+      'Aviation Gasoline (Commodity)': [
+        { name: 'Aviation Gasoline (100LL)', source: 'UK Government Department of Environment, Food & Rural Affairs (DEFRA).', regionality: 'EU', effectiveDates: '01/01/2024', status: 'Active' }
+      ],
+      'Biogasoline (Commodity)': [
+        { name: 'Biogasoline (E10)', source: 'UK Government Department of Environment, Food & Rural Affairs (DEFRA).', regionality: 'EU', effectiveDates: '01/01/2024', status: 'Active' }
+      ]
+    };
+    function setMaterialLinkageDefault(asset, materialName) {
+      materialLinkageDefault[asset] = materialName;
+      updateMaterialLinkage(asset);
+    }
+    function setMaterialLinkageDefaultFromBtn(btn) {
+      var asset = btn.getAttribute('data-asset');
+      var material = btn.getAttribute('data-material');
+      if (asset && material) setMaterialLinkageDefault(asset, material);
+    }
+    function escapeAttr(s) {
+      if (!s) return '';
+      return String(s)
+        .replace(/&/g, '&amp;')
+        .replace(/"/g, '&quot;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+    }
+    function updateMaterialLinkage(selectedAsset) {
+      var section = document.getElementById('materialLinkageSection');
+      var titleEl = document.getElementById('materialLinkageTitle');
+      var tbody = document.getElementById('materialLinkageTbody');
+      if (!section || !titleEl || !tbody) return;
+      var rows = materialLinkageData[selectedAsset] || [];
+      var currentDefault = materialLinkageDefault[selectedAsset];
+      var currentMaterialName = (document.getElementById('editMaterialTitle') && document.getElementById('editMaterialTitle').textContent) ? document.getElementById('editMaterialTitle').textContent.trim() : '';
+      var hasCurrentRow = currentMaterialName.length > 0;
+      var displayRows = [];
+      if (hasCurrentRow) {
+        displayRows.push({ name: currentMaterialName, source: '—', regionality: '—', effectiveDates: '—', status: '—', isCurrentEditing: true });
+      }
+      rows.forEach(function(r) {
+        if (r.name !== currentMaterialName) displayRows.push({ name: r.name, source: r.source, regionality: r.regionality, effectiveDates: r.effectiveDates, status: r.status, isCurrentEditing: false });
+      });
+      titleEl.textContent = 'Material linkage (' + displayRows.length + ')';
+      tbody.innerHTML = '';
+      var radioName = 'material-default-' + escapeAttr(selectedAsset).replace(/[^a-zA-Z0-9-]/g, '_');
+      displayRows.forEach(function(r) {
+        var isDefault = r.name === currentDefault;
+        var tr = document.createElement('tr');
+        var nameAttr = escapeAttr(r.name);
+        var radioCell = '<td class="default-radio-cell"><input type="radio" name="' + radioName + '" value="' + nameAttr + '" ' + (isDefault ? 'checked' : '') + ' data-asset="' + escapeAttr(selectedAsset) + '" data-material="' + nameAttr + '" onclick="setMaterialLinkageDefaultFromBtn(this)" aria-label="Set as default material"></td>';
+        var nameCell = '<td><div class="material-name-cell"><span>' + escapeHtml(r.name) + '</span>' + (r.isCurrentEditing ? ' <span class="material-linkage-current-tag">Currently editing</span>' : '') + '</div></td>';
+        tr.innerHTML = radioCell + nameCell + '<td>' + escapeHtml(r.source) + '</td><td>' + escapeHtml(r.regionality) + '</td><td>' + escapeHtml(r.effectiveDates) + '</td><td>' + (r.isCurrentEditing ? '—' : '<span class="status-pill active">' + escapeHtml(r.status) + '</span>') + '</td>';
+        tbody.appendChild(tr);
+      });
+      section.classList.toggle('hidden', displayRows.length === 0);
+    }
+    function escapeHtml(text) {
+      if (!text) return '';
+      var div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+    function selectDataAsset(value, el) {
+      document.getElementById('dataAssetValue').textContent = value;
+      document.getElementById('dataAssetValue').classList.add('selected');
+      document.getElementById('dataAssetHidden').value = value;
+      document.getElementById('dataAssetDropdown').querySelectorAll('.data-asset-list li.selected').forEach(function(li) { li.classList.remove('selected'); });
+      if (el) el.classList.add('selected');
+      closeDataAssetDropdown();
+      updateMaterialLinkage(value);
+    }
+    function materialMenuDelete() {
+      closeMaterialRowMenu();
+      if (typeof showToast === 'function') showToast('Delete Material (prototype)', 'info');
+    }
+    
     document.querySelectorAll('.submenu-item[data-view]').forEach(item => {
       item.addEventListener('click', (e) => {
         e.preventDefault();
@@ -15983,5 +17797,309 @@
     console.log('GHG Calculation Engine prototype initialized');
   </script>
   <div id="ef-vendors-global-tooltip" aria-hidden="true">Only one of the options can be active at a time in this section.</div>
+  
+  <!-- Edit Material full-page modal -->
+  <div class="edit-material-overlay" id="editMaterialOverlay">
+    <button type="button" class="edit-material-close-btn" onclick="closeEditMaterialModal()" aria-label="Close"><i class="fa-light fa-xmark"></i></button>
+    <div class="edit-material-content">
+      <h1 class="edit-material-title" id="editMaterialTitle">—</h1>
+      <p class="edit-material-desc">This page enables you to refine configurations and define additional values for this Material.</p>
+      <div class="edit-material-tabs">
+        <button type="button" class="active" data-edit-tab="overview" onclick="switchEditMaterialTab('overview')">Overview</button>
+        <button type="button" data-edit-tab="details" onclick="switchEditMaterialTab('details')">Details</button>
+        <button type="button" data-edit-tab="asset-mappings" onclick="switchEditMaterialTab('asset-mappings')">Asset Mappings</button>
+      </div>
+      <div class="edit-material-panel" data-edit-panel="overview">
+        <form class="edit-material-form" onsubmit="return false;">
+          <div class="form-group">
+            <label>Name <span class="required">*</span></label>
+            <input type="text" class="form-input" id="editMaterialName" value="" required>
+          </div>
+          <div class="form-group">
+            <label>Description</label>
+            <textarea class="form-input" id="editMaterialDescription" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eget est lorem." maxlength="280"></textarea>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Start date <span class="required">*</span></label>
+              <input type="text" class="form-input" id="editMaterialStartDate" value="08/2020" placeholder="MM/YYYY">
+            </div>
+            <div class="form-group">
+              <label>End date <span class="required">*</span></label>
+              <input type="text" class="form-input" id="editMaterialEndDate" value="08/2024" placeholder="MM/YYYY">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Factor <span class="required">*</span></label>
+            <input type="text" class="form-input" id="editMaterialFactor" value="0.00043">
+          </div>
+          <div class="form-group">
+            <label>Numerator <span class="required">*</span></label>
+            <div class="unit-pair">
+              <select class="form-select" id="editMaterialNumGroup">
+                <option>Mass</option>
+                <option>Volume</option>
+                <option>Area</option>
+                <option>Energy</option>
+              </select>
+              <select class="form-select" id="editMaterialNumUnit">
+                <option>Kilogram</option>
+                <option>Gram</option>
+                <option>Metric ton</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Denominator <span class="required">*</span></label>
+            <div class="unit-pair">
+              <select class="form-select" id="editMaterialDenomGroup">
+                <option>Volume</option>
+                <option>Mass</option>
+                <option>Area</option>
+              </select>
+              <select class="form-select" id="editMaterialDenomUnit">
+                <option>Liters</option>
+                <option>Cubic meter</option>
+                <option>Milliliter</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Heating value</label>
+            <div class="readonly-value" id="editMaterialHeatingValue">Low heating value</div>
+          </div>
+        </div>
+        <div class="edit-material-panel hidden edit-material-details-panel" data-edit-panel="details">
+          <div class="edit-material-details">
+            <div class="details-row">
+              <label class="details-label">Version URL</label>
+              <div class="details-value">
+                <input type="url" class="form-input details-input" id="editDetailsVersionUrl" placeholder="https://..." value="https://www.gov.uk/government/collections/government-conversion-factors-for-company-reporting">
+              </div>
+            </div>
+            <div class="details-row">
+              <label class="details-label">Supporting documentation</label>
+              <div class="details-value">
+                <ul class="details-attachments-list" id="detailsAttachmentsList">
+                  <li class="details-attachment-item details-attachment-link-editable">
+                    <i class="fa-light fa-link"></i>
+                    <div class="details-link-wrapper">
+                      <div class="details-link-view">
+                        <span class="details-link-display" data-url="https://www.gov.uk/example/defra-factors" tabindex="0" role="button" onclick="openDetailsLinkInNewTab(this)" onkeydown="if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openDetailsLinkInNewTab(this); }">Supporting Evidence for DEFRA Factors</span>
+                        <div class="details-link-bubble">
+                          <a class="details-link-bubble-open" href="https://www.gov.uk/example/defra-factors" target="_blank" rel="noopener" onclick="if (!this.href || this.href.endsWith('#')) event.preventDefault();"><i class="fa-light fa-link"></i> <span class="details-link-bubble-url-text">Open gov.uk/example/defra-factors</span></a>
+                          <button type="button" class="details-link-bubble-edit" onclick="detailsLinkEnterEdit(this)">Edit</button>
+                        </div>
+                      </div>
+                    </div>
+                    <button type="button" class="details-attachment-remove" onclick="removeDetailsAttachment(this)" aria-label="Remove"><i class="fa-light fa-xmark"></i></button>
+                  </li>
+                  <li class="details-attachment-item">
+                    <span class="details-attachment-file details-attachment-clickable" data-pdf-url="https://www.gov.uk/government/publications/guidance-on-measuring-and-reporting-greenhouse-gas-emissions" onclick="openPdfInNewTab(this.closest('.details-attachment-item'))" onkeydown="if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openPdfInNewTab(this.closest('.details-attachment-item')); }" role="button" tabindex="0" title="Open in new tab"><i class="fa-light fa-file-pdf"></i> DEFRA Conversion Factors 2024.pdf</span>
+                    <button type="button" class="details-attachment-remove" onclick="removeDetailsAttachment(this)" aria-label="Remove"><i class="fa-light fa-xmark"></i></button>
+                  </li>
+                  <li class="details-attachment-item">
+                    <span class="details-attachment-file details-attachment-clickable" data-pdf-url="https://www.gov.uk/government/publications/uk-government-methodology-note" onclick="openPdfInNewTab(this.closest('.details-attachment-item'))" onkeydown="if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openPdfInNewTab(this.closest('.details-attachment-item')); }" role="button" tabindex="0" title="Open in new tab"><i class="fa-light fa-file-pdf"></i> UK Government Methodology Note.pdf</span>
+                    <button type="button" class="details-attachment-remove" onclick="removeDetailsAttachment(this)" aria-label="Remove"><i class="fa-light fa-xmark"></i></button>
+                  </li>
+                  <li class="details-attachment-item">
+                    <span class="details-attachment-file details-attachment-clickable" data-pdf-url="https://www.gov.uk/government/collections/emission-factors-summary" onclick="openPdfInNewTab(this.closest('.details-attachment-item'))" onkeydown="if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openPdfInNewTab(this.closest('.details-attachment-item')); }" role="button" tabindex="0" title="Open in new tab"><i class="fa-light fa-file-pdf"></i> Emission Factors Summary.pdf</span>
+                    <button type="button" class="details-attachment-remove" onclick="removeDetailsAttachment(this)" aria-label="Remove"><i class="fa-light fa-xmark"></i></button>
+                  </li>
+                </ul>
+                <div class="details-attachment-actions">
+                  <button type="button" class="btn btn-secondary btn-sm" onclick="addDetailsAttachment('link')"><i class="fa-light fa-link"></i> Add link</button>
+                  <button type="button" class="btn btn-secondary btn-sm" onclick="addDetailsAttachment('file')"><i class="fa-light fa-file-arrow-up"></i> Add file</button>
+                </div>
+              </div>
+            </div>
+            <div class="details-row">
+              <label class="details-label">Notes</label>
+              <div class="details-value">
+                <textarea class="form-input details-textarea" id="editDetailsNotes" rows="4" placeholder="Enter notes...">The Department for Environmental, Food and Rural Affairs provides the official UK greenhouse gas conversion factors for company reporting.</textarea>
+              </div>
+            </div>
+            <div class="details-row">
+              <label class="details-label">Publish date</label>
+              <div class="details-value">
+                <input type="datetime-local" class="form-input details-input" id="editDetailsPublishDate" value="2024-10-30T20:43">
+              </div>
+            </div>
+            <div class="details-row">
+              <label class="details-label">Active year</label>
+              <div class="details-value">
+                <input type="number" class="form-input details-input details-input-narrow" id="editDetailsActiveYear" min="1990" max="2100" value="2024" placeholder="e.g. 2024">
+              </div>
+            </div>
+            <div class="details-row">
+              <label class="details-label">GHG Pollutants</label>
+              <div class="details-value">
+                <input type="text" class="form-input details-input" id="editDetailsGhgPollutants" value="CO₂, CH₄, N₂O, HFC, PFC, SF₆, NF₃" placeholder="e.g. CO₂, CH₄, N₂O">
+              </div>
+            </div>
+            <div class="details-row">
+              <label class="details-label">GWP Version</label>
+              <div class="details-value">
+                <select class="form-select details-pill-select" id="editDetailsGwpVersion">
+                  <option value="AR4">AR4</option>
+                  <option value="AR5" selected>AR5</option>
+                  <option value="AR6">AR6</option>
+                </select>
+              </div>
+            </div>
+            <div class="details-row">
+              <label class="details-label">Access type</label>
+              <div class="details-value">
+                <select class="form-select details-pill-select" id="editDetailsAccessType">
+                  <option value="Public" selected>Public</option>
+                  <option value="Private">Private</option>
+                  <option value="Internal">Internal</option>
+                </select>
+              </div>
+            </div>
+            <div class="details-row">
+              <label class="details-label">Regionality type</label>
+              <div class="details-value">
+                <input type="text" class="form-input details-input" id="editDetailsRegionalityType" value="National (UK)" placeholder="e.g. National (UK)">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="edit-material-panel hidden" data-edit-panel="asset-mappings">
+          <div class="form-group">
+            <label>Data Asset <span class="required">*</span></label>
+            <div class="data-asset-dropdown" id="dataAssetDropdown">
+              <button type="button" class="data-asset-trigger" id="dataAssetTrigger" onclick="toggleDataAssetDropdown()">
+                <span class="data-asset-value" id="dataAssetValue">Select Data Asset</span>
+                <i class="fa-light fa-chevron-down data-asset-chevron"></i>
+              </button>
+              <div class="data-asset-panel hidden" id="dataAssetPanel">
+                <div class="search-input-wrapper" style="margin: 8px;">
+                  <i class="fa-light fa-search"></i>
+                  <input type="text" class="form-input" id="dataAssetSearch" placeholder="Search" oninput="filterDataAssetOptions()">
+                </div>
+                <ul class="data-asset-list" id="dataAssetList">
+                  <li data-value="Asphalt (Commodity)" onclick="selectDataAsset('Asphalt (Commodity)', this)">Asphalt (Commodity)</li>
+                  <li data-value="Aviation Gasoline (Commodity)" onclick="selectDataAsset('Aviation Gasoline (Commodity)', this)">Aviation Gasoline (Commodity)</li>
+                  <li data-value="Biogasoline (Commodity)" onclick="selectDataAsset('Biogasoline (Commodity)', this)">Biogasoline (Commodity)</li>
+                  <li data-value="Biodiesel (Commodity)" onclick="selectDataAsset('Biodiesel (Commodity)', this)">Biodiesel (Commodity)</li>
+                </ul>
+              </div>
+            </div>
+            <input type="hidden" id="dataAssetHidden" value="">
+          </div>
+          <div class="material-linkage-section hidden" id="materialLinkageSection">
+            <h3 class="material-linkage-title" id="materialLinkageTitle">Material linkage (0)</h3>
+            <div class="card" style="margin-top: 12px;">
+              <div class="card-body" style="padding: 0;">
+                <table class="data-table material-linkage-table">
+                  <thead>
+                    <tr>
+                      <th class="material-linkage-default-th" title="The default material is used when this data asset is linked and no specific material is chosen.">Default <i class="fa-light fa-circle-info" aria-hidden="true"></i></th>
+                      <th class="sortable">Material name <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                      <th class="sortable">Source <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                      <th class="sortable">Regionality <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                      <th class="sortable">Effective dates <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                      <th class="sortable">Status <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                    </tr>
+                  </thead>
+                  <tbody id="materialLinkageTbody">
+                    <!-- Populated by JS when a data asset is selected -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="edit-material-actions">
+          <button type="button" class="btn btn-primary" onclick="saveEditMaterial()">Save</button>
+          <button type="button" class="btn btn-secondary" onclick="closeEditMaterialModal()">Discard changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Document preview modal (Supporting documentation) -->
+  <div class="document-preview-backdrop hidden" id="documentPreviewBackdrop" onclick="if (event.target === this) closeDetailsAttachmentPreview()">
+    <div class="document-preview-modal" id="documentPreviewModal" onclick="event.stopPropagation()">
+      <div class="document-preview-header">
+        <h2 class="document-preview-title" id="documentPreviewTitle">Document preview</h2>
+        <button type="button" class="document-preview-close" onclick="closeDetailsAttachmentPreview()" aria-label="Close"><i class="fa-light fa-xmark"></i></button>
+      </div>
+      <div class="document-preview-body">
+        <div id="documentPreviewFrame" class="document-preview-iframe-wrap" style="display: none;">
+          <iframe title="Document preview"></iframe>
+        </div>
+        <div id="documentPreviewEmpty" class="document-preview-empty">No preview available.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit link modal -->
+  <div class="edit-link-backdrop hidden" id="editLinkBackdrop" onclick="if (event.target === this) closeEditLinkModal()">
+    <div class="edit-link-modal" id="editLinkModal" onclick="event.stopPropagation()">
+      <div class="edit-link-header">
+        <h2 class="edit-link-title">Edit link</h2>
+        <button type="button" class="edit-link-close" onclick="closeEditLinkModal()" aria-label="Close"><i class="fa-light fa-xmark"></i></button>
+      </div>
+      <div class="edit-link-body">
+        <label class="edit-link-label">URL</label>
+        <input type="url" class="form-input edit-link-input" id="editLinkUrlInput" placeholder="https://...">
+        <label class="edit-link-label">Display text</label>
+        <input type="text" class="form-input edit-link-input" id="editLinkDisplayInput" placeholder="Display text">
+      </div>
+      <div class="edit-link-footer">
+        <button type="button" class="btn edit-link-save-btn" onclick="saveEditLinkModal()">Save</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Row context menu (Cross-group conversions materials table) -->
+  <ul class="material-row-menu" id="materialRowMenu">
+    <li><button type="button" class="menu-item-view" onclick="materialMenuViewDetails()"><span>View details</span><i class="fa-light fa-eye menu-item-icon"></i></button></li>
+    <li><button type="button" class="menu-item-edit" onclick="materialMenuEdit()"><span>Edit Material</span><i class="fa-light fa-pencil menu-item-icon"></i></button></li>
+    <li><button type="button" class="menu-item-delete" onclick="materialMenuDelete()"><span>Delete Material</span><i class="fa-light fa-trash menu-item-icon"></i></button></li>
+  </ul>
+  
+  <!-- Material details side drawer (Cross-group conversions) -->
+  <div class="material-drawer-overlay" id="materialDrawerOverlay" onclick="closeMaterialDrawer()">
+    <div class="material-drawer" id="materialDrawer" onclick="event.stopPropagation()">
+      <div class="material-drawer-header">
+        <button type="button" class="drawer-close" onclick="closeMaterialDrawer()" aria-label="Close"><i class="fa-light fa-xmark"></i></button>
+        <div class="drawer-subtitle">Material details</div>
+        <h2 class="drawer-title" id="materialDrawerTitle">—</h2>
+      </div>
+      <div class="material-drawer-body">
+        <section class="material-drawer-section">
+          <h3>Overview <i class="fa-light fa-pencil section-edit" title="Edit"></i></h3>
+          <div class="material-drawer-detail-row"><span class="detail-label">Data asset</span><span class="detail-value" id="drawerDataAsset">—</span></div>
+          <div class="material-drawer-detail-row"><span class="detail-label">Heating value</span><span class="detail-value" id="drawerHeatingValue">—</span></div>
+          <div class="material-drawer-detail-row"><span class="detail-label">Description</span><span class="detail-value" id="drawerDescription">The final result of emissions based on selected methodology and emission factors.</span></div>
+          <div class="material-drawer-detail-row"><span class="detail-label">Access</span><span class="detail-value" id="drawerAccess">—</span></div>
+          <div class="material-drawer-detail-row"><span class="detail-label">Applicability</span><span class="detail-value" id="drawerApplicability">—</span></div>
+          <div class="material-drawer-detail-row"><span class="detail-label">Factor</span><span class="detail-value" id="drawerFactorUnit"><span id="drawerFactor">—</span> <span id="drawerUnit" style="margin-left: 8px;">—</span></span></div>
+        </section>
+        <section class="material-drawer-section">
+          <h3>Details <i class="fa-light fa-pencil section-edit" title="Edit"></i></h3>
+          <div class="material-drawer-detail-row"><span class="detail-label">Source</span><span class="detail-value"><a href="#">UK Government Department of Environment, Food &amp; Rural Affairs (DEFRA)</a></span></div>
+          <div class="material-drawer-detail-row"><span class="detail-label">Supporting documentation</span><span class="detail-value"></span></div>
+          <ul class="material-drawer-doc-list">
+            <li><a href="#"><i class="fa-light fa-link"></i> Lower Heating Value</a></li>
+            <li><a href="#"><i class="fa-light fa-link"></i> PDF_1</a></li>
+            <li><a href="#"><i class="fa-light fa-link"></i> Another example of a pdf</a></li>
+            <li><a href="#"><i class="fa-light fa-link"></i> PDF_1_10/2024</a></li>
+            <li><a href="#"><i class="fa-light fa-link"></i> PDF_1_10/2024</a></li>
+            <li class="show-more">Show more (5)</li>
+          </ul>
+        </section>
+        <section class="material-drawer-section">
+          <h3>History</h3>
+          <div class="material-drawer-detail-row"><span class="detail-label">Date created</span><span class="detail-value" id="drawerDateCreated">29 Sep, 2025 03:45 PM - EST</span></div>
+          <div class="material-drawer-detail-row"><span class="detail-label">Created by</span><span class="detail-value" id="drawerCreatedBy">Vinay Kacham</span></div>
+          <div class="material-drawer-detail-row"><span class="detail-label">Last updated</span><span class="detail-value" id="drawerLastUpdated">30 Nov, 2025 03:45 PM - EST by Vinay Kacham</span></div>
+        </section>
+      </div>
+    </div>
+  </div>
 </body>
 </html>

@@ -26,21 +26,30 @@ Styled with [Doodle CSS](https://github.com/chr15m/DoodleCSS) for a hand-drawn w
 
 ## Preview locally
 
-**Option 1 – Python (recommended if `npm start` fails):**
+**Option 1 – Python (default):**
 
 ```bash
-cd /path/to/vigilant-invention
-python3 -m http.server 3333
+npm start
 ```
 
-Or with npm: `npm run start:py`
+Or directly: `python3 -m http.server 3333`
+
+If you see **"Address already in use"**, another process is using port 3333. Either stop it or use a different port:
+
+```bash
+python3 -m http.server 3334
+```
+
+Then open **http://localhost:3334** (and **http://localhost:3334/prototypes/create-new-inventory/** for the Create New Inventory prototype).
 
 **Option 2 – Node (serve):**
 
 ```bash
 npm install
-npm start
+npm run serve
 ```
+
+*(If `npm run serve` fails with a system error, use `npm start` instead.)*
 
 Then open in your browser:
 
