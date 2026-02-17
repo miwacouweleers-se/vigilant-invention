@@ -508,6 +508,9 @@
       font-family: var(--font-mono);
       text-align: right;
     }
+    .data-table thead th.numeric {
+      text-align: right;
+    }
     
     /* ============================================== */
     /* Sortable Columns                               */
@@ -635,6 +638,60 @@
     }
     .add-unit-link:hover {
       color: var(--ghg-primary);
+    }
+    .add-unit-input-row.hidden {
+      display: none;
+    }
+    .add-unit-input-row td,
+    .uom-table tr.uom-row-editing td {
+      vertical-align: top;
+      padding: 10px 12px;
+    }
+    .add-unit-input-row .add-unit-input,
+    .uom-table tr.uom-row-editing .add-unit-input {
+      width: 100%;
+      min-width: 0;
+      padding: 8px 10px;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+    .add-unit-input-row .add-unit-select,
+    .uom-table tr.uom-row-editing .add-unit-select {
+      min-width: 140px;
+    }
+    .add-unit-input-row .add-unit-factor,
+    .uom-table tr.uom-row-editing .add-unit-factor {
+      text-align: right;
+      font-family: var(--font-mono);
+    }
+    .add-unit-base-label {
+      display: block;
+      margin-top: 8px;
+      margin-bottom: 0;
+      font-size: 13px;
+      color: var(--ghg-text-secondary);
+      font-weight: normal;
+      cursor: pointer;
+    }
+    .add-unit-base-label input {
+      margin-right: 6px;
+    }
+    .uom-table tr.uom-row-editing .add-unit-base-label {
+      display: block;
+      margin-top: 8px;
+    }
+    .add-unit-auto-meta {
+      font-size: 13px;
+      color: var(--ghg-text-muted);
+    }
+    .add-unit-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: flex-end;
+      margin-top: 16px;
+    }
+    .add-unit-actions.hidden {
+      display: none;
     }
     .btn-icon {
       padding: 6px 10px;
@@ -10934,49 +10991,72 @@
                         <th class="sortable">Abbreviation <i class="fa-light fa-chevron-down sort-icon"></i></th>
                         <th class="sortable">Source <i class="fa-light fa-chevron-down sort-icon"></i></th>
                         <th class="sortable">Access <i class="fa-light fa-chevron-down sort-icon"></i></th>
-                        <th class="sortable">Factor <i class="fa-light fa-circle-info sort-icon" title="Conversion factor"></i><i class="fa-light fa-chevron-down sort-icon"></i></th>
+                        <th class="sortable numeric">Factor <i class="fa-light fa-circle-info sort-icon" title="Conversion factor"></i><i class="fa-light fa-chevron-down sort-icon"></i></th>
                         <th class="sortable">Last updated <i class="fa-light fa-chevron-down sort-icon"></i></th>
                         <th style="width: 40px;"></th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
+                      <tr class="uom-data-row">
                         <td>
                           <span class="source-unit-name">Square foot</span>
-                          <span class="source-unit-sub">Base Value</span>
+                          <span class="source-unit-sub">Base unit</span>
                         </td>
                         <td>sq ft</td>
                         <td>US Customary / Imperial</td>
                         <td><span class="access-tag">Custom</span></td>
                         <td class="numeric">1</td>
-                        <td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/26 at 10:30 CST</span></td>
-                        <td><button type="button" class="btn-ghost btn-icon" title="Actions"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                        <td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td>
+                        <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
                       </tr>
-                      <tr>
+                      <tr class="uom-data-row">
                         <td><span class="source-unit-name">1000 Square Feet</span></td>
                         <td>1000 sq ft</td>
                         <td>US Customary / Imperial</td>
                         <td><span class="access-tag">Global</span></td>
                         <td class="numeric">1000</td>
-                        <td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/26 at 10:30 CST</span></td>
-                        <td><button type="button" class="btn-ghost btn-icon" title="Actions"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                        <td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td>
+                        <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
                       </tr>
-                      <tr>
+                      <tr class="uom-data-row">
                         <td><span class="source-unit-name">Square meter</span></td>
                         <td>sqm</td>
                         <td>SI</td>
                         <td><span class="access-tag">Global</span></td>
                         <td class="numeric">0.011111</td>
-                        <td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/26 at 10:30 CST</span></td>
-                        <td><button type="button" class="btn-ghost btn-icon" title="Actions"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                        <td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td>
+                        <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
                       </tr>
-                      <tr>
+                      <tr class="uom-data-row">
                         <td><span class="source-unit-name">Thousands Of Circular Mils</span></td>
                         <td>tcm</td>
                         <td>US Customary / Imperial</td>
                         <td><span class="access-tag">Global</span></td>
                         <td class="numeric">0.092903</td>
-                        <td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/26 at 10:30 CST</span></td>
+                        <td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td>
+                        <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                      </tr>
+                      <tr class="add-unit-input-row hidden" id="addUnitInputRow">
+                        <td>
+                          <input type="text" class="form-input add-unit-input" id="addUnitName" placeholder="Unit name">
+                          <label class="add-unit-base-label"><input type="checkbox" class="add-unit-base-checkbox" id="addUnitBase"> Base unit</label>
+                        </td>
+                        <td><input type="text" class="form-input add-unit-input" id="addUnitAbbr" placeholder="Abbreviation"></td>
+                        <td>
+                          <select class="form-select add-unit-input add-unit-select" id="addUnitSource">
+                            <option value="">Select source</option>
+                            <option value="SI">SI</option>
+                            <option value="US Customary / Imperial">US Customary / Imperial</option>
+                          </select>
+                        </td>
+                        <td>
+                          <select class="form-select add-unit-input add-unit-select" id="addUnitAccess">
+                            <option value="Global">Global</option>
+                            <option value="Custom">Custom</option>
+                          </select>
+                        </td>
+                        <td class="numeric"><input type="text" class="form-input add-unit-input add-unit-factor" id="addUnitFactor" placeholder="Factor"></td>
+                        <td><span class="add-unit-auto-meta">—</span></td>
                         <td><button type="button" class="btn-ghost btn-icon" title="Actions"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
                       </tr>
                     </tbody>
@@ -10984,7 +11064,12 @@
                 </div>
               </div>
               
-              <a href="#" class="add-unit-link">
+              <div class="add-unit-actions hidden" id="addUnitActions">
+                <button type="button" class="btn btn-secondary" onclick="cancelAddUnit()">Cancel</button>
+                <button type="button" class="btn btn-primary" onclick="saveAddUnit()">Save changes</button>
+              </div>
+              
+              <a href="#" class="add-unit-link" id="addUnitLink" onclick="toggleAddUnitRow(); return false;">
                 <i class="fa-light fa-plus"></i>
                 Add Unit
               </a>
@@ -11054,7 +11139,7 @@
                             <td>Low heating values (LHV)</td>
                             <td class="numeric">0.001443</td>
                             <td>yr³/pound</td>
-                            <td>08/2020 - 08/2024</td>
+                            <td>08/01/2020 - 08/31/2024</td>
                             <td><span class="access-tag">Global</span></td>
                             <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
                           </tr>
@@ -11064,7 +11149,7 @@
                             <td>Density</td>
                             <td class="numeric">0.002000</td>
                             <td>kWh/pound</td>
-                            <td>08/2020 - 08/2024</td>
+                            <td>08/01/2020 - 08/31/2024</td>
                             <td><span class="access-tag">Global</span></td>
                             <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
                           </tr>
@@ -11074,7 +11159,7 @@
                             <td>High heating values (HHV)</td>
                             <td class="numeric">0.001892</td>
                             <td>yr³/pound</td>
-                            <td>08/2020 - 08/2024</td>
+                            <td>08/01/2020 - 08/31/2024</td>
                             <td><span class="access-tag">Global</span></td>
                             <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
                           </tr>
@@ -11084,7 +11169,7 @@
                             <td>Low heating values (LHV)</td>
                             <td class="numeric">0.001552</td>
                             <td>yr³/pound</td>
-                            <td>08/2020 - 08/2024</td>
+                            <td>08/01/2020 - 08/31/2024</td>
                             <td><span class="access-tag">Global</span></td>
                             <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
                           </tr>
@@ -11094,7 +11179,7 @@
                             <td>Low heating values (LHV)</td>
                             <td class="numeric">0.001421</td>
                             <td>kWh/pound</td>
-                            <td>08/2020 - 08/2024</td>
+                            <td>08/01/2020 - 08/31/2024</td>
                             <td><span class="access-tag">Global</span></td>
                             <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
                           </tr>
@@ -11104,7 +11189,7 @@
                             <td>Density</td>
                             <td class="numeric">0.001398</td>
                             <td>yr³/pound</td>
-                            <td>08/2020 - 08/2024</td>
+                            <td>08/01/2020 - 08/31/2024</td>
                             <td><span class="access-tag">Global</span></td>
                             <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
                           </tr>
@@ -11114,7 +11199,7 @@
                             <td>High heating values (HHV)</td>
                             <td class="numeric">0.002103</td>
                             <td>kWh/pound</td>
-                            <td>08/2020 - 08/2024</td>
+                            <td>08/01/2020 - 08/31/2024</td>
                             <td><span class="access-tag">Global</span></td>
                             <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
                           </tr>
@@ -11124,7 +11209,7 @@
                             <td>Low heating values (LHV)</td>
                             <td class="numeric">0.000198</td>
                             <td>yr³/pound</td>
-                            <td>08/2020 - 08/2024</td>
+                            <td>08/01/2020 - 08/31/2024</td>
                             <td><span class="access-tag">Global</span></td>
                             <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
                           </tr>
@@ -11134,7 +11219,7 @@
                             <td>High heating values (HHV)</td>
                             <td class="numeric">0.003102</td>
                             <td>kWh/pound</td>
-                            <td>08/2020 - 08/2024</td>
+                            <td>08/01/2020 - 08/31/2024</td>
                             <td><span class="access-tag">Global</span></td>
                             <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
                           </tr>
@@ -11144,7 +11229,7 @@
                             <td>Low heating values (LHV)</td>
                             <td class="numeric">0.001552</td>
                             <td>yr³/pound</td>
-                            <td>08/2020 - 08/2024</td>
+                            <td>08/01/2020 - 08/31/2024</td>
                             <td><span class="access-tag">Global</span></td>
                             <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
                           </tr>
@@ -11154,7 +11239,7 @@
                             <td>Density</td>
                             <td class="numeric">0.001298</td>
                             <td>kWh/pound</td>
-                            <td>08/2020 - 08/2024</td>
+                            <td>08/01/2020 - 08/31/2024</td>
                             <td><span class="access-tag">Global</span></td>
                             <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
                           </tr>
@@ -11193,7 +11278,7 @@
                             <td>Low heating values (LHV)</td>
                             <td class="numeric">0.000054</td>
                             <td>kg CO₂e/therm</td>
-                            <td>01/2023 - 12/2024</td>
+                            <td>01/01/2023 - 12/31/2024</td>
                             <td><span class="access-tag">Global</span></td>
                             <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
                           </tr>
@@ -11203,7 +11288,7 @@
                             <td>High heating values (HHV)</td>
                             <td class="numeric">0.010180</td>
                             <td>kg CO₂e/gallon</td>
-                            <td>01/2023 - 12/2024</td>
+                            <td>01/01/2023 - 12/31/2024</td>
                             <td><span class="access-tag">Global</span></td>
                             <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
                           </tr>
@@ -11213,7 +11298,7 @@
                             <td>High heating values (HHV)</td>
                             <td class="numeric">0.011430</td>
                             <td>kg CO₂e/gallon</td>
-                            <td>01/2023 - 12/2024</td>
+                            <td>01/01/2023 - 12/31/2024</td>
                             <td><span class="access-tag">Global</span></td>
                             <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
                           </tr>
@@ -11223,7 +11308,7 @@
                             <td>Low heating values (LHV)</td>
                             <td class="numeric">0.009520</td>
                             <td>kg CO₂e/gallon</td>
-                            <td>01/2023 - 12/2024</td>
+                            <td>01/01/2023 - 12/31/2024</td>
                             <td><span class="access-tag">Custom</span></td>
                             <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
                           </tr>
@@ -11233,7 +11318,7 @@
                             <td>High heating values (HHV)</td>
                             <td class="numeric">0.005770</td>
                             <td>kg CO₂e/gallon</td>
-                            <td>01/2023 - 12/2024</td>
+                            <td>01/01/2023 - 12/31/2024</td>
                             <td><span class="access-tag">Global</span></td>
                             <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
                           </tr>
@@ -11243,7 +11328,7 @@
                             <td>Low heating values (LHV)</td>
                             <td class="numeric">0.008780</td>
                             <td>kg CO₂e/gallon</td>
-                            <td>01/2023 - 12/2024</td>
+                            <td>01/01/2023 - 12/31/2024</td>
                             <td><span class="access-tag">Global</span></td>
                             <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
                           </tr>
@@ -11253,7 +11338,7 @@
                             <td>High heating values (HHV)</td>
                             <td class="numeric">0.002420</td>
                             <td>kg CO₂e/lb</td>
-                            <td>01/2023 - 12/2024</td>
+                            <td>01/01/2023 - 12/31/2024</td>
                             <td><span class="access-tag">Global</span></td>
                             <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
                           </tr>
@@ -14778,11 +14863,165 @@
       });
     }
     
+    function formatDateMmDdYyyy(d) {
+      if (!d || !(d instanceof Date)) d = new Date();
+      var m = ('0' + (d.getMonth() + 1)).slice(-2);
+      var day = ('0' + d.getDate()).slice(-2);
+      var y = d.getFullYear();
+      return m + '/' + day + '/' + y;
+    }
     function toggleUomSection(sectionId) {
       var view = document.getElementById('view-unit-measure');
       if (!view) return;
       var section = view.querySelector('.uom-section[data-uom-section="' + sectionId + '"]');
       if (section) section.classList.toggle('collapsed');
+    }
+    var _uomMenuRow = null;
+    function toggleUomRowMenu(ev, btn) {
+      ev.preventDefault();
+      ev.stopPropagation();
+      var row = btn.closest('tr');
+      if (!row || row.classList.contains('add-unit-input-row')) return;
+      var menu = document.getElementById('uomRowMenu');
+      if (menu.classList.contains('open') && _uomMenuRow === row) {
+        menu.classList.remove('open');
+        _uomMenuRow = null;
+        return;
+      }
+      _uomMenuRow = row;
+      var rect = btn.getBoundingClientRect();
+      menu.style.left = rect.left + 'px';
+      menu.style.top = (rect.bottom + 4) + 'px';
+      menu.classList.add('open');
+      setTimeout(function() {
+        document.addEventListener('click', _closeUomRowMenuOnClick);
+      }, 0);
+    }
+    function _closeUomRowMenuOnClick() {
+      document.removeEventListener('click', _closeUomRowMenuOnClick);
+      document.getElementById('uomRowMenu').classList.remove('open');
+      _uomMenuRow = null;
+    }
+    function uomMenuEditUnit() {
+      var row = _uomMenuRow;
+      _closeUomRowMenuOnClick();
+      if (row) enterUomRowEdit(row);
+    }
+    function uomMenuDeleteUnit() {
+      var row = _uomMenuRow;
+      _closeUomRowMenuOnClick();
+      if (row && !row.classList.contains('add-unit-input-row') && confirm('Delete this unit?')) {
+        row.remove();
+        if (typeof showToast === 'function') showToast('Unit deleted (prototype)', 'success');
+      }
+    }
+    function getUomGroupTbody() {
+      var panel = document.querySelector('.unit-measure-panel[data-uom-panel="group"]');
+      return panel ? panel.querySelector('.uom-table tbody') : null;
+    }
+    function clearOtherBaseUnits(exceptRow) {
+      var tbody = getUomGroupTbody();
+      if (!tbody) return;
+      var rows = tbody.querySelectorAll('tr.uom-data-row');
+      for (var i = 0; i < rows.length; i++) {
+        var tr = rows[i];
+        if (tr === exceptRow || tr.classList.contains('uom-row-editing')) continue;
+        var first = tr.cells[0];
+        if (!first) continue;
+        var sub = first.querySelector('.source-unit-sub');
+        if (sub) sub.remove();
+      }
+    }
+    function enterUomRowEdit(tr) {
+      if (!tr || tr.classList.contains('uom-row-editing')) return;
+      var c = tr.cells;
+      if (!c || c.length < 7) return;
+      var nameEl = tr.querySelector('.source-unit-name');
+      var subEl = tr.querySelector('.source-unit-sub');
+      var name = nameEl ? nameEl.textContent.trim() : '';
+      var abbr = (c[1] && c[1].textContent) ? c[1].textContent.trim() : '';
+      var source = (c[2] && c[2].textContent) ? c[2].textContent.trim() : '';
+      var accessEl = c[3] && c[3].querySelector('.access-tag');
+      var access = accessEl ? accessEl.textContent.trim() : 'Global';
+      var factor = (c[4] && c[4].textContent) ? c[4].textContent.trim() : '';
+      var isBase = !!subEl;
+      tr.setAttribute('data-uom-original', tr.innerHTML);
+      tr.classList.add('uom-row-editing');
+      var baseHtml = '<label class="add-unit-base-label"><input type="checkbox" class="uom-edit-base-checkbox" ' + (isBase ? 'checked' : '') + '> Base unit</label>';
+      tr.cells[0].innerHTML = '<input type="text" class="form-input add-unit-input uom-edit-name" value="' + (name.replace(/"/g, '&quot;')) + '">' + baseHtml;
+      tr.cells[1].innerHTML = '<input type="text" class="form-input add-unit-input uom-edit-abbr" value="' + (abbr.replace(/"/g, '&quot;')) + '">';
+      tr.cells[2].innerHTML = '<select class="form-select add-unit-input add-unit-select uom-edit-source"><option value="">Select source</option><option value="SI"' + (source === 'SI' ? ' selected' : '') + '>SI</option><option value="US Customary / Imperial"' + (source === 'US Customary / Imperial' ? ' selected' : '') + '>US Customary / Imperial</option></select>';
+      tr.cells[3].innerHTML = '<select class="form-select add-unit-input add-unit-select uom-edit-access"><option value="Global"' + (access === 'Global' ? ' selected' : '') + '>Global</option><option value="Custom"' + (access === 'Custom' ? ' selected' : '') + '>Custom</option></select>';
+      tr.cells[4].innerHTML = '<input type="text" class="form-input add-unit-input add-unit-factor uom-edit-factor" value="' + (factor.replace(/"/g, '&quot;')) + '">';
+      tr.cells[4].className = 'numeric';
+      tr.cells[5].innerHTML = (c[5] ? c[5].innerHTML : '');
+      tr.cells[6].innerHTML = '<button type="button" class="btn-ghost btn-icon uom-edit-save" title="Save" onclick="saveUomRowEdit(this.closest(\'tr\'))"><i class="fa-light fa-check" style="color: var(--ghg-success);"></i></button><button type="button" class="btn-ghost btn-icon uom-edit-cancel" title="Cancel" onclick="cancelUomRowEdit(this.closest(\'tr\'))"><i class="fa-light fa-xmark" style="color: var(--ghg-danger);"></i></button>';
+    }
+    function saveUomRowEdit(tr) {
+      if (!tr || !tr.classList.contains('uom-row-editing')) return;
+      var name = (tr.querySelector('.uom-edit-name') && tr.querySelector('.uom-edit-name').value) ? tr.querySelector('.uom-edit-name').value.trim() : '';
+      var abbr = (tr.querySelector('.uom-edit-abbr') && tr.querySelector('.uom-edit-abbr').value) ? tr.querySelector('.uom-edit-abbr').value.trim() : '';
+      var sourceSelect = tr.querySelector('.uom-edit-source');
+      var source = sourceSelect ? sourceSelect.value : '';
+      var accessSelect = tr.querySelector('.uom-edit-access');
+      var access = accessSelect ? accessSelect.value : 'Global';
+      var factorEl = tr.querySelector('.uom-edit-factor');
+      var factor = factorEl ? factorEl.value.trim() : '';
+      var isBase = tr.querySelector('.uom-edit-base-checkbox') && tr.querySelector('.uom-edit-base-checkbox').checked;
+      var esc = function(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); };
+      var nameCell = isBase ? '<span class="source-unit-name">' + esc(name || '—') + '</span><span class="source-unit-sub">Base unit</span>' : '<span class="source-unit-name">' + esc(name || '—') + '</span>';
+      var metaStr = formatDateMmDdYyyy(new Date()) + ' at ' + new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }) + ' CST';
+      tr.innerHTML = '<td>' + nameCell + '</td><td>' + esc(abbr || '—') + '</td><td>' + esc(source || '—') + '</td><td><span class="access-tag">' + esc(access || 'Global') + '</span></td><td class="numeric">' + esc(factor || '—') + '</td><td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">' + esc(metaStr) + '</span></td><td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>';
+      tr.classList.remove('uom-row-editing');
+      tr.classList.add('uom-data-row');
+      if (isBase) clearOtherBaseUnits(tr);
+      if (typeof showToast === 'function') showToast('Unit updated (prototype)', 'success');
+    }
+    function cancelUomRowEdit(tr) {
+      if (!tr || !tr.classList.contains('uom-row-editing')) return;
+      var orig = tr.getAttribute('data-uom-original');
+      if (orig) { tr.innerHTML = orig; tr.removeAttribute('data-uom-original'); }
+      tr.classList.remove('uom-row-editing');
+    }
+    function toggleAddUnitRow() {
+      var row = document.getElementById('addUnitInputRow');
+      var actions = document.getElementById('addUnitActions');
+      if (!row || !actions) return;
+      var isHidden = row.classList.contains('hidden');
+      row.classList.toggle('hidden', !isHidden);
+      actions.classList.toggle('hidden', !isHidden);
+      if (isHidden) {
+        document.getElementById('addUnitName').value = '';
+        document.getElementById('addUnitAbbr').value = '';
+        document.getElementById('addUnitSource').value = '';
+        document.getElementById('addUnitAccess').value = 'Global';
+        document.getElementById('addUnitFactor').value = '';
+        document.getElementById('addUnitBase').checked = false;
+      }
+    }
+    function cancelAddUnit() {
+      toggleAddUnitRow();
+    }
+    function saveAddUnit() {
+      var name = (document.getElementById('addUnitName').value || '').trim();
+      var abbr = (document.getElementById('addUnitAbbr').value || '').trim();
+      var source = document.getElementById('addUnitSource').value || '';
+      var access = document.getElementById('addUnitAccess').value || 'Global';
+      var factor = (document.getElementById('addUnitFactor').value || '').trim();
+      var isBase = document.getElementById('addUnitBase').checked;
+      var tbody = document.querySelector('.unit-measure-panel[data-uom-panel="group"] .uom-table tbody');
+      if (!tbody) return;
+      var inputRow = document.getElementById('addUnitInputRow');
+      var esc = function(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); };
+      var newRow = document.createElement('tr');
+      var nameCell = isBase ? '<span class="source-unit-name">' + esc(name || '—') + '</span><span class="source-unit-sub">Base unit</span>' : '<span class="source-unit-name">' + esc(name || '—') + '</span>';
+      var metaStr = formatDateMmDdYyyy(new Date()) + ' at ' + new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }) + ' CST';
+      newRow.className = 'uom-data-row';
+      newRow.innerHTML = '<td>' + nameCell + '</td><td>' + esc(abbr || '—') + '</td><td>' + esc(source || '—') + '</td><td><span class="access-tag">' + esc(access || 'Global') + '</span></td><td class="numeric">' + esc(factor || '—') + '</td><td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">' + esc(metaStr) + '</span></td><td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>';
+      tbody.insertBefore(newRow, inputRow);
+      if (isBase) clearOtherBaseUnits(newRow);
+      toggleAddUnitRow();
+      if (typeof showToast === 'function') showToast('Unit added (prototype)', 'success');
     }
     function applyCrossGroupUnmappedFilter(active) {
       var panel = document.getElementById('crossGroupPanel');
@@ -18281,6 +18520,12 @@
       </div>
     </div>
   </div>
+  
+  <!-- Row context menu (Group conversions – Edit/Delete unit) -->
+  <ul class="material-row-menu uom-row-menu" id="uomRowMenu">
+    <li><button type="button" class="menu-item-edit" onclick="uomMenuEditUnit()"><span>Edit unit</span><i class="fa-light fa-pencil menu-item-icon"></i></button></li>
+    <li><button type="button" class="menu-item-delete" onclick="uomMenuDeleteUnit()"><span>Delete unit</span><i class="fa-light fa-trash menu-item-icon"></i></button></li>
+  </ul>
   
   <!-- Row context menu (Cross-group conversions materials table) -->
   <ul class="material-row-menu" id="materialRowMenu">
