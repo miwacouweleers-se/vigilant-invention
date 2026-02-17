@@ -26,20 +26,28 @@ Styled with [Doodle CSS](https://github.com/chr15m/DoodleCSS) for a hand-drawn w
 
 ## Preview locally
 
+**Option 1 – Python (recommended if `npm start` fails):**
+
+```bash
+cd /path/to/vigilant-invention
+python3 -m http.server 3333
+```
+
+Or with npm: `npm run start:py`
+
+**Option 2 – Node (serve):**
+
 ```bash
 npm install
 npm start
 ```
 
-Then open **http://localhost:3333** in your browser.
+Then open in your browser:
 
-Or use the Python fallback (no npm needed):
+- **Main prototype:** **http://localhost:3333**
+- **Create New Inventory prototype:** **http://localhost:3333/prototypes/create-new-inventory/**
 
-```bash
-python3 -m http.server 3333
-```
-
-Then open **http://localhost:3333**.
+If the URL does not work, ensure you run the command from the **repository root** (the folder that contains `index.html` and `prototypes/`).
 
 ## Contents
 
