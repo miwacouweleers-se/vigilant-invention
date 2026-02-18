@@ -633,6 +633,9 @@
       color: var(--ghg-text-secondary);
       font-size: 14px;
     }
+    #uomGroupTableSection.hidden {
+      display: none;
+    }
     .uom-table .source-unit-name {
       display: block;
       font-weight: 500;
@@ -15369,8 +15372,14 @@
       var showPrompt = (window._lastAddedUomGroupName && sel.value === window._lastAddedUomGroupName);
       if (promptEl) promptEl.classList.toggle('hidden', !showPrompt);
       var tableSection = document.getElementById('uomGroupTableSection');
-      if (tableSection) tableSection.classList.toggle('hidden', showPrompt);
-      if (!showPrompt) restoreUomGroupDefaultDataRows();
+      if (tableSection) {
+        if (showPrompt) {
+          tableSection.classList.add('hidden');
+        } else {
+          tableSection.classList.remove('hidden');
+          restoreUomGroupDefaultDataRows();
+        }
+      }
     }
     function ensureUomGroupDefaultDataRowsPopulated() {}
     function showEmptyGroupTableAndAddBaseUnit() {
