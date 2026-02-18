@@ -591,11 +591,47 @@
       white-space: nowrap;
     }
     .uom-group-select {
-      width: 52px;
-      min-width: 52px;
+      min-width: 180px;
     }
     .uom-filter-row-spacer {
       flex: 1;
+    }
+    .uom-group-meta {
+      margin-top: 8px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .uom-group-description {
+      font-size: 14px;
+      color: var(--ghg-text-muted);
+    }
+    .uom-group-status {
+      font-size: 12px;
+      font-weight: 500;
+      padding: 4px 10px;
+      border-radius: 999px;
+    }
+    .uom-group-status-active {
+      background: var(--ghg-success-light, #e8f5e9);
+      color: var(--ghg-success-dark, #2e7d32);
+    }
+    .uom-group-status-inactive {
+      background: var(--ghg-surface-elevated);
+      color: var(--ghg-text-muted);
+    }
+    .uom-add-base-unit-prompt {
+      margin-bottom: 16px;
+    }
+    .uom-add-base-unit-prompt .card {
+      padding: 20px;
+    }
+    .uom-add-base-unit-prompt p {
+      margin: 0 0 12px 0;
+      color: var(--ghg-text-secondary);
+      font-size: 14px;
     }
     .uom-table .source-unit-name {
       display: block;
@@ -608,14 +644,20 @@
       margin-top: 2px;
     }
     .access-tag {
+      font-size: 14px;
+      color: var(--ghg-text);
+      font-weight: 500;
+    }
+    .uom-table .data-asset-tag {
       display: inline-block;
       padding: 4px 10px;
+      margin-right: 6px;
+      margin-bottom: 4px;
       background: var(--ghg-surface-elevated);
       color: var(--ghg-text-secondary);
       font-size: 12px;
       font-weight: 500;
       border-radius: 999px;
-      border: 1px solid var(--ghg-border);
     }
     .uom-table .last-updated {
       font-size: 14px;
@@ -659,6 +701,15 @@
     .uom-table tr.uom-row-editing .add-unit-select {
       min-width: 140px;
     }
+    .add-unit-name-cell {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .add-unit-name-cell .add-unit-base-label {
+      font-size: 12px;
+      color: var(--ghg-text-muted);
+    }
     .add-unit-input-row .add-unit-factor,
     .uom-table tr.uom-row-editing .add-unit-factor {
       text-align: right;
@@ -692,6 +743,62 @@
     }
     .add-unit-actions.hidden {
       display: none;
+    }
+    .uom-unit-groups-header {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 16px;
+    }
+    .uom-library-toolbar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .uom-library-search {
+      flex: 1;
+      min-width: 220px;
+    }
+    .uom-pagination {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+    .uom-pagination-count {
+      font-size: 14px;
+      color: var(--ghg-text-secondary);
+    }
+    .uom-pagination-per-page {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      color: var(--ghg-text-secondary);
+    }
+    .uom-pagination-per-page select {
+      min-width: 60px;
+    }
+    .uom-pagination-controls {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-left: auto;
+    }
+    .uom-pagination-controls .btn-ghost.uom-page-active {
+      background: var(--ghg-surface-elevated);
+      color: var(--ghg-primary);
+      font-weight: 500;
+    }
+    .uom-edit-link {
+      color: var(--ghg-success);
+      font-weight: 500;
+      text-decoration: none;
+    }
+    .uom-edit-link:hover {
+      text-decoration: underline;
     }
     .btn-icon {
       padding: 6px 10px;
@@ -738,7 +845,7 @@
       font-size: 14px;
     }
     
-    /* Cross-group: alert banner & materials layout */
+    /* Cross-group: alert banner & materials layout (yellow) */
     .uom-unmapped-alert {
       display: flex;
       align-items: center;
@@ -747,13 +854,13 @@
       padding: 12px 16px;
       margin-bottom: 16px;
       border-radius: 8px;
-      background: var(--ghg-danger-light);
-      border: 1px solid var(--ghg-danger);
-      color: var(--ghg-text);
+      background: #FEF9C3;
+      border: 1px solid #CA8A04;
+      color: #854D0E;
       font-size: 14px;
     }
     .uom-unmapped-alert i {
-      color: var(--ghg-danger);
+      color: #854D0E;
       margin-right: 4px;
     }
     .uom-cross-toolbar {
@@ -762,6 +869,57 @@
       gap: 12px;
       margin-bottom: 16px;
       flex-wrap: wrap;
+    }
+    .add-materials-dropdown {
+      position: relative;
+    }
+    .add-materials-trigger {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .add-materials-trigger .add-materials-chevron {
+      margin-left: 4px;
+      opacity: 0.9;
+    }
+    .add-materials-menu {
+      position: absolute;
+      top: calc(100% + 4px);
+      right: 0;
+      min-width: 240px;
+      background: var(--ghg-surface);
+      border: 1px solid var(--ghg-border);
+      border-radius: 10px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.12);
+      z-index: 100;
+      display: none;
+      overflow: hidden;
+      padding: 6px 0;
+    }
+    .add-materials-menu.open {
+      display: block;
+    }
+    .add-materials-menu-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      padding: 10px 14px;
+      font-size: 14px;
+      font-family: var(--font-sans);
+      color: var(--ghg-text);
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-align: left;
+      transition: background 0.1s ease;
+    }
+    .add-materials-menu-item:hover {
+      background: var(--ghg-surface-hover);
+    }
+    .add-materials-menu-item i {
+      color: var(--ghg-text-muted);
+      width: 18px;
     }
     .uom-cross-filter-pills {
       display: flex;
@@ -787,6 +945,14 @@
       color: var(--ghg-primary-dark);
       font-size: 14px;
       font-weight: 500;
+    }
+    .uom-filter-pill.uom-filter-pill-unmapped {
+      background: #FEF9C3;
+      border: 1px solid #CA8A04;
+      color: #854D0E;
+    }
+    .uom-filter-pill.uom-filter-pill-unmapped .uom-filter-pill-remove {
+      color: #854D0E;
     }
     .uom-filter-pill-remove {
       padding: 0;
@@ -857,16 +1023,25 @@
       display: none;
     }
     .uom-table .data-asset-unmapped {
-      color: var(--ghg-danger);
+      color: #854D0E;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #FEF9C3;
+      border-radius: 999px;
+      padding: 4px 10px;
+    }
+    .uom-table .data-asset-unmapped i {
+      color: #854D0E;
+    }
+    .material-drawer .detail-value.data-asset-unmapped {
+      color: #854D0E;
       display: inline-flex;
       align-items: center;
       gap: 6px;
     }
-    .material-drawer .detail-value.data-asset-unmapped {
-      color: var(--ghg-danger);
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
+    .material-drawer .detail-value.data-asset-unmapped i {
+      color: #854D0E;
     }
     
     /* ============================================== */
@@ -1268,6 +1443,20 @@
       justify-content: flex-end;
       gap: 12px;
     }
+    .modal-body .checkbox-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ghg-text);
+    }
+    .modal-body .checkbox-label input[type="checkbox"] {
+      margin: 0;
+      cursor: pointer;
+      accent-color: var(--ghg-primary);
+    }
     
     /* Material details side drawer (Cross-group conversions) */
     .material-drawer-overlay {
@@ -1432,6 +1621,8 @@
       opacity: 0;
       visibility: hidden;
       transition: opacity 0.25s ease, visibility 0.25s ease;
+      display: flex;
+      flex-direction: column;
     }
     .edit-material-overlay.open {
       opacity: 1;
@@ -1463,7 +1654,22 @@
       position: relative;
       max-width: 800px;
       margin: 0 auto;
-      padding: 24px 32px 48px;
+      padding: 24px 32px 24px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+    }
+    .edit-material-form {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      min-height: 0;
+    }
+    .edit-material-panels-wrap {
+      flex: 1;
+      overflow-y: auto;
+      min-height: 0;
     }
     .edit-material-title {
       font-family: var(--font-display);
@@ -1548,9 +1754,13 @@
     .edit-material-actions {
       display: flex;
       gap: 12px;
-      margin-top: 32px;
-      padding-top: 24px;
+      flex-shrink: 0;
+      margin-top: auto;
+      padding: 20px 0 24px;
       border-top: 1px solid var(--ghg-border);
+      background: var(--ghg-surface);
+      position: sticky;
+      bottom: 0;
     }
     .edit-material-panel {
       display: block;
@@ -2022,7 +2232,7 @@
       list-style: none;
       margin: 0;
       padding: 0 0 8px 0;
-      max-height: 220px;
+      max-height: 280px;
       overflow-y: auto;
     }
     .data-asset-list li {
@@ -2042,61 +2252,56 @@
     .data-asset-list li.filtered-out {
       display: none;
     }
-    .material-linkage-section {
-      margin-top: 24px;
+    .data-asset-list-multi li {
+      padding: 0;
     }
-    .material-linkage-section.hidden {
-      display: none;
-    }
-    .material-linkage-title {
-      font-size: 15px;
-      font-weight: 600;
-      color: var(--ghg-text);
+    .data-asset-list-multi .data-asset-option {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
       margin: 0;
+      cursor: pointer;
+      font-weight: normal;
     }
-    .material-linkage-default-th {
-      white-space: nowrap;
-      font-weight: 600;
-    }
-    .material-linkage-default-th .fa-circle-info {
-      margin-left: 4px;
-      color: var(--ghg-text-muted);
-      font-size: 12px;
-    }
-    .material-linkage-table .default-radio-cell {
-      width: 1%;
-      white-space: nowrap;
-      vertical-align: middle;
-    }
-    .material-linkage-table .default-radio-cell input[type="radio"] {
+    .data-asset-list-multi .data-asset-option input[type="checkbox"] {
+      margin: 0;
       cursor: pointer;
       accent-color: var(--ghg-primary);
     }
-    .material-linkage-table .material-name-cell {
+    .data-asset-pills {
       display: flex;
-      align-items: center;
-      gap: 8px;
       flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+      min-height: 0;
     }
-    .material-linkage-table .material-linkage-current-tag {
-      display: inline-block;
-      padding: 2px 8px;
-      border-radius: 4px;
-      font-size: 11px;
-      font-weight: 600;
+    .data-asset-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      border-radius: 8px;
       background: var(--ghg-primary-light);
       color: var(--ghg-primary-dark);
-    }
-    .material-linkage-table .status-pill {
-      display: inline-block;
-      padding: 4px 10px;
-      border-radius: 999px;
-      font-size: 12px;
+      font-size: 14px;
       font-weight: 500;
     }
-    .material-linkage-table .status-pill.active {
-      background: var(--ghg-success-light);
-      color: var(--ghg-success);
+    .data-asset-pill-remove {
+      padding: 0;
+      margin: 0;
+      background: none;
+      border: none;
+      color: inherit;
+      cursor: pointer;
+      opacity: 0.8;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .data-asset-pill-remove:hover {
+      opacity: 1;
     }
     .uom-table tr.material-row-clickable {
       cursor: pointer;
@@ -10946,22 +11151,29 @@
               <div class="page-breadcrumb">
                 <a href="#">Dashboard</a>
                 <i class="fa-light fa-chevron-right"></i>
-                <span>Unit Measure Management</span>
+                <span>Unit of measure (UoM) management</span>
               </div>
-              <h1 class="page-title">Unit Measure Management</h1>
+              <h1 class="page-title">Unit of measure (UoM) management</h1>
               <p class="page-subtitle">Manage conversions, densities, and mappings in one place.</p>
+            </div>
+            <div class="page-header-actions">
+              <button type="button" class="btn btn-secondary" onclick="openAddUomGroupModal()">
+                <i class="fa-light fa-plus"></i>
+                Add UOM Group
+              </button>
             </div>
           </div>
           
           <div class="content-container">
             <div class="unit-measure-tabs">
-              <button type="button" class="unit-measure-tab" data-uom-tab="converter" onclick="switchUnitMeasureTab('converter')">Converter tool</button>
-              <button type="button" class="unit-measure-tab active" data-uom-tab="group" onclick="switchUnitMeasureTab('group')">Group conversions</button>
+              <button type="button" class="unit-measure-tab active" data-uom-tab="converter" onclick="switchUnitMeasureTab('converter')">Converter tool</button>
+              <button type="button" class="unit-measure-tab" data-uom-tab="unit-library" onclick="switchUnitMeasureTab('unit-library')">Unit library</button>
+              <button type="button" class="unit-measure-tab" data-uom-tab="group" onclick="switchUnitMeasureTab('group')">Group conversions</button>
               <button type="button" class="unit-measure-tab" data-uom-tab="cross-group" onclick="switchUnitMeasureTab('cross-group')">Cross-group conversions</button>
             </div>
             
             <!-- Panel: Converter tool -->
-            <div class="unit-measure-panel hidden" data-uom-panel="converter">
+            <div class="unit-measure-panel" data-uom-panel="converter">
               <div class="uom-placeholder-card">
                 <i class="fa-light fa-calculator"></i>
                 <h3>Converter tool</h3>
@@ -10969,29 +11181,119 @@
               </div>
             </div>
             
+            <!-- Panel: Unit library -->
+            <div class="unit-measure-panel hidden" data-uom-panel="unit-library">
+              <div class="uom-library-toolbar">
+                <div class="search-input-wrapper uom-library-search">
+                  <i class="fa-light fa-search"></i>
+                  <input type="text" class="form-input" id="unitLibrarySearch" placeholder="Search" oninput="filterUnitLibrary(this.value)" onkeypress="if(event.key==='Enter') filterUnitLibrary(this.value)">
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-body" style="padding: 0;">
+                  <table class="data-table uom-table" id="unitLibraryTable">
+                    <thead>
+                      <tr>
+                        <th class="sortable">UOM Name <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                        <th class="sortable">UOM Code <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                        <th class="sortable">Group Name <i class="fa-light fa-chevron-up sort-icon"></i></th>
+                        <th class="sortable">Description <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                        <th class="sortable">Measurement System <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                        <th class="sortable">Active <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                        <th class="sortable">Default <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                        <th style="width: 80px;">Edit</th>
+                      </tr>
+                    </thead>
+                    <tbody id="unitLibraryTbody">
+                      <tr data-search="1000 Square Feet msf Area"><td>1000 Square Feet</td><td>msf</td><td>Area</td><td></td><td>Imperial</td><td>true</td><td>false</td><td><a href="#" class="uom-edit-link">Edit</a></td></tr>
+                      <tr data-search="Square Foot ft^2 Area Imperial"><td>Square Foot</td><td>ft^2</td><td>Area</td><td>Imperial unit of area</td><td>Imperial</td><td>true</td><td>false</td><td><a href="#" class="uom-edit-link">Edit</a></td></tr>
+                      <tr data-search="Square Meter m^2 Area SI"><td>Square Meter</td><td>m^2</td><td>Area</td><td>SI derived unit of area</td><td>SI</td><td>true</td><td>false</td><td><a href="#" class="uom-edit-link">Edit</a></td></tr>
+                      <tr data-search="Thousand Of Circular Mils kcmil Area"><td>Thousand Of Circular Mils</td><td>kcmil</td><td>Area</td><td></td><td></td><td>true</td><td>false</td><td><a href="#" class="uom-edit-link">Edit</a></td></tr>
+                      <tr data-search="dlt DLT"><td>dlt</td><td>DLT</td><td></td><td></td><td>dlt</td><td>true</td><td>false</td><td><a href="#" class="uom-edit-link">Edit</a></td></tr>
+                      <tr data-search="Exabyte EB Data Storage"><td>Exabyte</td><td>EB</td><td>Data Storage</td><td></td><td></td><td>true</td><td>false</td><td><a href="#" class="uom-edit-link">Edit</a></td></tr>
+                      <tr data-search="Gigabyte GB Data Storage"><td>Gigabyte</td><td>GB</td><td>Data Storage</td><td></td><td></td><td>true</td><td>false</td><td><a href="#" class="uom-edit-link">Edit</a></td></tr>
+                      <tr data-search="Kilobyte KB Data Storage"><td>Kilobyte</td><td>KB</td><td>Data Storage</td><td></td><td></td><td>true</td><td>false</td><td><a href="#" class="uom-edit-link">Edit</a></td></tr>
+                      <tr data-search="Megabyte MB Data Storage"><td>Megabyte</td><td>MB</td><td>Data Storage</td><td></td><td></td><td>true</td><td>false</td><td><a href="#" class="uom-edit-link">Edit</a></td></tr>
+                      <tr data-search="Petabyte PB Data Storage"><td>Petabyte</td><td>PB</td><td>Data Storage</td><td></td><td></td><td>true</td><td>false</td><td><a href="#" class="uom-edit-link">Edit</a></td></tr>
+                      <tr data-search="Terabyte TB Data Storage"><td>Terabyte</td><td>TB</td><td>Data Storage</td><td></td><td></td><td>true</td><td>false</td><td><a href="#" class="uom-edit-link">Edit</a></td></tr>
+                      <tr data-search="Miligram Per Liter mg/L Density"><td>Miligram Per Liter</td><td>mg/L</td><td>Density</td><td></td><td></td><td>true</td><td>false</td><td><a href="#" class="uom-edit-link">Edit</a></td></tr>
+                      <tr data-search="Kilometer km Distance"><td>Kilometer</td><td>km</td><td>Distance</td><td></td><td></td><td>true</td><td>false</td><td><a href="#" class="uom-edit-link">Edit</a></td></tr>
+                      <tr data-search="meter M Distance Base SI"><td>meter</td><td>M</td><td>Distance</td><td>Base SI unit of length</td><td></td><td>true</td><td>false</td><td><a href="#" class="uom-edit-link">Edit</a></td></tr>
+                      <tr data-search="Mile mi Distance Imperial"><td>Mile</td><td>mi</td><td>Distance</td><td>Imperial unit of length</td><td>Imperial</td><td>true</td><td>false</td><td><a href="#" class="uom-edit-link">Edit</a></td></tr>
+                      <tr data-search="Gram CO2 Equivalent g CO2-e Emission"><td>Gram CO2 Equivalent</td><td>g CO2-e</td><td>Emission</td><td></td><td></td><td>true</td><td>false</td><td><a href="#" class="uom-edit-link">Edit</a></td></tr>
+                      <tr data-search="Kilogram CO2 Equivalent kg CO2-e Emission"><td>Kilogram CO2 Equivalent</td><td>kg CO2-e</td><td>Emission</td><td></td><td></td><td>true</td><td>false</td><td><a href="#" class="uom-edit-link">Edit</a></td></tr>
+                      <tr data-search="Metric Ton CO2 Equivalent t CO2-e Emission"><td>Metric Ton CO2 Equivalent</td><td>t CO2-e</td><td>Emission</td><td></td><td></td><td>true</td><td>false</td><td><a href="#" class="uom-edit-link">Edit</a></td></tr>
+                      <tr data-search="Pound CO2 Equivalent lbs CO2-e Emission"><td>Pound CO2 Equivalent</td><td>lbs CO2-e</td><td>Emission</td><td></td><td></td><td>true</td><td>false</td><td><a href="#" class="uom-edit-link">Edit</a></td></tr>
+                      <tr data-search="British Thermal Unit Btu Energy"><td>British Thermal Unit</td><td>Btu</td><td>Energy</td><td>non-SI unit of heat energy, usually for measuring natural gas</td><td></td><td>true</td><td>false</td><td><a href="#" class="uom-edit-link">Edit</a></td></tr>
+                      <tr data-search="Decatherm Dth Energy"><td>Decatherm</td><td>Dth</td><td>Energy</td><td></td><td></td><td>true</td><td>false</td><td><a href="#" class="uom-edit-link">Edit</a></td></tr>
+                      <tr data-search="Gigacalorie Gcal Energy"><td>Gigacalorie</td><td>Gcal</td><td>Energy</td><td></td><td></td><td>true</td><td>false</td><td><a href="#" class="uom-edit-link">Edit</a></td></tr>
+                      <tr data-search="Gigajoule GJ Energy SI"><td>Gigajoule</td><td>GJ</td><td>Energy</td><td>SI unit of energy</td><td></td><td>true</td><td>false</td><td><a href="#" class="uom-edit-link">Edit</a></td></tr>
+                      <tr data-search="Gigawatt-hour GWh Energy"><td>Gigawatt-hour</td><td>GWh</td><td>Energy</td><td></td><td></td><td>true</td><td>false</td><td><a href="#" class="uom-edit-link">Edit</a></td></tr>
+                      <tr data-search="Kilo British Thermal Unit kBtu Energy"><td>Kilo British Thermal Unit</td><td>kBtu</td><td>Energy</td><td></td><td></td><td>true</td><td>false</td><td><a href="#" class="uom-edit-link">Edit</a></td></tr>
+                      <tr data-search="Kilowatt-hour kWh Energy"><td>Kilowatt-hour</td><td>kWh</td><td>Energy</td><td></td><td></td><td>true</td><td>false</td><td><a href="#" class="uom-edit-link">Edit</a></td></tr>
+                      <tr data-search="Megajoule MJ Energy"><td>Megajoule</td><td>MJ</td><td>Energy</td><td></td><td></td><td>true</td><td>false</td><td><a href="#" class="uom-edit-link">Edit</a></td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="uom-pagination">
+                <span class="uom-pagination-count" id="unitLibraryPaginationCount">1-25 of 98 items</span>
+                <span class="uom-pagination-per-page">
+                  <label for="uom-library-items-per-page">Items per page</label>
+                  <select class="form-select" id="uom-library-items-per-page">
+                    <option value="10">10</option>
+                    <option value="25" selected>25</option>
+                    <option value="50">50</option>
+                  </select>
+                </span>
+                <span class="uom-pagination-controls">
+                  <button type="button" class="btn-ghost btn-icon" aria-label="First page"><i class="fa-light fa-angles-left"></i></button>
+                  <button type="button" class="btn-ghost btn-icon" aria-label="Previous"><i class="fa-light fa-chevron-left"></i></button>
+                  <button type="button" class="btn-ghost btn-icon uom-page-active" aria-label="Page 1">1</button>
+                  <button type="button" class="btn-ghost btn-icon" aria-label="Page 2">2</button>
+                  <button type="button" class="btn-ghost btn-icon" aria-label="Page 3">3</button>
+                  <button type="button" class="btn-ghost btn-icon" aria-label="Page 4">4</button>
+                  <button type="button" class="btn-ghost btn-icon" aria-label="Next"><i class="fa-light fa-chevron-right"></i></button>
+                  <button type="button" class="btn-ghost btn-icon" aria-label="Last page"><i class="fa-light fa-angles-right"></i></button>
+                </span>
+              </div>
+            </div>
+            
             <!-- Panel: Group conversions -->
-            <div class="unit-measure-panel" data-uom-panel="group">
+            <div class="unit-measure-panel hidden" data-uom-panel="group">
               <div class="uom-filter-row">
                 <span class="uom-group-inline">
                   <label class="uom-group-label">UoM group:</label>
-                  <select class="form-select uom-group-select">
-                  <option selected>Area</option>
-                  <option>Data storage</option>
-                  <option>Density</option>
-                  <option>Distance</option>
-                  <option>Emission</option>
-                  <option>Energy</option>
-                  <option>Energy transfer</option>
-                  <option>Flow rate</option>
-                  <option>Freight</option>
-                  <option>General</option>
-                  <option>Intensity</option>
-                  <option>Mass</option>
+                  <select class="form-select uom-group-select" id="uomGroupSelect" onchange="updateUomGroupMeta()">
+                  <option value="Area" selected data-description="Unit Group to measure Area Units" data-active="true">Area</option>
+                  <option value="Data storage" data-description="Unit Group to measure Data storage Units" data-active="true">Data storage</option>
+                  <option value="Density" data-description="Unit Group to measure Density Units" data-active="true">Density</option>
+                  <option value="Distance" data-description="Unit Group to measure Distance Units" data-active="true">Distance</option>
+                  <option value="Emission" data-description="Unit Group to measure Emission Units" data-active="true">Emission</option>
+                  <option value="Energy" data-description="Unit Group to measure Energy Units" data-active="true">Energy</option>
+                  <option value="Energy transfer" data-description="Unit Group to measure Energy transfer Units" data-active="true">Energy transfer</option>
+                  <option value="Flow rate" data-description="Unit Group to measure Flow rate Units" data-active="true">Flow rate</option>
+                  <option value="Freight" data-description="Unit Group to measure Freight Units" data-active="false">Freight</option>
+                  <option value="General" data-description="Unit Group for General Units" data-active="true">General</option>
+                  <option value="Intensity" data-description="Unit Group to measure Intensity Units" data-active="true">Intensity</option>
+                  <option value="Mass" data-description="Unit Group to measure Mass Units" data-active="true">Mass</option>
                 </select>
                 </span>
                 <div class="uom-filter-row-spacer"></div>
+                <button type="button" class="btn btn-secondary btn-sm" onclick="openEditUomGroupModal()">Edit group</button>
+              </div>
+              <div class="uom-group-meta" id="uomGroupMeta">
+                <span class="uom-group-description" id="uomGroupDescription">Unit Group to measure Area Units</span>
+                <span class="uom-group-status uom-group-status-active" id="uomGroupStatus">Active</span>
+              </div>
+              <div class="uom-add-base-unit-prompt hidden" id="uomAddBaseUnitPrompt">
+                <div class="card">
+                  <p>This group has no base unit. Add a base unit to get started.</p>
+                  <button type="button" class="btn btn-primary" onclick="showEmptyGroupTableAndAddBaseUnit();">Add base unit</button>
+                </div>
               </div>
               
+              <div id="uomGroupTableSection">
               <div class="card">
                 <div class="card-body" style="padding: 0;">
                   <table class="data-table uom-table">
@@ -11048,8 +11350,10 @@
                       </tr>
                       <tr class="add-unit-input-row hidden" id="addUnitInputRow">
                         <td>
-                          <input type="text" class="form-input add-unit-input" id="addUnitName" placeholder="Unit name">
-                          <label class="add-unit-base-label"><input type="checkbox" class="add-unit-base-checkbox" id="addUnitBase"> Base unit</label>
+                          <div class="add-unit-name-cell">
+                            <input type="text" class="form-input add-unit-input" id="addUnitName" placeholder="Unit name">
+                            <span class="source-unit-sub add-unit-base-label">Base unit</span>
+                          </div>
                         </td>
                         <td><input type="text" class="form-input add-unit-input" id="addUnitAbbr" placeholder="Abbreviation"></td>
                         <td>
@@ -11083,6 +11387,8 @@
                 <i class="fa-light fa-plus"></i>
                 Add Unit
               </a>
+              </div>
+              <div id="uomGroupDefaultRowsStorage" style="display:none;" aria-hidden="true"></div>
             </div>
             
             <!-- Panel: Cross-group conversions (materials by source) -->
@@ -11098,7 +11404,7 @@
               <div class="uom-cross-toolbar">
                 <div class="search-input-wrapper">
                   <i class="fa-light fa-search"></i>
-                  <input type="text" class="form-input" placeholder="Search within Unit of measures">
+                  <input type="text" class="form-input" placeholder="Search">
                 </div>
                 <button type="button" class="btn btn-secondary">
                   <i class="fa-light fa-filter"></i>
@@ -11106,15 +11412,33 @@
                 </button>
                 <button type="button" class="btn btn-secondary btn-export">Export <i class="fa-light fa-chevron-down"></i></button>
                 <div style="flex: 1;"></div>
-                <button type="button" class="btn btn-primary">
-                  <i class="fa-light fa-plus"></i>
-                  Bulk upload materials
-                </button>
+                <div class="add-materials-dropdown" id="addMaterialsDropdown">
+                  <button type="button" class="btn btn-primary add-materials-trigger" id="addMaterialsTrigger" onclick="toggleAddMaterialsDropdown()">
+                    <i class="fa-light fa-plus"></i>
+                    Add materials
+                    <i class="fa-light fa-chevron-down add-materials-chevron"></i>
+                  </button>
+                  <div class="add-materials-menu" id="addMaterialsMenu">
+                    <button type="button" class="add-materials-menu-item" onclick="closeAddMaterialsDropdown(); openAddMaterialModal();">
+                      <i class="fa-light fa-plus"></i>
+                      Add single material
+                    </button>
+                    <button type="button" class="add-materials-menu-item" onclick="closeAddMaterialsDropdown(); if(typeof showToast==='function') showToast('Bulk upload materials (prototype)', 'info');">
+                      <i class="fa-light fa-upload"></i>
+                      Bulk upload materials
+                    </button>
+                    <button type="button" class="add-materials-menu-item" onclick="closeAddMaterialsDropdown(); if(typeof showToast==='function') showToast('Download template (prototype)', 'info');">
+                      <i class="fa-light fa-download"></i>
+                      Download bulk upload template
+                    </button>
+                  </div>
+                </div>
               </div>
               
               <div class="uom-cross-filter-pills hidden" id="crossGroupFilterPills">
                 <span class="uom-filter-pills-label">Data asset:</span>
-                <span class="uom-filter-pill">
+                <span class="uom-filter-pill uom-filter-pill-unmapped">
+                  <i class="fa-solid fa-triangle-exclamation"></i>
                   Unmapped
                   <button type="button" class="uom-filter-pill-remove" onclick="applyCrossGroupUnmappedFilter(false)" aria-label="Remove Unmapped filter"><i class="fa-light fa-xmark"></i></button>
                 </span>
@@ -11132,7 +11456,7 @@
                       <table class="data-table uom-table">
                         <thead>
                           <tr>
-                            <th class="sortable">Name <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                            <th class="sortable">Material name <i class="fa-light fa-chevron-down sort-icon"></i></th>
                             <th class="sortable">Data asset <i class="fa-light fa-chevron-down sort-icon"></i></th>
                             <th class="sortable">Heating values <i class="fa-light fa-chevron-down sort-icon"></i></th>
                             <th class="sortable">Factor <i class="fa-light fa-chevron-down sort-icon"></i></th>
@@ -11145,7 +11469,7 @@
                         <tbody id="crossGroupMaterialsTbody">
                           <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
                             <td>Aluminum Cans (uncompacted)</td>
-                            <td>Metal waste</td>
+                            <td><span class="data-asset-tag">Metal waste</span><span class="data-asset-tag">Scrap metal</span></td>
                             <td>Low heating values (LHV)</td>
                             <td class="numeric">0.001443</td>
                             <td>yr³/pound</td>
@@ -11175,7 +11499,7 @@
                           </tr>
                           <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
                             <td>Aviation Gasoline</td>
-                            <td>Aviation Gasoline</td>
+                            <td><span class="data-asset-tag">Aviation Gasoline</span></td>
                             <td>Low heating values (LHV)</td>
                             <td class="numeric">0.001552</td>
                             <td>yr³/pound</td>
@@ -11185,7 +11509,7 @@
                           </tr>
                           <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
                             <td>Biodiesel (100%)</td>
-                            <td>Biodiesel</td>
+                            <td><span class="data-asset-tag">Biodiesel</span><span class="data-asset-tag">Biofuel</span></td>
                             <td>Low heating values (LHV)</td>
                             <td class="numeric">0.001421</td>
                             <td>kWh/pound</td>
@@ -11205,7 +11529,7 @@
                           </tr>
                           <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
                             <td>Biomass (wood)</td>
-                            <td>Biomass</td>
+                            <td><span class="data-asset-tag">Biomass</span></td>
                             <td>High heating values (HHV)</td>
                             <td class="numeric">0.002103</td>
                             <td>kWh/pound</td>
@@ -11215,7 +11539,7 @@
                           </tr>
                           <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
                             <td>Carbon Dioxide (liquid)</td>
-                            <td>CO₂</td>
+                            <td><span class="data-asset-tag">CO₂</span></td>
                             <td>Low heating values (LHV)</td>
                             <td class="numeric">0.000198</td>
                             <td>yr³/pound</td>
@@ -11225,7 +11549,7 @@
                           </tr>
                           <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
                             <td>Coal (anthracite)</td>
-                            <td>Coal</td>
+                            <td><span class="data-asset-tag">Coal</span></td>
                             <td>High heating values (HHV)</td>
                             <td class="numeric">0.003102</td>
                             <td>kWh/pound</td>
@@ -11235,7 +11559,7 @@
                           </tr>
                           <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
                             <td>Diesel</td>
-                            <td>Diesel</td>
+                            <td><span class="data-asset-tag">Diesel</span></td>
                             <td>Low heating values (LHV)</td>
                             <td class="numeric">0.001552</td>
                             <td>yr³/pound</td>
@@ -11245,7 +11569,7 @@
                           </tr>
                           <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
                             <td>Ethanol</td>
-                            <td>Ethanol</td>
+                            <td><span class="data-asset-tag">Ethanol</span></td>
                             <td>Density</td>
                             <td class="numeric">0.001298</td>
                             <td>kWh/pound</td>
@@ -11271,7 +11595,7 @@
                       <table class="data-table uom-table">
                         <thead>
                           <tr>
-                            <th class="sortable">Name <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                            <th class="sortable">Material name <i class="fa-light fa-chevron-down sort-icon"></i></th>
                             <th class="sortable">Data asset <i class="fa-light fa-chevron-down sort-icon"></i></th>
                             <th class="sortable">Heating values <i class="fa-light fa-chevron-down sort-icon"></i></th>
                             <th class="sortable">Factor <i class="fa-light fa-chevron-down sort-icon"></i></th>
@@ -11284,7 +11608,7 @@
                         <tbody>
                           <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
                             <td>Natural gas (pipeline)</td>
-                            <td>Natural gas</td>
+                            <td><span class="data-asset-tag">Natural gas</span><span class="data-asset-tag">Pipeline gas</span></td>
                             <td>Low heating values (LHV)</td>
                             <td class="numeric">0.000054</td>
                             <td>kg CO₂e/therm</td>
@@ -11294,7 +11618,7 @@
                           </tr>
                           <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
                             <td>Distillate fuel oil (No. 2)</td>
-                            <td>Heating oil</td>
+                            <td><span class="data-asset-tag">Heating oil</span></td>
                             <td>High heating values (HHV)</td>
                             <td class="numeric">0.010180</td>
                             <td>kg CO₂e/gallon</td>
@@ -11304,7 +11628,7 @@
                           </tr>
                           <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
                             <td>Residual fuel oil</td>
-                            <td>Fuel oil</td>
+                            <td><span class="data-asset-tag">Fuel oil</span></td>
                             <td>High heating values (HHV)</td>
                             <td class="numeric">0.011430</td>
                             <td>kg CO₂e/gallon</td>
@@ -11324,7 +11648,7 @@
                           </tr>
                           <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
                             <td>Propane</td>
-                            <td>LPG</td>
+                            <td><span class="data-asset-tag">LPG</span></td>
                             <td>High heating values (HHV)</td>
                             <td class="numeric">0.005770</td>
                             <td>kg CO₂e/gallon</td>
@@ -11334,7 +11658,7 @@
                           </tr>
                           <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
                             <td>Motor gasoline</td>
-                            <td>Petrol</td>
+                            <td><span class="data-asset-tag">Petrol</span></td>
                             <td>Low heating values (LHV)</td>
                             <td class="numeric">0.008780</td>
                             <td>kg CO₂e/gallon</td>
@@ -11344,7 +11668,7 @@
                           </tr>
                           <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
                             <td>Coal (bituminous)</td>
-                            <td>Coal</td>
+                            <td><span class="data-asset-tag">Coal</span></td>
                             <td>High heating values (HHV)</td>
                             <td class="numeric">0.002420</td>
                             <td>kg CO₂e/lb</td>
@@ -11370,7 +11694,7 @@
                       <table class="data-table uom-table">
                         <thead>
                           <tr>
-                            <th class="sortable">Name <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                            <th class="sortable">Material name <i class="fa-light fa-chevron-down sort-icon"></i></th>
                             <th class="sortable">Data asset <i class="fa-light fa-chevron-down sort-icon"></i></th>
                             <th class="sortable">Heating values <i class="fa-light fa-chevron-down sort-icon"></i></th>
                             <th class="sortable">Factor <i class="fa-light fa-chevron-down sort-icon"></i></th>
@@ -11383,7 +11707,7 @@
                         <tbody>
                           <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
                             <td>Electricity (US grid, annual)</td>
-                            <td>Grid electricity</td>
+                            <td><span class="data-asset-tag">Grid electricity</span><span class="data-asset-tag">US grid</span></td>
                             <td>—</td>
                             <td class="numeric">0.000386</td>
                             <td>kg CO₂e/kWh</td>
@@ -11393,7 +11717,7 @@
                           </tr>
                           <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
                             <td>Jet fuel (kerosene)</td>
-                            <td>Aviation fuel</td>
+                            <td><span class="data-asset-tag">Aviation fuel</span></td>
                             <td>Low heating values (LHV)</td>
                             <td class="numeric">0.002540</td>
                             <td>kg CO₂e/lb</td>
@@ -11403,7 +11727,7 @@
                           </tr>
                           <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
                             <td>Diesel (on-road)</td>
-                            <td>Diesel</td>
+                            <td><span class="data-asset-tag">Diesel</span></td>
                             <td>Low heating values (LHV)</td>
                             <td class="numeric">0.010150</td>
                             <td>kg CO₂e/gallon</td>
@@ -11413,7 +11737,7 @@
                           </tr>
                           <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
                             <td>Natural gas (commercial)</td>
-                            <td>Natural gas</td>
+                            <td><span class="data-asset-tag">Natural gas</span></td>
                             <td>Low heating values (LHV)</td>
                             <td class="numeric">0.000053</td>
                             <td>kg CO₂e/therm</td>
@@ -14871,6 +15195,10 @@
       view.querySelectorAll('.unit-measure-panel').forEach(function(panel) {
         panel.classList.toggle('hidden', panel.getAttribute('data-uom-panel') !== tabId);
       });
+      if (tabId === 'group') {
+        ensureUomGroupDefaultDataRowsPopulated();
+        if (typeof updateUomGroupMeta === 'function') updateUomGroupMeta();
+      }
     }
     
     function formatDateMmDdYyyy(d) {
@@ -14899,11 +15227,28 @@
         return;
       }
       _uomMenuRow = row;
+      var makeBaseLi = document.getElementById('uomMenuMakeBaseLi');
+      if (makeBaseLi) {
+        var firstCell = row.cells[0];
+        var isBaseUnit = firstCell && firstCell.querySelector('.source-unit-sub');
+        makeBaseLi.style.display = isBaseUnit ? 'none' : '';
+      }
       var rect = btn.getBoundingClientRect();
       menu.style.left = rect.left + 'px';
       menu.style.top = (rect.bottom + 4) + 'px';
       menu.classList.add('open');
       setTimeout(function() {
+        var menuRect = menu.getBoundingClientRect();
+        var pad = 8;
+        if (menuRect.bottom > window.innerHeight - pad) {
+          menu.style.top = Math.max(pad, rect.top - menu.offsetHeight - 4) + 'px';
+        }
+        if (menuRect.right > window.innerWidth - pad) {
+          menu.style.left = (window.innerWidth - menu.offsetWidth - pad) + 'px';
+        }
+        if (menu.getBoundingClientRect().left < pad) {
+          menu.style.left = pad + 'px';
+        }
         document.addEventListener('click', _closeUomRowMenuOnClick);
       }, 0);
     }
@@ -14925,40 +15270,180 @@
         if (typeof showToast === 'function') showToast('Unit deleted (prototype)', 'success');
       }
     }
+    var _makeBaseUnitTargetRow = null;
+    function uomMenuMakeBaseUnit() {
+      var targetRow = _uomMenuRow;
+      _closeUomRowMenuOnClick();
+      if (!targetRow || targetRow.classList.contains('add-unit-input-row')) return;
+      _makeBaseUnitTargetRow = targetRow;
+      document.getElementById('makeBaseUnitModalBackdrop').classList.add('open');
+      document.getElementById('makeBaseUnitModal').classList.add('open');
+    }
+    function closeMakeBaseUnitModal() {
+      _makeBaseUnitTargetRow = null;
+      document.getElementById('makeBaseUnitModalBackdrop').classList.remove('open');
+      document.getElementById('makeBaseUnitModal').classList.remove('open');
+    }
+    var _uomGroupEditOption = null;
+    function openAddUomGroupModal() {
+      window._uomGroupEditOption = null;
+      document.getElementById('addUomGroupModalTitle').textContent = 'Add UOM Group';
+      document.getElementById('addUomGroupModalSaveBtn').textContent = 'Add UOM Group';
+      document.getElementById('addUomGroupName').value = '';
+      document.getElementById('addUomGroupDescription').value = '';
+      document.getElementById('addUomGroupActive').checked = true;
+      document.getElementById('addUomGroupModalBackdrop').classList.add('open');
+      document.getElementById('addUomGroupModal').classList.add('open');
+    }
+    function openEditUomGroupModal() {
+      var sel = document.getElementById('uomGroupSelect');
+      if (!sel || sel.selectedIndex < 0) return;
+      var opt = sel.options[sel.selectedIndex];
+      if (!opt) return;
+      window._uomGroupEditOption = opt;
+      document.getElementById('addUomGroupModalTitle').textContent = 'Edit UOM Group';
+      document.getElementById('addUomGroupModalSaveBtn').textContent = 'Save';
+      document.getElementById('addUomGroupName').value = (opt.value || '').trim();
+      document.getElementById('addUomGroupDescription').value = (opt.getAttribute('data-description') || '').trim();
+      document.getElementById('addUomGroupActive').checked = (opt.getAttribute('data-active') !== 'false');
+      document.getElementById('addUomGroupModalBackdrop').classList.add('open');
+      document.getElementById('addUomGroupModal').classList.add('open');
+    }
+    function closeAddUomGroupModal() {
+      window._uomGroupEditOption = null;
+      document.getElementById('addUomGroupModalBackdrop').classList.remove('open');
+      document.getElementById('addUomGroupModal').classList.remove('open');
+    }
+    function saveAddUomGroupModal() {
+      var name = (document.getElementById('addUomGroupName').value || '').trim();
+      if (!name) return;
+      var description = (document.getElementById('addUomGroupDescription').value || '').trim();
+      var active = document.getElementById('addUomGroupActive').checked;
+      var editing = window._uomGroupEditOption;
+      closeAddUomGroupModal();
+      if (editing) {
+        editing.value = name;
+        editing.textContent = name;
+        editing.setAttribute('data-description', description || 'Unit Group for ' + name);
+        editing.setAttribute('data-active', active ? 'true' : 'false');
+        var sel = document.getElementById('uomGroupSelect');
+        if (sel) sel.value = name;
+        updateUomGroupMeta();
+        if (typeof showToast === 'function') showToast('UOM group updated (prototype)', 'success');
+        return;
+      }
+      var sel = document.getElementById('uomGroupSelect');
+      if (sel) {
+        var opt = document.createElement('option');
+        opt.value = name;
+        opt.textContent = name;
+        opt.setAttribute('data-description', description || 'Unit Group for ' + name);
+        opt.setAttribute('data-active', active ? 'true' : 'false');
+        sel.appendChild(opt);
+        sel.value = name;
+        if (typeof _lastAddedUomGroupName === 'undefined') window._lastAddedUomGroupName = null;
+        window._lastAddedUomGroupName = name;
+      }
+      document.getElementById('addUomGroupName').value = '';
+      document.getElementById('addUomGroupDescription').value = '';
+      document.getElementById('addUomGroupActive').checked = true;
+      switchUnitMeasureTab('group');
+      updateUomGroupMeta();
+      var promptEl = document.getElementById('uomAddBaseUnitPrompt');
+      if (promptEl) promptEl.classList.remove('hidden');
+      if (typeof showToast === 'function') showToast('UOM group added (prototype)', 'success');
+    }
+    function updateUomGroupMeta() {
+      var sel = document.getElementById('uomGroupSelect');
+      var descEl = document.getElementById('uomGroupDescription');
+      var statusEl = document.getElementById('uomGroupStatus');
+      var promptEl = document.getElementById('uomAddBaseUnitPrompt');
+      if (!sel || !descEl || !statusEl) return;
+      var opt = sel.options[sel.selectedIndex];
+      var desc = opt ? (opt.getAttribute('data-description') || '') : '';
+      var active = opt ? (opt.getAttribute('data-active') !== 'false') : true;
+      descEl.textContent = desc || '—';
+      statusEl.textContent = active ? 'Active' : 'Inactive';
+      statusEl.classList.toggle('uom-group-status-active', active);
+      statusEl.classList.toggle('uom-group-status-inactive', !active);
+      var showPrompt = (window._lastAddedUomGroupName && sel.value === window._lastAddedUomGroupName);
+      if (promptEl) promptEl.classList.toggle('hidden', !showPrompt);
+      var tableSection = document.getElementById('uomGroupTableSection');
+      if (tableSection) tableSection.classList.toggle('hidden', showPrompt);
+      if (!showPrompt) restoreUomGroupDefaultDataRows();
+    }
+    function ensureUomGroupDefaultDataRowsPopulated() {}
+    function showEmptyGroupTableAndAddBaseUnit() {
+      var tbody = getUomGroupTbody();
+      if (!tbody) return;
+      var storage = document.getElementById('uomGroupDefaultRowsStorage');
+      var dataRows = tbody.querySelectorAll('tr.uom-data-row');
+      for (var j = 0; j < dataRows.length; j++) {
+        if (storage) storage.appendChild(dataRows[j]);
+      }
+      document.getElementById('uomAddBaseUnitPrompt').classList.add('hidden');
+      document.getElementById('uomGroupTableSection').classList.remove('hidden');
+      window._lastAddedUomGroupName = null;
+      toggleAddUnitRow();
+    }
+    function restoreUomGroupDefaultDataRows() {
+      var storage = document.getElementById('uomGroupDefaultRowsStorage');
+      if (!storage || !storage.firstChild) return;
+      var tbody = getUomGroupTbody();
+      var addRow = document.getElementById('addUnitInputRow');
+      if (!tbody || !addRow) return;
+      while (storage.lastChild) {
+        tbody.insertBefore(storage.lastChild, addRow);
+      }
+    }
+    function confirmMakeBaseUnit() {
+      var targetRow = _makeBaseUnitTargetRow;
+      closeMakeBaseUnitModal();
+      if (!targetRow || targetRow.classList.contains('add-unit-input-row')) return;
+      var tbody = getUomGroupTbody();
+      if (!tbody) return;
+      var dataRows = tbody.querySelectorAll('tr.uom-data-row');
+      var newBaseOldFactor = parseFloat((targetRow.cells[4] && targetRow.cells[4].textContent) ? targetRow.cells[4].textContent.trim().replace(/,/g, '') : '1') || 1;
+      for (var i = 0; i < dataRows.length; i++) {
+        var tr = dataRows[i];
+        var first = tr.cells[0];
+        var factorCell = tr.cells[4];
+        if (!first || !factorCell) continue;
+        var sub = first.querySelector('.source-unit-sub');
+        if (sub) sub.remove();
+        var oldFactor = parseFloat((factorCell.textContent || '').trim().replace(/,/g, '')) || 0;
+        var newFactor = newBaseOldFactor === 0 ? 0 : oldFactor / newBaseOldFactor;
+        factorCell.textContent = newFactor === Math.floor(newFactor) ? String(newFactor) : newFactor.toFixed(6).replace(/\.?0+$/, '') || '0';
+        if (tr === targetRow) {
+          var nameSpan = first.querySelector('.source-unit-name');
+          if (nameSpan) {
+            var baseSpan = document.createElement('span');
+            baseSpan.className = 'source-unit-sub';
+            baseSpan.textContent = 'Base unit';
+            first.appendChild(baseSpan);
+          }
+        }
+      }
+      if (typeof showToast === 'function') showToast('Base unit updated (prototype)', 'success');
+    }
     function getUomGroupTbody() {
       var panel = document.querySelector('.unit-measure-panel[data-uom-panel="group"]');
       return panel ? panel.querySelector('.uom-table tbody') : null;
-    }
-    function clearOtherBaseUnits(exceptRow) {
-      var tbody = getUomGroupTbody();
-      if (!tbody) return;
-      var rows = tbody.querySelectorAll('tr.uom-data-row');
-      for (var i = 0; i < rows.length; i++) {
-        var tr = rows[i];
-        if (tr === exceptRow || tr.classList.contains('uom-row-editing')) continue;
-        var first = tr.cells[0];
-        if (!first) continue;
-        var sub = first.querySelector('.source-unit-sub');
-        if (sub) sub.remove();
-      }
     }
     function enterUomRowEdit(tr) {
       if (!tr || tr.classList.contains('uom-row-editing')) return;
       var c = tr.cells;
       if (!c || c.length < 7) return;
       var nameEl = tr.querySelector('.source-unit-name');
-      var subEl = tr.querySelector('.source-unit-sub');
       var name = nameEl ? nameEl.textContent.trim() : '';
       var abbr = (c[1] && c[1].textContent) ? c[1].textContent.trim() : '';
       var source = (c[2] && c[2].textContent) ? c[2].textContent.trim() : '';
       var accessEl = c[3] && c[3].querySelector('.access-tag');
       var access = accessEl ? accessEl.textContent.trim() : 'Global';
       var factor = (c[4] && c[4].textContent) ? c[4].textContent.trim() : '';
-      var isBase = !!subEl;
       tr.setAttribute('data-uom-original', tr.innerHTML);
       tr.classList.add('uom-row-editing');
-      var baseHtml = '<label class="add-unit-base-label"><input type="checkbox" class="uom-edit-base-checkbox" ' + (isBase ? 'checked' : '') + '> Base unit</label>';
-      tr.cells[0].innerHTML = '<input type="text" class="form-input add-unit-input uom-edit-name" value="' + (name.replace(/"/g, '&quot;')) + '">' + baseHtml;
+      tr.cells[0].innerHTML = '<input type="text" class="form-input add-unit-input uom-edit-name" value="' + (name.replace(/"/g, '&quot;')) + '">';
       tr.cells[1].innerHTML = '<input type="text" class="form-input add-unit-input uom-edit-abbr" value="' + (abbr.replace(/"/g, '&quot;')) + '">';
       tr.cells[2].innerHTML = '<select class="form-select add-unit-input add-unit-select uom-edit-source"><option value="">Select source</option><option value="SI"' + (source === 'SI' ? ' selected' : '') + '>SI</option><option value="US Customary / Imperial"' + (source === 'US Customary / Imperial' ? ' selected' : '') + '>US Customary / Imperial</option></select>';
       tr.cells[3].innerHTML = '<select class="form-select add-unit-input add-unit-select uom-edit-access"><option value="Global"' + (access === 'Global' ? ' selected' : '') + '>Global</option><option value="Custom"' + (access === 'Custom' ? ' selected' : '') + '>Custom</option></select>';
@@ -14977,14 +15462,12 @@
       var access = accessSelect ? accessSelect.value : 'Global';
       var factorEl = tr.querySelector('.uom-edit-factor');
       var factor = factorEl ? factorEl.value.trim() : '';
-      var isBase = tr.querySelector('.uom-edit-base-checkbox') && tr.querySelector('.uom-edit-base-checkbox').checked;
       var esc = function(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); };
-      var nameCell = isBase ? '<span class="source-unit-name">' + esc(name || '—') + '</span><span class="source-unit-sub">Base unit</span>' : '<span class="source-unit-name">' + esc(name || '—') + '</span>';
+      var nameCell = '<span class="source-unit-name">' + esc(name || '—') + '</span>';
       var metaStr = formatDateMmDdYyyy(new Date()) + ' at ' + new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }) + ' CST';
       tr.innerHTML = '<td>' + nameCell + '</td><td>' + esc(abbr || '—') + '</td><td>' + esc(source || '—') + '</td><td><span class="access-tag">' + esc(access || 'Global') + '</span></td><td class="numeric">' + esc(factor || '—') + '</td><td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">' + esc(metaStr) + '</span></td><td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>';
       tr.classList.remove('uom-row-editing');
       tr.classList.add('uom-data-row');
-      if (isBase) clearOtherBaseUnits(tr);
       if (typeof showToast === 'function') showToast('Unit updated (prototype)', 'success');
     }
     function cancelUomRowEdit(tr) {
@@ -15006,7 +15489,6 @@
         document.getElementById('addUnitSource').value = '';
         document.getElementById('addUnitAccess').value = 'Global';
         document.getElementById('addUnitFactor').value = '';
-        document.getElementById('addUnitBase').checked = false;
       }
     }
     function cancelAddUnit() {
@@ -15018,20 +15500,35 @@
       var source = document.getElementById('addUnitSource').value || '';
       var access = document.getElementById('addUnitAccess').value || 'Global';
       var factor = (document.getElementById('addUnitFactor').value || '').trim();
-      var isBase = document.getElementById('addUnitBase').checked;
       var tbody = document.querySelector('.unit-measure-panel[data-uom-panel="group"] .uom-table tbody');
       if (!tbody) return;
       var inputRow = document.getElementById('addUnitInputRow');
       var esc = function(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); };
-      var newRow = document.createElement('tr');
-      var nameCell = isBase ? '<span class="source-unit-name">' + esc(name || '—') + '</span><span class="source-unit-sub">Base unit</span>' : '<span class="source-unit-name">' + esc(name || '—') + '</span>';
+      var existingDataRows = tbody.querySelectorAll('tr.uom-data-row');
+      var isBaseUnit = (existingDataRows.length === 0);
+      var nameCell = '<span class="source-unit-name">' + esc(name || '—') + '</span>';
+      if (isBaseUnit) nameCell += '<span class="source-unit-sub">Base unit</span>';
       var metaStr = formatDateMmDdYyyy(new Date()) + ' at ' + new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }) + ' CST';
+      var newRow = document.createElement('tr');
       newRow.className = 'uom-data-row';
       newRow.innerHTML = '<td>' + nameCell + '</td><td>' + esc(abbr || '—') + '</td><td>' + esc(source || '—') + '</td><td><span class="access-tag">' + esc(access || 'Global') + '</span></td><td class="numeric">' + esc(factor || '—') + '</td><td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">' + esc(metaStr) + '</span></td><td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>';
       tbody.insertBefore(newRow, inputRow);
-      if (isBase) clearOtherBaseUnits(newRow);
       toggleAddUnitRow();
       if (typeof showToast === 'function') showToast('Unit added (prototype)', 'success');
+    }
+    function filterUnitLibrary(term) {
+      var tbody = document.getElementById('unitLibraryTbody');
+      var countEl = document.getElementById('unitLibraryPaginationCount');
+      if (!tbody || !countEl) return;
+      var rows = tbody.querySelectorAll('tr');
+      var q = (term || '').trim().toLowerCase();
+      var visible = 0;
+      for (var i = 0; i < rows.length; i++) {
+        var show = !q || (rows[i].getAttribute('data-search') || '').toLowerCase().indexOf(q) !== -1;
+        rows[i].style.display = show ? '' : 'none';
+        if (show) visible++;
+      }
+      countEl.textContent = q ? visible + ' of 98 items' : '1-25 of 98 items';
     }
     function applyCrossGroupUnmappedFilter(active) {
       var panel = document.getElementById('crossGroupPanel');
@@ -15045,6 +15542,29 @@
       } else {
         panel.classList.remove('unmapped-filter-active');
         pills.classList.add('hidden');
+      }
+    }
+    var _addMaterialsClickOut = null;
+    function toggleAddMaterialsDropdown() {
+      var menu = document.getElementById('addMaterialsMenu');
+      if (!menu) return;
+      menu.classList.toggle('open');
+      if (menu.classList.contains('open')) {
+        _addMaterialsClickOut = function(e) {
+          var wrap = document.getElementById('addMaterialsDropdown');
+          if (wrap && !wrap.contains(e.target)) closeAddMaterialsDropdown();
+        };
+        setTimeout(function() { document.addEventListener('click', _addMaterialsClickOut); }, 0);
+      } else {
+        if (_addMaterialsClickOut) document.removeEventListener('click', _addMaterialsClickOut);
+      }
+    }
+    function closeAddMaterialsDropdown() {
+      var menu = document.getElementById('addMaterialsMenu');
+      if (menu) menu.classList.remove('open');
+      if (_addMaterialsClickOut) {
+        document.removeEventListener('click', _addMaterialsClickOut);
+        _addMaterialsClickOut = null;
       }
     }
     
@@ -15131,28 +15651,126 @@
       var cells = rowEl && rowEl.cells;
       var name = (cells && cells[0]) ? cells[0].textContent.trim() : '';
       var factor = (cells && cells[3]) ? cells[3].textContent.trim() : '0.00043';
-      var heatingVal = (cells && cells[2]) ? cells[2].textContent.trim() : 'Low heating value';
+      var heatingVal = (cells && cells[2]) ? cells[2].textContent.trim() : '';
+      var heatingSelect = document.getElementById('editMaterialHeatingValue');
+      if (heatingSelect) {
+        var heatingOption = 'Low heating values';
+        if (heatingVal.indexOf('High') !== -1) heatingOption = 'High heating values';
+        else if (heatingVal.indexOf('Density') !== -1) heatingOption = 'Density';
+        else if (heatingVal.indexOf('Low') !== -1) heatingOption = 'Low heating values';
+        heatingSelect.value = heatingOption;
+      }
       document.getElementById('editMaterialTitle').textContent = name || 'Edit Material';
       document.getElementById('editMaterialName').value = name || '';
       document.getElementById('editMaterialFactor').value = factor || '0.00043';
-      document.getElementById('editMaterialHeatingValue').textContent = heatingVal || 'Low heating value';
       var descEl = document.getElementById('editMaterialDescription');
       if (descEl) {
         descEl.value = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eget est lorem.';
       }
+      var startEl = document.getElementById('editMaterialStartDate');
+      var endEl = document.getElementById('editMaterialEndDate');
+      if (startEl) startEl.value = '08/2020';
+      if (endEl) endEl.value = '08/2024';
       switchEditMaterialTab('overview');
-      var valEl = document.getElementById('dataAssetValue');
-      var hidEl = document.getElementById('dataAssetHidden');
-      if (valEl) { valEl.textContent = 'Select Data Asset'; valEl.classList.remove('selected'); }
-      if (hidEl) hidEl.value = '';
-      document.querySelectorAll('#dataAssetList li.selected').forEach(function(li) { li.classList.remove('selected'); });
+      setSelectedDataAssets([]);
       var dd = document.getElementById('dataAssetDropdown');
-      if (dd) { dd.classList.remove('open'); }
+      if (dd) dd.classList.remove('open');
       var pan = document.getElementById('dataAssetPanel');
       if (pan) pan.classList.add('hidden');
-      var linkSection = document.getElementById('materialLinkageSection');
-      if (linkSection) linkSection.classList.add('hidden');
       document.getElementById('editMaterialOverlay').classList.add('open');
+    }
+    function openAddMaterialModal() {
+      document.getElementById('editMaterialTitle').textContent = 'Add Material';
+      document.getElementById('editMaterialName').value = '';
+      var descEl = document.getElementById('editMaterialDescription');
+      if (descEl) descEl.value = '';
+      var startEl = document.getElementById('editMaterialStartDate');
+      var endEl = document.getElementById('editMaterialEndDate');
+      if (startEl) startEl.value = '';
+      if (endEl) endEl.value = '';
+      document.getElementById('editMaterialFactor').value = '';
+      var heatingSelectAdd = document.getElementById('editMaterialHeatingValue');
+      if (heatingSelectAdd) heatingSelectAdd.value = '';
+      var numGroup = document.getElementById('editMaterialNumGroup');
+      var numUnit = document.getElementById('editMaterialNumUnit');
+      var denomGroup = document.getElementById('editMaterialDenomGroup');
+      var denomUnit = document.getElementById('editMaterialDenomUnit');
+      if (numGroup) numGroup.selectedIndex = 0;
+      if (numUnit) numUnit.selectedIndex = 0;
+      if (denomGroup) denomGroup.selectedIndex = 0;
+      if (denomUnit) denomUnit.selectedIndex = 0;
+      var versionUrl = document.getElementById('editDetailsVersionUrl');
+      if (versionUrl) versionUrl.value = '';
+      var notesEl = document.getElementById('editDetailsNotes');
+      if (notesEl) notesEl.value = '';
+      var publishEl = document.getElementById('editDetailsPublishDate');
+      if (publishEl) publishEl.value = '';
+      var activeYear = document.getElementById('editDetailsActiveYear');
+      if (activeYear) activeYear.value = '';
+      var ghgPoll = document.getElementById('editDetailsGhgPollutants');
+      if (ghgPoll) ghgPoll.value = '';
+      var gwpVer = document.getElementById('editDetailsGwpVersion');
+      if (gwpVer) gwpVer.selectedIndex = 1;
+      var accessType = document.getElementById('editDetailsAccessType');
+      if (accessType) accessType.selectedIndex = 0;
+      var regionType = document.getElementById('editDetailsRegionalityType');
+      if (regionType) regionType.value = '';
+      var attachmentsList = document.getElementById('detailsAttachmentsList');
+      if (attachmentsList) attachmentsList.innerHTML = '';
+      switchEditMaterialTab('overview');
+      setSelectedDataAssets([]);
+      var dd = document.getElementById('dataAssetDropdown');
+      if (dd) dd.classList.remove('open');
+      var pan = document.getElementById('dataAssetPanel');
+      if (pan) pan.classList.add('hidden');
+      document.getElementById('editMaterialOverlay').classList.add('open');
+    }
+    var _selectedDataAssets = [];
+    function getSelectedDataAssets() { return _selectedDataAssets.slice(); }
+    function setSelectedDataAssets(arr) {
+      _selectedDataAssets = (arr && arr.slice()) || [];
+      var valEl = document.getElementById('dataAssetValue');
+      var hidEl = document.getElementById('dataAssetHidden');
+      if (valEl) { valEl.textContent = _selectedDataAssets.length === 0 ? 'Select Data Asset(s)' : _selectedDataAssets.length + ' selected'; valEl.classList.toggle('selected', _selectedDataAssets.length > 0); }
+      if (hidEl) hidEl.value = _selectedDataAssets.join(',');
+      var list = document.getElementById('dataAssetList');
+      if (list) list.querySelectorAll('li').forEach(function(li) { var v = li.getAttribute('data-value'); var cb = li.querySelector('input[type="checkbox"]'); if (cb) cb.checked = _selectedDataAssets.indexOf(v) !== -1; });
+      renderDataAssetPills();
+    }
+    function renderDataAssetPills() {
+      var container = document.getElementById('dataAssetPills');
+      if (!container) return;
+      container.innerHTML = '';
+      _selectedDataAssets.forEach(function(value) {
+        var pill = document.createElement('span');
+        pill.className = 'data-asset-pill';
+        pill.innerHTML = value + ' <button type="button" class="data-asset-pill-remove" aria-label="Remove ' + value.replace(/"/g, '&quot;') + '"><i class="fa-light fa-xmark"></i></button>';
+        pill.querySelector('button').onclick = (function(v) { return function() { removeDataAsset(v); }; })(value);
+        container.appendChild(pill);
+      });
+    }
+    function updateDataAssetTriggerText() {
+      var valEl = document.getElementById('dataAssetValue');
+      var hidEl = document.getElementById('dataAssetHidden');
+      if (valEl) { valEl.textContent = _selectedDataAssets.length === 0 ? 'Select Data Asset(s)' : _selectedDataAssets.length + ' selected'; valEl.classList.toggle('selected', _selectedDataAssets.length > 0); }
+      if (hidEl) hidEl.value = _selectedDataAssets.join(',');
+    }
+    function toggleDataAsset(value, liEl) {
+      var idx = _selectedDataAssets.indexOf(value);
+      if (idx === -1) _selectedDataAssets.push(value);
+      else _selectedDataAssets.splice(idx, 1);
+      var cb = liEl && liEl.querySelector('input[type="checkbox"]');
+      if (cb) cb.checked = _selectedDataAssets.indexOf(value) !== -1;
+      renderDataAssetPills();
+      updateDataAssetTriggerText();
+    }
+    function removeDataAsset(value) {
+      var idx = _selectedDataAssets.indexOf(value);
+      if (idx !== -1) { _selectedDataAssets.splice(idx, 1); }
+      var list = document.getElementById('dataAssetList');
+      if (list) list.querySelectorAll('li').forEach(function(li) { var v = li.getAttribute('data-value'); var cb = li.querySelector('input[type="checkbox"]'); if (cb) cb.checked = _selectedDataAssets.indexOf(v) !== -1; });
+      renderDataAssetPills();
+      updateDataAssetTriggerText();
     }
     function closeEditMaterialModal() {
       document.getElementById('editMaterialOverlay').classList.remove('open');
@@ -15307,7 +15925,8 @@
       var isOpen = wrap.classList.toggle('open');
       panel.classList.toggle('hidden', !isOpen);
       if (isOpen) {
-        document.getElementById('dataAssetSearch').value = '';
+        var searchEl = document.getElementById('dataAssetSearch');
+        if (searchEl) { searchEl.value = ''; setTimeout(function() { searchEl.focus(); }, 0); }
         filterDataAssetOptions();
         setTimeout(function() { document.addEventListener('click', _closeDataAssetDropdownOnClick); }, 0);
       } else {
@@ -15334,86 +15953,6 @@
         var text = (li.getAttribute('data-value') || li.textContent || '').toLowerCase();
         li.classList.toggle('filtered-out', q && text.indexOf(q) === -1);
       });
-    }
-    var materialLinkageDefault = {};
-    var materialLinkageData = {
-      'Biodiesel (Commodity)': [
-        { name: 'Biodiesel (ME)', source: 'UK Government Department of Environment, Food & Rural Affairs (DEFRA).', regionality: 'EU', effectiveDates: '01/01/2024', status: 'Active' },
-        { name: 'Biodiesel (UO)', source: 'UK Government Department of Environment, Food & Rural Affairs (DEFRA).', regionality: 'EU', effectiveDates: '01/01/2024', status: 'Active' },
-        { name: 'Standard Biodiesel', source: 'UK Government Department of Environment, Food & Rural Affairs (DEFRA).', regionality: 'EU', effectiveDates: '01/01/2024', status: 'Active' }
-      ],
-      'Asphalt (Commodity)': [
-        { name: 'Asphalt (Road)', source: 'UK Government Department of Environment, Food & Rural Affairs (DEFRA).', regionality: 'EU', effectiveDates: '01/01/2024', status: 'Active' },
-        { name: 'Asphalt (General)', source: 'UK Government Department of Environment, Food & Rural Affairs (DEFRA).', regionality: 'EU', effectiveDates: '01/01/2024', status: 'Active' }
-      ],
-      'Aviation Gasoline (Commodity)': [
-        { name: 'Aviation Gasoline (100LL)', source: 'UK Government Department of Environment, Food & Rural Affairs (DEFRA).', regionality: 'EU', effectiveDates: '01/01/2024', status: 'Active' }
-      ],
-      'Biogasoline (Commodity)': [
-        { name: 'Biogasoline (E10)', source: 'UK Government Department of Environment, Food & Rural Affairs (DEFRA).', regionality: 'EU', effectiveDates: '01/01/2024', status: 'Active' }
-      ]
-    };
-    function setMaterialLinkageDefault(asset, materialName) {
-      materialLinkageDefault[asset] = materialName;
-      updateMaterialLinkage(asset);
-    }
-    function setMaterialLinkageDefaultFromBtn(btn) {
-      var asset = btn.getAttribute('data-asset');
-      var material = btn.getAttribute('data-material');
-      if (asset && material) setMaterialLinkageDefault(asset, material);
-    }
-    function escapeAttr(s) {
-      if (!s) return '';
-      return String(s)
-        .replace(/&/g, '&amp;')
-        .replace(/"/g, '&quot;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;');
-    }
-    function updateMaterialLinkage(selectedAsset) {
-      var section = document.getElementById('materialLinkageSection');
-      var titleEl = document.getElementById('materialLinkageTitle');
-      var tbody = document.getElementById('materialLinkageTbody');
-      if (!section || !titleEl || !tbody) return;
-      var rows = materialLinkageData[selectedAsset] || [];
-      var currentDefault = materialLinkageDefault[selectedAsset];
-      var currentMaterialName = (document.getElementById('editMaterialTitle') && document.getElementById('editMaterialTitle').textContent) ? document.getElementById('editMaterialTitle').textContent.trim() : '';
-      var hasCurrentRow = currentMaterialName.length > 0;
-      var displayRows = [];
-      if (hasCurrentRow) {
-        displayRows.push({ name: currentMaterialName, source: '—', regionality: '—', effectiveDates: '—', status: '—', isCurrentEditing: true });
-      }
-      rows.forEach(function(r) {
-        if (r.name !== currentMaterialName) displayRows.push({ name: r.name, source: r.source, regionality: r.regionality, effectiveDates: r.effectiveDates, status: r.status, isCurrentEditing: false });
-      });
-      titleEl.textContent = 'Material linkage (' + displayRows.length + ')';
-      tbody.innerHTML = '';
-      var radioName = 'material-default-' + escapeAttr(selectedAsset).replace(/[^a-zA-Z0-9-]/g, '_');
-      displayRows.forEach(function(r) {
-        var isDefault = r.name === currentDefault;
-        var tr = document.createElement('tr');
-        var nameAttr = escapeAttr(r.name);
-        var radioCell = '<td class="default-radio-cell"><input type="radio" name="' + radioName + '" value="' + nameAttr + '" ' + (isDefault ? 'checked' : '') + ' data-asset="' + escapeAttr(selectedAsset) + '" data-material="' + nameAttr + '" onclick="setMaterialLinkageDefaultFromBtn(this)" aria-label="Set as default material"></td>';
-        var nameCell = '<td><div class="material-name-cell"><span>' + escapeHtml(r.name) + '</span>' + (r.isCurrentEditing ? ' <span class="material-linkage-current-tag">Currently editing</span>' : '') + '</div></td>';
-        tr.innerHTML = radioCell + nameCell + '<td>' + escapeHtml(r.source) + '</td><td>' + escapeHtml(r.regionality) + '</td><td>' + escapeHtml(r.effectiveDates) + '</td><td>' + (r.isCurrentEditing ? '—' : '<span class="status-pill active">' + escapeHtml(r.status) + '</span>') + '</td>';
-        tbody.appendChild(tr);
-      });
-      section.classList.toggle('hidden', displayRows.length === 0);
-    }
-    function escapeHtml(text) {
-      if (!text) return '';
-      var div = document.createElement('div');
-      div.textContent = text;
-      return div.innerHTML;
-    }
-    function selectDataAsset(value, el) {
-      document.getElementById('dataAssetValue').textContent = value;
-      document.getElementById('dataAssetValue').classList.add('selected');
-      document.getElementById('dataAssetHidden').value = value;
-      document.getElementById('dataAssetDropdown').querySelectorAll('.data-asset-list li.selected').forEach(function(li) { li.classList.remove('selected'); });
-      if (el) el.classList.add('selected');
-      closeDataAssetDropdown();
-      updateMaterialLinkage(value);
     }
     function materialMenuDelete() {
       closeMaterialRowMenu();
@@ -18286,8 +18825,9 @@
         <button type="button" data-edit-tab="details" onclick="switchEditMaterialTab('details')">Details</button>
         <button type="button" data-edit-tab="asset-mappings" onclick="switchEditMaterialTab('asset-mappings')">Asset Mappings</button>
       </div>
+      <form class="edit-material-form" onsubmit="return false;">
+      <div class="edit-material-panels-wrap">
       <div class="edit-material-panel" data-edit-panel="overview">
-        <form class="edit-material-form" onsubmit="return false;">
           <div class="form-group">
             <label>Name <span class="required">*</span></label>
             <input type="text" class="form-input" id="editMaterialName" value="" required>
@@ -18343,7 +18883,12 @@
           </div>
           <div class="form-group">
             <label>Heating value</label>
-            <div class="readonly-value" id="editMaterialHeatingValue">Low heating value</div>
+            <select class="form-select" id="editMaterialHeatingValue">
+              <option value="">Select heating value</option>
+              <option value="Low heating values">Low heating values</option>
+              <option value="High heating values">High heating values</option>
+              <option value="Density">Density</option>
+            </select>
           </div>
         </div>
         <div class="edit-material-panel hidden edit-material-details-panel" data-edit-panel="details">
@@ -18447,7 +18992,7 @@
             <label>Data Asset <span class="required">*</span></label>
             <div class="data-asset-dropdown" id="dataAssetDropdown">
               <button type="button" class="data-asset-trigger" id="dataAssetTrigger" onclick="toggleDataAssetDropdown()">
-                <span class="data-asset-value" id="dataAssetValue">Select Data Asset</span>
+                <span class="data-asset-value" id="dataAssetValue">Select Data Asset(s)</span>
                 <i class="fa-light fa-chevron-down data-asset-chevron"></i>
               </button>
               <div class="data-asset-panel hidden" id="dataAssetPanel">
@@ -18455,39 +19000,78 @@
                   <i class="fa-light fa-search"></i>
                   <input type="text" class="form-input" id="dataAssetSearch" placeholder="Search" oninput="filterDataAssetOptions()">
                 </div>
-                <ul class="data-asset-list" id="dataAssetList">
-                  <li data-value="Asphalt (Commodity)" onclick="selectDataAsset('Asphalt (Commodity)', this)">Asphalt (Commodity)</li>
-                  <li data-value="Aviation Gasoline (Commodity)" onclick="selectDataAsset('Aviation Gasoline (Commodity)', this)">Aviation Gasoline (Commodity)</li>
-                  <li data-value="Biogasoline (Commodity)" onclick="selectDataAsset('Biogasoline (Commodity)', this)">Biogasoline (Commodity)</li>
-                  <li data-value="Biodiesel (Commodity)" onclick="selectDataAsset('Biodiesel (Commodity)', this)">Biodiesel (Commodity)</li>
+                <ul class="data-asset-list data-asset-list-multi" id="dataAssetList">
+                  <li data-value="Account" onclick="event.preventDefault(); toggleDataAsset('Account', this)"><label class="data-asset-option"><input type="checkbox" aria-label="Account"> Account</label></li>
+                  <li data-value="Acetylene" onclick="event.preventDefault(); toggleDataAsset('Acetylene', this)"><label class="data-asset-option"><input type="checkbox" aria-label="Acetylene"> Acetylene</label></li>
+                  <li data-value="Air Transport" onclick="event.preventDefault(); toggleDataAsset('Air Transport', this)"><label class="data-asset-option"><input type="checkbox" aria-label="Air Transport"> Air Transport</label></li>
+                  <li data-value="Air Travel" onclick="event.preventDefault(); toggleDataAsset('Air Travel', this)"><label class="data-asset-option"><input type="checkbox" aria-label="Air Travel"> Air Travel</label></li>
+                  <li data-value="Alternative Energy Fuel Cell" onclick="event.preventDefault(); toggleDataAsset('Alternative Energy Fuel Cell', this)"><label class="data-asset-option"><input type="checkbox" aria-label="Alternative Energy Fuel Cell"> Alternative Energy Fuel Cell</label></li>
+                  <li data-value="Asphalt (Commodity)" onclick="event.preventDefault(); toggleDataAsset('Asphalt (Commodity)', this)"><label class="data-asset-option"><input type="checkbox" aria-label="Asphalt (Commodity)"> Asphalt (Commodity)</label></li>
+                  <li data-value="Automobile Travel" onclick="event.preventDefault(); toggleDataAsset('Automobile Travel', this)"><label class="data-asset-option"><input type="checkbox" aria-label="Automobile Travel"> Automobile Travel</label></li>
+                  <li data-value="Aviation Gasoline (Commodity)" onclick="event.preventDefault(); toggleDataAsset('Aviation Gasoline (Commodity)', this)"><label class="data-asset-option"><input type="checkbox" aria-label="Aviation Gasoline (Commodity)"> Aviation Gasoline (Commodity)</label></li>
+                  <li data-value="Battery Electric Vehicle" onclick="event.preventDefault(); toggleDataAsset('Battery Electric Vehicle', this)"><label class="data-asset-option"><input type="checkbox" aria-label="Battery Electric Vehicle"> Battery Electric Vehicle</label></li>
+                  <li data-value="Bicycle Travel" onclick="event.preventDefault(); toggleDataAsset('Bicycle Travel', this)"><label class="data-asset-option"><input type="checkbox" aria-label="Bicycle Travel"> Bicycle Travel</label></li>
+                  <li data-value="Bike Commute" onclick="event.preventDefault(); toggleDataAsset('Bike Commute', this)"><label class="data-asset-option"><input type="checkbox" aria-label="Bike Commute"> Bike Commute</label></li>
+                  <li data-value="Bio Compressed Natural Gas" onclick="event.preventDefault(); toggleDataAsset('Bio Compressed Natural Gas', this)"><label class="data-asset-option"><input type="checkbox" aria-label="Bio Compressed Natural Gas"> Bio Compressed Natural Gas</label></li>
+                  <li data-value="Bio Liquified Natural Gas" onclick="event.preventDefault(); toggleDataAsset('Bio Liquified Natural Gas', this)"><label class="data-asset-option"><input type="checkbox" aria-label="Bio Liquified Natural Gas"> Bio Liquified Natural Gas</label></li>
+                  <li data-value="Biodiesel (Commodity)" onclick="event.preventDefault(); toggleDataAsset('Biodiesel (Commodity)', this)"><label class="data-asset-option"><input type="checkbox" aria-label="Biodiesel (Commodity)"> Biodiesel (Commodity)</label></li>
+                  <li data-value="Bioethanol" onclick="event.preventDefault(); toggleDataAsset('Bioethanol', this)"><label class="data-asset-option"><input type="checkbox" aria-label="Bioethanol"> Bioethanol</label></li>
+                  <li data-value="Biogas" onclick="event.preventDefault(); toggleDataAsset('Biogas', this)"><label class="data-asset-option"><input type="checkbox" aria-label="Biogas"> Biogas</label></li>
+                  <li data-value="Biogasoline (Commodity)" onclick="event.preventDefault(); toggleDataAsset('Biogasoline (Commodity)', this)"><label class="data-asset-option"><input type="checkbox" aria-label="Biogasoline (Commodity)"> Biogasoline (Commodity)</label></li>
+                  <li data-value="BioLPG" onclick="event.preventDefault(); toggleDataAsset('BioLPG', this)"><label class="data-asset-option"><input type="checkbox" aria-label="BioLPG"> BioLPG</label></li>
+                  <li data-value="Biomass Agricultural Byproducts" onclick="event.preventDefault(); toggleDataAsset('Biomass Agricultural Byproducts', this)"><label class="data-asset-option"><input type="checkbox" aria-label="Biomass Agricultural Byproducts"> Biomass Agricultural Byproducts</label></li>
+                  <li data-value="Biomass Paper" onclick="event.preventDefault(); toggleDataAsset('Biomass Paper', this)"><label class="data-asset-option"><input type="checkbox" aria-label="Biomass Paper"> Biomass Paper</label></li>
+                  <li data-value="Biomass Peat" onclick="event.preventDefault(); toggleDataAsset('Biomass Peat', this)"><label class="data-asset-option"><input type="checkbox" aria-label="Biomass Peat"> Biomass Peat</label></li>
+                  <li data-value="Biomass Wood" onclick="event.preventDefault(); toggleDataAsset('Biomass Wood', this)"><label class="data-asset-option"><input type="checkbox" aria-label="Biomass Wood"> Biomass Wood</label></li>
+                  <li data-value="Black Liquor" onclick="event.preventDefault(); toggleDataAsset('Black Liquor', this)"><label class="data-asset-option"><input type="checkbox" aria-label="Black Liquor"> Black Liquor</label></li>
+                  <li data-value="Bus Commute" onclick="event.preventDefault(); toggleDataAsset('Bus Commute', this)"><label class="data-asset-option"><input type="checkbox" aria-label="Bus Commute"> Bus Commute</label></li>
+                  <li data-value="Bus Travel" onclick="event.preventDefault(); toggleDataAsset('Bus Travel', this)"><label class="data-asset-option"><input type="checkbox" aria-label="Bus Travel"> Bus Travel</label></li>
+                  <li data-value="Coal" onclick="event.preventDefault(); toggleDataAsset('Coal', this)"><label class="data-asset-option"><input type="checkbox" aria-label="Coal"> Coal</label></li>
+                  <li data-value="Coal (Commodity)" onclick="event.preventDefault(); toggleDataAsset('Coal (Commodity)', this)"><label class="data-asset-option"><input type="checkbox" aria-label="Coal (Commodity)"> Coal (Commodity)</label></li>
+                  <li data-value="Coke" onclick="event.preventDefault(); toggleDataAsset('Coke', this)"><label class="data-asset-option"><input type="checkbox" aria-label="Coke"> Coke</label></li>
+                  <li data-value="Compressed Natural Gas" onclick="event.preventDefault(); toggleDataAsset('Compressed Natural Gas', this)"><label class="data-asset-option"><input type="checkbox" aria-label="Compressed Natural Gas"> Compressed Natural Gas</label></li>
+                  <li data-value="Crude Oil" onclick="event.preventDefault(); toggleDataAsset('Crude Oil', this)"><label class="data-asset-option"><input type="checkbox" aria-label="Crude Oil"> Crude Oil</label></li>
+                  <li data-value="Diesel" onclick="event.preventDefault(); toggleDataAsset('Diesel', this)"><label class="data-asset-option"><input type="checkbox" aria-label="Diesel"> Diesel</label></li>
+                  <li data-value="Diesel (Commodity)" onclick="event.preventDefault(); toggleDataAsset('Diesel (Commodity)', this)"><label class="data-asset-option"><input type="checkbox" aria-label="Diesel (Commodity)"> Diesel (Commodity)</label></li>
+                  <li data-value="Electricity" onclick="event.preventDefault(); toggleDataAsset('Electricity', this)"><label class="data-asset-option"><input type="checkbox" aria-label="Electricity"> Electricity</label></li>
+                  <li data-value="Ethanol" onclick="event.preventDefault(); toggleDataAsset('Ethanol', this)"><label class="data-asset-option"><input type="checkbox" aria-label="Ethanol"> Ethanol</label></li>
+                  <li data-value="Ferry Travel" onclick="event.preventDefault(); toggleDataAsset('Ferry Travel', this)"><label class="data-asset-option"><input type="checkbox" aria-label="Ferry Travel"> Ferry Travel</label></li>
+                  <li data-value="Fuel Oil" onclick="event.preventDefault(); toggleDataAsset('Fuel Oil', this)"><label class="data-asset-option"><input type="checkbox" aria-label="Fuel Oil"> Fuel Oil</label></li>
+                  <li data-value="Gasoline" onclick="event.preventDefault(); toggleDataAsset('Gasoline', this)"><label class="data-asset-option"><input type="checkbox" aria-label="Gasoline"> Gasoline</label></li>
+                  <li data-value="Gasoline (Commodity)" onclick="event.preventDefault(); toggleDataAsset('Gasoline (Commodity)', this)"><label class="data-asset-option"><input type="checkbox" aria-label="Gasoline (Commodity)"> Gasoline (Commodity)</label></li>
+                  <li data-value="Heating Oil" onclick="event.preventDefault(); toggleDataAsset('Heating Oil', this)"><label class="data-asset-option"><input type="checkbox" aria-label="Heating Oil"> Heating Oil</label></li>
+                  <li data-value="Hydrogen" onclick="event.preventDefault(); toggleDataAsset('Hydrogen', this)"><label class="data-asset-option"><input type="checkbox" aria-label="Hydrogen"> Hydrogen</label></li>
+                  <li data-value="Jet Fuel" onclick="event.preventDefault(); toggleDataAsset('Jet Fuel', this)"><label class="data-asset-option"><input type="checkbox" aria-label="Jet Fuel"> Jet Fuel</label></li>
+                  <li data-value="Kerosene" onclick="event.preventDefault(); toggleDataAsset('Kerosene', this)"><label class="data-asset-option"><input type="checkbox" aria-label="Kerosene"> Kerosene</label></li>
+                  <li data-value="Liquified Natural Gas" onclick="event.preventDefault(); toggleDataAsset('Liquified Natural Gas', this)"><label class="data-asset-option"><input type="checkbox" aria-label="Liquified Natural Gas"> Liquified Natural Gas</label></li>
+                  <li data-value="Liquified Petroleum Gas" onclick="event.preventDefault(); toggleDataAsset('Liquified Petroleum Gas', this)"><label class="data-asset-option"><input type="checkbox" aria-label="Liquified Petroleum Gas"> Liquified Petroleum Gas</label></li>
+                  <li data-value="Marine Transport" onclick="event.preventDefault(); toggleDataAsset('Marine Transport', this)"><label class="data-asset-option"><input type="checkbox" aria-label="Marine Transport"> Marine Transport</label></li>
+                  <li data-value="Metal waste" onclick="event.preventDefault(); toggleDataAsset('Metal waste', this)"><label class="data-asset-option"><input type="checkbox" aria-label="Metal waste"> Metal waste</label></li>
+                  <li data-value="Motorcycle Travel" onclick="event.preventDefault(); toggleDataAsset('Motorcycle Travel', this)"><label class="data-asset-option"><input type="checkbox" aria-label="Motorcycle Travel"> Motorcycle Travel</label></li>
+                  <li data-value="Natural Gas" onclick="event.preventDefault(); toggleDataAsset('Natural Gas', this)"><label class="data-asset-option"><input type="checkbox" aria-label="Natural Gas"> Natural Gas</label></li>
+                  <li data-value="Natural Gas (Commodity)" onclick="event.preventDefault(); toggleDataAsset('Natural Gas (Commodity)', this)"><label class="data-asset-option"><input type="checkbox" aria-label="Natural Gas (Commodity)"> Natural Gas (Commodity)</label></li>
+                  <li data-value="Pipeline gas" onclick="event.preventDefault(); toggleDataAsset('Pipeline gas', this)"><label class="data-asset-option"><input type="checkbox" aria-label="Pipeline gas"> Pipeline gas</label></li>
+                  <li data-value="Plug-in Hybrid Electric Vehicle" onclick="event.preventDefault(); toggleDataAsset('Plug-in Hybrid Electric Vehicle', this)"><label class="data-asset-option"><input type="checkbox" aria-label="Plug-in Hybrid Electric Vehicle"> Plug-in Hybrid Electric Vehicle</label></li>
+                  <li data-value="Propane" onclick="event.preventDefault(); toggleDataAsset('Propane', this)"><label class="data-asset-option"><input type="checkbox" aria-label="Propane"> Propane</label></li>
+                  <li data-value="Rail Travel" onclick="event.preventDefault(); toggleDataAsset('Rail Travel', this)"><label class="data-asset-option"><input type="checkbox" aria-label="Rail Travel"> Rail Travel</label></li>
+                  <li data-value="Refrigerants" onclick="event.preventDefault(); toggleDataAsset('Refrigerants', this)"><label class="data-asset-option"><input type="checkbox" aria-label="Refrigerants"> Refrigerants</label></li>
+                  <li data-value="Residual Fuel Oil" onclick="event.preventDefault(); toggleDataAsset('Residual Fuel Oil', this)"><label class="data-asset-option"><input type="checkbox" aria-label="Residual Fuel Oil"> Residual Fuel Oil</label></li>
+                  <li data-value="Scrap metal" onclick="event.preventDefault(); toggleDataAsset('Scrap metal', this)"><label class="data-asset-option"><input type="checkbox" aria-label="Scrap metal"> Scrap metal</label></li>
+                  <li data-value="Steam" onclick="event.preventDefault(); toggleDataAsset('Steam', this)"><label class="data-asset-option"><input type="checkbox" aria-label="Steam"> Steam</label></li>
+                  <li data-value="Subway Commute" onclick="event.preventDefault(); toggleDataAsset('Subway Commute', this)"><label class="data-asset-option"><input type="checkbox" aria-label="Subway Commute"> Subway Commute</label></li>
+                  <li data-value="Taxi Travel" onclick="event.preventDefault(); toggleDataAsset('Taxi Travel', this)"><label class="data-asset-option"><input type="checkbox" aria-label="Taxi Travel"> Taxi Travel</label></li>
+                  <li data-value="Tram Travel" onclick="event.preventDefault(); toggleDataAsset('Tram Travel', this)"><label class="data-asset-option"><input type="checkbox" aria-label="Tram Travel"> Tram Travel</label></li>
+                  <li data-value="Waste" onclick="event.preventDefault(); toggleDataAsset('Waste', this)"><label class="data-asset-option"><input type="checkbox" aria-label="Waste"> Waste</label></li>
+                  <li data-value="Wastewater" onclick="event.preventDefault(); toggleDataAsset('Wastewater', this)"><label class="data-asset-option"><input type="checkbox" aria-label="Wastewater"> Wastewater</label></li>
+                  <li data-value="Wood Pellets" onclick="event.preventDefault(); toggleDataAsset('Wood Pellets', this)"><label class="data-asset-option"><input type="checkbox" aria-label="Wood Pellets"> Wood Pellets</label></li>
                 </ul>
               </div>
             </div>
+            <div class="data-asset-pills" id="dataAssetPills"></div>
             <input type="hidden" id="dataAssetHidden" value="">
           </div>
-          <div class="material-linkage-section hidden" id="materialLinkageSection">
-            <h3 class="material-linkage-title" id="materialLinkageTitle">Material linkage (0)</h3>
-            <div class="card" style="margin-top: 12px;">
-              <div class="card-body" style="padding: 0;">
-                <table class="data-table material-linkage-table">
-                  <thead>
-                    <tr>
-                      <th class="material-linkage-default-th" title="The default material is used when this data asset is linked and no specific material is chosen.">Default <i class="fa-light fa-circle-info" aria-hidden="true"></i></th>
-                      <th class="sortable">Material name <i class="fa-light fa-chevron-down sort-icon"></i></th>
-                      <th class="sortable">Source <i class="fa-light fa-chevron-down sort-icon"></i></th>
-                      <th class="sortable">Regionality <i class="fa-light fa-chevron-down sort-icon"></i></th>
-                      <th class="sortable">Effective dates <i class="fa-light fa-chevron-down sort-icon"></i></th>
-                      <th class="sortable">Status <i class="fa-light fa-chevron-down sort-icon"></i></th>
-                    </tr>
-                  </thead>
-                  <tbody id="materialLinkageTbody">
-                    <!-- Populated by JS when a data asset is selected -->
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
         </div>
+      </div>
         <div class="edit-material-actions">
           <button type="button" class="btn btn-primary" onclick="saveEditMaterial()">Save</button>
           <button type="button" class="btn btn-secondary" onclick="closeEditMaterialModal()">Discard changes</button>
@@ -18531,8 +19115,60 @@
     </div>
   </div>
   
+  <!-- Add / Edit UOM Group modal -->
+  <div class="modal-backdrop" id="addUomGroupModalBackdrop" onclick="if(event.target===this) closeAddUomGroupModal()">
+    <div class="modal" id="addUomGroupModal" style="max-width: 480px;" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <h2 class="modal-title" id="addUomGroupModalTitle">Add UOM Group</h2>
+        <button class="modal-close" onclick="closeAddUomGroupModal()" aria-label="Close">
+          <i class="fa-light fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group" style="margin-bottom: 16px;">
+          <label for="addUomGroupName">Group name <span class="required">*</span></label>
+          <input type="text" class="form-input" id="addUomGroupName" placeholder="e.g. Area" required>
+        </div>
+        <div class="form-group" style="margin-bottom: 16px;">
+          <label for="addUomGroupDescription">Description</label>
+          <textarea class="form-input" id="addUomGroupDescription" placeholder="e.g. Unit Group to measure Area Units" rows="3" style="resize: vertical;"></textarea>
+        </div>
+        <div class="form-group" style="margin-bottom: 0;">
+          <label class="checkbox-label">
+            <input type="checkbox" id="addUomGroupActive" checked>
+            Active
+          </label>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="closeAddUomGroupModal()">Cancel</button>
+        <button type="button" class="btn btn-primary" id="addUomGroupModalSaveBtn" onclick="saveAddUomGroupModal()">Add UOM Group</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Make base unit warning modal (Group conversions) -->
+  <div class="modal-backdrop" id="makeBaseUnitModalBackdrop" onclick="if(event.target===this) closeMakeBaseUnitModal()">
+    <div class="modal" id="makeBaseUnitModal" style="max-width: 440px;" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <h2 class="modal-title"><i class="fa-solid fa-triangle-exclamation" style="color: var(--ghg-warning); margin-right: 8px;"></i>Are you sure?</h2>
+        <button class="modal-close" onclick="closeMakeBaseUnitModal()">
+          <i class="fa-light fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p style="margin: 0; color: var(--ghg-text); font-size: 14px; line-height: 1.5;">This action will readjust all conversion factors so that the selected unit becomes the base unit (factor 1). Other units' factors will be recalculated relative to the new base.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="closeMakeBaseUnitModal()">Cancel</button>
+        <button type="button" class="btn btn-primary" id="makeBaseUnitConfirmBtn" onclick="confirmMakeBaseUnit()">Make base unit</button>
+      </div>
+    </div>
+  </div>
+  
   <!-- Row context menu (Group conversions – Edit/Delete unit) -->
   <ul class="material-row-menu uom-row-menu" id="uomRowMenu">
+    <li class="uom-menu-item-make-base" id="uomMenuMakeBaseLi" style="display: none;"><button type="button" class="menu-item-make-base" onclick="uomMenuMakeBaseUnit()"><span>Make base unit</span><i class="fa-light fa-star menu-item-icon"></i></button></li>
     <li><button type="button" class="menu-item-edit" onclick="uomMenuEditUnit()"><span>Edit unit</span><i class="fa-light fa-pencil menu-item-icon"></i></button></li>
     <li><button type="button" class="menu-item-delete" onclick="uomMenuDeleteUnit()"><span>Delete unit</span><i class="fa-light fa-trash menu-item-icon"></i></button></li>
   </ul>
