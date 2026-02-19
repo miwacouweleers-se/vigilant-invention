@@ -759,15 +759,6 @@
       font-size: 13px;
       color: var(--ghg-text-muted);
     }
-    .add-unit-actions {
-      display: flex;
-      gap: 12px;
-      justify-content: flex-end;
-      margin-top: 16px;
-    }
-    .add-unit-actions.hidden {
-      display: none;
-    }
     .uom-unit-groups-header {
       display: flex;
       justify-content: flex-end;
@@ -11235,7 +11226,7 @@
           <div class="page-header">
             <div class="page-header-left">
               <div class="page-breadcrumb">
-                <a href="#">Dashboard</a>
+                <a href="#">Settings</a>
                 <i class="fa-light fa-chevron-right"></i>
                 <span>Unit of measure (UoM) management</span>
               </div>
@@ -11457,7 +11448,7 @@
                         </td>
                         <td class="numeric"><input type="text" class="form-input add-unit-input add-unit-factor" id="addUnitFactor" placeholder="Factor"></td>
                         <td><span class="add-unit-auto-meta">—</span></td>
-                        <td><button type="button" class="btn-ghost btn-icon" title="Actions"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                        <td><button type="button" class="btn-ghost btn-icon" title="Save" onclick="saveAddUnit()"><i class="fa-light fa-check" style="color: var(--ghg-success);"></i></button><button type="button" class="btn-ghost btn-icon" title="Cancel" onclick="cancelAddUnit()"><i class="fa-light fa-xmark" style="color: var(--ghg-danger);"></i></button></td>
                       </tr>
                     </tbody>
                   </table>
@@ -11468,11 +11459,6 @@
                 <i class="fa-light fa-plus"></i>
                 Add Unit
               </a>
-              
-              <div class="add-unit-actions hidden" id="addUnitActions">
-                <button type="button" class="btn btn-secondary" onclick="cancelAddUnit()">Cancel</button>
-                <button type="button" class="btn btn-primary" onclick="saveAddUnit()">Save changes</button>
-              </div>
               </div>
               <div id="uomGroupDefaultRowsStorage" style="display:none;" aria-hidden="true"></div>
             </div>
@@ -15911,11 +15897,9 @@
     }
     function toggleAddUnitRow() {
       var row = document.getElementById('addUnitInputRow');
-      var actions = document.getElementById('addUnitActions');
-      if (!row || !actions) return;
+      if (!row) return;
       var isHidden = row.classList.contains('hidden');
       row.classList.toggle('hidden', !isHidden);
-      actions.classList.toggle('hidden', !isHidden);
       if (isHidden) {
         document.getElementById('addUnitName').value = '';
         document.getElementById('addUnitAbbr').value = '';
