@@ -571,6 +571,154 @@
       font-weight: 600;
       border-bottom-color: var(--ghg-primary);
     }
+    .uom-v2-group-toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .uom-v2-add-group-btn {
+      flex-shrink: 0;
+    }
+    .uom-v2-toggle-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ghg-text);
+    }
+    .uom-v2-toggle-input {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .uom-v2-toggle-switch {
+      position: relative;
+      width: 40px;
+      height: 22px;
+      background: var(--ghg-border);
+      border-radius: 11px;
+      transition: background 0.2s;
+    }
+    .uom-v2-toggle-switch::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 18px;
+      height: 18px;
+      background: #fff;
+      border-radius: 50%;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+      transition: transform 0.2s;
+    }
+    .uom-v2-toggle-input:checked + .uom-v2-toggle-switch {
+      background: var(--ghg-primary);
+    }
+    .uom-v2-toggle-input:checked + .uom-v2-toggle-switch::after {
+      transform: translateX(18px);
+    }
+    .uom-v2-view-library.hidden,
+    .uom-v2-view-by-groups.hidden {
+      display: none !important;
+    }
+    .uom-v2-group-search-row {
+      margin-top: 12px;
+      margin-bottom: 4px;
+    }
+    .uom-v2-group-search-row .search-input-wrapper {
+      max-width: 320px;
+    }
+    .uom-v2-accordions {
+      margin-top: 8px;
+    }
+    .uom-v2-accordion-header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      width: 100%;
+    }
+    .uom-v2-accordion-header-main {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px 16px;
+      min-width: 0;
+    }
+    .uom-v2-accordion-header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+      margin-left: auto;
+    }
+    .uom-v2-accordion-title {
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--ghg-text);
+    }
+    .uom-v2-accordion-desc {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--ghg-text-secondary);
+    }
+    .uom-v2-accordion-pill {
+      font-size: 12px;
+      font-weight: 500;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: var(--ghg-surface-elevated);
+      color: var(--ghg-text-secondary);
+      border: 1px solid var(--ghg-border);
+    }
+    .uom-v2-accordion-status {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+    }
+    .uom-v2-accordion-status-active {
+      background: var(--ghg-success-light);
+      color: var(--ghg-success);
+    }
+    .uom-v2-accordion-status-inactive {
+      background: var(--ghg-surface-elevated);
+      color: var(--ghg-text-muted);
+    }
+    .uom-v2-accordion-edit {
+      flex-shrink: 0;
+      font-size: 13px;
+      color: var(--ghg-primary);
+      background: transparent;
+      border: 1px solid var(--ghg-primary);
+    }
+    .uom-v2-accordion-edit:hover {
+      color: #fff;
+      background: var(--ghg-primary);
+    }
+    .uom-v2-accordion-edit .fa-light,
+    .uom-v2-accordion-add-unit .fa-light {
+      margin-right: 6px;
+    }
+    .uom-v2-accordion-add-unit {
+      color: var(--ghg-primary);
+      background: transparent;
+      border: 1px solid var(--ghg-primary);
+    }
+    .uom-v2-accordion-add-unit:hover {
+      color: #fff;
+      background: var(--ghg-primary);
+    }
+    .uom-v2-accordion-body .add-unit-link {
+      margin-bottom: 24px;
+    }
     .uom-filter-row {
       display: flex;
       align-items: center;
@@ -706,12 +854,14 @@
       display: none;
     }
     .add-unit-input-row td,
-    .uom-table tr.uom-row-editing td {
+    .uom-table tr.uom-row-editing td,
+    .uom-table tr.uom-library-row-editing td {
       vertical-align: top;
       padding: 10px 12px;
     }
     .add-unit-input-row .add-unit-input,
-    .uom-table tr.uom-row-editing .add-unit-input {
+    .uom-table tr.uom-row-editing .add-unit-input,
+    .uom-table tr.uom-library-row-editing .add-unit-input {
       width: 100%;
       min-width: 0;
       padding: 8px 10px;
@@ -719,7 +869,8 @@
       box-sizing: border-box;
     }
     .add-unit-input-row .add-unit-select,
-    .uom-table tr.uom-row-editing .add-unit-select {
+    .uom-table tr.uom-row-editing .add-unit-select,
+    .uom-table tr.uom-library-row-editing .add-unit-select {
       min-width: 140px;
     }
     .add-unit-name-cell {
@@ -735,7 +886,8 @@
       display: none;
     }
     .add-unit-input-row .add-unit-factor,
-    .uom-table tr.uom-row-editing .add-unit-factor {
+    .uom-table tr.uom-row-editing .add-unit-factor,
+    .uom-table tr.uom-library-row-editing .add-unit-factor {
       text-align: right;
       font-family: var(--font-mono);
     }
@@ -1483,6 +1635,18 @@
     }
     .add-uom-group-footer-buttons.hidden {
       display: none;
+    }
+    .add-uom-group-step-intro {
+      margin: 0 0 16px 0;
+      font-size: 14px;
+      color: var(--ghg-text-secondary);
+      line-height: 1.5;
+    }
+    .form-hint {
+      display: block;
+      margin-top: 6px;
+      font-size: 12px;
+      color: var(--ghg-text-muted);
     }
     .add-uom-group-redirecting {
       display: flex;
@@ -10144,6 +10308,7 @@
           <a href="#" class="submenu-item">Organization</a>
           <a href="#" class="submenu-item">Users</a>
           <a href="#" class="submenu-item" data-view="unit-measure">Unit of measurement conversions</a>
+          <a href="#" class="submenu-item" data-view="unit-measure-v2">Unit of measurement conversions (v2)</a>
         </nav>
       </div>
     </aside>
@@ -11429,7 +11594,6 @@
                         <td>
                           <div class="add-unit-name-cell">
                             <input type="text" class="form-input add-unit-input" id="addUnitName" placeholder="Unit name">
-                            <span class="source-unit-sub add-unit-base-label" id="addUnitBaseUnitLabel">Base unit</span>
                           </div>
                         </td>
                         <td><input type="text" class="form-input add-unit-input" id="addUnitAbbr" placeholder="Abbreviation"></td>
@@ -11455,7 +11619,7 @@
                 </div>
               </div>
               
-              <a href="#" class="add-unit-link" id="addUnitLink" onclick="toggleAddUnitRow(); return false;">
+              <a href="#" class="add-unit-link" id="addUnitLink" onclick="openAddUnitModal(null); return false;">
                 <i class="fa-light fa-plus"></i>
                 Add Unit
               </a>
@@ -12165,6 +12329,1713 @@
           </div>
         </div>
         
+        <!-- ============================================== -->
+        <!-- VIEW: UNIT MEASURE MANAGEMENT V2 (Settings)    -->
+        <div id="view-unit-measure-v2" class="view">
+          <div class="page-header">
+            <div class="page-header-left">
+              <div class="page-breadcrumb">
+                <a href="#">Settings</a>
+                <i class="fa-light fa-chevron-right"></i>
+                <span>Unit of measure (UoM) management (v2)</span>
+              </div>
+              <h1 class="page-title">Unit of measure (UoM) management (v2)</h1>
+              <p class="page-subtitle">Manage conversions, densities, and mappings in one place.</p>
+            </div>
+          </div>
+          
+          <div class="content-container">
+            <div class="unit-measure-tabs">
+              <button type="button" class="unit-measure-tab active" data-uom-tab="group" onclick="switchUnitMeasureTab('group')">Group conversions</button>
+              <button type="button" class="unit-measure-tab" data-uom-tab="cross-group" onclick="switchUnitMeasureTab('cross-group')">Cross-group conversions</button>
+            </div>
+            
+            <!-- Panel: Group conversions (V2: includes toggle + unit library view) -->
+            <div class="unit-measure-panel" data-uom-panel="group">
+              <div class="uom-v2-group-toggle-row">
+                <label class="uom-v2-toggle-label">
+                  <input type="checkbox" class="uom-v2-toggle-input" id="groupViewByUnitGroupsToggleV2" checked onchange="toggleGroupViewByUnitGroupsV2()">
+                  <span class="uom-v2-toggle-switch"></span>
+                  <span class="uom-v2-toggle-text">View by unit groups</span>
+                </label>
+                <button type="button" class="btn btn-primary btn-sm uom-v2-add-group-btn" onclick="openAddUomGroupModal()">
+                  <i class="fa-light fa-plus"></i>
+                  Add UOM Group
+                </button>
+              </div>
+              <div class="uom-v2-group-search-row">
+                <div class="search-input-wrapper uom-library-search">
+                  <i class="fa-light fa-search"></i>
+                  <input type="text" class="form-input" id="unitLibrarySearchV2" placeholder="Search" oninput="filterUomV2GroupPanel(this.value)" onkeypress="if(event.key==='Enter') filterUomV2GroupPanel(this.value)">
+                </div>
+              </div>
+              <div class="uom-v2-view-by-groups" id="groupViewByGroupsV2">
+              <div class="uom-v2-accordions" id="uomV2GroupAccordions">
+                <div class="uom-section" data-uom-section="v2-group-area" data-name="Area" data-description="Unit Group to measure Area Units" data-active="true">
+                  <div class="uom-section-header" onclick="toggleUomV2GroupAccordion('v2-group-area')">
+                    <div class="uom-v2-accordion-header-inner">
+                      <div class="uom-v2-accordion-header-main">
+                        <span class="uom-v2-accordion-title">Area</span>
+                        <span class="uom-v2-accordion-desc">Unit Group to measure Area Units</span>
+                        <span class="uom-v2-accordion-pill">4 units</span>
+                        <span class="uom-v2-accordion-status uom-v2-accordion-status-active">Active</span>
+                      </div>
+                      <div class="uom-v2-accordion-header-actions">
+                        <button type="button" class="btn btn-ghost btn-sm uom-v2-accordion-add-unit" onclick="event.stopPropagation(); openAddUnitModal('v2-group-area');"><i class="fa-light fa-plus"></i> Add Unit</button>
+                        <button type="button" class="btn btn-ghost btn-sm uom-v2-accordion-edit" onclick="event.stopPropagation(); openEditUomGroupModalV2('v2-group-area');"><i class="fa-light fa-pen"></i> Edit group</button>
+                        <i class="fa-light fa-chevron-down section-toggle uom-section-toggle"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="uom-section-body uom-v2-accordion-body">
+                    <div class="card">
+                      <div class="card-body" style="padding: 0;">
+                        <table class="data-table uom-table">
+                          <thead>
+                            <tr>
+                              <th class="sortable">Source Unit <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Abbreviation <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Source <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Access <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable numeric">Factor <i class="fa-light fa-circle-info sort-icon" title="Conversion factor"></i><i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Last updated <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th style="width: 40px;"></th>
+                            </tr>
+                          </thead>
+                          <tbody id="uomV2AccordionTbodyArea">
+                            <tr class="uom-data-row">
+                              <td><span class="source-unit-name">Square foot</span><span class="source-unit-sub">Base unit</span></td>
+                              <td>sq ft</td>
+                              <td>US Customary / Imperial</td>
+                              <td><span class="access-tag">Custom</span></td>
+                              <td class="numeric">1</td>
+                              <td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td>
+                              <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                            </tr>
+                            <tr class="uom-data-row">
+                              <td><span class="source-unit-name">1000 Square Feet</span></td>
+                              <td>1000 sq ft</td>
+                              <td>US Customary / Imperial</td>
+                              <td><span class="access-tag">Global</span></td>
+                              <td class="numeric">1000</td>
+                              <td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td>
+                              <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                            </tr>
+                            <tr class="uom-data-row">
+                              <td><span class="source-unit-name">Square meter</span></td>
+                              <td>sqm</td>
+                              <td>SI</td>
+                              <td><span class="access-tag">Global</span></td>
+                              <td class="numeric">0.011111</td>
+                              <td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td>
+                              <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                            </tr>
+                            <tr class="uom-data-row">
+                              <td><span class="source-unit-name">Thousands Of Circular Mils</span></td>
+                              <td>tcm</td>
+                              <td>US Customary / Imperial</td>
+                              <td><span class="access-tag">Global</span></td>
+                              <td class="numeric">0.092903</td>
+                              <td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td>
+                              <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="uom-section collapsed" data-uom-section="v2-group-data-storage" data-name="Data storage" data-description="Unit Group to measure Data storage Units" data-active="true">
+                  <div class="uom-section-header" onclick="toggleUomV2GroupAccordion('v2-group-data-storage')">
+                    <div class="uom-v2-accordion-header-inner">
+                      <div class="uom-v2-accordion-header-main">
+                        <span class="uom-v2-accordion-title">Data storage</span>
+                        <span class="uom-v2-accordion-desc">Unit Group to measure Data storage Units</span>
+                        <span class="uom-v2-accordion-pill">4 units</span>
+                        <span class="uom-v2-accordion-status uom-v2-accordion-status-active">Active</span>
+                      </div>
+                      <div class="uom-v2-accordion-header-actions">
+                      <button type="button" class="btn btn-ghost btn-sm uom-v2-accordion-add-unit" onclick="event.stopPropagation(); openAddUnitModal('v2-group-data-storage');"><i class="fa-light fa-plus"></i> Add Unit</button>
+                      <button type="button" class="btn btn-ghost btn-sm uom-v2-accordion-edit" onclick="event.stopPropagation(); openEditUomGroupModalV2('v2-group-data-storage');"><i class="fa-light fa-pen"></i> Edit group</button>
+                      <i class="fa-light fa-chevron-down section-toggle uom-section-toggle"></i>
+                    </div>
+                    </div>
+                  </div>
+                  <div class="uom-section-body uom-v2-accordion-body">
+                    <div class="card">
+                      <div class="card-body" style="padding: 0;">
+                        <table class="data-table uom-table">
+                          <thead>
+                            <tr>
+                              <th class="sortable">Source Unit</th>
+                              <th class="sortable">Abbreviation</th>
+                              <th class="sortable">Source</th>
+                              <th class="sortable">Access</th>
+                              <th class="sortable numeric">Factor</th>
+                              <th class="sortable">Last updated</th>
+                              <th style="width: 40px;"></th>
+                            </tr>
+                          </thead>
+                          <tbody id="uomV2AccordionTbodyDataStorage">
+                            <tr class="uom-data-row">
+                              <td><span class="source-unit-name">Gigabyte</span><span class="source-unit-sub">Base unit</span></td>
+                              <td>GB</td>
+                              <td>SI</td>
+                              <td><span class="access-tag">Global</span></td>
+                              <td class="numeric">1</td>
+                              <td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td>
+                              <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                            </tr>
+                            <tr class="uom-data-row">
+                              <td><span class="source-unit-name">Terabyte</span></td>
+                              <td>TB</td>
+                              <td>SI</td>
+                              <td><span class="access-tag">Global</span></td>
+                              <td class="numeric">1024</td>
+                              <td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td>
+                              <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                            </tr>
+                            <tr class="uom-data-row">
+                              <td><span class="source-unit-name">Megabyte</span></td>
+                              <td>MB</td>
+                              <td>SI</td>
+                              <td><span class="access-tag">Global</span></td>
+                              <td class="numeric">0.0009765625</td>
+                              <td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td>
+                              <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                            </tr>
+                            <tr class="uom-data-row">
+                              <td><span class="source-unit-name">Kilobyte</span></td>
+                              <td>KB</td>
+                              <td>SI</td>
+                              <td><span class="access-tag">Global</span></td>
+                              <td class="numeric">0.0000009536743</td>
+                              <td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td>
+                              <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="uom-section collapsed" data-uom-section="v2-group-density" data-name="Density" data-description="Unit Group to measure Density Units" data-active="true">
+                  <div class="uom-section-header" onclick="toggleUomV2GroupAccordion('v2-group-density')">
+                    <div class="uom-v2-accordion-header-inner">
+                      <div class="uom-v2-accordion-header-main">
+                        <span class="uom-v2-accordion-title">Density</span>
+                        <span class="uom-v2-accordion-desc">Unit Group to measure Density Units</span>
+                        <span class="uom-v2-accordion-pill">3 units</span>
+                        <span class="uom-v2-accordion-status uom-v2-accordion-status-active">Active</span>
+                      </div>
+                      <div class="uom-v2-accordion-header-actions">
+                      <button type="button" class="btn btn-ghost btn-sm uom-v2-accordion-add-unit" onclick="event.stopPropagation(); openAddUnitModal('v2-group-density');"><i class="fa-light fa-plus"></i> Add Unit</button>
+                      <button type="button" class="btn btn-ghost btn-sm uom-v2-accordion-edit" onclick="event.stopPropagation(); openEditUomGroupModalV2('v2-group-density');"><i class="fa-light fa-pen"></i> Edit group</button>
+                      <i class="fa-light fa-chevron-down section-toggle uom-section-toggle"></i>
+                    </div>
+                    </div>
+                  </div>
+                  <div class="uom-section-body uom-v2-accordion-body">
+                    <div class="card">
+                      <div class="card-body" style="padding: 0;">
+                        <table class="data-table uom-table">
+                          <thead>
+                            <tr>
+                              <th class="sortable">Source Unit</th>
+                              <th class="sortable">Abbreviation</th>
+                              <th class="sortable">Source</th>
+                              <th class="sortable">Access</th>
+                              <th class="sortable numeric">Factor</th>
+                              <th class="sortable">Last updated</th>
+                              <th style="width: 40px;"></th>
+                            </tr>
+                          </thead>
+                          <tbody id="uomV2AccordionTbodyDensity">
+                            <tr class="uom-data-row">
+                              <td><span class="source-unit-name">Kilogram per cubic metre</span><span class="source-unit-sub">Base unit</span></td>
+                              <td>kg/m³</td>
+                              <td>SI</td>
+                              <td><span class="access-tag">Global</span></td>
+                              <td class="numeric">1</td>
+                              <td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td>
+                              <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                            </tr>
+                            <tr class="uom-data-row">
+                              <td><span class="source-unit-name">Gram per cubic centimetre</span></td>
+                              <td>g/cm³</td>
+                              <td>SI</td>
+                              <td><span class="access-tag">Global</span></td>
+                              <td class="numeric">1000</td>
+                              <td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td>
+                              <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                            </tr>
+                            <tr class="uom-data-row">
+                              <td><span class="source-unit-name">Pound per cubic foot</span></td>
+                              <td>lb/ft³</td>
+                              <td>US Customary / Imperial</td>
+                              <td><span class="access-tag">Global</span></td>
+                              <td class="numeric">16.018463</td>
+                              <td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td>
+                              <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="uom-section collapsed" data-uom-section="v2-group-distance" data-name="Distance" data-description="Unit Group to measure Distance Units" data-active="true">
+                  <div class="uom-section-header" onclick="toggleUomV2GroupAccordion('v2-group-distance')">
+                    <div class="uom-v2-accordion-header-inner">
+                      <div class="uom-v2-accordion-header-main">
+                        <span class="uom-v2-accordion-title">Distance</span>
+                        <span class="uom-v2-accordion-desc">Unit Group to measure Distance Units</span>
+                        <span class="uom-v2-accordion-pill">5 units</span>
+                        <span class="uom-v2-accordion-status uom-v2-accordion-status-active">Active</span>
+                      </div>
+                      <div class="uom-v2-accordion-header-actions">
+                      <button type="button" class="btn btn-ghost btn-sm uom-v2-accordion-add-unit" onclick="event.stopPropagation(); openAddUnitModal('v2-group-distance');"><i class="fa-light fa-plus"></i> Add Unit</button>
+                      <button type="button" class="btn btn-ghost btn-sm uom-v2-accordion-edit" onclick="event.stopPropagation(); openEditUomGroupModalV2('v2-group-distance');"><i class="fa-light fa-pen"></i> Edit group</button>
+                      <i class="fa-light fa-chevron-down section-toggle uom-section-toggle"></i>
+                    </div>
+                    </div>
+                  </div>
+                  <div class="uom-section-body uom-v2-accordion-body">
+                    <div class="card">
+                      <div class="card-body" style="padding: 0;">
+                        <table class="data-table uom-table">
+                          <thead>
+                            <tr>
+                              <th class="sortable">Source Unit</th>
+                              <th class="sortable">Abbreviation</th>
+                              <th class="sortable">Source</th>
+                              <th class="sortable">Access</th>
+                              <th class="sortable numeric">Factor</th>
+                              <th class="sortable">Last updated</th>
+                              <th style="width: 40px;"></th>
+                            </tr>
+                          </thead>
+                          <tbody id="uomV2AccordionTbodyDistance">
+                            <tr class="uom-data-row">
+                              <td><span class="source-unit-name">Metre</span><span class="source-unit-sub">Base unit</span></td>
+                              <td>m</td>
+                              <td>SI</td>
+                              <td><span class="access-tag">Global</span></td>
+                              <td class="numeric">1</td>
+                              <td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td>
+                              <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                            </tr>
+                            <tr class="uom-data-row">
+                              <td><span class="source-unit-name">Kilometre</span></td>
+                              <td>km</td>
+                              <td>SI</td>
+                              <td><span class="access-tag">Global</span></td>
+                              <td class="numeric">1000</td>
+                              <td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td>
+                              <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                            </tr>
+                            <tr class="uom-data-row">
+                              <td><span class="source-unit-name">Mile</span></td>
+                              <td>mi</td>
+                              <td>US Customary / Imperial</td>
+                              <td><span class="access-tag">Global</span></td>
+                              <td class="numeric">1609.344</td>
+                              <td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td>
+                              <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                            </tr>
+                            <tr class="uom-data-row">
+                              <td><span class="source-unit-name">Foot</span></td>
+                              <td>ft</td>
+                              <td>US Customary / Imperial</td>
+                              <td><span class="access-tag">Global</span></td>
+                              <td class="numeric">0.3048</td>
+                              <td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td>
+                              <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                            </tr>
+                            <tr class="uom-data-row">
+                              <td><span class="source-unit-name">Inch</span></td>
+                              <td>in</td>
+                              <td>US Customary / Imperial</td>
+                              <td><span class="access-tag">Global</span></td>
+                              <td class="numeric">0.0254</td>
+                              <td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td>
+                              <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="uom-section collapsed" data-uom-section="v2-group-emission" data-name="Emission" data-description="Unit Group to measure Emission Units" data-active="true">
+                  <div class="uom-section-header" onclick="toggleUomV2GroupAccordion('v2-group-emission')">
+                    <div class="uom-v2-accordion-header-inner">
+                      <div class="uom-v2-accordion-header-main">
+                        <span class="uom-v2-accordion-title">Emission</span>
+                        <span class="uom-v2-accordion-desc">Unit Group to measure Emission Units</span>
+                        <span class="uom-v2-accordion-pill">4 units</span>
+                        <span class="uom-v2-accordion-status uom-v2-accordion-status-active">Active</span>
+                      </div>
+                      <div class="uom-v2-accordion-header-actions">
+                      <button type="button" class="btn btn-ghost btn-sm uom-v2-accordion-add-unit" onclick="event.stopPropagation(); openAddUnitModal('v2-group-emission');"><i class="fa-light fa-plus"></i> Add Unit</button>
+                      <button type="button" class="btn btn-ghost btn-sm uom-v2-accordion-edit" onclick="event.stopPropagation(); openEditUomGroupModalV2('v2-group-emission');"><i class="fa-light fa-pen"></i> Edit group</button>
+                      <i class="fa-light fa-chevron-down section-toggle uom-section-toggle"></i>
+                    </div>
+                    </div>
+                  </div>
+                  <div class="uom-section-body uom-v2-accordion-body">
+                    <div class="card">
+                      <div class="card-body" style="padding: 0;">
+                        <table class="data-table uom-table">
+                          <thead>
+                            <tr>
+                              <th class="sortable">Source Unit</th>
+                              <th class="sortable">Abbreviation</th>
+                              <th class="sortable">Source</th>
+                              <th class="sortable">Access</th>
+                              <th class="sortable numeric">Factor</th>
+                              <th class="sortable">Last updated</th>
+                              <th style="width: 40px;"></th>
+                            </tr>
+                          </thead>
+                          <tbody id="uomV2AccordionTbodyEmission">
+                            <tr class="uom-data-row">
+                              <td><span class="source-unit-name">Kilogram CO2 equivalent</span><span class="source-unit-sub">Base unit</span></td>
+                              <td>kg CO2e</td>
+                              <td>SI</td>
+                              <td><span class="access-tag">Global</span></td>
+                              <td class="numeric">1</td>
+                              <td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td>
+                              <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                            </tr>
+                            <tr class="uom-data-row">
+                              <td><span class="source-unit-name">Metric ton CO2 equivalent</span></td>
+                              <td>t CO2e</td>
+                              <td>SI</td>
+                              <td><span class="access-tag">Global</span></td>
+                              <td class="numeric">1000</td>
+                              <td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td>
+                              <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                            </tr>
+                            <tr class="uom-data-row">
+                              <td><span class="source-unit-name">Gram CO2 equivalent</span></td>
+                              <td>g CO2e</td>
+                              <td>SI</td>
+                              <td><span class="access-tag">Global</span></td>
+                              <td class="numeric">0.001</td>
+                              <td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td>
+                              <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                            </tr>
+                            <tr class="uom-data-row">
+                              <td><span class="source-unit-name">Pound CO2 equivalent</span></td>
+                              <td>lb CO2e</td>
+                              <td>US Customary / Imperial</td>
+                              <td><span class="access-tag">Global</span></td>
+                              <td class="numeric">0.453592</td>
+                              <td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td>
+                              <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="uom-section collapsed" data-uom-section="v2-group-energy" data-name="Energy" data-description="Unit Group to measure Energy Units" data-active="true">
+                  <div class="uom-section-header" onclick="toggleUomV2GroupAccordion('v2-group-energy')">
+                    <div class="uom-v2-accordion-header-inner">
+                      <div class="uom-v2-accordion-header-main">
+                        <span class="uom-v2-accordion-title">Energy</span>
+                        <span class="uom-v2-accordion-desc">Unit Group to measure Energy Units</span>
+                        <span class="uom-v2-accordion-pill">5 units</span>
+                        <span class="uom-v2-accordion-status uom-v2-accordion-status-active">Active</span>
+                      </div>
+                      <div class="uom-v2-accordion-header-actions">
+                      <button type="button" class="btn btn-ghost btn-sm uom-v2-accordion-add-unit" onclick="event.stopPropagation(); openAddUnitModal('v2-group-energy');"><i class="fa-light fa-plus"></i> Add Unit</button>
+                      <button type="button" class="btn btn-ghost btn-sm uom-v2-accordion-edit" onclick="event.stopPropagation(); openEditUomGroupModalV2('v2-group-energy');"><i class="fa-light fa-pen"></i> Edit group</button>
+                      <i class="fa-light fa-chevron-down section-toggle uom-section-toggle"></i>
+                    </div>
+                    </div>
+                  </div>
+                  <div class="uom-section-body uom-v2-accordion-body">
+                    <div class="card">
+                      <div class="card-body" style="padding: 0;">
+                        <table class="data-table uom-table">
+                          <thead>
+                            <tr>
+                              <th class="sortable">Source Unit</th>
+                              <th class="sortable">Abbreviation</th>
+                              <th class="sortable">Source</th>
+                              <th class="sortable">Access</th>
+                              <th class="sortable numeric">Factor</th>
+                              <th class="sortable">Last updated</th>
+                              <th style="width: 40px;"></th>
+                            </tr>
+                          </thead>
+                          <tbody id="uomV2AccordionTbodyEnergy">
+                            <tr class="uom-data-row">
+                              <td><span class="source-unit-name">Kilowatt-hour</span><span class="source-unit-sub">Base unit</span></td>
+                              <td>kWh</td>
+                              <td>SI</td>
+                              <td><span class="access-tag">Global</span></td>
+                              <td class="numeric">1</td>
+                              <td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td>
+                              <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                            </tr>
+                            <tr class="uom-data-row">
+                              <td><span class="source-unit-name">Megawatt-hour</span></td>
+                              <td>MWh</td>
+                              <td>SI</td>
+                              <td><span class="access-tag">Global</span></td>
+                              <td class="numeric">1000</td>
+                              <td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td>
+                              <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                            </tr>
+                            <tr class="uom-data-row">
+                              <td><span class="source-unit-name">Gigajoule</span></td>
+                              <td>GJ</td>
+                              <td>SI</td>
+                              <td><span class="access-tag">Global</span></td>
+                              <td class="numeric">0.277778</td>
+                              <td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td>
+                              <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                            </tr>
+                            <tr class="uom-data-row">
+                              <td><span class="source-unit-name">British thermal unit</span></td>
+                              <td>Btu</td>
+                              <td>US Customary / Imperial</td>
+                              <td><span class="access-tag">Global</span></td>
+                              <td class="numeric">0.000293071</td>
+                              <td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td>
+                              <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                            </tr>
+                            <tr class="uom-data-row">
+                              <td><span class="source-unit-name">Therm</span></td>
+                              <td>therm</td>
+                              <td>US Customary / Imperial</td>
+                              <td><span class="access-tag">Global</span></td>
+                              <td class="numeric">29.3071</td>
+                              <td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td>
+                              <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="uom-section collapsed" data-uom-section="v2-group-energy-transfer" data-name="Energy transfer" data-description="Unit Group to measure Energy transfer Units" data-active="true">
+                  <div class="uom-section-header" onclick="toggleUomV2GroupAccordion('v2-group-energy-transfer')">
+                    <div class="uom-v2-accordion-header-inner">
+                      <div class="uom-v2-accordion-header-main">
+                        <span class="uom-v2-accordion-title">Energy transfer</span>
+                        <span class="uom-v2-accordion-desc">Unit Group to measure Energy transfer Units</span>
+                        <span class="uom-v2-accordion-pill">4 units</span>
+                        <span class="uom-v2-accordion-status uom-v2-accordion-status-active">Active</span>
+                      </div>
+                      <div class="uom-v2-accordion-header-actions">
+                      <button type="button" class="btn btn-ghost btn-sm uom-v2-accordion-add-unit" onclick="event.stopPropagation(); openAddUnitModal('v2-group-energy-transfer');"><i class="fa-light fa-plus"></i> Add Unit</button>
+                      <button type="button" class="btn btn-ghost btn-sm uom-v2-accordion-edit" onclick="event.stopPropagation(); openEditUomGroupModalV2('v2-group-energy-transfer');"><i class="fa-light fa-pen"></i> Edit group</button>
+                      <i class="fa-light fa-chevron-down section-toggle uom-section-toggle"></i>
+                    </div>
+                    </div>
+                  </div>
+                  <div class="uom-section-body uom-v2-accordion-body">
+                    <div class="card">
+                      <div class="card-body" style="padding: 0;">
+                        <table class="data-table uom-table">
+                          <thead>
+                            <tr>
+                              <th class="sortable">Source Unit</th>
+                              <th class="sortable">Abbreviation</th>
+                              <th class="sortable">Source</th>
+                              <th class="sortable">Access</th>
+                              <th class="sortable numeric">Factor</th>
+                              <th class="sortable">Last updated</th>
+                              <th style="width: 40px;"></th>
+                            </tr>
+                          </thead>
+                          <tbody id="uomV2AccordionTbodyEnergyTransfer">
+                            <tr class="uom-data-row">
+                              <td><span class="source-unit-name">Watt</span><span class="source-unit-sub">Base unit</span></td>
+                              <td>W</td>
+                              <td>SI</td>
+                              <td><span class="access-tag">Global</span></td>
+                              <td class="numeric">1</td>
+                              <td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td>
+                              <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                            </tr>
+                            <tr class="uom-data-row">
+                              <td><span class="source-unit-name">Kilowatt</span></td>
+                              <td>kW</td>
+                              <td>SI</td>
+                              <td><span class="access-tag">Global</span></td>
+                              <td class="numeric">1000</td>
+                              <td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td>
+                              <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                            </tr>
+                            <tr class="uom-data-row">
+                              <td><span class="source-unit-name">Megawatt</span></td>
+                              <td>MW</td>
+                              <td>SI</td>
+                              <td><span class="access-tag">Global</span></td>
+                              <td class="numeric">1000000</td>
+                              <td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td>
+                              <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                            </tr>
+                            <tr class="uom-data-row">
+                              <td><span class="source-unit-name">BTU per hour</span></td>
+                              <td>Btu/h</td>
+                              <td>US Customary / Imperial</td>
+                              <td><span class="access-tag">Global</span></td>
+                              <td class="numeric">0.293071</td>
+                              <td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td>
+                              <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="uom-section collapsed" data-uom-section="v2-group-flow-rate" data-name="Flow rate" data-description="Unit Group to measure Flow rate Units" data-active="true">
+                  <div class="uom-section-header" onclick="toggleUomV2GroupAccordion('v2-group-flow-rate')">
+                    <div class="uom-v2-accordion-header-inner">
+                      <div class="uom-v2-accordion-header-main">
+                        <span class="uom-v2-accordion-title">Flow rate</span>
+                        <span class="uom-v2-accordion-desc">Unit Group to measure Flow rate Units</span>
+                        <span class="uom-v2-accordion-pill">4 units</span>
+                        <span class="uom-v2-accordion-status uom-v2-accordion-status-active">Active</span>
+                      </div>
+                      <div class="uom-v2-accordion-header-actions">
+                      <button type="button" class="btn btn-ghost btn-sm uom-v2-accordion-add-unit" onclick="event.stopPropagation(); openAddUnitModal('v2-group-flow-rate');"><i class="fa-light fa-plus"></i> Add Unit</button>
+                      <button type="button" class="btn btn-ghost btn-sm uom-v2-accordion-edit" onclick="event.stopPropagation(); openEditUomGroupModalV2('v2-group-flow-rate');"><i class="fa-light fa-pen"></i> Edit group</button>
+                      <i class="fa-light fa-chevron-down section-toggle uom-section-toggle"></i>
+                    </div>
+                    </div>
+                  </div>
+                  <div class="uom-section-body uom-v2-accordion-body">
+                    <div class="card">
+                      <div class="card-body" style="padding: 0;">
+                        <table class="data-table uom-table">
+                          <thead>
+                            <tr>
+                              <th class="sortable">Source Unit</th>
+                              <th class="sortable">Abbreviation</th>
+                              <th class="sortable">Source</th>
+                              <th class="sortable">Access</th>
+                              <th class="sortable numeric">Factor</th>
+                              <th class="sortable">Last updated</th>
+                              <th style="width: 40px;"></th>
+                            </tr>
+                          </thead>
+                          <tbody id="uomV2AccordionTbodyFlowRate">
+                            <tr class="uom-data-row">
+                              <td><span class="source-unit-name">Cubic metre per second</span><span class="source-unit-sub">Base unit</span></td>
+                              <td>m³/s</td>
+                              <td>SI</td>
+                              <td><span class="access-tag">Global</span></td>
+                              <td class="numeric">1</td>
+                              <td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td>
+                              <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                            </tr>
+                            <tr class="uom-data-row">
+                              <td><span class="source-unit-name">Litre per second</span></td>
+                              <td>L/s</td>
+                              <td>SI</td>
+                              <td><span class="access-tag">Global</span></td>
+                              <td class="numeric">0.001</td>
+                              <td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td>
+                              <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                            </tr>
+                            <tr class="uom-data-row">
+                              <td><span class="source-unit-name">Gallon per minute</span></td>
+                              <td>gal/min</td>
+                              <td>US Customary / Imperial</td>
+                              <td><span class="access-tag">Global</span></td>
+                              <td class="numeric">0.0000630902</td>
+                              <td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td>
+                              <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                            </tr>
+                            <tr class="uom-data-row">
+                              <td><span class="source-unit-name">Cubic foot per minute</span></td>
+                              <td>ft³/min</td>
+                              <td>US Customary / Imperial</td>
+                              <td><span class="access-tag">Global</span></td>
+                              <td class="numeric">0.000471947</td>
+                              <td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td>
+                              <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="uom-section collapsed" data-uom-section="v2-group-freight" data-name="Freight" data-description="Unit Group to measure Freight Units" data-active="false">
+                  <div class="uom-section-header" onclick="toggleUomV2GroupAccordion('v2-group-freight')">
+                    <div class="uom-v2-accordion-header-inner">
+                      <div class="uom-v2-accordion-header-main">
+                        <span class="uom-v2-accordion-title">Freight</span>
+                        <span class="uom-v2-accordion-desc">Unit Group to measure Freight Units</span>
+                        <span class="uom-v2-accordion-pill">4 units</span>
+                        <span class="uom-v2-accordion-status uom-v2-accordion-status-inactive">Inactive</span>
+                      </div>
+                      <div class="uom-v2-accordion-header-actions">
+                      <button type="button" class="btn btn-ghost btn-sm uom-v2-accordion-add-unit" onclick="event.stopPropagation(); openAddUnitModal('v2-group-freight');"><i class="fa-light fa-plus"></i> Add Unit</button>
+                      <button type="button" class="btn btn-ghost btn-sm uom-v2-accordion-edit" onclick="event.stopPropagation(); openEditUomGroupModalV2('v2-group-freight');"><i class="fa-light fa-pen"></i> Edit group</button>
+                      <i class="fa-light fa-chevron-down section-toggle uom-section-toggle"></i>
+                    </div>
+                    </div>
+                  </div>
+                  <div class="uom-section-body uom-v2-accordion-body">
+                    <div class="card">
+                      <div class="card-body" style="padding: 0;">
+                        <table class="data-table uom-table">
+                          <thead>
+                            <tr>
+                              <th class="sortable">Source Unit</th>
+                              <th class="sortable">Abbreviation</th>
+                              <th class="sortable">Source</th>
+                              <th class="sortable">Access</th>
+                              <th class="sortable numeric">Factor</th>
+                              <th class="sortable">Last updated</th>
+                              <th style="width: 40px;"></th>
+                            </tr>
+                          </thead>
+                          <tbody id="uomV2AccordionTbodyFreight">
+                            <tr class="uom-data-row">
+                              <td><span class="source-unit-name">Metric ton</span><span class="source-unit-sub">Base unit</span></td>
+                              <td>t</td>
+                              <td>SI</td>
+                              <td><span class="access-tag">Global</span></td>
+                              <td class="numeric">1</td>
+                              <td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td>
+                              <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                            </tr>
+                            <tr class="uom-data-row">
+                              <td><span class="source-unit-name">Kilogram</span></td>
+                              <td>kg</td>
+                              <td>SI</td>
+                              <td><span class="access-tag">Global</span></td>
+                              <td class="numeric">0.001</td>
+                              <td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td>
+                              <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                            </tr>
+                            <tr class="uom-data-row">
+                              <td><span class="source-unit-name">Pound</span></td>
+                              <td>lb</td>
+                              <td>US Customary / Imperial</td>
+                              <td><span class="access-tag">Global</span></td>
+                              <td class="numeric">0.000453592</td>
+                              <td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td>
+                              <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                            </tr>
+                            <tr class="uom-data-row">
+                              <td><span class="source-unit-name">Short ton</span></td>
+                              <td>short ton</td>
+                              <td>US Customary / Imperial</td>
+                              <td><span class="access-tag">Global</span></td>
+                              <td class="numeric">0.907185</td>
+                              <td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td>
+                              <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="uom-section collapsed" data-uom-section="v2-group-general" data-name="General" data-description="Unit Group for General Units" data-active="true">
+                  <div class="uom-section-header" onclick="toggleUomV2GroupAccordion('v2-group-general')">
+                    <div class="uom-v2-accordion-header-inner">
+                      <div class="uom-v2-accordion-header-main">
+                        <span class="uom-v2-accordion-title">General</span>
+                        <span class="uom-v2-accordion-desc">Unit Group for General Units</span>
+                        <span class="uom-v2-accordion-pill">3 units</span>
+                        <span class="uom-v2-accordion-status uom-v2-accordion-status-active">Active</span>
+                      </div>
+                      <div class="uom-v2-accordion-header-actions">
+                      <button type="button" class="btn btn-ghost btn-sm uom-v2-accordion-add-unit" onclick="event.stopPropagation(); openAddUnitModal('v2-group-general');"><i class="fa-light fa-plus"></i> Add Unit</button>
+                      <button type="button" class="btn btn-ghost btn-sm uom-v2-accordion-edit" onclick="event.stopPropagation(); openEditUomGroupModalV2('v2-group-general');"><i class="fa-light fa-pen"></i> Edit group</button>
+                      <i class="fa-light fa-chevron-down section-toggle uom-section-toggle"></i>
+                    </div>
+                    </div>
+                  </div>
+                  <div class="uom-section-body uom-v2-accordion-body">
+                    <div class="card">
+                      <div class="card-body" style="padding: 0;">
+                        <table class="data-table uom-table">
+                          <thead>
+                            <tr>
+                              <th class="sortable">Source Unit</th>
+                              <th class="sortable">Abbreviation</th>
+                              <th class="sortable">Source</th>
+                              <th class="sortable">Access</th>
+                              <th class="sortable numeric">Factor</th>
+                              <th class="sortable">Last updated</th>
+                              <th style="width: 40px;"></th>
+                            </tr>
+                          </thead>
+                          <tbody id="uomV2AccordionTbodyGeneral">
+                            <tr class="uom-data-row">
+                              <td><span class="source-unit-name">Unit</span><span class="source-unit-sub">Base unit</span></td>
+                              <td>unit</td>
+                              <td>SI</td>
+                              <td><span class="access-tag">Global</span></td>
+                              <td class="numeric">1</td>
+                              <td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td>
+                              <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                            </tr>
+                            <tr class="uom-data-row">
+                              <td><span class="source-unit-name">Dozen</span></td>
+                              <td>doz</td>
+                              <td>SI</td>
+                              <td><span class="access-tag">Global</span></td>
+                              <td class="numeric">12</td>
+                              <td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td>
+                              <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                            </tr>
+                            <tr class="uom-data-row">
+                              <td><span class="source-unit-name">Hundred</span></td>
+                              <td>hundred</td>
+                              <td>SI</td>
+                              <td><span class="access-tag">Global</span></td>
+                              <td class="numeric">100</td>
+                              <td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td>
+                              <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="uom-section collapsed" data-uom-section="v2-group-intensity" data-name="Intensity" data-description="Unit Group to measure Intensity Units" data-active="true">
+                  <div class="uom-section-header" onclick="toggleUomV2GroupAccordion('v2-group-intensity')">
+                    <div class="uom-v2-accordion-header-inner">
+                      <div class="uom-v2-accordion-header-main">
+                        <span class="uom-v2-accordion-title">Intensity</span>
+                        <span class="uom-v2-accordion-desc">Unit Group to measure Intensity Units</span>
+                        <span class="uom-v2-accordion-pill">3 units</span>
+                        <span class="uom-v2-accordion-status uom-v2-accordion-status-active">Active</span>
+                      </div>
+                      <div class="uom-v2-accordion-header-actions">
+                      <button type="button" class="btn btn-ghost btn-sm uom-v2-accordion-add-unit" onclick="event.stopPropagation(); openAddUnitModal('v2-group-intensity');"><i class="fa-light fa-plus"></i> Add Unit</button>
+                      <button type="button" class="btn btn-ghost btn-sm uom-v2-accordion-edit" onclick="event.stopPropagation(); openEditUomGroupModalV2('v2-group-intensity');"><i class="fa-light fa-pen"></i> Edit group</button>
+                      <i class="fa-light fa-chevron-down section-toggle uom-section-toggle"></i>
+                    </div>
+                    </div>
+                  </div>
+                  <div class="uom-section-body uom-v2-accordion-body">
+                    <div class="card">
+                      <div class="card-body" style="padding: 0;">
+                        <table class="data-table uom-table">
+                          <thead>
+                            <tr>
+                              <th class="sortable">Source Unit</th>
+                              <th class="sortable">Abbreviation</th>
+                              <th class="sortable">Source</th>
+                              <th class="sortable">Access</th>
+                              <th class="sortable numeric">Factor</th>
+                              <th class="sortable">Last updated</th>
+                              <th style="width: 40px;"></th>
+                            </tr>
+                          </thead>
+                          <tbody id="uomV2AccordionTbodyIntensity">
+                            <tr class="uom-data-row">
+                              <td><span class="source-unit-name">Kilogram CO2e per kilowatt-hour</span><span class="source-unit-sub">Base unit</span></td>
+                              <td>kg CO2e/kWh</td>
+                              <td>SI</td>
+                              <td><span class="access-tag">Global</span></td>
+                              <td class="numeric">1</td>
+                              <td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td>
+                              <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                            </tr>
+                            <tr class="uom-data-row">
+                              <td><span class="source-unit-name">Gram CO2e per kilowatt-hour</span></td>
+                              <td>g CO2e/kWh</td>
+                              <td>SI</td>
+                              <td><span class="access-tag">Global</span></td>
+                              <td class="numeric">0.001</td>
+                              <td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td>
+                              <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                            </tr>
+                            <tr class="uom-data-row">
+                              <td><span class="source-unit-name">Metric ton CO2e per megawatt-hour</span></td>
+                              <td>t CO2e/MWh</td>
+                              <td>SI</td>
+                              <td><span class="access-tag">Global</span></td>
+                              <td class="numeric">1</td>
+                              <td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td>
+                              <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="uom-section collapsed" data-uom-section="v2-group-mass" data-name="Mass" data-description="Unit Group to measure Mass Units" data-active="true">
+                  <div class="uom-section-header" onclick="toggleUomV2GroupAccordion('v2-group-mass')">
+                    <div class="uom-v2-accordion-header-inner">
+                      <div class="uom-v2-accordion-header-main">
+                        <span class="uom-v2-accordion-title">Mass</span>
+                        <span class="uom-v2-accordion-desc">Unit Group to measure Mass Units</span>
+                        <span class="uom-v2-accordion-pill">5 units</span>
+                        <span class="uom-v2-accordion-status uom-v2-accordion-status-active">Active</span>
+                      </div>
+                      <div class="uom-v2-accordion-header-actions">
+                      <button type="button" class="btn btn-ghost btn-sm uom-v2-accordion-add-unit" onclick="event.stopPropagation(); openAddUnitModal('v2-group-mass');"><i class="fa-light fa-plus"></i> Add Unit</button>
+                      <button type="button" class="btn btn-ghost btn-sm uom-v2-accordion-edit" onclick="event.stopPropagation(); openEditUomGroupModalV2('v2-group-mass');"><i class="fa-light fa-pen"></i> Edit group</button>
+                      <i class="fa-light fa-chevron-down section-toggle uom-section-toggle"></i>
+                    </div>
+                    </div>
+                  </div>
+                  <div class="uom-section-body uom-v2-accordion-body">
+                    <div class="card">
+                      <div class="card-body" style="padding: 0;">
+                        <table class="data-table uom-table">
+                          <thead>
+                            <tr>
+                              <th class="sortable">Source Unit</th>
+                              <th class="sortable">Abbreviation</th>
+                              <th class="sortable">Source</th>
+                              <th class="sortable">Access</th>
+                              <th class="sortable numeric">Factor</th>
+                              <th class="sortable">Last updated</th>
+                              <th style="width: 40px;"></th>
+                            </tr>
+                          </thead>
+                          <tbody id="uomV2AccordionTbodyMass">
+                            <tr class="uom-data-row">
+                              <td><span class="source-unit-name">Kilogram</span><span class="source-unit-sub">Base unit</span></td>
+                              <td>kg</td>
+                              <td>SI</td>
+                              <td><span class="access-tag">Global</span></td>
+                              <td class="numeric">1</td>
+                              <td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td>
+                              <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                            </tr>
+                            <tr class="uom-data-row">
+                              <td><span class="source-unit-name">Gram</span></td>
+                              <td>g</td>
+                              <td>SI</td>
+                              <td><span class="access-tag">Global</span></td>
+                              <td class="numeric">0.001</td>
+                              <td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td>
+                              <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                            </tr>
+                            <tr class="uom-data-row">
+                              <td><span class="source-unit-name">Metric ton</span></td>
+                              <td>t</td>
+                              <td>SI</td>
+                              <td><span class="access-tag">Global</span></td>
+                              <td class="numeric">1000</td>
+                              <td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td>
+                              <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                            </tr>
+                            <tr class="uom-data-row">
+                              <td><span class="source-unit-name">Pound</span></td>
+                              <td>lb</td>
+                              <td>US Customary / Imperial</td>
+                              <td><span class="access-tag">Global</span></td>
+                              <td class="numeric">0.453592</td>
+                              <td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td>
+                              <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                            </tr>
+                            <tr class="uom-data-row">
+                              <td><span class="source-unit-name">Ounce</span></td>
+                              <td>oz</td>
+                              <td>US Customary / Imperial</td>
+                              <td><span class="access-tag">Global</span></td>
+                              <td class="numeric">0.0283495</td>
+                              <td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td>
+                              <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    </div>
+                </div>
+              </div>
+              <div id="uomGroupDefaultRowsStorageV2" style="display:none;" aria-hidden="true"></div>
+              </div>
+              <div class="uom-v2-view-library hidden" id="groupViewLibraryV2">
+                <div class="card">
+                  <div class="card-body" style="padding: 0;">
+                    <table class="data-table uom-table" id="unitLibraryTableV2">
+                      <thead>
+                        <tr>
+                          <th class="sortable">UOM Name <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                          <th class="sortable">Abbreviation <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                          <th class="sortable">Group Name <i class="fa-light fa-chevron-up sort-icon"></i></th>
+                          <th class="sortable">Source <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                          <th class="sortable numeric">Factor <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                          <th class="sortable">Last updated <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                          <th class="sortable">Active <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                          <th class="sortable">Base unit <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                          <th style="width: 40px;"></th>
+                        </tr>
+                      </thead>
+                      <tbody id="unitLibraryTbodyV2">
+                        <tr class="uom-library-row" data-search="1000 Square Feet msf Area"><td>1000 Square Feet</td><td>msf</td><td>Area</td><td>Imperial</td><td class="numeric">1000</td><td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td><td>true</td><td>false</td><td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td></tr>
+                        <tr class="uom-library-row" data-search="Square Foot ft^2 Area Imperial"><td>Square Foot</td><td>ft^2</td><td>Area</td><td>Imperial</td><td class="numeric">1</td><td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td><td>true</td><td>false</td><td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td></tr>
+                        <tr class="uom-library-row" data-search="Square Meter m^2 Area SI"><td>Square Meter</td><td>m^2</td><td>Area</td><td>SI</td><td class="numeric">0.092903</td><td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td><td>true</td><td>false</td><td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td></tr>
+                        <tr class="uom-library-row" data-search="Thousand Of Circular Mils kcmil Area"><td>Thousand Of Circular Mils</td><td>kcmil</td><td>Area</td><td></td><td class="numeric">0.0005067</td><td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td><td>true</td><td>false</td><td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td></tr>
+                        <tr class="uom-library-row" data-search="dlt DLT"><td>dlt</td><td>DLT</td><td></td><td>dlt</td><td class="numeric">1</td><td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td><td>true</td><td>false</td><td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td></tr>
+                        <tr class="uom-library-row" data-search="Exabyte EB Data Storage"><td>Exabyte</td><td>EB</td><td>Data Storage</td><td>SI</td><td class="numeric">1048576</td><td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td><td>true</td><td>false</td><td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td></tr>
+                        <tr class="uom-library-row" data-search="Gigabyte GB Data Storage"><td>Gigabyte</td><td>GB</td><td>Data Storage</td><td>SI</td><td class="numeric">1</td><td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td><td>true</td><td>true</td><td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td></tr>
+                        <tr class="uom-library-row" data-search="Kilobyte KB Data Storage"><td>Kilobyte</td><td>KB</td><td>Data Storage</td><td>SI</td><td class="numeric">0.0000009536743</td><td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td><td>true</td><td>false</td><td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td></tr>
+                        <tr class="uom-library-row" data-search="Megabyte MB Data Storage"><td>Megabyte</td><td>MB</td><td>Data Storage</td><td>SI</td><td class="numeric">0.0009765625</td><td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td><td>true</td><td>false</td><td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td></tr>
+                        <tr class="uom-library-row" data-search="Petabyte PB Data Storage"><td>Petabyte</td><td>PB</td><td>Data Storage</td><td>SI</td><td class="numeric">1024</td><td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td><td>true</td><td>false</td><td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td></tr>
+                        <tr class="uom-library-row" data-search="Terabyte TB Data Storage"><td>Terabyte</td><td>TB</td><td>Data Storage</td><td>SI</td><td class="numeric">1024</td><td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td><td>true</td><td>false</td><td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td></tr>
+                        <tr class="uom-library-row" data-search="Miligram Per Liter mg/L Density"><td>Miligram Per Liter</td><td>mg/L</td><td>Density</td><td>SI</td><td class="numeric">1</td><td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td><td>true</td><td>false</td><td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td></tr>
+                        <tr class="uom-library-row" data-search="Kilometer km Distance"><td>Kilometer</td><td>km</td><td>Distance</td><td>SI</td><td class="numeric">1000</td><td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td><td>true</td><td>false</td><td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td></tr>
+                        <tr class="uom-library-row" data-search="meter M Distance Base SI"><td>meter</td><td>M</td><td>Distance</td><td>SI</td><td class="numeric">1</td><td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td><td>true</td><td>true</td><td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td></tr>
+                        <tr class="uom-library-row" data-search="Mile mi Distance Imperial"><td>Mile</td><td>mi</td><td>Distance</td><td>Imperial</td><td class="numeric">1609.344</td><td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td><td>true</td><td>false</td><td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td></tr>
+                        <tr class="uom-library-row" data-search="Gram CO2 Equivalent g CO2-e Emission"><td>Gram CO2 Equivalent</td><td>g CO2-e</td><td>Emission</td><td>SI</td><td class="numeric">0.001</td><td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td><td>true</td><td>false</td><td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td></tr>
+                        <tr class="uom-library-row" data-search="Kilogram CO2 Equivalent kg CO2-e Emission"><td>Kilogram CO2 Equivalent</td><td>kg CO2-e</td><td>Emission</td><td>SI</td><td class="numeric">1</td><td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td><td>true</td><td>true</td><td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td></tr>
+                        <tr class="uom-library-row" data-search="Metric Ton CO2 Equivalent t CO2-e Emission"><td>Metric Ton CO2 Equivalent</td><td>t CO2-e</td><td>Emission</td><td>SI</td><td class="numeric">1000</td><td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td><td>true</td><td>false</td><td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td></tr>
+                        <tr class="uom-library-row" data-search="Pound CO2 Equivalent lbs CO2-e Emission"><td>Pound CO2 Equivalent</td><td>lbs CO2-e</td><td>Emission</td><td>Imperial</td><td class="numeric">0.453592</td><td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td><td>true</td><td>false</td><td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td></tr>
+                        <tr class="uom-library-row" data-search="British Thermal Unit Btu Energy"><td>British Thermal Unit</td><td>Btu</td><td>Energy</td><td></td><td class="numeric">0.000293071</td><td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td><td>true</td><td>false</td><td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td></tr>
+                        <tr class="uom-library-row" data-search="Decatherm Dth Energy"><td>Decatherm</td><td>Dth</td><td>Energy</td><td></td><td class="numeric">2.93071</td><td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td><td>true</td><td>false</td><td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td></tr>
+                        <tr class="uom-library-row" data-search="Gigacalorie Gcal Energy"><td>Gigacalorie</td><td>Gcal</td><td>Energy</td><td></td><td class="numeric">1163</td><td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td><td>true</td><td>false</td><td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td></tr>
+                        <tr class="uom-library-row" data-search="Gigajoule GJ Energy SI"><td>Gigajoule</td><td>GJ</td><td>Energy</td><td>SI</td><td class="numeric">277.778</td><td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td><td>true</td><td>false</td><td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td></tr>
+                        <tr class="uom-library-row" data-search="Gigawatt-hour GWh Energy"><td>Gigawatt-hour</td><td>GWh</td><td>Energy</td><td></td><td class="numeric">1000000</td><td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td><td>true</td><td>false</td><td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td></tr>
+                        <tr class="uom-library-row" data-search="Kilo British Thermal Unit kBtu Energy"><td>Kilo British Thermal Unit</td><td>kBtu</td><td>Energy</td><td></td><td class="numeric">0.293071</td><td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td><td>true</td><td>false</td><td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td></tr>
+                        <tr class="uom-library-row" data-search="Kilowatt-hour kWh Energy"><td>Kilowatt-hour</td><td>kWh</td><td>Energy</td><td></td><td class="numeric">1</td><td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td><td>true</td><td>true</td><td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td></tr>
+                        <tr class="uom-library-row" data-search="Megajoule MJ Energy"><td>Megajoule</td><td>MJ</td><td>Energy</td><td></td><td class="numeric">0.277778</td><td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">02/11/2026 at 10:30 CST</span></td><td>true</td><td>false</td><td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td></tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="uom-pagination">
+                  <span class="uom-pagination-count" id="unitLibraryPaginationCountV2">1-25 of 98 items</span>
+                  <span class="uom-pagination-per-page">
+                    <label for="uom-library-items-per-pageV2">Items per page</label>
+                    <select class="form-select" id="uom-library-items-per-pageV2">
+                      <option value="10">10</option>
+                      <option value="25" selected>25</option>
+                      <option value="50">50</option>
+                    </select>
+                  </span>
+                  <span class="uom-pagination-controls">
+                    <button type="button" class="btn-ghost btn-icon" aria-label="First page"><i class="fa-light fa-angles-left"></i></button>
+                    <button type="button" class="btn-ghost btn-icon" aria-label="Previous"><i class="fa-light fa-chevron-left"></i></button>
+                    <button type="button" class="btn-ghost btn-icon uom-page-active" aria-label="Page 1">1</button>
+                    <button type="button" class="btn-ghost btn-icon" aria-label="Page 2">2</button>
+                    <button type="button" class="btn-ghost btn-icon" aria-label="Page 3">3</button>
+                    <button type="button" class="btn-ghost btn-icon" aria-label="Page 4">4</button>
+                    <button type="button" class="btn-ghost btn-icon" aria-label="Next"><i class="fa-light fa-chevron-right"></i></button>
+                    <button type="button" class="btn-ghost btn-icon" aria-label="Last page"><i class="fa-light fa-angles-right"></i></button>
+                  </span>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Panel: Cross-group conversions (materials by source) -->
+            <div class="unit-measure-panel hidden" data-uom-panel="cross-group" id="crossGroupPanelV2">
+              <div class="uom-unmapped-alert">
+                <span>
+                  <i class="fa-solid fa-triangle-exclamation"></i>
+                  There are 5 materials that are not mapped to data assets
+                </span>
+                <button type="button" class="btn btn-secondary btn-sm" id="crossGroupFilterUnmappedBtnV2" onclick="applyCrossGroupUnmappedFilter(true)">Filter by unmapped</button>
+              </div>
+              
+              <div class="uom-cross-toolbar">
+                <div class="search-input-wrapper">
+                  <i class="fa-light fa-search"></i>
+                  <input type="text" class="form-input" id="crossGroupSearchInputV2" placeholder="Search" aria-label="Search materials" oninput="applyCrossGroupSearch()">
+                </div>
+                <button type="button" class="btn btn-secondary">
+                  <i class="fa-light fa-filter"></i>
+                  Filters
+                </button>
+                <span class="uom-cross-toolbar-group-by">
+                  <label for="crossGroupBySelect" class="uom-group-by-label">Group by:</label>
+                  <select class="form-select" id="crossGroupBySelectV2" aria-label="Group materials by" onchange="applyCrossGroupBy()">
+                    <option value="source">Source</option>
+                    <option value="data-asset">Data asset</option>
+                  </select>
+                </span>
+                <div style="flex: 1;"></div>
+                <button type="button" class="btn btn-secondary btn-export">Export</button>
+                <div class="add-materials-dropdown" id="addMaterialsDropdownV2">
+                  <button type="button" class="btn btn-primary add-materials-trigger" id="addMaterialsTriggerV2" onclick="toggleAddMaterialsDropdown()">
+                    <i class="fa-light fa-plus"></i>
+                    Add materials
+                    <i class="fa-light fa-chevron-down add-materials-chevron"></i>
+                  </button>
+                  <div class="add-materials-menu" id="addMaterialsMenuV2">
+                    <button type="button" class="add-materials-menu-item" onclick="closeAddMaterialsDropdown(); openAddMaterialModal();">
+                      <i class="fa-light fa-plus"></i>
+                      Add single material
+                    </button>
+                    <button type="button" class="add-materials-menu-item" onclick="closeAddMaterialsDropdown(); if(typeof showToast==='function') showToast('Bulk upload materials (prototype)', 'info');">
+                      <i class="fa-light fa-upload"></i>
+                      Bulk upload materials
+                    </button>
+                    <button type="button" class="add-materials-menu-item" onclick="closeAddMaterialsDropdown(); if(typeof showToast==='function') showToast('Download template (prototype)', 'info');">
+                      <i class="fa-light fa-download"></i>
+                      Download bulk upload template
+                    </button>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="uom-cross-filter-pills hidden" id="crossGroupFilterPillsV2">
+                <span class="uom-filter-pills-label">Data asset:</span>
+                <span class="uom-filter-pill uom-filter-pill-unmapped">
+                  <i class="fa-solid fa-triangle-exclamation"></i>
+                  Unmapped
+                  <button type="button" class="uom-filter-pill-remove" onclick="applyCrossGroupUnmappedFilter(false)" aria-label="Remove Unmapped filter"><i class="fa-light fa-xmark"></i></button>
+                </span>
+                <a href="#" class="uom-clear-all-filters" onclick="applyCrossGroupUnmappedFilter(false); return false;">Clear all filters</a>
+              </div>
+              
+              <div id="crossGroupBySourceV2" class="cross-group-view">
+              <div class="uom-section" data-uom-section="defra">
+                <div class="uom-section-header" onclick="toggleUomSection('defra')">
+                  <span>UK Government Department of Environment, Food &amp; Rural Affairs (DEFRA) <span class="section-count">11</span></span>
+                  <i class="fa-light fa-chevron-down section-toggle uom-section-toggle"></i>
+                </div>
+                <div class="uom-section-body">
+                  <div class="card" style="border: none; border-radius: 0; margin: 0;">
+                    <div class="card-body" style="padding: 0;">
+                      <table class="data-table uom-table">
+                        <thead>
+                          <tr>
+                            <th class="sortable">Material name <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                            <th class="sortable">Data asset <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                            <th class="sortable">Heating values <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                            <th class="sortable">Factor <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                            <th class="sortable">Unit <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                            <th class="sortable">Applicability <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                            <th class="sortable">Access <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                            <th style="width: 40px;"></th>
+                          </tr>
+                        </thead>
+                        <tbody id="crossGroupMaterialsTbodyV2">
+                          <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
+                            <td>Aluminum Cans (uncompacted)</td>
+                            <td><span class="data-asset-tag">Metal waste</span><span class="data-asset-tag">Scrap metal</span></td>
+                            <td>Low heating values (LHV)</td>
+                            <td class="numeric">0.001443</td>
+                            <td>yr³/pound</td>
+                            <td>08/01/2020 - 08/31/2024</td>
+                            <td><span class="access-tag">Global</span></td>
+                            <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                          </tr>
+                          <tr class="material-row-clickable row-unmapped" onclick="openMaterialDrawer(this)">
+                            <td>Ash</td>
+                            <td><span class="data-asset-unmapped"><i class="fa-solid fa-triangle-exclamation"></i> Unmapped</span></td>
+                            <td>Density</td>
+                            <td class="numeric">0.002000</td>
+                            <td>kWh/pound</td>
+                            <td>08/01/2020 - 08/31/2024</td>
+                            <td><span class="access-tag">Global</span></td>
+                            <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                          </tr>
+                          <tr class="material-row-clickable row-unmapped" onclick="openMaterialDrawer(this)">
+                            <td>Asphalt and Road Oil</td>
+                            <td><span class="data-asset-unmapped"><i class="fa-solid fa-triangle-exclamation"></i> Unmapped</span></td>
+                            <td>High heating values (HHV)</td>
+                            <td class="numeric">0.001892</td>
+                            <td>yr³/pound</td>
+                            <td>08/01/2020 - 08/31/2024</td>
+                            <td><span class="access-tag">Global</span></td>
+                            <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                          </tr>
+                          <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
+                            <td>Aviation Gasoline</td>
+                            <td><span class="data-asset-tag">Aviation Gasoline</span></td>
+                            <td>Low heating values (LHV)</td>
+                            <td class="numeric">0.001552</td>
+                            <td>yr³/pound</td>
+                            <td>08/01/2020 - 08/31/2024</td>
+                            <td><span class="access-tag">Global</span></td>
+                            <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                          </tr>
+                          <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
+                            <td>Biodiesel (100%)</td>
+                            <td><span class="data-asset-tag">Biodiesel</span><span class="data-asset-tag">Biofuel</span></td>
+                            <td>Low heating values (LHV)</td>
+                            <td class="numeric">0.001421</td>
+                            <td>kWh/pound</td>
+                            <td>08/01/2020 - 08/31/2024</td>
+                            <td><span class="access-tag">Global</span></td>
+                            <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                          </tr>
+                          <tr class="material-row-clickable row-unmapped" onclick="openMaterialDrawer(this)">
+                            <td>BioETBE</td>
+                            <td><span class="data-asset-unmapped"><i class="fa-solid fa-triangle-exclamation"></i> Unmapped</span></td>
+                            <td>Density</td>
+                            <td class="numeric">0.001398</td>
+                            <td>yr³/pound</td>
+                            <td>08/01/2020 - 08/31/2024</td>
+                            <td><span class="access-tag">Global</span></td>
+                            <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                          </tr>
+                          <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
+                            <td>Biomass (wood)</td>
+                            <td><span class="data-asset-tag">Biomass</span></td>
+                            <td>High heating values (HHV)</td>
+                            <td class="numeric">0.002103</td>
+                            <td>kWh/pound</td>
+                            <td>08/01/2020 - 08/31/2024</td>
+                            <td><span class="access-tag">Global</span></td>
+                            <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                          </tr>
+                          <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
+                            <td>Carbon Dioxide (liquid)</td>
+                            <td><span class="data-asset-tag">CO₂</span></td>
+                            <td>Low heating values (LHV)</td>
+                            <td class="numeric">0.000198</td>
+                            <td>yr³/pound</td>
+                            <td>08/01/2020 - 08/31/2024</td>
+                            <td><span class="access-tag">Global</span></td>
+                            <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                          </tr>
+                          <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
+                            <td>Coal (anthracite)</td>
+                            <td><span class="data-asset-tag">Coal</span></td>
+                            <td>High heating values (HHV)</td>
+                            <td class="numeric">0.003102</td>
+                            <td>kWh/pound</td>
+                            <td>08/01/2020 - 08/31/2024</td>
+                            <td><span class="access-tag">Global</span></td>
+                            <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                          </tr>
+                          <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
+                            <td>Diesel</td>
+                            <td><span class="data-asset-tag">Diesel</span></td>
+                            <td>Low heating values (LHV)</td>
+                            <td class="numeric">0.001552</td>
+                            <td>yr³/pound</td>
+                            <td>08/01/2020 - 08/31/2024</td>
+                            <td><span class="access-tag">Global</span></td>
+                            <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                          </tr>
+                          <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
+                            <td>Ethanol</td>
+                            <td><span class="data-asset-tag">Ethanol</span></td>
+                            <td>Density</td>
+                            <td class="numeric">0.001298</td>
+                            <td>kWh/pound</td>
+                            <td>08/01/2020 - 08/31/2024</td>
+                            <td><span class="access-tag">Global</span></td>
+                            <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="uom-section collapsed" data-uom-section="epa">
+                <div class="uom-section-header" onclick="toggleUomSection('epa')">
+                  <span>Environmental Protection Agency (EPA) <span class="section-count">7</span></span>
+                  <i class="fa-light fa-chevron-down section-toggle uom-section-toggle"></i>
+                </div>
+                <div class="uom-section-body">
+                  <div class="card" style="border: none; border-radius: 0; margin: 0;">
+                    <div class="card-body" style="padding: 0;">
+                      <table class="data-table uom-table">
+                        <thead>
+                          <tr>
+                            <th class="sortable">Material name <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                            <th class="sortable">Data asset <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                            <th class="sortable">Heating values <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                            <th class="sortable">Factor <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                            <th class="sortable">Unit <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                            <th class="sortable">Applicability <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                            <th class="sortable">Access <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                            <th style="width: 40px;"></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
+                            <td>Natural gas (pipeline)</td>
+                            <td><span class="data-asset-tag">Natural gas</span><span class="data-asset-tag">Pipeline gas</span></td>
+                            <td>Low heating values (LHV)</td>
+                            <td class="numeric">0.000054</td>
+                            <td>kg CO₂e/therm</td>
+                            <td>01/01/2023 - 12/31/2024</td>
+                            <td><span class="access-tag">Global</span></td>
+                            <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                          </tr>
+                          <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
+                            <td>Distillate fuel oil (No. 2)</td>
+                            <td><span class="data-asset-tag">Heating oil</span></td>
+                            <td>High heating values (HHV)</td>
+                            <td class="numeric">0.010180</td>
+                            <td>kg CO₂e/gallon</td>
+                            <td>01/01/2023 - 12/31/2024</td>
+                            <td><span class="access-tag">Global</span></td>
+                            <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                          </tr>
+                          <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
+                            <td>Residual fuel oil</td>
+                            <td><span class="data-asset-tag">Fuel oil</span></td>
+                            <td>High heating values (HHV)</td>
+                            <td class="numeric">0.011430</td>
+                            <td>kg CO₂e/gallon</td>
+                            <td>01/01/2023 - 12/31/2024</td>
+                            <td><span class="access-tag">Global</span></td>
+                            <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                          </tr>
+                          <tr class="material-row-clickable row-unmapped" onclick="openMaterialDrawer(this)">
+                            <td>Kerosene</td>
+                            <td><span class="data-asset-unmapped"><i class="fa-solid fa-triangle-exclamation"></i> Unmapped</span></td>
+                            <td>Low heating values (LHV)</td>
+                            <td class="numeric">0.009520</td>
+                            <td>kg CO₂e/gallon</td>
+                            <td>01/01/2023 - 12/31/2024</td>
+                            <td><span class="access-tag">Custom</span></td>
+                            <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                          </tr>
+                          <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
+                            <td>Propane</td>
+                            <td><span class="data-asset-tag">LPG</span></td>
+                            <td>High heating values (HHV)</td>
+                            <td class="numeric">0.005770</td>
+                            <td>kg CO₂e/gallon</td>
+                            <td>01/01/2023 - 12/31/2024</td>
+                            <td><span class="access-tag">Global</span></td>
+                            <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                          </tr>
+                          <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
+                            <td>Motor gasoline</td>
+                            <td><span class="data-asset-tag">Petrol</span></td>
+                            <td>Low heating values (LHV)</td>
+                            <td class="numeric">0.008780</td>
+                            <td>kg CO₂e/gallon</td>
+                            <td>01/01/2023 - 12/31/2024</td>
+                            <td><span class="access-tag">Global</span></td>
+                            <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                          </tr>
+                          <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
+                            <td>Coal (bituminous)</td>
+                            <td><span class="data-asset-tag">Coal</span></td>
+                            <td>High heating values (HHV)</td>
+                            <td class="numeric">0.002420</td>
+                            <td>kg CO₂e/lb</td>
+                            <td>01/01/2023 - 12/31/2024</td>
+                            <td><span class="access-tag">Global</span></td>
+                            <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="uom-section collapsed" data-uom-section="eia">
+                <div class="uom-section-header" onclick="toggleUomSection('eia')">
+                  <span>Energy Information Administration (EIA) <span class="section-count">6</span></span>
+                  <i class="fa-light fa-chevron-down section-toggle uom-section-toggle"></i>
+                </div>
+                <div class="uom-section-body">
+                  <div class="card" style="border: none; border-radius: 0; margin: 0;">
+                    <div class="card-body" style="padding: 0;">
+                      <table class="data-table uom-table">
+                        <thead>
+                          <tr>
+                            <th class="sortable">Material name <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                            <th class="sortable">Data asset <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                            <th class="sortable">Heating values <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                            <th class="sortable">Factor <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                            <th class="sortable">Unit <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                            <th class="sortable">Applicability <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                            <th class="sortable">Access <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                            <th style="width: 40px;"></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
+                            <td>Electricity (US grid, annual)</td>
+                            <td><span class="data-asset-tag">Grid electricity</span><span class="data-asset-tag">US grid</span></td>
+                            <td>—</td>
+                            <td class="numeric">0.000386</td>
+                            <td>kg CO₂e/kWh</td>
+                            <td>01/2024 - 12/2024</td>
+                            <td><span class="access-tag">Global</span></td>
+                            <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                          </tr>
+                          <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
+                            <td>Jet fuel (kerosene)</td>
+                            <td><span class="data-asset-tag">Aviation fuel</span></td>
+                            <td>Low heating values (LHV)</td>
+                            <td class="numeric">0.002540</td>
+                            <td>kg CO₂e/lb</td>
+                            <td>01/2024 - 12/2024</td>
+                            <td><span class="access-tag">Global</span></td>
+                            <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                          </tr>
+                          <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
+                            <td>Diesel (on-road)</td>
+                            <td><span class="data-asset-tag">Diesel</span></td>
+                            <td>Low heating values (LHV)</td>
+                            <td class="numeric">0.010150</td>
+                            <td>kg CO₂e/gallon</td>
+                            <td>01/2024 - 12/2024</td>
+                            <td><span class="access-tag">Global</span></td>
+                            <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                          </tr>
+                          <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
+                            <td>Natural gas (commercial)</td>
+                            <td><span class="data-asset-tag">Natural gas</span></td>
+                            <td>Low heating values (LHV)</td>
+                            <td class="numeric">0.000053</td>
+                            <td>kg CO₂e/therm</td>
+                            <td>01/2024 - 12/2024</td>
+                            <td><span class="access-tag">Global</span></td>
+                            <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                          </tr>
+                          <tr class="material-row-clickable row-unmapped" onclick="openMaterialDrawer(this)">
+                            <td>Steam (district heating)</td>
+                            <td><span class="data-asset-unmapped"><i class="fa-solid fa-triangle-exclamation"></i> Unmapped</span></td>
+                            <td>—</td>
+                            <td class="numeric">0.000053</td>
+                            <td>kg CO₂e/lb steam</td>
+                            <td>01/2024 - 12/2024</td>
+                            <td><span class="access-tag">Custom</span></td>
+                            <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                          </tr>
+                          <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
+                            <td>Renewable electricity (REC)</td>
+                            <td>Green electricity</td>
+                            <td>—</td>
+                            <td class="numeric">0.000000</td>
+                            <td>kg CO₂e/kWh</td>
+                            <td>01/2024 - 12/2024</td>
+                            <td><span class="access-tag">Global</span></td>
+                            <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              </div>
+              
+              <div id="crossGroupByDataAssetV2" class="cross-group-view hidden">
+                <div class="uom-section" data-uom-section="asset-aviation-gasoline">
+                  <div class="uom-section-header" onclick="toggleUomSection('asset-aviation-gasoline')">
+                    <span>Aviation Gasoline <span class="section-count">1</span></span>
+                    <i class="fa-light fa-chevron-down section-toggle uom-section-toggle"></i>
+                  </div>
+                  <div class="uom-section-body">
+                    <div class="card" style="border: none; border-radius: 0; margin: 0;">
+                      <div class="card-body" style="padding: 0;">
+                        <table class="data-table uom-table">
+                          <thead>
+                            <tr>
+                              <th class="sortable">Material name <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Source <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Heating values <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Factor <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Unit <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Applicability <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Access <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th style="width: 40px;"></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
+                              <td>Aviation Gasoline</td>
+                              <td>UK Government Department of Environment, Food &amp; Rural Affairs (DEFRA)</td>
+                              <td>Low heating values (LHV)</td>
+                              <td class="numeric">0.001552</td>
+                              <td>yr³/pound</td>
+                              <td>08/01/2020 - 08/31/2024</td>
+                              <td><span class="access-tag">Global</span></td>
+                              <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="uom-section collapsed" data-uom-section="asset-biodiesel">
+                  <div class="uom-section-header" onclick="toggleUomSection('asset-biodiesel')">
+                    <span>Biodiesel <span class="section-count">1</span></span>
+                    <i class="fa-light fa-chevron-down section-toggle uom-section-toggle"></i>
+                  </div>
+                  <div class="uom-section-body">
+                    <div class="card" style="border: none; border-radius: 0; margin: 0;">
+                      <div class="card-body" style="padding: 0;">
+                        <table class="data-table uom-table">
+                          <thead>
+                            <tr>
+                              <th class="sortable">Material name <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Source <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Heating values <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Factor <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Unit <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Applicability <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Access <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th style="width: 40px;"></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
+                              <td>Biodiesel (100%)</td>
+                              <td>UK Government Department of Environment, Food &amp; Rural Affairs (DEFRA)</td>
+                              <td>Low heating values (LHV)</td>
+                              <td class="numeric">0.001421</td>
+                              <td>kWh/pound</td>
+                              <td>08/01/2020 - 08/31/2024</td>
+                              <td><span class="access-tag">Global</span></td>
+                              <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="uom-section collapsed" data-uom-section="asset-biomass">
+                  <div class="uom-section-header" onclick="toggleUomSection('asset-biomass')">
+                    <span>Biomass <span class="section-count">1</span></span>
+                    <i class="fa-light fa-chevron-down section-toggle uom-section-toggle"></i>
+                  </div>
+                  <div class="uom-section-body">
+                    <div class="card" style="border: none; border-radius: 0; margin: 0;">
+                      <div class="card-body" style="padding: 0;">
+                        <table class="data-table uom-table">
+                          <thead>
+                            <tr>
+                              <th class="sortable">Material name <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Source <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Heating values <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Factor <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Unit <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Applicability <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Access <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th style="width: 40px;"></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
+                              <td>Biomass (wood)</td>
+                              <td>UK Government Department of Environment, Food &amp; Rural Affairs (DEFRA)</td>
+                              <td>High heating values (HHV)</td>
+                              <td class="numeric">0.002103</td>
+                              <td>kWh/pound</td>
+                              <td>08/01/2020 - 08/31/2024</td>
+                              <td><span class="access-tag">Global</span></td>
+                              <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="uom-section collapsed" data-uom-section="asset-coal">
+                  <div class="uom-section-header" onclick="toggleUomSection('asset-coal')">
+                    <span>Coal <span class="section-count">1</span></span>
+                    <i class="fa-light fa-chevron-down section-toggle uom-section-toggle"></i>
+                  </div>
+                  <div class="uom-section-body">
+                    <div class="card" style="border: none; border-radius: 0; margin: 0;">
+                      <div class="card-body" style="padding: 0;">
+                        <table class="data-table uom-table">
+                          <thead>
+                            <tr>
+                              <th class="sortable">Material name <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Source <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Heating values <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Factor <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Unit <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Applicability <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Access <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th style="width: 40px;"></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
+                              <td>Coal (anthracite)</td>
+                              <td>UK Government Department of Environment, Food &amp; Rural Affairs (DEFRA)</td>
+                              <td>High heating values (HHV)</td>
+                              <td class="numeric">0.003102</td>
+                              <td>kWh/pound</td>
+                              <td>08/01/2020 - 08/31/2024</td>
+                              <td><span class="access-tag">Global</span></td>
+                              <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="uom-section collapsed" data-uom-section="asset-diesel">
+                  <div class="uom-section-header" onclick="toggleUomSection('asset-diesel')">
+                    <span>Diesel <span class="section-count">2</span></span>
+                    <i class="fa-light fa-chevron-down section-toggle uom-section-toggle"></i>
+                  </div>
+                  <div class="uom-section-body">
+                    <div class="card" style="border: none; border-radius: 0; margin: 0;">
+                      <div class="card-body" style="padding: 0;">
+                        <table class="data-table uom-table">
+                          <thead>
+                            <tr>
+                              <th class="sortable">Material name <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Source <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Heating values <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Factor <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Unit <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Applicability <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Access <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th style="width: 40px;"></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
+                              <td>Diesel</td>
+                              <td>UK Government Department of Environment, Food &amp; Rural Affairs (DEFRA)</td>
+                              <td>Low heating values (LHV)</td>
+                              <td class="numeric">0.001552</td>
+                              <td>yr³/pound</td>
+                              <td>08/01/2020 - 08/31/2024</td>
+                              <td><span class="access-tag">Global</span></td>
+                              <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                            </tr>
+                            <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
+                              <td>Diesel (on-road)</td>
+                              <td>Energy Information Administration (EIA)</td>
+                              <td>Low heating values (LHV)</td>
+                              <td class="numeric">0.010150</td>
+                              <td>kg CO₂e/gallon</td>
+                              <td>01/2024 - 12/2024</td>
+                              <td><span class="access-tag">Global</span></td>
+                              <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="uom-section collapsed" data-uom-section="asset-natural-gas">
+                  <div class="uom-section-header" onclick="toggleUomSection('asset-natural-gas')">
+                    <span>Natural gas <span class="section-count">2</span></span>
+                    <i class="fa-light fa-chevron-down section-toggle uom-section-toggle"></i>
+                  </div>
+                  <div class="uom-section-body">
+                    <div class="card" style="border: none; border-radius: 0; margin: 0;">
+                      <div class="card-body" style="padding: 0;">
+                        <table class="data-table uom-table">
+                          <thead>
+                            <tr>
+                              <th class="sortable">Material name <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Source <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Heating values <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Factor <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Unit <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Applicability <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Access <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th style="width: 40px;"></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
+                              <td>Natural gas (pipeline)</td>
+                              <td>Environmental Protection Agency (EPA)</td>
+                              <td>Low heating values (LHV)</td>
+                              <td class="numeric">0.000054</td>
+                              <td>kg CO₂e/therm</td>
+                              <td>01/01/2023 - 12/31/2024</td>
+                              <td><span class="access-tag">Global</span></td>
+                              <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                            </tr>
+                            <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
+                              <td>Natural gas (commercial)</td>
+                              <td>Energy Information Administration (EIA)</td>
+                              <td>Low heating values (LHV)</td>
+                              <td class="numeric">0.000053</td>
+                              <td>kg CO₂e/therm</td>
+                              <td>01/2024 - 12/2024</td>
+                              <td><span class="access-tag">Global</span></td>
+                              <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="uom-section collapsed" data-uom-section="asset-unmapped">
+                  <div class="uom-section-header" onclick="toggleUomSection('asset-unmapped')">
+                    <span><span class="data-asset-unmapped"><i class="fa-solid fa-triangle-exclamation"></i> Unmapped</span> <span class="section-count">5</span></span>
+                    <i class="fa-light fa-chevron-down section-toggle uom-section-toggle"></i>
+                  </div>
+                  <div class="uom-section-body">
+                    <div class="card" style="border: none; border-radius: 0; margin: 0;">
+                      <div class="card-body" style="padding: 0;">
+                        <table class="data-table uom-table">
+                          <thead>
+                            <tr>
+                              <th class="sortable">Material name <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Source <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Heating values <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Factor <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Unit <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Applicability <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Access <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th style="width: 40px;"></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
+                              <td>Ash</td>
+                              <td>UK Government Department of Environment, Food &amp; Rural Affairs (DEFRA)</td>
+                              <td>Density</td>
+                              <td class="numeric">0.002000</td>
+                              <td>kWh/pound</td>
+                              <td>08/01/2020 - 08/31/2024</td>
+                              <td><span class="access-tag">Global</span></td>
+                              <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                            </tr>
+                            <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
+                              <td>Asphalt and Road Oil</td>
+                              <td>UK Government Department of Environment, Food &amp; Rural Affairs (DEFRA)</td>
+                              <td>High heating values (HHV)</td>
+                              <td class="numeric">0.001892</td>
+                              <td>yr³/pound</td>
+                              <td>08/01/2020 - 08/31/2024</td>
+                              <td><span class="access-tag">Global</span></td>
+                              <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                            </tr>
+                            <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
+                              <td>BioETBE</td>
+                              <td>UK Government Department of Environment, Food &amp; Rural Affairs (DEFRA)</td>
+                              <td>Density</td>
+                              <td class="numeric">0.001398</td>
+                              <td>yr³/pound</td>
+                              <td>08/01/2020 - 08/31/2024</td>
+                              <td><span class="access-tag">Global</span></td>
+                              <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+
         <!-- ============================================== -->
         <!-- VIEW 5: EF SELECTION & REVIEW (Full Page)      -->
         <!-- ============================================== -->
@@ -15576,8 +17447,15 @@
       }
     }
     
+    function getUomViewSuffix() {
+      return document.querySelector('#view-unit-measure-v2.active') ? 'V2' : '';
+    }
+    function getUomEl(id) {
+      return document.getElementById(id + getUomViewSuffix());
+    }
+    
     function switchUnitMeasureTab(tabId) {
-      var view = document.getElementById('view-unit-measure');
+      var view = document.querySelector('#view-unit-measure.active, #view-unit-measure-v2.active');
       if (!view) return;
       view.querySelectorAll('.unit-measure-tab').forEach(function(tab) {
         tab.classList.toggle('active', tab.getAttribute('data-uom-tab') === tabId);
@@ -15588,7 +17466,20 @@
       if (tabId === 'group') {
         ensureUomGroupDefaultDataRowsPopulated();
         if (typeof updateUomGroupMeta === 'function') updateUomGroupMeta();
+        if (view.id === 'view-unit-measure-v2') toggleGroupViewByUnitGroupsV2();
       }
+    }
+    
+    function toggleGroupViewByUnitGroupsV2() {
+      var cb = document.getElementById('groupViewByUnitGroupsToggleV2');
+      var byGroups = document.getElementById('groupViewByGroupsV2');
+      var library = document.getElementById('groupViewLibraryV2');
+      var searchInput = document.getElementById('unitLibrarySearchV2');
+      if (!cb || !byGroups || !library) return;
+      var on = cb.checked;
+      byGroups.classList.toggle('hidden', !on);
+      library.classList.toggle('hidden', on);
+      if (searchInput) filterUomV2GroupPanel(searchInput.value);
     }
     
     function formatDateMmDdYyyy(d) {
@@ -15599,7 +17490,7 @@
       return m + '/' + day + '/' + y;
     }
     function toggleUomSection(sectionId) {
-      var view = document.getElementById('view-unit-measure');
+      var view = document.querySelector('#view-unit-measure.active, #view-unit-measure-v2.active');
       if (!view) return;
       var section = view.querySelector('.uom-section[data-uom-section="' + sectionId + '"]');
       if (section) section.classList.toggle('collapsed');
@@ -15609,7 +17500,7 @@
       ev.preventDefault();
       ev.stopPropagation();
       var row = btn.closest('tr');
-      if (!row || row.classList.contains('add-unit-input-row')) return;
+      if (!row || row.classList.contains('add-unit-input-row') || row.classList.contains('uom-library-row-editing')) return;
       var menu = document.getElementById('uomRowMenu');
       if (menu.classList.contains('open') && _uomMenuRow === row) {
         menu.classList.remove('open');
@@ -15619,9 +17510,14 @@
       _uomMenuRow = row;
       var makeBaseLi = document.getElementById('uomMenuMakeBaseLi');
       if (makeBaseLi) {
-        var firstCell = row.cells[0];
-        var isBaseUnit = firstCell && firstCell.querySelector('.source-unit-sub');
-        makeBaseLi.style.display = isBaseUnit ? 'none' : '';
+        var isLibraryRow = row.closest('#unitLibraryTbodyV2');
+        if (isLibraryRow) {
+          makeBaseLi.style.display = 'none';
+        } else {
+          var firstCell = row.cells[0];
+          var isBaseUnit = firstCell && firstCell.querySelector('.source-unit-sub');
+          makeBaseLi.style.display = isBaseUnit ? 'none' : '';
+        }
       }
       var rect = btn.getBoundingClientRect();
       menu.style.left = rect.left + 'px';
@@ -15650,7 +17546,7 @@
     function uomMenuEditUnit() {
       var row = _uomMenuRow;
       _closeUomRowMenuOnClick();
-      if (row) enterUomRowEdit(row);
+      if (row) openEditUnitModal(row);
     }
     function uomMenuDeleteUnit() {
       var row = _uomMenuRow;
@@ -15675,13 +17571,26 @@
       document.getElementById('makeBaseUnitModal').classList.remove('open');
     }
     var _uomGroupEditOption = null;
+    var _uomGroupModalStep = 1;
     function openAddUomGroupModal() {
       window._uomGroupEditOption = null;
+      window._uomV2EditingSectionId = null;
+      window._uomGroupModalStep = 1;
       document.getElementById('addUomGroupModalTitle').textContent = 'Add UOM Group';
-      document.getElementById('addUomGroupModalSaveBtn').textContent = 'Add UOM Group';
       document.getElementById('addUomGroupName').value = '';
       document.getElementById('addUomGroupDescription').value = '';
       document.getElementById('addUomGroupActive').checked = true;
+      document.getElementById('addUomGroupStep1').classList.remove('hidden');
+      document.getElementById('addUomGroupStep2').classList.add('hidden');
+      document.getElementById('addUomGroupBaseUnitName').value = '';
+      document.getElementById('addUomGroupBaseUnitAbbr').value = '';
+      document.getElementById('addUomGroupBaseUnitSource').value = '';
+      document.getElementById('addUomGroupBaseUnitAccess').value = 'Global';
+      document.getElementById('addUomGroupBaseUnitFactor').value = '1';
+      document.getElementById('addUomGroupModalNextBtn').style.display = '';
+      document.getElementById('addUomGroupModalBackBtn').style.display = 'none';
+      document.getElementById('addUomGroupModalSaveBtn').textContent = 'Add UOM Group';
+      document.getElementById('addUomGroupModalSaveBtn').style.display = 'none';
       var btnWrap = document.getElementById('addUomGroupFooterButtons');
       var redirectEl = document.getElementById('addUomGroupRedirecting');
       var overlay = document.getElementById('addUomGroupRedirectOverlay');
@@ -15691,22 +17600,70 @@
       document.getElementById('addUomGroupModalBackdrop').classList.add('open');
       document.getElementById('addUomGroupModal').classList.add('open');
     }
+    function addUomGroupModalStepNext() {
+      var name = (document.getElementById('addUomGroupName').value || '').trim();
+      if (!name) return;
+      window._uomGroupModalStep = 2;
+      document.getElementById('addUomGroupStep1').classList.add('hidden');
+      document.getElementById('addUomGroupStep2').classList.remove('hidden');
+      document.getElementById('addUomGroupModalNextBtn').style.display = 'none';
+      document.getElementById('addUomGroupModalBackBtn').style.display = '';
+      document.getElementById('addUomGroupModalSaveBtn').style.display = '';
+    }
+    function addUomGroupModalStepBack() {
+      window._uomGroupModalStep = 1;
+      document.getElementById('addUomGroupStep2').classList.add('hidden');
+      document.getElementById('addUomGroupStep1').classList.remove('hidden');
+      document.getElementById('addUomGroupModalBackBtn').style.display = 'none';
+      document.getElementById('addUomGroupModalSaveBtn').style.display = 'none';
+      document.getElementById('addUomGroupModalNextBtn').style.display = '';
+    }
     function openEditUomGroupModal() {
-      var sel = document.getElementById('uomGroupSelect');
+      var sel = getUomEl('uomGroupSelect');
       if (!sel || sel.selectedIndex < 0) return;
       var opt = sel.options[sel.selectedIndex];
       if (!opt) return;
       window._uomGroupEditOption = opt;
+      window._uomV2EditingSectionId = null;
+      window._uomGroupModalStep = 0;
       document.getElementById('addUomGroupModalTitle').textContent = 'Edit UOM Group';
+      document.getElementById('addUomGroupStep1').classList.remove('hidden');
+      document.getElementById('addUomGroupStep2').classList.add('hidden');
+      document.getElementById('addUomGroupModalNextBtn').style.display = 'none';
+      document.getElementById('addUomGroupModalBackBtn').style.display = 'none';
       document.getElementById('addUomGroupModalSaveBtn').textContent = 'Save';
+      document.getElementById('addUomGroupModalSaveBtn').style.display = '';
       document.getElementById('addUomGroupName').value = (opt.value || '').trim();
       document.getElementById('addUomGroupDescription').value = (opt.getAttribute('data-description') || '').trim();
       document.getElementById('addUomGroupActive').checked = (opt.getAttribute('data-active') !== 'false');
       document.getElementById('addUomGroupModalBackdrop').classList.add('open');
       document.getElementById('addUomGroupModal').classList.add('open');
     }
+    function openEditUomGroupModalV2(sectionId) {
+      var panel = document.querySelector('#view-unit-measure-v2 .unit-measure-panel[data-uom-panel="group"]');
+      if (!panel) return;
+      var section = panel.querySelector('.uom-section[data-uom-section="' + sectionId + '"]');
+      if (!section) return;
+      window._uomGroupEditOption = null;
+      window._uomV2EditingSectionId = sectionId;
+      window._uomGroupModalStep = 0;
+      document.getElementById('addUomGroupModalTitle').textContent = 'Edit UOM Group';
+      document.getElementById('addUomGroupStep1').classList.remove('hidden');
+      document.getElementById('addUomGroupStep2').classList.add('hidden');
+      document.getElementById('addUomGroupModalNextBtn').style.display = 'none';
+      document.getElementById('addUomGroupModalBackBtn').style.display = 'none';
+      document.getElementById('addUomGroupModalSaveBtn').textContent = 'Save';
+      document.getElementById('addUomGroupModalSaveBtn').style.display = '';
+      document.getElementById('addUomGroupName').value = (section.getAttribute('data-name') || '').trim();
+      document.getElementById('addUomGroupDescription').value = (section.getAttribute('data-description') || '').trim();
+      document.getElementById('addUomGroupActive').checked = (section.getAttribute('data-active') !== 'false');
+      document.getElementById('addUomGroupModalBackdrop').classList.add('open');
+      document.getElementById('addUomGroupModal').classList.add('open');
+    }
     function closeAddUomGroupModal() {
       window._uomGroupEditOption = null;
+      window._uomV2EditingSectionId = null;
+      window._uomGroupModalStep = 1;
       var btnWrap = document.getElementById('addUomGroupFooterButtons');
       var redirectEl = document.getElementById('addUomGroupRedirecting');
       var overlay = document.getElementById('addUomGroupRedirectOverlay');
@@ -15722,19 +17679,68 @@
       var description = (document.getElementById('addUomGroupDescription').value || '').trim();
       var active = document.getElementById('addUomGroupActive').checked;
       var editing = window._uomGroupEditOption;
-      closeAddUomGroupModal();
+      var v2SectionId = window._uomV2EditingSectionId;
+      var step = window._uomGroupModalStep;
+      if (step === 2) {
+        var baseName = (document.getElementById('addUomGroupBaseUnitName').value || '').trim();
+        if (!baseName) return;
+        var baseAbbr = (document.getElementById('addUomGroupBaseUnitAbbr').value || '').trim();
+        var baseSource = document.getElementById('addUomGroupBaseUnitSource').value || '';
+        var baseAccess = document.getElementById('addUomGroupBaseUnitAccess').value || 'Global';
+        var viewV2 = document.getElementById('view-unit-measure-v2');
+        if (viewV2 && viewV2.classList.contains('active')) {
+          var accordions = document.getElementById('uomV2GroupAccordions');
+          if (accordions) {
+            var sectionId = 'v2-group-new-' + Date.now();
+            var esc = function(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); };
+            var metaStr = formatDateMmDdYyyy(new Date()) + ' at ' + new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }) + ' CST';
+            var baseRow = '<tr class="uom-data-row"><td><span class="source-unit-name">' + esc(baseName) + '</span><span class="source-unit-sub">Base unit</span></td><td>' + esc(baseAbbr || '—') + '</td><td>' + esc(baseSource || '—') + '</td><td><span class="access-tag">' + esc(baseAccess) + '</span></td><td class="numeric">1</td><td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">' + esc(metaStr) + '</span></td><td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td></tr>';
+            var sectionHtml = '<div class="uom-section collapsed" data-uom-section="' + sectionId + '" data-name="' + esc(name) + '" data-description="' + esc(description || 'Unit Group for ' + name) + '" data-active="' + (active ? 'true' : 'false') + '"><div class="uom-section-header" onclick="toggleUomV2GroupAccordion(\'' + sectionId + '\')"><div class="uom-v2-accordion-header-inner"><div class="uom-v2-accordion-header-main"><span class="uom-v2-accordion-title">' + esc(name) + '</span><span class="uom-v2-accordion-desc">' + esc(description || 'Unit Group for ' + name) + '</span><span class="uom-v2-accordion-pill">1 unit</span><span class="uom-v2-accordion-status ' + (active ? 'uom-v2-accordion-status-active' : 'uom-v2-accordion-status-inactive') + '">' + (active ? 'Active' : 'Inactive') + '</span></div><div class="uom-v2-accordion-header-actions"><button type="button" class="btn btn-ghost btn-sm uom-v2-accordion-add-unit" onclick="event.stopPropagation(); openAddUnitModal(\'' + sectionId + '\');"><i class="fa-light fa-plus"></i> Add Unit</button><button type="button" class="btn btn-ghost btn-sm uom-v2-accordion-edit" onclick="event.stopPropagation(); openEditUomGroupModalV2(\'' + sectionId + '\');"><i class="fa-light fa-pen"></i> Edit group</button><i class="fa-light fa-chevron-down section-toggle uom-section-toggle"></i></div></div></div><div class="uom-section-body uom-v2-accordion-body"><div class="card"><div class="card-body" style="padding: 0;"><table class="data-table uom-table"><thead><tr><th class="sortable">Source Unit <i class="fa-light fa-chevron-down sort-icon"></i></th><th class="sortable">Abbreviation <i class="fa-light fa-chevron-down sort-icon"></i></th><th class="sortable">Source <i class="fa-light fa-chevron-down sort-icon"></i></th><th class="sortable">Access <i class="fa-light fa-chevron-down sort-icon"></i></th><th class="sortable numeric">Factor <i class="fa-light fa-chevron-down sort-icon"></i></th><th class="sortable">Last updated <i class="fa-light fa-chevron-down sort-icon"></i></th><th style="width: 40px;"></th></tr></thead><tbody>' + baseRow + '</tbody></table></div></div></div></div></div>';
+            var wrap = document.createElement('div');
+            wrap.innerHTML = sectionHtml;
+            while (wrap.firstChild) accordions.appendChild(wrap.firstChild);
+          }
+          closeAddUomGroupModal();
+          if (typeof showToast === 'function') showToast('UOM group and base unit added (prototype)', 'success');
+          return;
+        }
+      }
+      if (step !== 2) closeAddUomGroupModal();
+      if (v2SectionId) {
+        var panel = document.querySelector('#view-unit-measure-v2 .unit-measure-panel[data-uom-panel="group"]');
+        var section = panel ? panel.querySelector('.uom-section[data-uom-section="' + v2SectionId + '"]') : null;
+        if (section) {
+          section.setAttribute('data-name', name);
+          section.setAttribute('data-description', description || 'Unit Group for ' + name);
+          section.setAttribute('data-active', active ? 'true' : 'false');
+          var titleEl = section.querySelector('.uom-v2-accordion-title');
+          var descEl = section.querySelector('.uom-v2-accordion-desc');
+          var statusEl = section.querySelector('.uom-v2-accordion-status');
+          if (titleEl) titleEl.textContent = name;
+          if (descEl) descEl.textContent = description || 'Unit Group for ' + name;
+          if (statusEl) {
+            statusEl.textContent = active ? 'Active' : 'Inactive';
+            statusEl.className = 'uom-v2-accordion-status ' + (active ? 'uom-v2-accordion-status-active' : 'uom-v2-accordion-status-inactive');
+          }
+        }
+        closeAddUomGroupModal();
+        if (typeof showToast === 'function') showToast('UOM group updated (prototype)', 'success');
+        return;
+      }
       if (editing) {
+        closeAddUomGroupModal();
         editing.value = name;
         editing.textContent = name;
         editing.setAttribute('data-description', description || 'Unit Group for ' + name);
         editing.setAttribute('data-active', active ? 'true' : 'false');
-        var sel = document.getElementById('uomGroupSelect');
+        var sel = getUomEl('uomGroupSelect');
         if (sel) sel.value = name;
         updateUomGroupMeta();
         if (typeof showToast === 'function') showToast('UOM group updated (prototype)', 'success');
         return;
       }
-      var sel = document.getElementById('uomGroupSelect');
+      closeAddUomGroupModal();
+      var sel = getUomEl('uomGroupSelect');
       if (sel) {
         var opt = document.createElement('option');
         opt.value = name;
@@ -15757,16 +17763,16 @@
         closeAddUomGroupModal();
         switchUnitMeasureTab('group');
         updateUomGroupMeta();
-        var promptEl = document.getElementById('uomAddBaseUnitPrompt');
+        var promptEl = getUomEl('uomAddBaseUnitPrompt');
         if (promptEl) promptEl.classList.remove('hidden');
         if (typeof showToast === 'function') showToast('UOM group added (prototype)', 'success');
       }, 550);
     }
     function updateUomGroupMeta() {
-      var sel = document.getElementById('uomGroupSelect');
-      var descEl = document.getElementById('uomGroupDescription');
-      var statusEl = document.getElementById('uomGroupStatus');
-      var promptEl = document.getElementById('uomAddBaseUnitPrompt');
+      var sel = getUomEl('uomGroupSelect');
+      var descEl = getUomEl('uomGroupDescription');
+      var statusEl = getUomEl('uomGroupStatus');
+      var promptEl = getUomEl('uomAddBaseUnitPrompt');
       if (!sel || !descEl || !statusEl) return;
       var opt = sel.options[sel.selectedIndex];
       var desc = opt ? (opt.getAttribute('data-description') || '') : '';
@@ -15778,7 +17784,7 @@
       var showPrompt = (window._lastAddedUomGroupName && sel.value === window._lastAddedUomGroupName);
       if (!showPrompt) window._uomGroupShowingEmptyTableFor = null;
       if (promptEl) promptEl.classList.toggle('hidden', !showPrompt);
-      var tableSection = document.getElementById('uomGroupTableSection');
+      var tableSection = getUomEl('uomGroupTableSection');
       if (tableSection) {
         if (showPrompt) {
           tableSection.classList.add('hidden');
@@ -15790,26 +17796,26 @@
     }
     function ensureUomGroupDefaultDataRowsPopulated() {}
     function showEmptyGroupTableAndAddBaseUnit() {
-      var sel = document.getElementById('uomGroupSelect');
+      var sel = getUomEl('uomGroupSelect');
       var tbody = getUomGroupTbody();
       if (!tbody) return;
       var currentGroup = sel ? sel.value : '';
-      var storage = document.getElementById('uomGroupDefaultRowsStorage');
+      var storage = getUomEl('uomGroupDefaultRowsStorage');
       var dataRows = tbody.querySelectorAll('tr.uom-data-row');
       for (var j = 0; j < dataRows.length; j++) {
         if (storage) storage.appendChild(dataRows[j]);
       }
       window._uomGroupShowingEmptyTableFor = currentGroup;
-      document.getElementById('uomAddBaseUnitPrompt').classList.add('hidden');
-      document.getElementById('uomGroupTableSection').classList.remove('hidden');
+      getUomEl('uomAddBaseUnitPrompt').classList.add('hidden');
+      getUomEl('uomGroupTableSection').classList.remove('hidden');
       window._lastAddedUomGroupName = null;
       toggleAddUnitRow();
     }
     function restoreUomGroupDefaultDataRows() {
-      var storage = document.getElementById('uomGroupDefaultRowsStorage');
+      var storage = getUomEl('uomGroupDefaultRowsStorage');
       if (!storage || !storage.firstChild) return;
       var tbody = getUomGroupTbody();
-      var addRow = document.getElementById('addUnitInputRow');
+      var addRow = getUomEl('addUnitInputRow');
       if (!tbody || !addRow) return;
       while (storage.lastChild) {
         tbody.insertBefore(storage.lastChild, addRow);
@@ -15846,94 +17852,192 @@
       if (typeof showToast === 'function') showToast('Base unit updated (prototype)', 'success');
     }
     function getUomGroupTbody() {
-      var panel = document.querySelector('.unit-measure-panel[data-uom-panel="group"]');
-      return panel ? panel.querySelector('.uom-table tbody') : null;
+      var view = document.querySelector('#view-unit-measure.active, #view-unit-measure-v2.active');
+      if (!view) return null;
+      var panel = view.querySelector('.unit-measure-panel[data-uom-panel="group"]');
+      if (!panel) return null;
+      if (view.id === 'view-unit-measure-v2') {
+        var expanded = panel.querySelector('.uom-section[data-uom-section^="v2-group-"]:not(.collapsed)');
+        return expanded ? expanded.querySelector('.uom-table tbody') : null;
+      }
+      return panel.querySelector('.uom-table tbody');
     }
-    function enterUomRowEdit(tr) {
-      if (!tr || tr.classList.contains('uom-row-editing')) return;
-      var c = tr.cells;
-      if (!c || c.length < 7) return;
-      var nameEl = tr.querySelector('.source-unit-name');
-      var name = nameEl ? nameEl.textContent.trim() : '';
-      var abbr = (c[1] && c[1].textContent) ? c[1].textContent.trim() : '';
-      var source = (c[2] && c[2].textContent) ? c[2].textContent.trim() : '';
-      var accessEl = c[3] && c[3].querySelector('.access-tag');
-      var access = accessEl ? accessEl.textContent.trim() : 'Global';
-      var factor = (c[4] && c[4].textContent) ? c[4].textContent.trim() : '';
-      tr.setAttribute('data-uom-original', tr.innerHTML);
-      tr.classList.add('uom-row-editing');
-      tr.cells[0].innerHTML = '<input type="text" class="form-input add-unit-input uom-edit-name" value="' + (name.replace(/"/g, '&quot;')) + '">';
-      tr.cells[1].innerHTML = '<input type="text" class="form-input add-unit-input uom-edit-abbr" value="' + (abbr.replace(/"/g, '&quot;')) + '">';
-      tr.cells[2].innerHTML = '<select class="form-select add-unit-input add-unit-select uom-edit-source"><option value="">Select source</option><option value="SI"' + (source === 'SI' ? ' selected' : '') + '>SI</option><option value="US Customary / Imperial"' + (source === 'US Customary / Imperial' ? ' selected' : '') + '>US Customary / Imperial</option></select>';
-      tr.cells[3].innerHTML = '<select class="form-select add-unit-input add-unit-select uom-edit-access"><option value="Global"' + (access === 'Global' ? ' selected' : '') + '>Global</option><option value="Custom"' + (access === 'Custom' ? ' selected' : '') + '>Custom</option></select>';
-      tr.cells[4].innerHTML = '<input type="text" class="form-input add-unit-input add-unit-factor uom-edit-factor" value="' + (factor.replace(/"/g, '&quot;')) + '">';
-      tr.cells[4].className = 'numeric';
-      tr.cells[5].innerHTML = (c[5] ? c[5].innerHTML : '');
-      tr.cells[6].innerHTML = '<button type="button" class="btn-ghost btn-icon uom-edit-save" title="Save" onclick="saveUomRowEdit(this.closest(\'tr\'))"><i class="fa-light fa-check" style="color: var(--ghg-success);"></i></button><button type="button" class="btn-ghost btn-icon uom-edit-cancel" title="Cancel" onclick="cancelUomRowEdit(this.closest(\'tr\'))"><i class="fa-light fa-xmark" style="color: var(--ghg-danger);"></i></button>';
+    function toggleUomV2GroupAccordion(sectionId) {
+      var panel = document.querySelector('#view-unit-measure-v2 .unit-measure-panel[data-uom-panel="group"]');
+      if (!panel) return;
+      var section = panel.querySelector('.uom-section[data-uom-section="' + sectionId + '"]');
+      if (!section) return;
+      var wasCollapsed = section.classList.contains('collapsed');
+      if (wasCollapsed) {
+        var allSections = panel.querySelectorAll('.uom-section[data-uom-section^="v2-group-"]');
+        for (var i = 0; i < allSections.length; i++) {
+          if (allSections[i] !== section) allSections[i].classList.add('collapsed');
+        }
+      }
+      section.classList.toggle('collapsed');
     }
-    function saveUomRowEdit(tr) {
-      if (!tr || !tr.classList.contains('uom-row-editing')) return;
-      var name = (tr.querySelector('.uom-edit-name') && tr.querySelector('.uom-edit-name').value) ? tr.querySelector('.uom-edit-name').value.trim() : '';
-      var abbr = (tr.querySelector('.uom-edit-abbr') && tr.querySelector('.uom-edit-abbr').value) ? tr.querySelector('.uom-edit-abbr').value.trim() : '';
-      var sourceSelect = tr.querySelector('.uom-edit-source');
-      var source = sourceSelect ? sourceSelect.value : '';
-      var accessSelect = tr.querySelector('.uom-edit-access');
-      var access = accessSelect ? accessSelect.value : 'Global';
-      var factorEl = tr.querySelector('.uom-edit-factor');
-      var factor = factorEl ? factorEl.value.trim() : '';
+    function expandUomV2GroupAccordion(sectionId) {
+      var panel = document.querySelector('#view-unit-measure-v2 .unit-measure-panel[data-uom-panel="group"]');
+      if (!panel) return;
+      var section = panel.querySelector('.uom-section[data-uom-section="' + sectionId + '"]');
+      if (!section) return;
+      var allSections = panel.querySelectorAll('.uom-section[data-uom-section^="v2-group-"]');
+      for (var i = 0; i < allSections.length; i++) {
+        if (allSections[i] !== section) allSections[i].classList.add('collapsed');
+      }
+      if (section.classList.contains('collapsed')) {
+        section.classList.remove('collapsed');
+      }
+    }
+    var _uomAddUnitSectionId = null;
+    var _uomEditUnitRow = null;
+    function openAddUnitModal(sectionId) {
+      _uomEditUnitRow = null;
+      _uomAddUnitSectionId = sectionId;
+      if (sectionId) expandUomV2GroupAccordion(sectionId);
+      document.getElementById('addEditUnitModalTitle').textContent = 'Add unit';
+      document.getElementById('addEditUnitModalSaveBtn').textContent = 'Add unit';
+      document.getElementById('addEditUnitName').value = '';
+      document.getElementById('addEditUnitAbbr').value = '';
+      document.getElementById('addEditUnitSource').value = '';
+      document.getElementById('addEditUnitAccess').value = 'Global';
+      document.getElementById('addEditUnitFactor').value = '';
+      document.getElementById('addEditUnitModalBackdrop').classList.add('open');
+      document.getElementById('addEditUnitModal').classList.add('open');
+    }
+    function openEditUnitModal(tr) {
+      if (!tr || !tr.cells) return;
+      _uomAddUnitSectionId = null;
+      _uomEditUnitRow = tr;
+      var isLibrary = tr.closest('#unitLibraryTbodyV2');
+      var name = '';
+      var abbr = '';
+      var source = '';
+      var access = 'Global';
+      var factor = '';
+      if (isLibrary && tr.cells.length >= 9) {
+        name = (tr.cells[0] && tr.cells[0].textContent) ? tr.cells[0].textContent.trim() : '';
+        abbr = (tr.cells[1] && tr.cells[1].textContent) ? tr.cells[1].textContent.trim() : '';
+        source = (tr.cells[3] && tr.cells[3].textContent) ? tr.cells[3].textContent.trim() : '';
+        factor = (tr.cells[4] && tr.cells[4].textContent) ? tr.cells[4].textContent.trim() : '';
+      } else if (tr.cells.length >= 7) {
+        var nameEl = tr.querySelector('.source-unit-name');
+        name = nameEl ? nameEl.textContent.trim() : (tr.cells[0] ? tr.cells[0].textContent.trim() : '');
+        abbr = (tr.cells[1] && tr.cells[1].textContent) ? tr.cells[1].textContent.trim() : '';
+        source = (tr.cells[2] && tr.cells[2].textContent) ? tr.cells[2].textContent.trim() : '';
+        var accessEl = tr.cells[3] && tr.cells[3].querySelector('.access-tag');
+        access = accessEl ? accessEl.textContent.trim() : 'Global';
+        factor = (tr.cells[4] && tr.cells[4].textContent) ? tr.cells[4].textContent.trim() : '';
+      }
+      document.getElementById('addEditUnitModalTitle').textContent = 'Edit unit';
+      document.getElementById('addEditUnitModalSaveBtn').textContent = 'Save';
+      document.getElementById('addEditUnitName').value = name;
+      document.getElementById('addEditUnitAbbr').value = abbr;
+      document.getElementById('addEditUnitSource').value = source;
+      document.getElementById('addEditUnitAccess').value = access;
+      document.getElementById('addEditUnitFactor').value = factor;
+      document.getElementById('addEditUnitModalBackdrop').classList.add('open');
+      document.getElementById('addEditUnitModal').classList.add('open');
+    }
+    function closeAddEditUnitModal() {
+      _uomAddUnitSectionId = null;
+      _uomEditUnitRow = null;
+      document.getElementById('addEditUnitModalBackdrop').classList.remove('open');
+      document.getElementById('addEditUnitModal').classList.remove('open');
+    }
+    function saveAddEditUnitModal() {
+      var name = (document.getElementById('addEditUnitName').value || '').trim();
+      var abbr = (document.getElementById('addEditUnitAbbr').value || '').trim();
+      var source = document.getElementById('addEditUnitSource').value || '';
+      var access = document.getElementById('addEditUnitAccess').value || 'Global';
+      var factor = (document.getElementById('addEditUnitFactor').value || '').trim();
       var esc = function(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); };
-      var nameCell = '<span class="source-unit-name">' + esc(name || '—') + '</span>';
       var metaStr = formatDateMmDdYyyy(new Date()) + ' at ' + new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }) + ' CST';
-      tr.innerHTML = '<td>' + nameCell + '</td><td>' + esc(abbr || '—') + '</td><td>' + esc(source || '—') + '</td><td><span class="access-tag">' + esc(access || 'Global') + '</span></td><td class="numeric">' + esc(factor || '—') + '</td><td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">' + esc(metaStr) + '</span></td><td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>';
-      tr.classList.remove('uom-row-editing');
-      tr.classList.add('uom-data-row');
-      if (typeof showToast === 'function') showToast('Unit updated (prototype)', 'success');
-    }
-    function cancelUomRowEdit(tr) {
-      if (!tr || !tr.classList.contains('uom-row-editing')) return;
-      var orig = tr.getAttribute('data-uom-original');
-      if (orig) { tr.innerHTML = orig; tr.removeAttribute('data-uom-original'); }
-      tr.classList.remove('uom-row-editing');
+      if (_uomEditUnitRow) {
+        var tr = _uomEditUnitRow;
+        var isLibrary = tr.closest('#unitLibraryTbodyV2');
+        closeAddEditUnitModal();
+        if (isLibrary && tr.cells.length >= 9) {
+          tr.cells[0].textContent = name || '—';
+          tr.cells[1].textContent = abbr || '—';
+          tr.cells[3].textContent = source || '—';
+          tr.cells[4].textContent = factor || '—';
+          tr.cells[4].className = 'numeric';
+          tr.cells[5].innerHTML = '<span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">' + esc(metaStr) + '</span>';
+        } else if (tr.cells.length >= 7) {
+          var nameCell = '<span class="source-unit-name">' + esc(name || '—') + '</span>';
+          if (tr.cells[0].querySelector('.source-unit-sub')) nameCell += '<span class="source-unit-sub">Base unit</span>';
+          tr.cells[0].innerHTML = nameCell;
+          tr.cells[1].textContent = abbr || '—';
+          tr.cells[2].textContent = source || '—';
+          tr.cells[3].innerHTML = '<span class="access-tag">' + esc(access) + '</span>';
+          tr.cells[4].textContent = factor || '—';
+          tr.cells[4].className = 'numeric';
+          tr.cells[5].innerHTML = '<span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">' + esc(metaStr) + '</span>';
+        }
+        if (typeof showToast === 'function') showToast('Unit updated (prototype)', 'success');
+        return;
+      }
+      var tbody = null;
+      var section = null;
+      if (_uomAddUnitSectionId) {
+        var panel = document.querySelector('#view-unit-measure-v2 .unit-measure-panel[data-uom-panel="group"]');
+        section = panel ? panel.querySelector('.uom-section[data-uom-section="' + _uomAddUnitSectionId + '"]') : null;
+        tbody = section ? section.querySelector('.uom-table tbody') : null;
+      }
+      if (!tbody) tbody = getUomGroupTbody();
+      if (tbody) {
+        var existingDataRows = tbody.querySelectorAll('tr.uom-data-row');
+        var isBaseUnit = (existingDataRows.length === 0);
+        var nameCell = '<span class="source-unit-name">' + esc(name || '—') + '</span>';
+        if (isBaseUnit) nameCell += '<span class="source-unit-sub">Base unit</span>';
+        var newRow = document.createElement('tr');
+        newRow.className = 'uom-data-row';
+        newRow.innerHTML = '<td>' + nameCell + '</td><td>' + esc(abbr || '—') + '</td><td>' + esc(source || '—') + '</td><td><span class="access-tag">' + esc(access) + '</span></td><td class="numeric">' + esc(factor || '—') + '</td><td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">' + esc(metaStr) + '</span></td><td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>';
+        var addRow = getUomEl('addUnitInputRow');
+        if (addRow && addRow.parentNode === tbody) tbody.insertBefore(newRow, addRow);
+        else tbody.appendChild(newRow);
+        if (section) {
+          var pill = section.querySelector('.uom-v2-accordion-pill');
+          if (pill) { var n = existingDataRows.length + 1; pill.textContent = n + (n === 1 ? ' unit' : ' units'); }
+        }
+        closeAddEditUnitModal();
+        if (typeof showToast === 'function') showToast('Unit added (prototype)', 'success');
+      }
     }
     function toggleAddUnitRow() {
-      var row = document.getElementById('addUnitInputRow');
+      var row = getUomEl('addUnitInputRow');
       if (!row) return;
       var isHidden = row.classList.contains('hidden');
       row.classList.toggle('hidden', !isHidden);
       if (isHidden) {
-        document.getElementById('addUnitName').value = '';
-        document.getElementById('addUnitAbbr').value = '';
-        document.getElementById('addUnitSource').value = '';
-        document.getElementById('addUnitAccess').value = 'Global';
-        document.getElementById('addUnitFactor').value = '';
-        var baseLabel = document.getElementById('addUnitBaseUnitLabel');
-        if (baseLabel) {
-          var tbody = getUomGroupTbody();
-          var dataRows = tbody ? tbody.querySelectorAll('tr.uom-data-row') : [];
-          baseLabel.classList.toggle('hidden', dataRows.length > 0);
-        }
+        getUomEl('addUnitName').value = '';
+        getUomEl('addUnitAbbr').value = '';
+        getUomEl('addUnitSource').value = '';
+        getUomEl('addUnitAccess').value = 'Global';
+        getUomEl('addUnitFactor').value = '';
       }
     }
     function cancelAddUnit() {
-      var sel = document.getElementById('uomGroupSelect');
+      var sel = getUomEl('uomGroupSelect');
       var currentGroup = sel ? sel.value : '';
       if (window._uomGroupShowingEmptyTableFor && currentGroup === window._uomGroupShowingEmptyTableFor) {
         window._lastAddedUomGroupName = currentGroup;
         window._uomGroupShowingEmptyTableFor = null;
-        document.getElementById('uomAddBaseUnitPrompt').classList.remove('hidden');
-        document.getElementById('uomGroupTableSection').classList.add('hidden');
+        getUomEl('uomAddBaseUnitPrompt').classList.remove('hidden');
+        getUomEl('uomGroupTableSection').classList.add('hidden');
       }
       toggleAddUnitRow();
     }
     function saveAddUnit() {
-      var name = (document.getElementById('addUnitName').value || '').trim();
-      var abbr = (document.getElementById('addUnitAbbr').value || '').trim();
-      var source = document.getElementById('addUnitSource').value || '';
-      var access = document.getElementById('addUnitAccess').value || 'Global';
-      var factor = (document.getElementById('addUnitFactor').value || '').trim();
-      var tbody = document.querySelector('.unit-measure-panel[data-uom-panel="group"] .uom-table tbody');
+      var name = (getUomEl('addUnitName').value || '').trim();
+      var abbr = (getUomEl('addUnitAbbr').value || '').trim();
+      var source = getUomEl('addUnitSource').value || '';
+      var access = getUomEl('addUnitAccess').value || 'Global';
+      var factor = (getUomEl('addUnitFactor').value || '').trim();
+      var tbody = getUomGroupTbody();
       if (!tbody) return;
-      var inputRow = document.getElementById('addUnitInputRow');
+      var inputRow = getUomEl('addUnitInputRow');
       var esc = function(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); };
       var existingDataRows = tbody.querySelectorAll('tr.uom-data-row');
       var isBaseUnit = (existingDataRows.length === 0);
@@ -15948,9 +18052,42 @@
       toggleAddUnitRow();
       if (typeof showToast === 'function') showToast('Unit added (prototype)', 'success');
     }
+    function filterUomV2GroupPanel(term) {
+      var byGroups = document.getElementById('groupViewByGroupsV2');
+      var library = document.getElementById('groupViewLibraryV2');
+      if (!byGroups || !library) return;
+      if (!byGroups.classList.contains('hidden')) {
+        filterUomV2Accordions(term);
+      } else {
+        filterUnitLibrary(term);
+      }
+    }
+    function filterUomV2Accordions(term) {
+      var container = document.getElementById('uomV2GroupAccordions');
+      if (!container) return;
+      var q = (term || '').trim().toLowerCase();
+      var sections = container.querySelectorAll('.uom-section');
+      for (var i = 0; i < sections.length; i++) {
+        var sec = sections[i];
+        var sectionName = (sec.getAttribute('data-name') || '') + ' ' + (sec.getAttribute('data-description') || '');
+        var rows = sec.querySelectorAll('tbody tr.uom-data-row');
+        var sectionVisible = false;
+        for (var j = 0; j < rows.length; j++) {
+          var r = rows[j];
+          var nameEl = r.cells[0] && r.cells[0].querySelector('.source-unit-name');
+          var name = nameEl ? nameEl.textContent : (r.cells[0] ? r.cells[0].textContent : '');
+          var abbr = r.cells[1] ? r.cells[1].textContent : '';
+          var rowText = (name + ' ' + abbr).toLowerCase();
+          var show = !q || rowText.indexOf(q) !== -1 || sectionName.toLowerCase().indexOf(q) !== -1;
+          r.style.display = show ? '' : 'none';
+          if (show) sectionVisible = true;
+        }
+        sec.style.display = sectionVisible ? '' : 'none';
+      }
+    }
     function filterUnitLibrary(term) {
-      var tbody = document.getElementById('unitLibraryTbody');
-      var countEl = document.getElementById('unitLibraryPaginationCount');
+      var tbody = getUomEl('unitLibraryTbody');
+      var countEl = getUomEl('unitLibraryPaginationCount');
       if (!tbody || !countEl) return;
       var rows = tbody.querySelectorAll('tr');
       var q = (term || '').trim().toLowerCase();
@@ -15963,8 +18100,8 @@
       countEl.textContent = q ? visible + ' of 98 items' : '1-25 of 98 items';
     }
     function applyCrossGroupUnmappedFilter(active) {
-      var panel = document.getElementById('crossGroupPanel');
-      var pills = document.getElementById('crossGroupFilterPills');
+      var panel = getUomEl('crossGroupPanel');
+      var pills = getUomEl('crossGroupFilterPills');
       if (!panel || !pills) return;
       if (active) {
         panel.classList.add('unmapped-filter-active');
@@ -15977,9 +18114,9 @@
       }
     }
     function applyCrossGroupBy() {
-      var sel = document.getElementById('crossGroupBySelect');
-      var bySource = document.getElementById('crossGroupBySource');
-      var byDataAsset = document.getElementById('crossGroupByDataAsset');
+      var sel = getUomEl('crossGroupBySelect');
+      var bySource = getUomEl('crossGroupBySource');
+      var byDataAsset = getUomEl('crossGroupByDataAsset');
       if (!sel || !bySource || !byDataAsset) return;
       var isDataAsset = (sel.value === 'data-asset');
       bySource.classList.toggle('hidden', isDataAsset);
@@ -15987,8 +18124,8 @@
       applyCrossGroupSearch();
     }
     function applyCrossGroupSearch() {
-      var input = document.getElementById('crossGroupSearchInput');
-      var panel = document.getElementById('crossGroupPanel');
+      var input = getUomEl('crossGroupSearchInput');
+      var panel = getUomEl('crossGroupPanel');
       if (!input || !panel) return;
       var q = (input.value || '').trim().toLowerCase();
       var activeView = panel.querySelector('.cross-group-view:not(.hidden)');
@@ -16005,12 +18142,12 @@
     }
     var _addMaterialsClickOut = null;
     function toggleAddMaterialsDropdown() {
-      var menu = document.getElementById('addMaterialsMenu');
+      var menu = getUomEl('addMaterialsMenu');
       if (!menu) return;
       menu.classList.toggle('open');
       if (menu.classList.contains('open')) {
         _addMaterialsClickOut = function(e) {
-          var wrap = document.getElementById('addMaterialsDropdown');
+          var wrap = getUomEl('addMaterialsDropdown');
           if (wrap && !wrap.contains(e.target)) closeAddMaterialsDropdown();
         };
         setTimeout(function() { document.addEventListener('click', _addMaterialsClickOut); }, 0);
@@ -16019,7 +18156,7 @@
       }
     }
     function closeAddMaterialsDropdown() {
-      var menu = document.getElementById('addMaterialsMenu');
+      var menu = getUomEl('addMaterialsMenu');
       if (menu) menu.classList.remove('open');
       if (_addMaterialsClickOut) {
         document.removeEventListener('click', _addMaterialsClickOut);
@@ -16430,7 +18567,9 @@
       const hash = window.location.hash.replace('#', '');
       const hashToView = {
         'ef-library': 'ef-library',
-        'ef-selection': 'ef-selection-review'
+        'ef-selection': 'ef-selection-review',
+        'unit-measure': 'unit-measure',
+        'unit-measure-v2': 'unit-measure-v2'
       };
       if (hash && hashToView[hash]) {
         switchView(hashToView[hash]);
@@ -19565,25 +21704,60 @@
           <i class="fa-light fa-times"></i>
         </button>
       </div>
-      <div class="modal-body">
-        <div class="form-group" style="margin-bottom: 16px;">
-          <label for="addUomGroupName">Group name <span class="required">*</span></label>
-          <input type="text" class="form-input" id="addUomGroupName" placeholder="e.g. Area" required>
+      <div class="modal-body" id="addUomGroupModalBody">
+        <div class="add-uom-group-step" id="addUomGroupStep1">
+          <div class="form-group" style="margin-bottom: 16px;">
+            <label for="addUomGroupName">Group name <span class="required">*</span></label>
+            <input type="text" class="form-input" id="addUomGroupName" placeholder="e.g. Area" required>
+          </div>
+          <div class="form-group" style="margin-bottom: 16px;">
+            <label for="addUomGroupDescription">Description</label>
+            <textarea class="form-input" id="addUomGroupDescription" placeholder="e.g. Unit Group to measure Area Units" rows="3" style="resize: vertical;"></textarea>
+          </div>
+          <div class="form-group" style="margin-bottom: 0;">
+            <label class="checkbox-label">
+              <input type="checkbox" id="addUomGroupActive" checked>
+              Active
+            </label>
+          </div>
         </div>
-        <div class="form-group" style="margin-bottom: 16px;">
-          <label for="addUomGroupDescription">Description</label>
-          <textarea class="form-input" id="addUomGroupDescription" placeholder="e.g. Unit Group to measure Area Units" rows="3" style="resize: vertical;"></textarea>
-        </div>
-        <div class="form-group" style="margin-bottom: 0;">
-          <label class="checkbox-label">
-            <input type="checkbox" id="addUomGroupActive" checked>
-            Active
-          </label>
+        <div class="add-uom-group-step hidden" id="addUomGroupStep2">
+          <p class="add-uom-group-step-intro">Add a base unit for this group. The base unit has factor 1; other units will be defined relative to it.</p>
+          <div class="form-group" style="margin-bottom: 16px;">
+            <label for="addUomGroupBaseUnitName">Unit name <span class="required">*</span></label>
+            <input type="text" class="form-input" id="addUomGroupBaseUnitName" placeholder="e.g. Square metre">
+          </div>
+          <div class="form-group" style="margin-bottom: 16px;">
+            <label for="addUomGroupBaseUnitAbbr">Abbreviation</label>
+            <input type="text" class="form-input" id="addUomGroupBaseUnitAbbr" placeholder="e.g. sq m">
+          </div>
+          <div class="form-group" style="margin-bottom: 16px;">
+            <label for="addUomGroupBaseUnitSource">Source</label>
+            <select class="form-select" id="addUomGroupBaseUnitSource">
+              <option value="">Select source</option>
+              <option value="SI">SI</option>
+              <option value="US Customary / Imperial">US Customary / Imperial</option>
+            </select>
+          </div>
+          <div class="form-group" style="margin-bottom: 16px;">
+            <label for="addUomGroupBaseUnitAccess">Access</label>
+            <select class="form-select" id="addUomGroupBaseUnitAccess">
+              <option value="Global">Global</option>
+              <option value="Custom">Custom</option>
+            </select>
+          </div>
+          <div class="form-group" style="margin-bottom: 0;">
+            <label for="addUomGroupBaseUnitFactor">Factor</label>
+            <input type="text" class="form-input" id="addUomGroupBaseUnitFactor" value="1" readonly placeholder="1">
+            <span class="form-hint">Base unit always has factor 1.</span>
+          </div>
         </div>
       </div>
       <div class="modal-footer" id="addUomGroupModalFooter">
         <div class="add-uom-group-footer-buttons" id="addUomGroupFooterButtons">
+          <button type="button" class="btn btn-secondary" id="addUomGroupModalBackBtn" onclick="addUomGroupModalStepBack()" style="display: none;">Back</button>
           <button type="button" class="btn btn-secondary" onclick="closeAddUomGroupModal()">Cancel</button>
+          <button type="button" class="btn btn-primary" id="addUomGroupModalNextBtn" onclick="addUomGroupModalStepNext()" style="display: none;">Next</button>
           <button type="button" class="btn btn-primary" id="addUomGroupModalSaveBtn" onclick="saveAddUomGroupModal()">Add UOM Group</button>
         </div>
         <div class="add-uom-group-redirecting hidden" id="addUomGroupRedirecting">
@@ -19594,6 +21768,51 @@
     </div>
   </div>
   
+  <!-- Add / Edit Unit modal -->
+  <div class="modal-backdrop" id="addEditUnitModalBackdrop" onclick="if(event.target===this) closeAddEditUnitModal()">
+    <div class="modal" id="addEditUnitModal" style="max-width: 440px;" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <h2 class="modal-title" id="addEditUnitModalTitle">Add unit</h2>
+        <button class="modal-close" onclick="closeAddEditUnitModal()" aria-label="Close">
+          <i class="fa-light fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group" style="margin-bottom: 16px;">
+          <label for="addEditUnitName">Unit name <span class="required">*</span></label>
+          <input type="text" class="form-input" id="addEditUnitName" placeholder="e.g. Square metre">
+        </div>
+        <div class="form-group" style="margin-bottom: 16px;">
+          <label for="addEditUnitAbbr">Abbreviation</label>
+          <input type="text" class="form-input" id="addEditUnitAbbr" placeholder="e.g. sq m">
+        </div>
+        <div class="form-group" style="margin-bottom: 16px;">
+          <label for="addEditUnitSource">Source</label>
+          <select class="form-select" id="addEditUnitSource">
+            <option value="">Select source</option>
+            <option value="SI">SI</option>
+            <option value="US Customary / Imperial">US Customary / Imperial</option>
+          </select>
+        </div>
+        <div class="form-group" style="margin-bottom: 16px;">
+          <label for="addEditUnitAccess">Access</label>
+          <select class="form-select" id="addEditUnitAccess">
+            <option value="Global">Global</option>
+            <option value="Custom">Custom</option>
+          </select>
+        </div>
+        <div class="form-group" style="margin-bottom: 0;">
+          <label for="addEditUnitFactor">Factor</label>
+          <input type="text" class="form-input" id="addEditUnitFactor" placeholder="e.g. 1">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="closeAddEditUnitModal()">Cancel</button>
+        <button type="button" class="btn btn-primary" id="addEditUnitModalSaveBtn" onclick="saveAddEditUnitModal()">Add unit</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Make base unit warning modal (Group conversions) -->
   <div class="modal-backdrop" id="makeBaseUnitModalBackdrop" onclick="if(event.target===this) closeMakeBaseUnitModal()">
     <div class="modal" id="makeBaseUnitModal" style="max-width: 440px;" onclick="event.stopPropagation()">
