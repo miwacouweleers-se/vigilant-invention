@@ -15,7 +15,7 @@
   <script src="https://kit.fontawesome.com/e1f0748a31.js" crossorigin="anonymous"></script>
   
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
   
   <style>
     /* ============================================== */
@@ -63,9 +63,9 @@
       --ghg-text-muted: #94A3B8;
       
       /* Typography */
-      --font-display: 'Space Grotesk', sans-serif;
-      --font-sans: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-      --font-mono: 'JetBrains Mono', monospace;
+      --font-display: 'Nunito Sans', sans-serif;
+      --font-sans: 'Nunito Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'Nunito Sans', monospace;
     }
     
     /* Override base fonts */
@@ -731,6 +731,9 @@
       font-size: 12px;
       color: var(--ghg-text-muted);
     }
+    .add-unit-base-label.hidden {
+      display: none;
+    }
     .add-unit-input-row .add-unit-factor,
     .uom-table tr.uom-row-editing .add-unit-factor {
       text-align: right;
@@ -827,11 +830,11 @@
     }
     .data-table .btn-ghost.btn-icon {
       color: #0F172A;
-      font-size: 20px;
-      padding: 8px 12px;
+      font-size: 28px;
+      padding: 10px 14px;
     }
     .data-table .btn-ghost.btn-icon i {
-      font-size: 1.15em;
+      font-size: 1.2em;
       color: #0F172A;
     }
     .data-table .btn-ghost.btn-icon:hover,
@@ -1006,6 +1009,20 @@
       flex: 1;
       min-width: 220px;
     }
+    .uom-cross-toolbar-group-by {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .uom-group-by-label {
+      font-size: 14px;
+      color: var(--ghg-text-secondary);
+      white-space: nowrap;
+      margin: 0;
+    }
+    .uom-cross-toolbar-group-by .form-select {
+      min-width: 140px;
+    }
     .uom-section {
       border: 1px solid var(--ghg-border);
       border-radius: 8px;
@@ -1044,6 +1061,9 @@
       display: block;
     }
     .uom-section.collapsed .uom-section-body {
+      display: none;
+    }
+    .cross-group-view.hidden {
       display: none;
     }
     .uom-table .data-asset-unmapped {
@@ -11269,37 +11289,36 @@
                         <th class="sortable">Measurement System <i class="fa-light fa-chevron-down sort-icon"></i></th>
                         <th class="sortable">Active <i class="fa-light fa-chevron-down sort-icon"></i></th>
                         <th class="sortable">Default <i class="fa-light fa-chevron-down sort-icon"></i></th>
-                        <th style="width: 80px;">Edit</th>
                       </tr>
                     </thead>
                     <tbody id="unitLibraryTbody">
-                      <tr data-search="1000 Square Feet msf Area"><td>1000 Square Feet</td><td>msf</td><td>Area</td><td></td><td>Imperial</td><td>true</td><td>false</td><td><a href="#" class="uom-edit-link">Edit</a></td></tr>
-                      <tr data-search="Square Foot ft^2 Area Imperial"><td>Square Foot</td><td>ft^2</td><td>Area</td><td>Imperial unit of area</td><td>Imperial</td><td>true</td><td>false</td><td><a href="#" class="uom-edit-link">Edit</a></td></tr>
-                      <tr data-search="Square Meter m^2 Area SI"><td>Square Meter</td><td>m^2</td><td>Area</td><td>SI derived unit of area</td><td>SI</td><td>true</td><td>false</td><td><a href="#" class="uom-edit-link">Edit</a></td></tr>
-                      <tr data-search="Thousand Of Circular Mils kcmil Area"><td>Thousand Of Circular Mils</td><td>kcmil</td><td>Area</td><td></td><td></td><td>true</td><td>false</td><td><a href="#" class="uom-edit-link">Edit</a></td></tr>
-                      <tr data-search="dlt DLT"><td>dlt</td><td>DLT</td><td></td><td></td><td>dlt</td><td>true</td><td>false</td><td><a href="#" class="uom-edit-link">Edit</a></td></tr>
-                      <tr data-search="Exabyte EB Data Storage"><td>Exabyte</td><td>EB</td><td>Data Storage</td><td></td><td></td><td>true</td><td>false</td><td><a href="#" class="uom-edit-link">Edit</a></td></tr>
-                      <tr data-search="Gigabyte GB Data Storage"><td>Gigabyte</td><td>GB</td><td>Data Storage</td><td></td><td></td><td>true</td><td>false</td><td><a href="#" class="uom-edit-link">Edit</a></td></tr>
-                      <tr data-search="Kilobyte KB Data Storage"><td>Kilobyte</td><td>KB</td><td>Data Storage</td><td></td><td></td><td>true</td><td>false</td><td><a href="#" class="uom-edit-link">Edit</a></td></tr>
-                      <tr data-search="Megabyte MB Data Storage"><td>Megabyte</td><td>MB</td><td>Data Storage</td><td></td><td></td><td>true</td><td>false</td><td><a href="#" class="uom-edit-link">Edit</a></td></tr>
-                      <tr data-search="Petabyte PB Data Storage"><td>Petabyte</td><td>PB</td><td>Data Storage</td><td></td><td></td><td>true</td><td>false</td><td><a href="#" class="uom-edit-link">Edit</a></td></tr>
-                      <tr data-search="Terabyte TB Data Storage"><td>Terabyte</td><td>TB</td><td>Data Storage</td><td></td><td></td><td>true</td><td>false</td><td><a href="#" class="uom-edit-link">Edit</a></td></tr>
-                      <tr data-search="Miligram Per Liter mg/L Density"><td>Miligram Per Liter</td><td>mg/L</td><td>Density</td><td></td><td></td><td>true</td><td>false</td><td><a href="#" class="uom-edit-link">Edit</a></td></tr>
-                      <tr data-search="Kilometer km Distance"><td>Kilometer</td><td>km</td><td>Distance</td><td></td><td></td><td>true</td><td>false</td><td><a href="#" class="uom-edit-link">Edit</a></td></tr>
-                      <tr data-search="meter M Distance Base SI"><td>meter</td><td>M</td><td>Distance</td><td>Base SI unit of length</td><td></td><td>true</td><td>false</td><td><a href="#" class="uom-edit-link">Edit</a></td></tr>
-                      <tr data-search="Mile mi Distance Imperial"><td>Mile</td><td>mi</td><td>Distance</td><td>Imperial unit of length</td><td>Imperial</td><td>true</td><td>false</td><td><a href="#" class="uom-edit-link">Edit</a></td></tr>
-                      <tr data-search="Gram CO2 Equivalent g CO2-e Emission"><td>Gram CO2 Equivalent</td><td>g CO2-e</td><td>Emission</td><td></td><td></td><td>true</td><td>false</td><td><a href="#" class="uom-edit-link">Edit</a></td></tr>
-                      <tr data-search="Kilogram CO2 Equivalent kg CO2-e Emission"><td>Kilogram CO2 Equivalent</td><td>kg CO2-e</td><td>Emission</td><td></td><td></td><td>true</td><td>false</td><td><a href="#" class="uom-edit-link">Edit</a></td></tr>
-                      <tr data-search="Metric Ton CO2 Equivalent t CO2-e Emission"><td>Metric Ton CO2 Equivalent</td><td>t CO2-e</td><td>Emission</td><td></td><td></td><td>true</td><td>false</td><td><a href="#" class="uom-edit-link">Edit</a></td></tr>
-                      <tr data-search="Pound CO2 Equivalent lbs CO2-e Emission"><td>Pound CO2 Equivalent</td><td>lbs CO2-e</td><td>Emission</td><td></td><td></td><td>true</td><td>false</td><td><a href="#" class="uom-edit-link">Edit</a></td></tr>
-                      <tr data-search="British Thermal Unit Btu Energy"><td>British Thermal Unit</td><td>Btu</td><td>Energy</td><td>non-SI unit of heat energy, usually for measuring natural gas</td><td></td><td>true</td><td>false</td><td><a href="#" class="uom-edit-link">Edit</a></td></tr>
-                      <tr data-search="Decatherm Dth Energy"><td>Decatherm</td><td>Dth</td><td>Energy</td><td></td><td></td><td>true</td><td>false</td><td><a href="#" class="uom-edit-link">Edit</a></td></tr>
-                      <tr data-search="Gigacalorie Gcal Energy"><td>Gigacalorie</td><td>Gcal</td><td>Energy</td><td></td><td></td><td>true</td><td>false</td><td><a href="#" class="uom-edit-link">Edit</a></td></tr>
-                      <tr data-search="Gigajoule GJ Energy SI"><td>Gigajoule</td><td>GJ</td><td>Energy</td><td>SI unit of energy</td><td></td><td>true</td><td>false</td><td><a href="#" class="uom-edit-link">Edit</a></td></tr>
-                      <tr data-search="Gigawatt-hour GWh Energy"><td>Gigawatt-hour</td><td>GWh</td><td>Energy</td><td></td><td></td><td>true</td><td>false</td><td><a href="#" class="uom-edit-link">Edit</a></td></tr>
-                      <tr data-search="Kilo British Thermal Unit kBtu Energy"><td>Kilo British Thermal Unit</td><td>kBtu</td><td>Energy</td><td></td><td></td><td>true</td><td>false</td><td><a href="#" class="uom-edit-link">Edit</a></td></tr>
-                      <tr data-search="Kilowatt-hour kWh Energy"><td>Kilowatt-hour</td><td>kWh</td><td>Energy</td><td></td><td></td><td>true</td><td>false</td><td><a href="#" class="uom-edit-link">Edit</a></td></tr>
-                      <tr data-search="Megajoule MJ Energy"><td>Megajoule</td><td>MJ</td><td>Energy</td><td></td><td></td><td>true</td><td>false</td><td><a href="#" class="uom-edit-link">Edit</a></td></tr>
+                      <tr data-search="1000 Square Feet msf Area"><td>1000 Square Feet</td><td>msf</td><td>Area</td><td></td><td>Imperial</td><td>true</td><td>false</td></tr>
+                      <tr data-search="Square Foot ft^2 Area Imperial"><td>Square Foot</td><td>ft^2</td><td>Area</td><td>Imperial unit of area</td><td>Imperial</td><td>true</td><td>false</td></tr>
+                      <tr data-search="Square Meter m^2 Area SI"><td>Square Meter</td><td>m^2</td><td>Area</td><td>SI derived unit of area</td><td>SI</td><td>true</td><td>false</td></tr>
+                      <tr data-search="Thousand Of Circular Mils kcmil Area"><td>Thousand Of Circular Mils</td><td>kcmil</td><td>Area</td><td></td><td></td><td>true</td><td>false</td></tr>
+                      <tr data-search="dlt DLT"><td>dlt</td><td>DLT</td><td></td><td></td><td>dlt</td><td>true</td><td>false</td></tr>
+                      <tr data-search="Exabyte EB Data Storage"><td>Exabyte</td><td>EB</td><td>Data Storage</td><td></td><td></td><td>true</td><td>false</td></tr>
+                      <tr data-search="Gigabyte GB Data Storage"><td>Gigabyte</td><td>GB</td><td>Data Storage</td><td></td><td></td><td>true</td><td>false</td></tr>
+                      <tr data-search="Kilobyte KB Data Storage"><td>Kilobyte</td><td>KB</td><td>Data Storage</td><td></td><td></td><td>true</td><td>false</td></tr>
+                      <tr data-search="Megabyte MB Data Storage"><td>Megabyte</td><td>MB</td><td>Data Storage</td><td></td><td></td><td>true</td><td>false</td></tr>
+                      <tr data-search="Petabyte PB Data Storage"><td>Petabyte</td><td>PB</td><td>Data Storage</td><td></td><td></td><td>true</td><td>false</td></tr>
+                      <tr data-search="Terabyte TB Data Storage"><td>Terabyte</td><td>TB</td><td>Data Storage</td><td></td><td></td><td>true</td><td>false</td></tr>
+                      <tr data-search="Miligram Per Liter mg/L Density"><td>Miligram Per Liter</td><td>mg/L</td><td>Density</td><td></td><td></td><td>true</td><td>false</td></tr>
+                      <tr data-search="Kilometer km Distance"><td>Kilometer</td><td>km</td><td>Distance</td><td></td><td></td><td>true</td><td>false</td></tr>
+                      <tr data-search="meter M Distance Base SI"><td>meter</td><td>M</td><td>Distance</td><td>Base SI unit of length</td><td></td><td>true</td><td>false</td></tr>
+                      <tr data-search="Mile mi Distance Imperial"><td>Mile</td><td>mi</td><td>Distance</td><td>Imperial unit of length</td><td>Imperial</td><td>true</td><td>false</td></tr>
+                      <tr data-search="Gram CO2 Equivalent g CO2-e Emission"><td>Gram CO2 Equivalent</td><td>g CO2-e</td><td>Emission</td><td></td><td></td><td>true</td><td>false</td></tr>
+                      <tr data-search="Kilogram CO2 Equivalent kg CO2-e Emission"><td>Kilogram CO2 Equivalent</td><td>kg CO2-e</td><td>Emission</td><td></td><td></td><td>true</td><td>false</td></tr>
+                      <tr data-search="Metric Ton CO2 Equivalent t CO2-e Emission"><td>Metric Ton CO2 Equivalent</td><td>t CO2-e</td><td>Emission</td><td></td><td></td><td>true</td><td>false</td></tr>
+                      <tr data-search="Pound CO2 Equivalent lbs CO2-e Emission"><td>Pound CO2 Equivalent</td><td>lbs CO2-e</td><td>Emission</td><td></td><td></td><td>true</td><td>false</td></tr>
+                      <tr data-search="British Thermal Unit Btu Energy"><td>British Thermal Unit</td><td>Btu</td><td>Energy</td><td>non-SI unit of heat energy, usually for measuring natural gas</td><td></td><td>true</td><td>false</td></tr>
+                      <tr data-search="Decatherm Dth Energy"><td>Decatherm</td><td>Dth</td><td>Energy</td><td></td><td></td><td>true</td><td>false</td></tr>
+                      <tr data-search="Gigacalorie Gcal Energy"><td>Gigacalorie</td><td>Gcal</td><td>Energy</td><td></td><td></td><td>true</td><td>false</td></tr>
+                      <tr data-search="Gigajoule GJ Energy SI"><td>Gigajoule</td><td>GJ</td><td>Energy</td><td>SI unit of energy</td><td></td><td>true</td><td>false</td></tr>
+                      <tr data-search="Gigawatt-hour GWh Energy"><td>Gigawatt-hour</td><td>GWh</td><td>Energy</td><td></td><td></td><td>true</td><td>false</td></tr>
+                      <tr data-search="Kilo British Thermal Unit kBtu Energy"><td>Kilo British Thermal Unit</td><td>kBtu</td><td>Energy</td><td></td><td></td><td>true</td><td>false</td></tr>
+                      <tr data-search="Kilowatt-hour kWh Energy"><td>Kilowatt-hour</td><td>kWh</td><td>Energy</td><td></td><td></td><td>true</td><td>false</td></tr>
+                      <tr data-search="Megajoule MJ Energy"><td>Megajoule</td><td>MJ</td><td>Energy</td><td></td><td></td><td>true</td><td>false</td></tr>
                     </tbody>
                   </table>
                 </div>
@@ -11421,7 +11440,7 @@
                         <td>
                           <div class="add-unit-name-cell">
                             <input type="text" class="form-input add-unit-input" id="addUnitName" placeholder="Unit name">
-                            <span class="source-unit-sub add-unit-base-label">Base unit</span>
+                            <span class="source-unit-sub add-unit-base-label" id="addUnitBaseUnitLabel">Base unit</span>
                           </div>
                         </td>
                         <td><input type="text" class="form-input add-unit-input" id="addUnitAbbr" placeholder="Abbreviation"></td>
@@ -11447,15 +11466,15 @@
                 </div>
               </div>
               
-              <div class="add-unit-actions hidden" id="addUnitActions">
-                <button type="button" class="btn btn-secondary" onclick="cancelAddUnit()">Cancel</button>
-                <button type="button" class="btn btn-primary" onclick="saveAddUnit()">Save changes</button>
-              </div>
-              
               <a href="#" class="add-unit-link" id="addUnitLink" onclick="toggleAddUnitRow(); return false;">
                 <i class="fa-light fa-plus"></i>
                 Add Unit
               </a>
+              
+              <div class="add-unit-actions hidden" id="addUnitActions">
+                <button type="button" class="btn btn-secondary" onclick="cancelAddUnit()">Cancel</button>
+                <button type="button" class="btn btn-primary" onclick="saveAddUnit()">Save changes</button>
+              </div>
               </div>
               <div id="uomGroupDefaultRowsStorage" style="display:none;" aria-hidden="true"></div>
             </div>
@@ -11479,8 +11498,15 @@
                   <i class="fa-light fa-filter"></i>
                   Filters
                 </button>
-                <button type="button" class="btn btn-secondary btn-export">Export <i class="fa-light fa-chevron-down"></i></button>
+                <span class="uom-cross-toolbar-group-by">
+                  <label for="crossGroupBySelect" class="uom-group-by-label">Group by:</label>
+                  <select class="form-select" id="crossGroupBySelect" aria-label="Group materials by" onchange="applyCrossGroupBy()">
+                    <option value="source">Source</option>
+                    <option value="data-asset">Data asset</option>
+                  </select>
+                </span>
                 <div style="flex: 1;"></div>
+                <button type="button" class="btn btn-secondary btn-export">Export</button>
                 <div class="add-materials-dropdown" id="addMaterialsDropdown">
                   <button type="button" class="btn btn-primary add-materials-trigger" id="addMaterialsTrigger" onclick="toggleAddMaterialsDropdown()">
                     <i class="fa-light fa-plus"></i>
@@ -11514,6 +11540,7 @@
                 <a href="#" class="uom-clear-all-filters" onclick="applyCrossGroupUnmappedFilter(false); return false;">Clear all filters</a>
               </div>
               
+              <div id="crossGroupBySource" class="cross-group-view">
               <div class="uom-section" data-uom-section="defra">
                 <div class="uom-section-header" onclick="toggleUomSection('defra')">
                   <span>UK Government Department of Environment, Food &amp; Rural Affairs (DEFRA) <span class="section-count">11</span></span>
@@ -11836,6 +11863,316 @@
                           </tr>
                         </tbody>
                       </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              </div>
+              
+              <div id="crossGroupByDataAsset" class="cross-group-view hidden">
+                <div class="uom-section" data-uom-section="asset-aviation-gasoline">
+                  <div class="uom-section-header" onclick="toggleUomSection('asset-aviation-gasoline')">
+                    <span>Aviation Gasoline <span class="section-count">1</span></span>
+                    <i class="fa-light fa-chevron-down section-toggle uom-section-toggle"></i>
+                  </div>
+                  <div class="uom-section-body">
+                    <div class="card" style="border: none; border-radius: 0; margin: 0;">
+                      <div class="card-body" style="padding: 0;">
+                        <table class="data-table uom-table">
+                          <thead>
+                            <tr>
+                              <th class="sortable">Material name <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Source <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Heating values <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Factor <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Unit <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Applicability <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Access <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th style="width: 40px;"></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
+                              <td>Aviation Gasoline</td>
+                              <td>UK Government Department of Environment, Food &amp; Rural Affairs (DEFRA)</td>
+                              <td>Low heating values (LHV)</td>
+                              <td class="numeric">0.001552</td>
+                              <td>yr³/pound</td>
+                              <td>08/01/2020 - 08/31/2024</td>
+                              <td><span class="access-tag">Global</span></td>
+                              <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="uom-section collapsed" data-uom-section="asset-biodiesel">
+                  <div class="uom-section-header" onclick="toggleUomSection('asset-biodiesel')">
+                    <span>Biodiesel <span class="section-count">1</span></span>
+                    <i class="fa-light fa-chevron-down section-toggle uom-section-toggle"></i>
+                  </div>
+                  <div class="uom-section-body">
+                    <div class="card" style="border: none; border-radius: 0; margin: 0;">
+                      <div class="card-body" style="padding: 0;">
+                        <table class="data-table uom-table">
+                          <thead>
+                            <tr>
+                              <th class="sortable">Material name <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Source <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Heating values <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Factor <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Unit <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Applicability <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Access <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th style="width: 40px;"></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
+                              <td>Biodiesel (100%)</td>
+                              <td>UK Government Department of Environment, Food &amp; Rural Affairs (DEFRA)</td>
+                              <td>Low heating values (LHV)</td>
+                              <td class="numeric">0.001421</td>
+                              <td>kWh/pound</td>
+                              <td>08/01/2020 - 08/31/2024</td>
+                              <td><span class="access-tag">Global</span></td>
+                              <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="uom-section collapsed" data-uom-section="asset-biomass">
+                  <div class="uom-section-header" onclick="toggleUomSection('asset-biomass')">
+                    <span>Biomass <span class="section-count">1</span></span>
+                    <i class="fa-light fa-chevron-down section-toggle uom-section-toggle"></i>
+                  </div>
+                  <div class="uom-section-body">
+                    <div class="card" style="border: none; border-radius: 0; margin: 0;">
+                      <div class="card-body" style="padding: 0;">
+                        <table class="data-table uom-table">
+                          <thead>
+                            <tr>
+                              <th class="sortable">Material name <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Source <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Heating values <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Factor <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Unit <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Applicability <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Access <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th style="width: 40px;"></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
+                              <td>Biomass (wood)</td>
+                              <td>UK Government Department of Environment, Food &amp; Rural Affairs (DEFRA)</td>
+                              <td>High heating values (HHV)</td>
+                              <td class="numeric">0.002103</td>
+                              <td>kWh/pound</td>
+                              <td>08/01/2020 - 08/31/2024</td>
+                              <td><span class="access-tag">Global</span></td>
+                              <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="uom-section collapsed" data-uom-section="asset-coal">
+                  <div class="uom-section-header" onclick="toggleUomSection('asset-coal')">
+                    <span>Coal <span class="section-count">1</span></span>
+                    <i class="fa-light fa-chevron-down section-toggle uom-section-toggle"></i>
+                  </div>
+                  <div class="uom-section-body">
+                    <div class="card" style="border: none; border-radius: 0; margin: 0;">
+                      <div class="card-body" style="padding: 0;">
+                        <table class="data-table uom-table">
+                          <thead>
+                            <tr>
+                              <th class="sortable">Material name <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Source <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Heating values <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Factor <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Unit <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Applicability <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Access <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th style="width: 40px;"></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
+                              <td>Coal (anthracite)</td>
+                              <td>UK Government Department of Environment, Food &amp; Rural Affairs (DEFRA)</td>
+                              <td>High heating values (HHV)</td>
+                              <td class="numeric">0.003102</td>
+                              <td>kWh/pound</td>
+                              <td>08/01/2020 - 08/31/2024</td>
+                              <td><span class="access-tag">Global</span></td>
+                              <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="uom-section collapsed" data-uom-section="asset-diesel">
+                  <div class="uom-section-header" onclick="toggleUomSection('asset-diesel')">
+                    <span>Diesel <span class="section-count">2</span></span>
+                    <i class="fa-light fa-chevron-down section-toggle uom-section-toggle"></i>
+                  </div>
+                  <div class="uom-section-body">
+                    <div class="card" style="border: none; border-radius: 0; margin: 0;">
+                      <div class="card-body" style="padding: 0;">
+                        <table class="data-table uom-table">
+                          <thead>
+                            <tr>
+                              <th class="sortable">Material name <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Source <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Heating values <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Factor <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Unit <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Applicability <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Access <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th style="width: 40px;"></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
+                              <td>Diesel</td>
+                              <td>UK Government Department of Environment, Food &amp; Rural Affairs (DEFRA)</td>
+                              <td>Low heating values (LHV)</td>
+                              <td class="numeric">0.001552</td>
+                              <td>yr³/pound</td>
+                              <td>08/01/2020 - 08/31/2024</td>
+                              <td><span class="access-tag">Global</span></td>
+                              <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                            </tr>
+                            <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
+                              <td>Diesel (on-road)</td>
+                              <td>Energy Information Administration (EIA)</td>
+                              <td>Low heating values (LHV)</td>
+                              <td class="numeric">0.010150</td>
+                              <td>kg CO₂e/gallon</td>
+                              <td>01/2024 - 12/2024</td>
+                              <td><span class="access-tag">Global</span></td>
+                              <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="uom-section collapsed" data-uom-section="asset-natural-gas">
+                  <div class="uom-section-header" onclick="toggleUomSection('asset-natural-gas')">
+                    <span>Natural gas <span class="section-count">2</span></span>
+                    <i class="fa-light fa-chevron-down section-toggle uom-section-toggle"></i>
+                  </div>
+                  <div class="uom-section-body">
+                    <div class="card" style="border: none; border-radius: 0; margin: 0;">
+                      <div class="card-body" style="padding: 0;">
+                        <table class="data-table uom-table">
+                          <thead>
+                            <tr>
+                              <th class="sortable">Material name <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Source <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Heating values <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Factor <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Unit <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Applicability <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Access <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th style="width: 40px;"></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
+                              <td>Natural gas (pipeline)</td>
+                              <td>Environmental Protection Agency (EPA)</td>
+                              <td>Low heating values (LHV)</td>
+                              <td class="numeric">0.000054</td>
+                              <td>kg CO₂e/therm</td>
+                              <td>01/01/2023 - 12/31/2024</td>
+                              <td><span class="access-tag">Global</span></td>
+                              <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                            </tr>
+                            <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
+                              <td>Natural gas (commercial)</td>
+                              <td>Energy Information Administration (EIA)</td>
+                              <td>Low heating values (LHV)</td>
+                              <td class="numeric">0.000053</td>
+                              <td>kg CO₂e/therm</td>
+                              <td>01/2024 - 12/2024</td>
+                              <td><span class="access-tag">Global</span></td>
+                              <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="uom-section collapsed" data-uom-section="asset-unmapped">
+                  <div class="uom-section-header" onclick="toggleUomSection('asset-unmapped')">
+                    <span><span class="data-asset-unmapped"><i class="fa-solid fa-triangle-exclamation"></i> Unmapped</span> <span class="section-count">5</span></span>
+                    <i class="fa-light fa-chevron-down section-toggle uom-section-toggle"></i>
+                  </div>
+                  <div class="uom-section-body">
+                    <div class="card" style="border: none; border-radius: 0; margin: 0;">
+                      <div class="card-body" style="padding: 0;">
+                        <table class="data-table uom-table">
+                          <thead>
+                            <tr>
+                              <th class="sortable">Material name <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Source <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Heating values <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Factor <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Unit <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Applicability <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th class="sortable">Access <i class="fa-light fa-chevron-down sort-icon"></i></th>
+                              <th style="width: 40px;"></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
+                              <td>Ash</td>
+                              <td>UK Government Department of Environment, Food &amp; Rural Affairs (DEFRA)</td>
+                              <td>Density</td>
+                              <td class="numeric">0.002000</td>
+                              <td>kWh/pound</td>
+                              <td>08/01/2020 - 08/31/2024</td>
+                              <td><span class="access-tag">Global</span></td>
+                              <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                            </tr>
+                            <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
+                              <td>Asphalt and Road Oil</td>
+                              <td>UK Government Department of Environment, Food &amp; Rural Affairs (DEFRA)</td>
+                              <td>High heating values (HHV)</td>
+                              <td class="numeric">0.001892</td>
+                              <td>yr³/pound</td>
+                              <td>08/01/2020 - 08/31/2024</td>
+                              <td><span class="access-tag">Global</span></td>
+                              <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                            </tr>
+                            <tr class="material-row-clickable" onclick="openMaterialDrawer(this)">
+                              <td>BioETBE</td>
+                              <td>UK Government Department of Environment, Food &amp; Rural Affairs (DEFRA)</td>
+                              <td>Density</td>
+                              <td class="numeric">0.001398</td>
+                              <td>yr³/pound</td>
+                              <td>08/01/2020 - 08/31/2024</td>
+                              <td><span class="access-tag">Global</span></td>
+                              <td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleMaterialRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -15587,6 +15924,12 @@
         document.getElementById('addUnitSource').value = '';
         document.getElementById('addUnitAccess').value = 'Global';
         document.getElementById('addUnitFactor').value = '';
+        var baseLabel = document.getElementById('addUnitBaseUnitLabel');
+        if (baseLabel) {
+          var tbody = getUomGroupTbody();
+          var dataRows = tbody ? tbody.querySelectorAll('tr.uom-data-row') : [];
+          baseLabel.classList.toggle('hidden', dataRows.length > 0);
+        }
       }
     }
     function cancelAddUnit() {
@@ -15650,6 +15993,15 @@
         panel.classList.remove('unmapped-filter-active');
         pills.classList.add('hidden');
       }
+    }
+    function applyCrossGroupBy() {
+      var sel = document.getElementById('crossGroupBySelect');
+      var bySource = document.getElementById('crossGroupBySource');
+      var byDataAsset = document.getElementById('crossGroupByDataAsset');
+      if (!sel || !bySource || !byDataAsset) return;
+      var isDataAsset = (sel.value === 'data-asset');
+      bySource.classList.toggle('hidden', isDataAsset);
+      byDataAsset.classList.toggle('hidden', !isDataAsset);
     }
     var _addMaterialsClickOut = null;
     function toggleAddMaterialsDropdown() {
