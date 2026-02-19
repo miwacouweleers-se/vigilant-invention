@@ -625,13 +625,31 @@
     .uom-add-base-unit-prompt {
       margin-bottom: 16px;
     }
-    .uom-add-base-unit-prompt .card {
-      padding: 20px;
+    .uom-add-base-unit-prompt .card.uom-add-base-unit-card {
+      padding: 32px 24px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
-    .uom-add-base-unit-prompt p {
-      margin: 0 0 12px 0;
+    .uom-add-base-unit-icon {
+      margin: 0 0 20px 0;
+      font-size: 224px;
+      color: var(--ghg-text-muted);
+      opacity: 0.8;
+      line-height: 1;
+    }
+    .uom-add-base-unit-icon i {
+      display: block;
+    }
+    .uom-add-base-unit-prompt .uom-add-base-unit-card p {
+      margin: 0 0 20px 0;
       color: var(--ghg-text-secondary);
       font-size: 14px;
+      max-width: 280px;
+    }
+    .uom-add-base-unit-prompt .uom-add-base-unit-card .btn {
+      margin: 0;
     }
     #uomGroupTableSection.hidden {
       display: none;
@@ -808,13 +826,16 @@
       min-width: auto;
     }
     .data-table .btn-ghost.btn-icon {
-      color: var(--ghg-text);
-      font-size: 18px;
+      color: #0F172A;
+      font-size: 20px;
+      padding: 8px 12px;
     }
     .data-table .btn-ghost.btn-icon i {
-      font-size: inherit;
+      font-size: 1.15em;
+      color: #0F172A;
     }
-    .data-table .btn-ghost.btn-icon:hover {
+    .data-table .btn-ghost.btn-icon:hover,
+    .data-table .btn-ghost.btn-icon:hover i {
       color: var(--ghg-primary);
     }
     .unit-measure-panel {
@@ -1445,6 +1466,50 @@
       display: flex;
       justify-content: flex-end;
       gap: 12px;
+    }
+    .add-uom-group-footer-buttons.hidden {
+      display: none;
+    }
+    .add-uom-group-redirecting {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--ghg-text-secondary);
+      font-size: 14px;
+    }
+    .add-uom-group-redirecting.hidden {
+      display: none;
+    }
+    .add-uom-group-redirecting-spinner {
+      font-size: 18px;
+      color: var(--ghg-primary);
+    }
+    .add-uom-group-redirect-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.96);
+      border-radius: inherit;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      z-index: 10;
+    }
+    .add-uom-group-redirect-overlay.hidden {
+      display: none;
+    }
+    .add-uom-group-redirect-overlay-spinner {
+      font-size: 48px;
+      color: var(--ghg-primary);
+    }
+    .add-uom-group-redirect-overlay-spinner i {
+      display: block;
+    }
+    .add-uom-group-redirect-overlay-text {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--ghg-text);
     }
     .modal-body .checkbox-label {
       display: flex;
@@ -11290,7 +11355,8 @@
                 <span class="uom-group-status uom-group-status-active" id="uomGroupStatus">Active</span>
               </div>
               <div class="uom-add-base-unit-prompt hidden" id="uomAddBaseUnitPrompt">
-                <div class="card">
+                <div class="card uom-add-base-unit-card">
+                  <p class="uom-add-base-unit-icon" aria-hidden="true"><i class="fa-light fa-ruler-combined"></i></p>
                   <p>This group has no base unit. Add a base unit to get started.</p>
                   <button type="button" class="btn btn-primary" onclick="showEmptyGroupTableAndAddBaseUnit();">Add base unit</button>
                 </div>
@@ -15295,6 +15361,12 @@
       document.getElementById('addUomGroupName').value = '';
       document.getElementById('addUomGroupDescription').value = '';
       document.getElementById('addUomGroupActive').checked = true;
+      var btnWrap = document.getElementById('addUomGroupFooterButtons');
+      var redirectEl = document.getElementById('addUomGroupRedirecting');
+      var overlay = document.getElementById('addUomGroupRedirectOverlay');
+      if (btnWrap) btnWrap.classList.remove('hidden');
+      if (redirectEl) redirectEl.classList.add('hidden');
+      if (overlay) overlay.classList.add('hidden');
       document.getElementById('addUomGroupModalBackdrop').classList.add('open');
       document.getElementById('addUomGroupModal').classList.add('open');
     }
@@ -15314,6 +15386,12 @@
     }
     function closeAddUomGroupModal() {
       window._uomGroupEditOption = null;
+      var btnWrap = document.getElementById('addUomGroupFooterButtons');
+      var redirectEl = document.getElementById('addUomGroupRedirecting');
+      var overlay = document.getElementById('addUomGroupRedirectOverlay');
+      if (btnWrap) btnWrap.classList.remove('hidden');
+      if (redirectEl) redirectEl.classList.add('hidden');
+      if (overlay) overlay.classList.add('hidden');
       document.getElementById('addUomGroupModalBackdrop').classList.remove('open');
       document.getElementById('addUomGroupModal').classList.remove('open');
     }
@@ -15350,11 +15428,18 @@
       document.getElementById('addUomGroupName').value = '';
       document.getElementById('addUomGroupDescription').value = '';
       document.getElementById('addUomGroupActive').checked = true;
-      switchUnitMeasureTab('group');
-      updateUomGroupMeta();
-      var promptEl = document.getElementById('uomAddBaseUnitPrompt');
-      if (promptEl) promptEl.classList.remove('hidden');
-      if (typeof showToast === 'function') showToast('UOM group added (prototype)', 'success');
+      var overlay = document.getElementById('addUomGroupRedirectOverlay');
+      var overlayText = document.getElementById('addUomGroupRedirectOverlayText');
+      if (overlay) overlay.classList.remove('hidden');
+      if (overlayText) overlayText.textContent = 'Redirecting to “' + name + '”…';
+      setTimeout(function() {
+        closeAddUomGroupModal();
+        switchUnitMeasureTab('group');
+        updateUomGroupMeta();
+        var promptEl = document.getElementById('uomAddBaseUnitPrompt');
+        if (promptEl) promptEl.classList.remove('hidden');
+        if (typeof showToast === 'function') showToast('UOM group added (prototype)', 'success');
+      }, 550);
     }
     function updateUomGroupMeta() {
       var sel = document.getElementById('uomGroupSelect');
@@ -15370,6 +15455,7 @@
       statusEl.classList.toggle('uom-group-status-active', active);
       statusEl.classList.toggle('uom-group-status-inactive', !active);
       var showPrompt = (window._lastAddedUomGroupName && sel.value === window._lastAddedUomGroupName);
+      if (!showPrompt) window._uomGroupShowingEmptyTableFor = null;
       if (promptEl) promptEl.classList.toggle('hidden', !showPrompt);
       var tableSection = document.getElementById('uomGroupTableSection');
       if (tableSection) {
@@ -15383,13 +15469,16 @@
     }
     function ensureUomGroupDefaultDataRowsPopulated() {}
     function showEmptyGroupTableAndAddBaseUnit() {
+      var sel = document.getElementById('uomGroupSelect');
       var tbody = getUomGroupTbody();
       if (!tbody) return;
+      var currentGroup = sel ? sel.value : '';
       var storage = document.getElementById('uomGroupDefaultRowsStorage');
       var dataRows = tbody.querySelectorAll('tr.uom-data-row');
       for (var j = 0; j < dataRows.length; j++) {
         if (storage) storage.appendChild(dataRows[j]);
       }
+      window._uomGroupShowingEmptyTableFor = currentGroup;
       document.getElementById('uomAddBaseUnitPrompt').classList.add('hidden');
       document.getElementById('uomGroupTableSection').classList.remove('hidden');
       window._lastAddedUomGroupName = null;
@@ -15501,6 +15590,14 @@
       }
     }
     function cancelAddUnit() {
+      var sel = document.getElementById('uomGroupSelect');
+      var currentGroup = sel ? sel.value : '';
+      if (window._uomGroupShowingEmptyTableFor && currentGroup === window._uomGroupShowingEmptyTableFor) {
+        window._lastAddedUomGroupName = currentGroup;
+        window._uomGroupShowingEmptyTableFor = null;
+        document.getElementById('uomAddBaseUnitPrompt').classList.remove('hidden');
+        document.getElementById('uomGroupTableSection').classList.add('hidden');
+      }
       toggleAddUnitRow();
     }
     function saveAddUnit() {
@@ -15522,6 +15619,7 @@
       newRow.className = 'uom-data-row';
       newRow.innerHTML = '<td>' + nameCell + '</td><td>' + esc(abbr || '—') + '</td><td>' + esc(source || '—') + '</td><td><span class="access-tag">' + esc(access || 'Global') + '</span></td><td class="numeric">' + esc(factor || '—') + '</td><td><span class="last-updated">Jane Doe</span><br><span class="last-updated-meta">' + esc(metaStr) + '</span></td><td><button type="button" class="btn-ghost btn-icon" title="Actions" onclick="toggleUomRowMenu(event, this)"><i class="fa-light fa-ellipsis-vertical"></i></button></td>';
       tbody.insertBefore(newRow, inputRow);
+      window._uomGroupShowingEmptyTableFor = null;
       toggleAddUnitRow();
       if (typeof showToast === 'function') showToast('Unit added (prototype)', 'success');
     }
@@ -19127,6 +19225,10 @@
   <!-- Add / Edit UOM Group modal -->
   <div class="modal-backdrop" id="addUomGroupModalBackdrop" onclick="if(event.target===this) closeAddUomGroupModal()">
     <div class="modal" id="addUomGroupModal" style="max-width: 480px;" onclick="event.stopPropagation()">
+      <div class="add-uom-group-redirect-overlay hidden" id="addUomGroupRedirectOverlay">
+        <span class="add-uom-group-redirect-overlay-spinner" aria-hidden="true"><i class="fa-light fa-spinner-third fa-spin"></i></span>
+        <span class="add-uom-group-redirect-overlay-text" id="addUomGroupRedirectOverlayText">Redirecting to your new group…</span>
+      </div>
       <div class="modal-header">
         <h2 class="modal-title" id="addUomGroupModalTitle">Add UOM Group</h2>
         <button class="modal-close" onclick="closeAddUomGroupModal()" aria-label="Close">
@@ -19149,9 +19251,15 @@
           </label>
         </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" onclick="closeAddUomGroupModal()">Cancel</button>
-        <button type="button" class="btn btn-primary" id="addUomGroupModalSaveBtn" onclick="saveAddUomGroupModal()">Add UOM Group</button>
+      <div class="modal-footer" id="addUomGroupModalFooter">
+        <div class="add-uom-group-footer-buttons" id="addUomGroupFooterButtons">
+          <button type="button" class="btn btn-secondary" onclick="closeAddUomGroupModal()">Cancel</button>
+          <button type="button" class="btn btn-primary" id="addUomGroupModalSaveBtn" onclick="saveAddUomGroupModal()">Add UOM Group</button>
+        </div>
+        <div class="add-uom-group-redirecting hidden" id="addUomGroupRedirecting">
+          <span class="add-uom-group-redirecting-spinner" aria-hidden="true"><i class="fa-light fa-spinner-third fa-spin"></i></span>
+          <span class="add-uom-group-redirecting-text" id="addUomGroupRedirectingText">Redirecting to your new group…</span>
+        </div>
       </div>
     </div>
   </div>
