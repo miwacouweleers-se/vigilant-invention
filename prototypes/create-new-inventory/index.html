@@ -1005,6 +1005,9 @@
     #crossGroupPanel.unmapped-filter-active tbody tr.material-row-clickable:not(.row-unmapped) {
       display: none;
     }
+    #crossGroupPanel tbody tr.material-row-clickable.search-no-match {
+      display: none;
+    }
     .uom-cross-toolbar .search-input-wrapper {
       flex: 1;
       min-width: 220px;
@@ -11492,7 +11495,7 @@
               <div class="uom-cross-toolbar">
                 <div class="search-input-wrapper">
                   <i class="fa-light fa-search"></i>
-                  <input type="text" class="form-input" placeholder="Search">
+                  <input type="text" class="form-input" id="crossGroupSearchInput" placeholder="Search" aria-label="Search materials" oninput="applyCrossGroupSearch()">
                 </div>
                 <button type="button" class="btn btn-secondary">
                   <i class="fa-light fa-filter"></i>
@@ -16002,6 +16005,24 @@
       var isDataAsset = (sel.value === 'data-asset');
       bySource.classList.toggle('hidden', isDataAsset);
       byDataAsset.classList.toggle('hidden', !isDataAsset);
+      applyCrossGroupSearch();
+    }
+    function applyCrossGroupSearch() {
+      var input = document.getElementById('crossGroupSearchInput');
+      var panel = document.getElementById('crossGroupPanel');
+      if (!input || !panel) return;
+      var q = (input.value || '').trim().toLowerCase();
+      var activeView = panel.querySelector('.cross-group-view:not(.hidden)');
+      if (!activeView) return;
+      var rows = activeView.querySelectorAll('tbody tr.material-row-clickable');
+      for (var i = 0; i < rows.length; i++) {
+        var row = rows[i];
+        var text = '';
+        var cells = row.querySelectorAll('td');
+        for (var j = 0; j < cells.length; j++) text += (cells[j].textContent || '').toLowerCase() + ' ';
+        var match = !q || text.indexOf(q) !== -1;
+        row.classList.toggle('search-no-match', !match);
+      }
     }
     var _addMaterialsClickOut = null;
     function toggleAddMaterialsDropdown() {
