@@ -1905,11 +1905,6 @@
       font-size: 13px;
       font-weight: 500;
     }
-    .edit-material-details #editDetailsGwpVersion {
-      background: var(--ghg-primary-light);
-      color: var(--ghg-primary-dark);
-      border-color: var(--ghg-primary);
-    }
     .edit-material-details #editDetailsAccessType {
       background: var(--ghg-surface-elevated);
       color: var(--ghg-text);
@@ -19374,7 +19369,7 @@
         <div class="edit-material-panel hidden edit-material-details-panel" data-edit-panel="details">
           <div class="edit-material-details">
             <div class="details-row">
-              <label class="details-label">Version URL</label>
+              <label class="details-label">Source URL</label>
               <div class="details-value">
                 <input type="url" class="form-input details-input" id="editDetailsVersionUrl" placeholder="https://..." value="https://www.gov.uk/government/collections/government-conversion-factors-for-company-reporting">
               </div>
@@ -19425,28 +19420,6 @@
               <label class="details-label">Publish date</label>
               <div class="details-value">
                 <input type="datetime-local" class="form-input details-input" id="editDetailsPublishDate" value="2024-10-30T20:43">
-              </div>
-            </div>
-            <div class="details-row">
-              <label class="details-label">Active year</label>
-              <div class="details-value">
-                <input type="number" class="form-input details-input details-input-narrow" id="editDetailsActiveYear" min="1990" max="2100" value="2024" placeholder="e.g. 2024">
-              </div>
-            </div>
-            <div class="details-row">
-              <label class="details-label">GHG Pollutants</label>
-              <div class="details-value">
-                <input type="text" class="form-input details-input" id="editDetailsGhgPollutants" value="CO₂, CH₄, N₂O, HFC, PFC, SF₆, NF₃" placeholder="e.g. CO₂, CH₄, N₂O">
-              </div>
-            </div>
-            <div class="details-row">
-              <label class="details-label">GWP Version</label>
-              <div class="details-value">
-                <select class="form-select details-pill-select" id="editDetailsGwpVersion">
-                  <option value="AR4">AR4</option>
-                  <option value="AR5" selected>AR5</option>
-                  <option value="AR6">AR6</option>
-                </select>
               </div>
             </div>
             <div class="details-row">
