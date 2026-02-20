@@ -657,9 +657,18 @@
       flex-shrink: 0;
       margin-left: auto;
     }
+    .uom-v2-accordion-header-actions .uom-section-toggle {
+      margin-left: 16px;
+    }
+    #uomV2GroupAccordions .uom-section.collapsed .uom-section-toggle {
+      transform: none;
+    }
+    #uomV2GroupAccordions .uom-section:not(.collapsed) .uom-section-toggle {
+      transform: rotate(180deg);
+    }
     .uom-v2-accordion-title {
       font-weight: 600;
-      font-size: 14px;
+      font-size: 17px;
       color: var(--ghg-text);
     }
     .uom-v2-accordion-desc {
@@ -715,6 +724,26 @@
     .uom-v2-accordion-add-unit:hover {
       color: #fff;
       background: var(--ghg-primary);
+    }
+    /* View-only mode: when showing View only from sidebar, use V2 view with tabs hidden and group panel read-only */
+    #view-unit-measure-v2.uom-view-only-mode .unit-measure-tabs {
+      display: none;
+    }
+    #view-unit-measure-v2.uom-view-only-mode .unit-measure-panel[data-uom-panel="cross-group"] {
+      display: none !important;
+    }
+    #view-unit-measure-v2.uom-view-only-mode .unit-measure-panel[data-uom-panel="group"] {
+      display: block !important;
+    }
+    /* View-only tab: hide all edit/add/actions, keep toggle + search */
+    .uom-panel-view-only .uom-v2-add-group-btn,
+    .uom-panel-view-only .uom-v2-accordion-add-unit,
+    .uom-panel-view-only .uom-v2-accordion-edit {
+      display: none !important;
+    }
+    .uom-panel-view-only .uom-table th:last-child,
+    .uom-panel-view-only .uom-table td:last-child {
+      display: none !important;
     }
     .uom-v2-accordion-body .add-unit-link {
       margin-bottom: 24px;
@@ -10309,6 +10338,7 @@
           <a href="#" class="submenu-item">Users</a>
           <a href="#" class="submenu-item" data-view="unit-measure">Unit of measurement conversions</a>
           <a href="#" class="submenu-item" data-view="unit-measure-v2">Unit of measurement conversions (v2)</a>
+          <a href="#" class="submenu-item" data-view="unit-measure-view-only">View only</a>
         </nav>
       </div>
     </aside>
@@ -11410,8 +11440,8 @@
             <div class="unit-measure-tabs">
               <button type="button" class="unit-measure-tab active" data-uom-tab="converter" onclick="switchUnitMeasureTab('converter')">Converter tool</button>
               <button type="button" class="unit-measure-tab" data-uom-tab="unit-library" onclick="switchUnitMeasureTab('unit-library')">Unit library</button>
-              <button type="button" class="unit-measure-tab" data-uom-tab="group" onclick="switchUnitMeasureTab('group')">Group conversions</button>
-              <button type="button" class="unit-measure-tab" data-uom-tab="cross-group" onclick="switchUnitMeasureTab('cross-group')">Cross-group conversions</button>
+              <button type="button" class="unit-measure-tab" data-uom-tab="group" onclick="switchUnitMeasureTab('group')">Units and groups</button>
+              <button type="button" class="unit-measure-tab" data-uom-tab="cross-group" onclick="switchUnitMeasureTab('cross-group')">Materials and data assets</button>
             </div>
             
             <!-- Panel: Converter tool -->
@@ -12346,12 +12376,12 @@
           
           <div class="content-container">
             <div class="unit-measure-tabs">
-              <button type="button" class="unit-measure-tab active" data-uom-tab="group" onclick="switchUnitMeasureTab('group')">Group conversions</button>
-              <button type="button" class="unit-measure-tab" data-uom-tab="cross-group" onclick="switchUnitMeasureTab('cross-group')">Cross-group conversions</button>
+              <button type="button" class="unit-measure-tab active" data-uom-tab="group" onclick="switchUnitMeasureTab('group')">Units and groups</button>
+              <button type="button" class="unit-measure-tab" data-uom-tab="cross-group" onclick="switchUnitMeasureTab('cross-group')">Materials and data assets</button>
             </div>
             
             <!-- Panel: Group conversions (V2: includes toggle + unit library view) -->
-            <div class="unit-measure-panel" data-uom-panel="group">
+            <div class="unit-measure-panel" data-uom-panel="group" id="uomV2GroupPanel">
               <div class="uom-v2-group-toggle-row">
                 <label class="uom-v2-toggle-label">
                   <input type="checkbox" class="uom-v2-toggle-input" id="groupViewByUnitGroupsToggleV2" checked onchange="toggleGroupViewByUnitGroupsV2()">
@@ -14034,6 +14064,26 @@
                 </div>
               </div>
             </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- VIEW: UoM View only (Settings sidebar)         -->
+        <!-- ============================================== -->
+        <div id="view-unit-measure-view-only" class="view">
+          <div class="page-header">
+            <div class="page-header-left">
+              <div class="page-breadcrumb">
+                <a href="#">Settings</a>
+                <i class="fa-light fa-chevron-right"></i>
+                <span>View only</span>
+              </div>
+              <h1 class="page-title">Unit of measure (View only)</h1>
+              <p class="page-subtitle">Read-only view of units and groups. Toggle view by unit groups and use search to filter.</p>
+            </div>
+          </div>
+          <div class="content-container" id="view-only-panel-container">
+            <!-- Panel is moved here from V2 when this view is shown -->
+          </div>
         </div>
 
         <!-- ============================================== -->
@@ -17431,16 +17481,50 @@
     // ============================================
     
     function switchView(viewId) {
+      var viewOnlyMode = (viewId === 'unit-measure-view-only');
+      var targetView = document.getElementById(viewOnlyMode ? 'view-unit-measure-v2' : 'view-' + viewId);
+      if (!targetView) return;
+
+      var v2View = document.getElementById('view-unit-measure-v2');
+      var panel = document.getElementById('uomV2GroupPanel');
+
+      // When leaving view-only mode: remove mode class and read-only from panel, restore V2 header
+      if (v2View && v2View.classList.contains('uom-view-only-mode')) {
+        v2View.classList.remove('uom-view-only-mode');
+        if (panel) panel.classList.remove('uom-panel-view-only');
+        var br = v2View.querySelector('.page-breadcrumb span:last-child');
+        var tit = v2View.querySelector('.page-title');
+        var sub = v2View.querySelector('.page-subtitle');
+        if (br && br._originalText) br.textContent = br._originalText;
+        if (tit && tit._originalText) tit.textContent = tit._originalText;
+        if (sub && sub._originalText) sub.textContent = sub._originalText;
+      }
+
       document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-      document.getElementById('view-' + viewId).classList.add('active');
-      
+      targetView.classList.add('active');
+
+      // When entering view-only: use V2 view with read-only mode (no DOM move)
+      if (viewOnlyMode && v2View && panel) {
+        v2View.classList.add('uom-view-only-mode');
+        panel.classList.remove('hidden');
+        panel.classList.add('uom-panel-view-only');
+        var breadcrumbSpan = v2View.querySelector('.page-breadcrumb span:last-child');
+        var titleEl = v2View.querySelector('.page-title');
+        var subtitleEl = v2View.querySelector('.page-subtitle');
+        if (breadcrumbSpan) { breadcrumbSpan._originalText = breadcrumbSpan.textContent; breadcrumbSpan.textContent = 'View only'; }
+        if (titleEl) { titleEl._originalText = titleEl.textContent; titleEl.textContent = 'Unit of measure (View only)'; }
+        if (subtitleEl) { subtitleEl._originalText = subtitleEl.textContent; subtitleEl.textContent = 'Read-only view of units and groups. Toggle view by unit groups and use search to filter.'; }
+        if (typeof switchUnitMeasureTab === 'function') switchUnitMeasureTab('group');
+        if (typeof toggleGroupViewByUnitGroupsV2 === 'function') toggleGroupViewByUnitGroupsV2();
+      }
+
       document.querySelectorAll('.submenu-item[data-view]').forEach(item => {
         item.classList.remove('active');
         if (item.dataset.view === viewId) {
           item.classList.add('active');
         }
       });
-      
+
       // Initialize full page EF table when switching to EF Selection & Review view
       if (viewId === 'ef-selection-review') {
         initEFEntityTableFull();
@@ -17448,25 +17532,31 @@
     }
     
     function getUomViewSuffix() {
-      return document.querySelector('#view-unit-measure-v2.active') ? 'V2' : '';
+      return (document.querySelector('#view-unit-measure-v2.active') || document.querySelector('#view-unit-measure-view-only.active')) ? 'V2' : '';
     }
     function getUomEl(id) {
       return document.getElementById(id + getUomViewSuffix());
     }
     
     function switchUnitMeasureTab(tabId) {
-      var view = document.querySelector('#view-unit-measure.active, #view-unit-measure-v2.active');
+      var view = document.querySelector('#view-unit-measure.active, #view-unit-measure-v2.active, #view-unit-measure-view-only.active');
       if (!view) return;
       view.querySelectorAll('.unit-measure-tab').forEach(function(tab) {
         tab.classList.toggle('active', tab.getAttribute('data-uom-tab') === tabId);
       });
+      var isV2 = view.id === 'view-unit-measure-v2';
       view.querySelectorAll('.unit-measure-panel').forEach(function(panel) {
-        panel.classList.toggle('hidden', panel.getAttribute('data-uom-panel') !== tabId);
+        var panelId = panel.getAttribute('data-uom-panel');
+        if (isV2 && panelId === 'group') {
+          panel.classList.toggle('hidden', tabId !== 'group');
+        } else {
+          panel.classList.toggle('hidden', panelId !== tabId);
+        }
       });
       if (tabId === 'group') {
         ensureUomGroupDefaultDataRowsPopulated();
         if (typeof updateUomGroupMeta === 'function') updateUomGroupMeta();
-        if (view.id === 'view-unit-measure-v2') toggleGroupViewByUnitGroupsV2();
+        if (isV2) toggleGroupViewByUnitGroupsV2();
       }
     }
     
@@ -17490,7 +17580,7 @@
       return m + '/' + day + '/' + y;
     }
     function toggleUomSection(sectionId) {
-      var view = document.querySelector('#view-unit-measure.active, #view-unit-measure-v2.active');
+      var view = document.querySelector('#view-unit-measure.active, #view-unit-measure-v2.active, #view-unit-measure-view-only.active');
       if (!view) return;
       var section = view.querySelector('.uom-section[data-uom-section="' + sectionId + '"]');
       if (section) section.classList.toggle('collapsed');
@@ -17640,7 +17730,7 @@
       document.getElementById('addUomGroupModal').classList.add('open');
     }
     function openEditUomGroupModalV2(sectionId) {
-      var panel = document.querySelector('#view-unit-measure-v2 .unit-measure-panel[data-uom-panel="group"]');
+      var panel = document.getElementById('uomV2GroupPanel');
       if (!panel) return;
       var section = panel.querySelector('.uom-section[data-uom-section="' + sectionId + '"]');
       if (!section) return;
@@ -17707,7 +17797,7 @@
       }
       if (step !== 2) closeAddUomGroupModal();
       if (v2SectionId) {
-        var panel = document.querySelector('#view-unit-measure-v2 .unit-measure-panel[data-uom-panel="group"]');
+        var panel = document.getElementById('uomV2GroupPanel');
         var section = panel ? panel.querySelector('.uom-section[data-uom-section="' + v2SectionId + '"]') : null;
         if (section) {
           section.setAttribute('data-name', name);
@@ -17852,18 +17942,18 @@
       if (typeof showToast === 'function') showToast('Base unit updated (prototype)', 'success');
     }
     function getUomGroupTbody() {
-      var view = document.querySelector('#view-unit-measure.active, #view-unit-measure-v2.active');
+      var view = document.querySelector('#view-unit-measure.active, #view-unit-measure-v2.active, #view-unit-measure-view-only.active');
       if (!view) return null;
-      var panel = view.querySelector('.unit-measure-panel[data-uom-panel="group"]');
+      var panel = document.getElementById('uomV2GroupPanel') || view.querySelector('.unit-measure-panel[data-uom-panel="group"]');
       if (!panel) return null;
-      if (view.id === 'view-unit-measure-v2') {
+      if (view.id === 'view-unit-measure-v2' || view.id === 'view-unit-measure-view-only') {
         var expanded = panel.querySelector('.uom-section[data-uom-section^="v2-group-"]:not(.collapsed)');
         return expanded ? expanded.querySelector('.uom-table tbody') : null;
       }
       return panel.querySelector('.uom-table tbody');
     }
     function toggleUomV2GroupAccordion(sectionId) {
-      var panel = document.querySelector('#view-unit-measure-v2 .unit-measure-panel[data-uom-panel="group"]');
+      var panel = document.getElementById('uomV2GroupPanel');
       if (!panel) return;
       var section = panel.querySelector('.uom-section[data-uom-section="' + sectionId + '"]');
       if (!section) return;
@@ -17877,7 +17967,7 @@
       section.classList.toggle('collapsed');
     }
     function expandUomV2GroupAccordion(sectionId) {
-      var panel = document.querySelector('#view-unit-measure-v2 .unit-measure-panel[data-uom-panel="group"]');
+      var panel = document.getElementById('uomV2GroupPanel');
       if (!panel) return;
       var section = panel.querySelector('.uom-section[data-uom-section="' + sectionId + '"]');
       if (!section) return;
@@ -17981,7 +18071,7 @@
       var tbody = null;
       var section = null;
       if (_uomAddUnitSectionId) {
-        var panel = document.querySelector('#view-unit-measure-v2 .unit-measure-panel[data-uom-panel="group"]');
+        var panel = document.getElementById('uomV2GroupPanel');
         section = panel ? panel.querySelector('.uom-section[data-uom-section="' + _uomAddUnitSectionId + '"]') : null;
         tbody = section ? section.querySelector('.uom-table tbody') : null;
       }
@@ -18569,7 +18659,8 @@
         'ef-library': 'ef-library',
         'ef-selection': 'ef-selection-review',
         'unit-measure': 'unit-measure',
-        'unit-measure-v2': 'unit-measure-v2'
+        'unit-measure-v2': 'unit-measure-v2',
+        'unit-measure-view-only': 'unit-measure-view-only'
       };
       if (hash && hashToView[hash]) {
         switchView(hashToView[hash]);
