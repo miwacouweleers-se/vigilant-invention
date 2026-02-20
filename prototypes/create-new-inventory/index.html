@@ -4,10 +4,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Create New Inventory - Prototype</title>
-  <!-- Vertex Design System -->
-  <link rel="stylesheet" href="/style.css">
+  <!-- Ensure CSS/JS resolve from this prototype folder (fixes live site when URL has no trailing slash) -->
+  <script>
+  (function(){
+    var path = location.pathname || '/';
+    var dir = path.endsWith('/') ? path : path.replace(/\/[^/]*$/, '/');
+    if (!/create-new-inventory\/?$/.test(dir)) dir = dir.replace(/\/?$/, '') + '/create-new-inventory/';
+    else if (!dir.endsWith('/')) dir = dir + '/';
+    document.write('<base href="' + location.origin + dir + '">');
+  })();
+  </script>
+  <!-- Vertex Design System (relative so live/subpath deployment works) -->
+  <link rel="stylesheet" href="../../style.css">
   <!-- App Shell Styles -->
-  <link rel="stylesheet" href="/prototypes/create-new-inventory/styles.css">
+  <link rel="stylesheet" href="styles.css">
   
   <!-- Font Awesome Pro Kit -->
   <script src="https://kit.fontawesome.com/e1f0748a31.js" crossorigin="anonymous"></script>
@@ -18629,7 +18639,7 @@ Thank you.</div>
   <div class="toast-container" id="toast-container"></div>
   
   <!-- App Shell JavaScript -->
-  <script src="/prototypes/create-new-inventory/app-shell.js"></script>
+  <script src="app-shell.js"></script>
   <script src="fixtures/ownership-fixtures.js"></script>
   <script src="lib/ownership.js"></script>
   <script src="lib/ownership-integrations.js"></script>
