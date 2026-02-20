@@ -4,12 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Create New Inventory - Prototype</title>
-  
-  <!-- Vertex Design System (path from repo root for GitHub Pages) -->
-  <link rel="stylesheet" href="../../style.css">
-  
+  <!-- Vertex Design System -->
+  <link rel="stylesheet" href="/style.css">
   <!-- App Shell Styles -->
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="/prototypes/create-new-inventory/styles.css">
   
   <!-- Font Awesome Pro Kit -->
   <script src="https://kit.fontawesome.com/e1f0748a31.js" crossorigin="anonymous"></script>
@@ -129,6 +127,7 @@
     .page-header-actions {
       display: flex;
       gap: 12px;
+      flex-wrap: nowrap;
     }
     
     /* ============================================== */
@@ -10244,6 +10243,82 @@
         flex-wrap: wrap;
       }
     }
+
+    /* ============================================== */
+    /* Data Campaigns – Overview, Wizard, Tracking    */
+    /* ============================================== */
+    .campaign-status-badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: 500; }
+    .campaign-status-badge.not-started { background: var(--ghg-surface-elevated); color: var(--ghg-text-muted); }
+    .campaign-status-badge.in-progress { background: var(--ghg-info-light); color: #1E40AF; }
+    .campaign-status-badge.overdue { background: var(--ghg-danger-light); color: #B91C1C; }
+    .campaign-status-badge.completed { background: var(--ghg-success-light); color: #166534; }
+    .campaign-status-badge.scheduled { background: var(--ghg-primary-light); color: var(--ghg-primary-dark); }
+    .progress-bar-wrap { height: 8px; background: var(--ghg-surface-elevated); border-radius: 4px; overflow: hidden; min-width: 80px; }
+    .progress-bar-fill { height: 100%; background: var(--ghg-primary); border-radius: 4px; transition: width 0.3s ease; }
+    .progress-bar-fill.complete { background: var(--ghg-success); }
+    .campaign-card { background: var(--ghg-surface); border: 1px solid var(--ghg-border); border-radius: 12px; padding: 20px; margin-bottom: 16px; display: flex; align-items: center; gap: 24px; cursor: pointer; transition: border-color 0.2s, box-shadow 0.2s; }
+    .campaign-card:hover { border-color: var(--ghg-border-strong); box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
+    .campaign-card-left { flex: 1; min-width: 0; }
+    .campaign-card-name { font-weight: 600; font-size: 16px; color: var(--ghg-text); margin-bottom: 4px; }
+    .campaign-card-meta { font-size: 13px; color: var(--ghg-text-secondary); display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+    .campaign-card-right { display: flex; align-items: center; gap: 20px; flex-shrink: 0; }
+    .campaign-progress-cell { width: 140px; }
+    .campaign-filters { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-bottom: 20px; }
+    .campaign-filters.ownership-filters { flex-wrap: nowrap; align-items: center; gap: 8px; }
+    .campaign-filters.ownership-filters .ownership-filter { width: 180px; min-width: 180px; max-width: 180px; padding: 6px 10px; font-size: 13px; box-sizing: border-box; }
+    .campaign-filters.ownership-filters .ownership-filter-chip-wrap { flex-shrink: 0; }
+    .ownership-toggle-row { margin-top: 12px; margin-bottom: 16px; }
+    .ownership-toggle-label { display: inline-flex; align-items: center; gap: 10px; cursor: pointer; font-size: 14px; font-weight: 500; color: var(--ghg-text); }
+    .ownership-toggle-input { position: absolute; opacity: 0; width: 0; height: 0; }
+    .ownership-toggle-switch { position: relative; display: inline-block; width: 28px; height: 16px; background: var(--ghg-border); border-radius: 8px; transition: background 0.2s; flex-shrink: 0; }
+    .ownership-toggle-switch::after { content: ''; position: absolute; top: 2px; left: 2px; width: 12px; height: 12px; background: #fff; border-radius: 50%; box-shadow: 0 1px 2px rgba(0,0,0,0.2); transition: transform 0.2s; }
+    .ownership-toggle-input:checked + .ownership-toggle-switch { background: var(--ghg-primary); }
+    .ownership-toggle-input:checked + .ownership-toggle-switch::after { transform: translateX(12px); }
+    .campaign-filters .form-input { width: 220px; }
+    .campaign-tabs-wrap { display: flex; gap: 4px; margin-bottom: 24px; }
+    .campaign-tab { padding: 8px 16px; font-size: 14px; font-weight: 500; color: var(--ghg-text-secondary); background: none; border: none; border-radius: 8px; cursor: pointer; }
+    .campaign-tab:hover { color: var(--ghg-text); background: var(--ghg-surface-elevated); }
+    .campaign-tab.active { color: var(--ghg-primary-dark); background: var(--ghg-primary-light); }
+    .contributor-status-badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px; border-radius: 4px; font-size: 12px; font-weight: 500; }
+    .contributor-status-badge.not-started { background: var(--ghg-surface-elevated); color: var(--ghg-text-muted); }
+    .contributor-status-badge.in-progress { background: var(--ghg-info-light); color: #1E40AF; }
+    .contributor-status-badge.submitted { background: var(--ghg-primary-light); color: var(--ghg-primary-dark); }
+    .contributor-status-badge.needs-revision { background: var(--ghg-warning-light); color: #9A3412; }
+    .contributor-status-badge.approved { background: var(--ghg-success-light); color: #166534; }
+    .campaign-detail-timeline { border-left: 2px solid var(--ghg-border); padding-left: 24px; margin-left: 8px; }
+    .campaign-timeline-item { position: relative; padding-bottom: 24px; }
+    .campaign-timeline-item::before { content: ''; position: absolute; left: -30px; top: 6px; width: 10px; height: 10px; border-radius: 50%; background: var(--ghg-primary); }
+    .campaign-timeline-item::after { content: ''; position: absolute; left: -26px; top: 6px; width: 2px; height: calc(100% + 8px); background: var(--ghg-border); }
+    .campaign-timeline-item:last-child::after { display: none; }
+    .campaign-detail-progress-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 16px; }
+    .campaign-detail-progress-card { background: var(--ghg-surface-elevated); border-radius: 8px; padding: 16px; text-align: center; }
+    .campaign-detail-progress-card .value { font-size: 24px; font-weight: 700; color: var(--ghg-text); }
+    .campaign-detail-progress-card .label { font-size: 12px; color: var(--ghg-text-muted); margin-top: 4px; }
+    .campaign-wizard-stepper { margin-bottom: 28px; }
+    .campaign-module-card { background: var(--ghg-surface); border: 1px solid var(--ghg-border); border-radius: 10px; padding: 16px; display: flex; align-items: center; gap: 16px; cursor: pointer; transition: all 0.2s; margin-bottom: 12px; }
+    .campaign-module-card:hover { border-color: var(--ghg-border-strong); }
+    .campaign-module-card.selected { border-color: var(--ghg-primary); box-shadow: 0 0 0 3px var(--ghg-primary-light); }
+    .campaign-module-card .module-icon { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+    .dropdown-inline { position: relative; display: inline-block; }
+    .dropdown-menu { position: absolute; right: 0; top: 100%; margin-top: 4px; min-width: 160px; background: var(--ghg-surface); border: 1px solid var(--ghg-border); border-radius: 8px; box-shadow: var(--shadow-md); z-index: 100; padding: 6px; display: none; }
+    .dropdown-menu.open { display: block; }
+    .dropdown-item { display: flex; align-items: center; gap: 8px; width: 100%; padding: 8px 12px; border: none; background: none; font-size: 13px; color: var(--ghg-text); cursor: pointer; border-radius: 6px; text-align: left; font-family: var(--font-sans); }
+    .dropdown-item:hover { background: var(--ghg-surface-elevated); }
+    #campaign-export-menu { right: 0; }
+    .form-hint { font-size: 12px; color: var(--ghg-text-muted); margin-top: 4px; }
+    .form-validation { margin-top: 8px; }
+    .ownership-empty-state { text-align: center; padding: 48px 24px; background: var(--ghg-surface-elevated); border-radius: 12px; margin-bottom: 24px; }
+    .ownership-empty-state i { font-size: 48px; color: var(--ghg-text-muted); margin-bottom: 16px; }
+    .ownership-empty-state p { margin: 0 0 8px; color: var(--ghg-text-secondary); max-width: 400px; margin-left: auto; margin-right: auto; }
+    .ownership-empty-state .btn { margin-top: 16px; }
+    .ownership-user-chip { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border-radius: 6px; font-size: 12px; background: var(--ghg-surface-elevated); color: var(--ghg-text); }
+    .ownership-user-chip.inactive { opacity: 0.7; color: var(--ghg-text-muted); }
+    .ownership-validate-panel { min-height: 120px; }
+    .ownership-validate-panel table { width: 100%; font-size: 13px; }
+    .btn { white-space: nowrap; }
+    .data-table td .btn-ghost { white-space: nowrap; }
+    #ownership-validate-tabs { flex-wrap: nowrap; }
+    .modal-footer .btn { white-space: nowrap; }
   </style>
 </head>
 <body>
@@ -10306,7 +10381,8 @@
       <div class="submenu-content hidden" data-section="collect">
         <h2 class="submenu-title">Data Collection</h2>
         <nav class="submenu-nav">
-          <a href="../../../platform/prototypes/activity-data-upload/index.html" class="submenu-item">Data Campaigns</a>
+          <a href="#data-campaigns" class="submenu-item" data-view="campaigns-overview" onclick="event.preventDefault(); if(typeof switchView==='function'){switchView('campaigns-overview');} else { location.hash='data-campaigns'; }">Data Campaigns</a>
+          <a href="#data-owner-directory" class="submenu-item" data-view="ownership-register" onclick="event.preventDefault(); if(typeof switchView==='function'){switchView('ownership-register');}">Data Owner Directory</a>
           <a href="../../../platform/prototypes/activity-data-upload/index.html#upload" class="submenu-item">Upload Data</a>
           <a href="../../../platform/prototypes/activity-data-upload/index.html#records" class="submenu-item">Activity Records</a>
           <a href="../../../platform/prototypes/activity-normalization-mapping/index.html" class="submenu-item">Activity Mapping</a>
@@ -10371,6 +10447,244 @@
         <!-- PROTOTYPE BANNER -->
         <div class="prototype-banner">
           🎨 PROTOTYPE - Create New Inventory - Built with Cursor
+        </div>
+        
+        <!-- ============================================== -->
+        <!-- VIEW: DATA CAMPAIGNS OVERVIEW (Collect)        -->
+        <!-- ============================================== -->
+        <div id="view-campaigns-overview" class="view">
+          <div class="page-header">
+            <div class="page-header-left">
+              <div class="page-breadcrumb">
+                <a href="#" onclick="switchView('campaigns-overview'); return false;">Collect</a>
+                <i class="fa-light fa-chevron-right"></i>
+                <span>Data Campaigns</span>
+              </div>
+              <h1 class="page-title">Data Campaigns</h1>
+              <p class="page-subtitle">Set up and manage sustainability data collection from your teams</p>
+            </div>
+            <div class="page-header-actions">
+              <button class="btn btn-primary" onclick="openCreateCampaignWizard()">
+                <i class="fa-light fa-plus"></i>
+                Create campaign
+              </button>
+            </div>
+          </div>
+          <div class="content-container">
+            <div class="campaign-filters">
+              <div class="search-input-wrapper" style="width: 260px;">
+                <i class="fa-light fa-search"></i>
+                <input type="text" class="form-input" placeholder="Search campaigns..." id="campaign-search">
+              </div>
+              <button class="btn btn-secondary">
+                <i class="fa-light fa-filter"></i>
+                Filter
+              </button>
+            </div>
+            <div class="campaign-tabs-wrap">
+              <button class="campaign-tab active" data-campaign-tab="all">All</button>
+              <button class="campaign-tab" data-campaign-tab="active">Active</button>
+              <button class="campaign-tab" data-campaign-tab="scheduled">Scheduled</button>
+              <button class="campaign-tab" data-campaign-tab="past">Past</button>
+            </div>
+            <div class="card">
+              <div class="card-body" style="padding: 0;">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>Campaign</th>
+                      <th>Reporting period</th>
+                      <th>Status</th>
+                      <th>Progress</th>
+                      <th>Contributors</th>
+                      <th>Due date</th>
+                      <th style="width: 120px;">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="campaign-row" data-campaign-id="q1-2025" onclick="viewCampaignDetail('q1-2025')" style="cursor: pointer;">
+                      <td><strong>Q1 2025 Sustainability Data</strong></td>
+                      <td>Jan 1 – Mar 31, 2025</td>
+                      <td><span class="campaign-status-badge in-progress"><i class="fa-light fa-spinner"></i> In progress</span></td>
+                      <td>
+                        <div class="campaign-progress-cell" style="display: flex; align-items: center; gap: 10px;">
+                          <div class="progress-bar-wrap" style="flex: 1;"><div class="progress-bar-fill" style="width: 72%;"></div></div>
+                          <span style="font-size: 13px; color: var(--ghg-text-secondary);">72%</span>
+                        </div>
+                      </td>
+                      <td>24</td>
+                      <td>Mar 15, 2025</td>
+                      <td onclick="event.stopPropagation();">
+                        <div class="dropdown-inline">
+                          <button class="btn btn-ghost btn-sm" onclick="toggleCampaignActionsMenu(event, 'q1-2025')"><i class="fa-light fa-ellipsis"></i></button>
+                          <div class="dropdown-menu campaign-actions-menu" id="campaign-actions-q1-2025">
+                            <button class="dropdown-item" onclick="duplicateCampaign('q1-2025')"><i class="fa-light fa-copy"></i> Duplicate</button>
+                            <button class="dropdown-item" onclick="archiveCampaign('q1-2025')"><i class="fa-light fa-archive"></i> Archive</button>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr class="campaign-row" data-campaign-id="q4-2024" onclick="viewCampaignDetail('q4-2024')" style="cursor: pointer;">
+                      <td><strong>Q4 2024 Environmental Reporting</strong></td>
+                      <td>Oct 1 – Dec 31, 2024</td>
+                      <td><span class="campaign-status-badge completed"><i class="fa-light fa-check-circle"></i> Completed</span></td>
+                      <td>
+                        <div class="campaign-progress-cell" style="display: flex; align-items: center; gap: 10px;">
+                          <div class="progress-bar-wrap" style="flex: 1;"><div class="progress-bar-fill complete" style="width: 100%;"></div></div>
+                          <span style="font-size: 13px; color: var(--ghg-text-secondary);">100%</span>
+                        </div>
+                      </td>
+                      <td>18</td>
+                      <td>Jan 10, 2025</td>
+                      <td onclick="event.stopPropagation();">
+                        <div class="dropdown-inline">
+                          <button class="btn btn-ghost btn-sm" onclick="toggleCampaignActionsMenu(event, 'q4-2024')"><i class="fa-light fa-ellipsis"></i></button>
+                          <div class="dropdown-menu campaign-actions-menu" id="campaign-actions-q4-2024">
+                            <button class="dropdown-item" onclick="duplicateCampaign('q4-2024')"><i class="fa-light fa-copy"></i> Duplicate</button>
+                            <button class="dropdown-item" onclick="archiveCampaign('q4-2024')"><i class="fa-light fa-archive"></i> Archive</button>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr class="campaign-row" data-campaign-id="q2-2025" onclick="viewCampaignDetail('q2-2025')" style="cursor: pointer;">
+                      <td><strong>Q2 2025 Energy & Travel</strong></td>
+                      <td>Apr 1 – Jun 30, 2025</td>
+                      <td><span class="campaign-status-badge scheduled"><i class="fa-light fa-calendar"></i> Scheduled</span></td>
+                      <td>
+                        <div class="campaign-progress-cell" style="display: flex; align-items: center; gap: 10px;">
+                          <div class="progress-bar-wrap" style="flex: 1;"><div class="progress-bar-fill" style="width: 0%;"></div></div>
+                          <span style="font-size: 13px; color: var(--ghg-text-muted);">0%</span>
+                        </div>
+                      </td>
+                      <td>30</td>
+                      <td>Jul 15, 2025</td>
+                      <td onclick="event.stopPropagation();">
+                        <div class="dropdown-inline">
+                          <button class="btn btn-ghost btn-sm" onclick="toggleCampaignActionsMenu(event, 'q2-2025')"><i class="fa-light fa-ellipsis"></i></button>
+                          <div class="dropdown-menu campaign-actions-menu" id="campaign-actions-q2-2025">
+                            <button class="dropdown-item" onclick="duplicateCampaign('q2-2025')"><i class="fa-light fa-copy"></i> Duplicate</button>
+                            <button class="dropdown-item" onclick="archiveCampaign('q2-2025')"><i class="fa-light fa-archive"></i> Archive</button>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr class="campaign-row" data-campaign-id="fuel-oct" onclick="viewCampaignDetail('fuel-oct')" style="cursor: pointer;">
+                      <td><strong>October 2024 Fuel Consumption</strong></td>
+                      <td>Oct 1 – Oct 31, 2024</td>
+                      <td><span class="campaign-status-badge overdue"><i class="fa-light fa-clock"></i> Overdue</span></td>
+                      <td>
+                        <div class="campaign-progress-cell" style="display: flex; align-items: center; gap: 10px;">
+                          <div class="progress-bar-wrap" style="flex: 1;"><div class="progress-bar-fill" style="width: 45%; background: var(--ghg-danger);"></div></div>
+                          <span style="font-size: 13px; color: var(--ghg-danger);">45%</span>
+                        </div>
+                      </td>
+                      <td>12</td>
+                      <td>Nov 8, 2024</td>
+                      <td onclick="event.stopPropagation();">
+                        <div class="dropdown-inline">
+                          <button class="btn btn-ghost btn-sm" onclick="toggleCampaignActionsMenu(event, 'fuel-oct')"><i class="fa-light fa-ellipsis"></i></button>
+                          <div class="dropdown-menu campaign-actions-menu" id="campaign-actions-fuel-oct">
+                            <button class="dropdown-item" onclick="duplicateCampaign('fuel-oct')"><i class="fa-light fa-copy"></i> Duplicate</button>
+                            <button class="dropdown-item" onclick="archiveCampaign('fuel-oct')"><i class="fa-light fa-archive"></i> Archive</button>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- VIEW: DATA OWNERSHIP REGISTER                   -->
+        <!-- ============================================== -->
+        <div id="view-ownership-register" class="view">
+          <div class="page-header">
+            <div class="page-header-left">
+              <div class="page-breadcrumb">
+                <a href="#" onclick="event.preventDefault(); switchView('campaigns-overview');">Collect</a>
+                <i class="fa-light fa-chevron-right"></i>
+                <span>Data Owner Directory</span>
+              </div>
+              <h1 class="page-title">Data Owner Directory</h1>
+              <p class="page-subtitle">Map ownership of data collection by site or business unit and category. Powers campaign auto-assignment and coverage.</p>
+            </div>
+            <div class="page-header-actions">
+              <div class="dropdown-inline">
+                <button type="button" class="btn btn-primary" id="ownership-actions-btn" onclick="toggleOwnershipActionsMenu(event)" aria-label="Actions" aria-haspopup="true" aria-expanded="false">
+                  Actions
+                  <i class="fa-light fa-chevron-down"></i>
+                </button>
+                <div class="dropdown-menu" id="ownership-actions-menu">
+                  <button type="button" class="dropdown-item" onclick="openOwnershipValidateModal(); closeOwnershipActionsMenu();">
+                    <i class="fa-light fa-magnifying-glass-chart"></i>
+                    Validate coverage
+                  </button>
+                  <button type="button" class="dropdown-item" onclick="ownershipExportCSV(); closeOwnershipActionsMenu();">
+                    <i class="fa-light fa-download"></i>
+                    Export CSV
+                  </button>
+                  <button type="button" class="dropdown-item" onclick="openOwnershipRuleModal(); closeOwnershipActionsMenu();">
+                    <i class="fa-light fa-plus"></i>
+                    Add Rule
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="content-container">
+            <div class="campaign-filters ownership-filters">
+              <select class="form-select ownership-filter" id="ownership-filter-site" aria-label="Filter by site" onchange="ownershipApplyFilters()">
+                <option value="">All sites</option>
+              </select>
+              <select class="form-select ownership-filter" id="ownership-filter-bu" aria-label="Filter by business unit" onchange="ownershipApplyFilters()">
+                <option value="">All business units</option>
+              </select>
+              <select class="form-select ownership-filter" id="ownership-filter-category" aria-label="Filter by category" onchange="ownershipApplyFilters()">
+                <option value="">All categories</option>
+              </select>
+            </div>
+            <div class="ownership-toggle-row">
+              <label class="ownership-toggle-label" for="ownership-filter-active-checkbox">
+                <input type="checkbox" class="ownership-toggle-input" id="ownership-filter-active-checkbox" checked aria-describedby="ownership-active-desc" onchange="ownershipApplyFilters()">
+                <span class="ownership-toggle-switch" aria-hidden="true"></span>
+                <span id="ownership-active-desc">Active only</span>
+              </label>
+            </div>
+            <div id="ownership-empty-state" class="ownership-empty-state" style="display: none;">
+              <i class="fa-light fa-folder-open" aria-hidden="true"></i>
+              <p><strong>No ownership rules yet</strong></p>
+              <p>Add rules to map who owns data collection by site or business unit and category. This powers campaign auto-assignment and helps spot coverage gaps.</p>
+              <button type="button" class="btn btn-primary" onclick="openOwnershipRuleModal()">Add Rule</button>
+            </div>
+            <div id="ownership-no-results" class="ownership-empty-state" style="display: none;">
+              <p>No rules match the current filters.</p>
+              <button type="button" class="btn btn-secondary" onclick="ownershipResetFilters()">Reset filters</button>
+            </div>
+            <div class="card" id="ownership-table-card">
+              <div class="card-body" style="padding: 0;">
+                <table class="data-table" id="ownership-rules-table" aria-label="Ownership rules">
+                  <thead>
+                    <tr>
+                      <th>Site / Business unit</th>
+                      <th>Category</th>
+                      <th>Primary</th>
+                      <th>Secondary</th>
+                      <th>Team</th>
+                      <th>Approver</th>
+                      <th>Effective</th>
+                      <th>Status</th>
+                      <th style="width: 56px;">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="ownership-rules-tbody">
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
         </div>
         
         <!-- ============================================== -->
@@ -16517,6 +16831,362 @@
       </div>
     </div>
   </div>
+
+        <!-- ============================================== -->
+        <!-- VIEW: CREATE CAMPAIGN WIZARD (5 steps)         -->
+        <!-- ============================================== -->
+        <div id="view-create-campaign" class="view">
+          <div class="page-header">
+            <div class="page-header-left">
+              <div class="page-breadcrumb">
+                <a href="#" onclick="switchView('campaigns-overview'); return false;">Collect</a>
+                <i class="fa-light fa-chevron-right"></i>
+                <a href="#" onclick="switchView('campaigns-overview'); return false;">Data Campaigns</a>
+                <i class="fa-light fa-chevron-right"></i>
+                <span>New campaign</span>
+              </div>
+              <h1 class="page-title">Create data campaign</h1>
+              <p class="page-subtitle">Define what to collect, who reports, and when it’s due.</p>
+            </div>
+            <div class="page-header-actions">
+              <button class="btn btn-secondary" onclick="closeCreateCampaignWizard()">
+                <i class="fa-light fa-arrow-left"></i>
+                Cancel
+              </button>
+            </div>
+          </div>
+          <div class="content-container">
+            <div class="card">
+              <div class="card-body">
+                <div class="wizard-stepper campaign-wizard-stepper" id="campaign-wizard-stepper">
+                  <div class="wizard-step active" data-step="1"><div class="step-circle">1</div><span class="step-label">Basics</span></div>
+                  <div class="step-connector"></div>
+                  <div class="wizard-step" data-step="2"><div class="step-circle">2</div><span class="step-label">Data modules</span></div>
+                  <div class="step-connector"></div>
+                  <div class="wizard-step" data-step="3"><div class="step-circle">3</div><span class="step-label">Contributors</span></div>
+                  <div class="step-connector"></div>
+                  <div class="wizard-step" data-step="4"><div class="step-circle">4</div><span class="step-label">Deadlines</span></div>
+                  <div class="step-connector"></div>
+                  <div class="wizard-step" data-step="5"><div class="step-circle">5</div><span class="step-label">Review</span></div>
+                </div>
+                <!-- Step 1: Basics -->
+                <div class="wizard-step-content active" data-step="1" id="campaign-step-1">
+                  <h3>Campaign basics</h3>
+                  <div class="form-group">
+                    <label class="form-label">Campaign name</label>
+                    <input type="text" class="form-input" id="campaign-name" placeholder="e.g. Q1 2025 Sustainability Data">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Reporting period</label>
+                    <div style="display: flex; gap: 12px; align-items: center;">
+                      <input type="date" class="form-input" id="campaign-period-start" style="flex: 1;">
+                      <span style="color: var(--ghg-text-muted);">to</span>
+                      <input type="date" class="form-input" id="campaign-period-end" style="flex: 1;">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Description / instructions</label>
+                    <textarea class="form-input" id="campaign-description" rows="4" placeholder="Optional instructions for contributors..."></textarea>
+                  </div>
+                </div>
+                <!-- Step 2: Data modules -->
+                <div class="wizard-step-content" data-step="2" id="campaign-step-2">
+                  <h3>Required data modules</h3>
+                  <p style="color: var(--ghg-text-secondary); font-size: 14px; margin-bottom: 20px;">Select which sustainability data contributors must provide.</p>
+                  <div class="campaign-module-card selected" data-module="energy" onclick="toggleCampaignModule(this)">
+                    <div class="module-icon" style="background: var(--ghg-scope-2-light); color: var(--ghg-scope-2);"><i class="fa-light fa-bolt"></i></div>
+                    <div><strong>Energy</strong><br><span style="font-size: 13px; color: var(--ghg-text-secondary);">Electricity, gas, district heating</span></div>
+                  </div>
+                  <div class="campaign-module-card selected" data-module="fuel" onclick="toggleCampaignModule(this)">
+                    <div class="module-icon" style="background: var(--ghg-scope-1-light); color: var(--ghg-scope-1);"><i class="fa-light fa-gas-pump"></i></div>
+                    <div><strong>Fuel</strong><br><span style="font-size: 13px; color: var(--ghg-text-secondary);">Fleet and mobile combustion</span></div>
+                  </div>
+                  <div class="campaign-module-card" data-module="waste" onclick="toggleCampaignModule(this)">
+                    <div class="module-icon" style="background: var(--ghg-surface-elevated); color: var(--ghg-text-muted);"><i class="fa-light fa-trash"></i></div>
+                    <div><strong>Waste</strong><br><span style="font-size: 13px; color: var(--ghg-text-secondary);">Waste types and disposal</span></div>
+                  </div>
+                  <div class="campaign-module-card" data-module="water" onclick="toggleCampaignModule(this)">
+                    <div class="module-icon" style="background: var(--ghg-info-light); color: var(--ghg-info);"><i class="fa-light fa-droplet"></i></div>
+                    <div><strong>Water</strong><br><span style="font-size: 13px; color: var(--ghg-text-secondary);">Consumption and discharge</span></div>
+                  </div>
+                  <div class="campaign-module-card selected" data-module="travel" onclick="toggleCampaignModule(this)">
+                    <div class="module-icon" style="background: var(--ghg-scope-3-light); color: var(--ghg-scope-3);"><i class="fa-light fa-plane"></i></div>
+                    <div><strong>Business travel</strong><br><span style="font-size: 13px; color: var(--ghg-text-secondary);">Flights, rail, car, accommodation</span></div>
+                  </div>
+                  <div class="campaign-module-card" data-module="activity" onclick="toggleCampaignModule(this)">
+                    <div class="module-icon" style="background: var(--ghg-surface-elevated); color: var(--ghg-text-muted);"><i class="fa-light fa-chart-mixed"></i></div>
+                    <div><strong>Activity data</strong><br><span style="font-size: 13px; color: var(--ghg-text-secondary);">Other activity-based metrics</span></div>
+                  </div>
+                </div>
+                <!-- Step 3: Contributors -->
+                <div class="wizard-step-content" data-step="3" id="campaign-step-3">
+                  <h3>Assign contributors</h3>
+                  <p style="color: var(--ghg-text-secondary); font-size: 14px; margin-bottom: 16px;">Search and select people or groups, then map modules to contributors.</p>
+                  <div class="form-group">
+                    <div class="search-input-wrapper" style="max-width: 360px;">
+                      <i class="fa-light fa-search"></i>
+                      <input type="text" class="form-input" id="campaign-contributor-search" placeholder="Search people or groups...">
+                    </div>
+                  </div>
+                  <div class="card" style="margin-bottom: 20px;">
+                    <div class="card-header"><span class="card-title">Selected contributors (3)</span></div>
+                    <div class="card-body">
+                      <table class="data-table">
+                        <thead><tr><th>Contributor</th><th>Location</th><th>Business unit</th><th>Data modules assigned</th></tr></thead>
+                        <tbody>
+                          <tr><td>Sarah Chen</td><td>Chicago</td><td>Operations</td><td><span class="badge badge-neutral" style="margin-right: 4px;">Energy</span><span class="badge badge-neutral">Travel</span></td></tr>
+                          <tr><td>Marcus Webb</td><td>London</td><td>EMEA</td><td><span class="badge badge-neutral">Energy</span><span class="badge badge-neutral">Fuel</span><span class="badge badge-neutral">Waste</span></td></tr>
+                          <tr><td>Tokyo Office (group)</td><td>Tokyo</td><td>APAC</td><td><span class="badge badge-neutral">Energy</span><span class="badge badge-neutral">Travel</span></td></tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <button class="btn btn-secondary btn-sm"><i class="fa-light fa-plus"></i> Add contributors</button>
+                </div>
+                <!-- Step 4: Deadlines & reminders -->
+                <div class="wizard-step-content" data-step="4" id="campaign-step-4">
+                  <h3>Deadlines &amp; reminders</h3>
+                  <div class="form-group">
+                    <label class="form-label">Due date</label>
+                    <input type="date" class="form-input" id="campaign-due-date" style="max-width: 200px;">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Automated reminders</label>
+                    <div style="display: flex; flex-direction: column; gap: 12px;">
+                      <label class="option-item"><input type="checkbox" id="campaign-reminder-1" checked> 7 days before due</label>
+                      <label class="option-item"><input type="checkbox" id="campaign-reminder-2" checked> 3 days before due</label>
+                      <label class="option-item"><input type="checkbox" id="campaign-reminder-3" checked> On due date</label>
+                      <label class="option-item"><input type="checkbox" id="campaign-reminder-4"> 1 day after due (overdue)</label>
+                    </div>
+                  </div>
+                </div>
+                <!-- Step 5: Review & publish -->
+                <div class="wizard-step-content" data-step="5" id="campaign-step-5">
+                  <h3>Review &amp; publish</h3>
+                  <div class="review-section">
+                    <div class="review-section-title">Campaign summary</div>
+                    <div class="review-card">
+                      <div class="review-grid">
+                        <div class="review-item"><span class="review-item-label">Name</span><span class="review-item-value" id="campaign-review-name">—</span></div>
+                        <div class="review-item"><span class="review-item-label">Reporting period</span><span class="review-item-value" id="campaign-review-period">—</span></div>
+                        <div class="review-item"><span class="review-item-label">Due date</span><span class="review-item-value" id="campaign-review-due">—</span></div>
+                        <div class="review-item"><span class="review-item-label">Modules</span><span class="review-item-value" id="campaign-review-modules">Energy, Fuel, Travel</span></div>
+                        <div class="review-item"><span class="review-item-label">Contributors</span><span class="review-item-value" id="campaign-review-contributors">3</span></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div style="padding: 16px; background: var(--ghg-primary-light); border-radius: 8px; display: flex; align-items: flex-start; gap: 12px;">
+                    <i class="fa-light fa-info-circle" style="color: var(--ghg-primary-dark); margin-top: 2px;"></i>
+                    <div><strong style="color: var(--ghg-primary-dark);">Ready to launch</strong><br><span style="font-size: 13px; color: var(--ghg-text-secondary);">Contributors will receive an email with a link to submit data. You can track progress from the campaign detail page.</span></div>
+                  </div>
+                </div>
+                <div class="modal-footer" id="campaign-wizard-footer">
+                  <button class="btn btn-secondary" onclick="closeCreateCampaignWizard()">Cancel</button>
+                  <div style="display: flex; gap: 8px;">
+                    <button class="btn btn-secondary" id="campaign-wizard-back" onclick="campaignWizardPrevStep()" style="display: none;"><i class="fa-light fa-arrow-left"></i> Back</button>
+                    <button class="btn btn-primary" id="campaign-wizard-next" onclick="campaignWizardNextStep()">Next <i class="fa-light fa-arrow-right"></i></button>
+                    <button class="btn btn-primary" id="campaign-wizard-publish" onclick="publishCampaign()" style="display: none;"><i class="fa-light fa-paper-plane"></i> Publish campaign</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- VIEW: CONTRIBUTOR TRACKING DASHBOARD            -->
+        <!-- ============================================== -->
+        <div id="view-campaign-tracking" class="view">
+          <div class="page-header">
+            <div class="page-header-left">
+              <div class="page-breadcrumb">
+                <a href="#" onclick="switchView('campaigns-overview'); return false;">Collect</a>
+                <i class="fa-light fa-chevron-right"></i>
+                <a href="#" onclick="switchView('campaigns-overview'); return false;">Data Campaigns</a>
+                <i class="fa-light fa-chevron-right"></i>
+                <a href="#" onclick="viewCampaignDetail('q1-2025'); return false;">Q1 2025 Sustainability Data</a>
+                <i class="fa-light fa-chevron-right"></i>
+                <span>Contributors</span>
+              </div>
+              <h1 class="page-title">Contributor tracking</h1>
+              <p class="page-subtitle">Q1 2025 Sustainability Data — submission status and actions</p>
+            </div>
+            <div class="page-header-actions">
+              <button class="btn btn-secondary" onclick="viewCampaignDetail('q1-2025')"><i class="fa-light fa-arrow-left"></i> Back to campaign</button>
+              <button class="btn btn-primary"><i class="fa-light fa-envelope"></i> Send reminders</button>
+            </div>
+          </div>
+          <div class="content-container">
+            <div class="campaign-filters">
+              <div class="search-input-wrapper" style="width: 240px;">
+                <i class="fa-light fa-search"></i>
+                <input type="text" class="form-input" placeholder="Search contributors..." id="tracking-search">
+              </div>
+              <select class="form-select" style="width: 160px;"><option>All statuses</option><option>Not started</option><option>In progress</option><option>Submitted</option><option>Needs revision</option><option>Approved</option></select>
+              <select class="form-select" style="width: 140px;"><option>All locations</option><option>Chicago</option><option>London</option><option>Tokyo</option></select>
+              <select class="form-select" style="width: 140px;"><option>All business units</option><option>Operations</option><option>EMEA</option><option>APAC</option></select>
+              <select class="form-select" style="width: 140px;"><option>All modules</option><option>Energy</option><option>Fuel</option><option>Travel</option></select>
+            </div>
+            <div class="card">
+              <div class="card-body" style="padding: 0;">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>Contributor</th>
+                      <th>Location</th>
+                      <th>Business unit</th>
+                      <th>Status</th>
+                      <th>Data module</th>
+                      <th style="width: 140px;">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr onclick="openContributorDetailModal('sarah')" style="cursor: pointer;">
+                      <td><strong>Sarah Chen</strong></td>
+                      <td>Chicago</td>
+                      <td>Operations</td>
+                      <td><span class="contributor-status-badge submitted"><i class="fa-light fa-paper-plane"></i> Submitted</span></td>
+                      <td>Energy, Travel</td>
+                      <td><button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();">Remind</button></td>
+                    </tr>
+                    <tr onclick="openContributorDetailModal('marcus')" style="cursor: pointer;">
+                      <td><strong>Marcus Webb</strong></td>
+                      <td>London</td>
+                      <td>EMEA</td>
+                      <td><span class="contributor-status-badge in-progress"><i class="fa-light fa-pencil"></i> In progress</span></td>
+                      <td>Energy, Fuel, Waste</td>
+                      <td><button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();">Remind</button></td>
+                    </tr>
+                    <tr onclick="openContributorDetailModal('tokyo')" style="cursor: pointer;">
+                      <td><strong>Tokyo Office (group)</strong></td>
+                      <td>Tokyo</td>
+                      <td>APAC</td>
+                      <td><span class="contributor-status-badge needs-revision"><i class="fa-light fa-triangle-exclamation"></i> Needs revision</span></td>
+                      <td>Energy, Travel</td>
+                      <td><button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();">Remind</button></td>
+                    </tr>
+                    <tr onclick="openContributorDetailModal('james')" style="cursor: pointer;">
+                      <td><strong>James Park</strong></td>
+                      <td>Chicago</td>
+                      <td>Operations</td>
+                      <td><span class="contributor-status-badge not-started"><i class="fa-light fa-circle"></i> Not started</span></td>
+                      <td>Travel</td>
+                      <td><button class="btn btn-ghost btn-sm btn-danger" onclick="event.stopPropagation();">Escalate</button></td>
+                    </tr>
+                    <tr onclick="openContributorDetailModal('anna')" style="cursor: pointer;">
+                      <td><strong>Anna Lindqvist</strong></td>
+                      <td>Stockholm</td>
+                      <td>EMEA</td>
+                      <td><span class="contributor-status-badge approved"><i class="fa-light fa-check-circle"></i> Approved</span></td>
+                      <td>Energy, Fuel</td>
+                      <td><button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();">Remind</button></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- VIEW: CAMPAIGN DETAIL PAGE                     -->
+        <!-- ============================================== -->
+        <div id="view-campaign-detail" class="view">
+          <div class="page-header">
+            <div class="page-header-left">
+              <div class="page-breadcrumb">
+                <a href="#" onclick="switchView('campaigns-overview'); return false;">Collect</a>
+                <i class="fa-light fa-chevron-right"></i>
+                <a href="#" onclick="switchView('campaigns-overview'); return false;">Data Campaigns</a>
+                <i class="fa-light fa-chevron-right"></i>
+                <span id="campaign-detail-name">Q1 2025 Sustainability Data</span>
+              </div>
+              <h1 class="page-title" id="campaign-detail-title">Q1 2025 Sustainability Data</h1>
+              <p class="page-subtitle" id="campaign-detail-subtitle">Jan 1 – Mar 31, 2025 · Due Mar 15, 2025</p>
+            </div>
+            <div class="page-header-actions">
+              <button class="btn btn-secondary" onclick="switchView('campaign-tracking')"><i class="fa-light fa-users"></i> Contributor tracking</button>
+              <div class="dropdown-inline">
+                <button class="btn btn-secondary" onclick="toggleExportCampaignMenu(event)"><i class="fa-light fa-download"></i> Export <i class="fa-light fa-chevron-down"></i></button>
+                <div class="dropdown-menu" id="campaign-export-menu">
+                  <button class="dropdown-item" onclick="exportCampaign('csv')"><i class="fa-light fa-file-csv"></i> CSV</button>
+                  <button class="dropdown-item" onclick="exportCampaign('excel')"><i class="fa-light fa-file-excel"></i> Excel</button>
+                  <button class="dropdown-item" onclick="exportCampaign('pdf')"><i class="fa-light fa-file-pdf"></i> PDF</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="content-container">
+            <div class="stats-grid" style="grid-template-columns: repeat(4, 1fr); margin-bottom: 24px;">
+              <div class="stat-card"><div class="stat-label">Contributors</div><div class="stat-value">24</div></div>
+              <div class="stat-card"><div class="stat-label">Submitted</div><div class="stat-value" style="color: var(--ghg-success);">18</div></div>
+              <div class="stat-card"><div class="stat-label">In progress / Not started</div><div class="stat-value" style="color: var(--ghg-warning);">5</div></div>
+              <div class="stat-card"><div class="stat-label">Overdue</div><div class="stat-value" style="color: var(--ghg-danger);">1</div></div>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 380px; gap: 24px;">
+              <div>
+                <div class="card" style="margin-bottom: 24px;">
+                  <div class="card-header"><h3 class="card-title" style="margin: 0;">Submission progress by category</h3></div>
+                  <div class="card-body">
+                    <div class="campaign-detail-progress-grid">
+                      <div class="campaign-detail-progress-card"><div class="value">92%</div><div class="label">Energy</div></div>
+                      <div class="campaign-detail-progress-card"><div class="value">88%</div><div class="label">Fuel</div></div>
+                      <div class="campaign-detail-progress-card"><div class="value">75%</div><div class="label">Travel</div></div>
+                      <div class="campaign-detail-progress-card"><div class="value">100%</div><div class="label">Waste</div></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card" style="margin-bottom: 24px;">
+                  <div class="card-header"><h3 class="card-title" style="margin: 0;">Validation summary</h3></div>
+                  <div class="card-body">
+                    <div style="display: flex; flex-direction: column; gap: 12px;">
+                      <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px; background: var(--ghg-warning-light); border-radius: 8px;"><span><strong>Anomalies</strong> — 3 values flagged for review</span><a href="#" class="btn btn-ghost btn-sm">Review</a></div>
+                      <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px; background: var(--ghg-surface-elevated); border-radius: 8px;"><span><strong>Missing required fields</strong> — 2 contributors</span><a href="#" class="btn btn-ghost btn-sm">View</a></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div class="card">
+                  <div class="card-header"><h3 class="card-title" style="margin: 0;">Timeline</h3></div>
+                  <div class="card-body">
+                    <div class="campaign-detail-timeline">
+                      <div class="campaign-timeline-item">
+                        <div style="font-weight: 600; font-size: 14px;">Campaign published</div>
+                        <div style="font-size: 13px; color: var(--ghg-text-muted);">Jan 5, 2025</div>
+                      </div>
+                      <div class="campaign-timeline-item">
+                        <div style="font-weight: 600; font-size: 14px;">Reminder sent</div>
+                        <div style="font-size: 13px; color: var(--ghg-text-muted);">Mar 8, 2025</div>
+                      </div>
+                      <div class="campaign-timeline-item">
+                        <div style="font-weight: 600; font-size: 14px;">Due date</div>
+                        <div style="font-size: 13px; color: var(--ghg-text-muted);">Mar 15, 2025</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
+                <h3 class="card-title" style="margin: 0;">Contributors</h3>
+                <button class="btn btn-secondary btn-sm" onclick="switchView('campaign-tracking')">View all &amp; track</button>
+              </div>
+              <div class="card-body" style="padding: 0;">
+                <table class="data-table">
+                  <thead><tr><th>Contributor</th><th>Status</th><th>Last activity</th></tr></thead>
+                  <tbody>
+                    <tr onclick="switchView('campaign-tracking')" style="cursor: pointer;"><td>Sarah Chen</td><td><span class="contributor-status-badge submitted">Submitted</span></td><td>Mar 12, 2025</td></tr>
+                    <tr onclick="switchView('campaign-tracking')" style="cursor: pointer;"><td>Marcus Webb</td><td><span class="contributor-status-badge in-progress">In progress</span></td><td>Mar 10, 2025</td></tr>
+                    <tr onclick="switchView('campaign-tracking')" style="cursor: pointer;"><td>Tokyo Office</td><td><span class="contributor-status-badge needs-revision">Needs revision</span></td><td>Mar 9, 2025</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </main>
     </div>
   </div>
@@ -16570,6 +17240,170 @@
           <div class="list-pagination">
             Showing 1-50 of 1,247 • <button class="btn btn-sm btn-ghost">Load More</button>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contributor Detail Modal (Data Campaigns) -->
+  <div class="modal-backdrop" id="contributor-detail-modal">
+    <div class="modal modal-lg">
+      <div class="modal-header">
+        <h2 class="modal-title" id="contributor-detail-modal-title">Contributor submission</h2>
+        <button class="modal-close" onclick="closeContributorDetailModal()">
+          <i class="fa-light fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="card" style="margin-bottom: 20px;">
+          <div class="card-header"><span class="card-title">Status &amp; modules</span></div>
+          <div class="card-body">
+            <p id="contributor-detail-status"></p>
+            <p style="font-size: 13px; color: var(--ghg-text-secondary); margin-top: 8px;" id="contributor-detail-modules"></p>
+          </div>
+        </div>
+        <div class="card" style="margin-bottom: 20px;">
+          <div class="card-header"><span class="card-title">Submitted data</span></div>
+          <div class="card-body">
+            <p style="font-size: 14px; color: var(--ghg-text-secondary);">Energy: 12,450 kWh · Travel: 3 trips (rail).</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><span class="card-title">Validation</span></div>
+          <div class="card-body">
+            <div style="padding: 12px; background: var(--ghg-success-light); border-radius: 8px; font-size: 13px;">No validation warnings.</div>
+          </div>
+        </div>
+        <div style="margin-top: 20px; display: flex; gap: 8px;">
+          <button class="btn btn-primary btn-sm" onclick="closeContributorDetailModal()">Done</button>
+          <button class="btn btn-secondary btn-sm">Send reminder</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ownership Rule Modal (Add/Edit) -->
+  <div class="modal-backdrop" id="ownership-rule-modal">
+    <div class="modal modal-lg" role="dialog" aria-labelledby="ownership-rule-modal-title" aria-modal="true">
+      <div class="modal-header">
+        <h2 class="modal-title" id="ownership-rule-modal-title">Add ownership rule</h2>
+        <button type="button" class="modal-close" onclick="closeOwnershipRuleModal()" aria-label="Close">
+          <i class="fa-light fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label" for="ownership-rule-scope">Scope <span style="color: var(--ghg-danger);">*</span></label>
+          <select class="form-select" id="ownership-rule-scope" onchange="ownershipRuleScopeChange()" aria-required="true">
+            <option value="">Select scope</option>
+            <option value="site">Site</option>
+            <option value="businessUnit">Business unit</option>
+            <option value="global">Global</option>
+          </select>
+          <p class="form-hint">Choose one: site, business unit, or global (category only).</p>
+        </div>
+        <div class="form-group" id="ownership-rule-site-group" style="display: none;">
+          <label class="form-label" for="ownership-rule-site">Site</label>
+          <select class="form-select" id="ownership-rule-site"><option value="">Select site</option></select>
+        </div>
+        <div class="form-group" id="ownership-rule-bu-group" style="display: none;">
+          <label class="form-label" for="ownership-rule-bu">Business unit</label>
+          <select class="form-select" id="ownership-rule-bu"><option value="">Select business unit</option></select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="ownership-rule-category">Data category <span style="color: var(--ghg-danger);">*</span></label>
+          <select class="form-select" id="ownership-rule-category" aria-required="true"><option value="">Select category</option></select>
+        </div>
+        <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;">
+          <div class="form-group">
+            <label class="form-label" for="ownership-rule-primary">Primary</label>
+            <select class="form-select" id="ownership-rule-primary"><option value="">—</option></select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="ownership-rule-secondary">Secondary</label>
+            <select class="form-select" id="ownership-rule-secondary"><option value="">—</option></select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="ownership-rule-approver">Approver</label>
+            <select class="form-select" id="ownership-rule-approver"><option value="">—</option></select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="ownership-rule-team">Team (fallback)</label>
+          <select class="form-select" id="ownership-rule-team"><option value="">—</option></select>
+        </div>
+        <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+          <div class="form-group">
+            <label class="form-label" for="ownership-rule-from">Effective from</label>
+            <input type="date" class="form-input" id="ownership-rule-from" aria-describedby="ownership-rule-from-hint">
+            <span id="ownership-rule-from-hint" class="form-hint">ISO date</span>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="ownership-rule-to">Effective to</label>
+            <input type="date" class="form-input" id="ownership-rule-to">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="ownership-rule-notes">Notes</label>
+          <textarea class="form-input" id="ownership-rule-notes" rows="2"></textarea>
+        </div>
+        <div class="form-group">
+          <label class="option-item">
+            <input type="checkbox" id="ownership-rule-active" checked>
+            <span>Active</span>
+          </label>
+        </div>
+        <p id="ownership-rule-validation-msg" class="form-validation" style="display: none; color: var(--ghg-danger); font-size: 13px;"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="closeOwnershipRuleModal()">Cancel</button>
+        <button type="button" class="btn btn-primary" id="ownership-rule-save-btn" onclick="ownershipRuleSave()">Add rule</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ownership Validate Coverage Modal -->
+  <div class="modal-backdrop" id="ownership-validate-modal">
+    <div class="modal modal-lg" role="dialog" aria-labelledby="ownership-validate-title" aria-modal="true">
+      <div class="modal-header">
+        <h2 class="modal-title" id="ownership-validate-title">Validate coverage</h2>
+        <button type="button" class="modal-close" onclick="closeOwnershipValidateModal()" aria-label="Close">
+          <i class="fa-light fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p class="form-hint" style="margin-bottom: 16px;">Select sites, business units, and data categories to check for gaps, overlaps, and contact issues.</p>
+        <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+          <div class="form-group">
+            <label class="form-label" for="ownership-validate-sites">Sites (multi)</label>
+            <select class="form-select" id="ownership-validate-sites" multiple size="4"><option value="">—</option></select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="ownership-validate-bus">Business units (multi)</label>
+            <select class="form-select" id="ownership-validate-bus" multiple size="4"><option value="">—</option></select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="ownership-validate-categories">Data categories (multi)</label>
+          <select class="form-select" id="ownership-validate-categories" multiple size="4"><option value="">—</option></select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="ownership-validate-date">As-of date</label>
+          <input type="date" class="form-input" id="ownership-validate-date" style="max-width: 200px;">
+        </div>
+        <button type="button" class="btn btn-primary" onclick="ownershipValidateRun()">Run validation</button>
+        <div class="campaign-tabs-wrap" style="margin-top: 20px;" id="ownership-validate-tabs">
+          <button type="button" class="campaign-tab active" data-validate-tab="gaps" onclick="ownershipValidateSwitchTab('gaps')">Gaps</button>
+          <button type="button" class="campaign-tab" data-validate-tab="overlaps" onclick="ownershipValidateSwitchTab('overlaps')">Overlaps</button>
+          <button type="button" class="campaign-tab" data-validate-tab="contacts" onclick="ownershipValidateSwitchTab('contacts')">Contact issues</button>
+        </div>
+        <div id="ownership-validate-results" style="margin-top: 12px;">
+          <div id="ownership-validate-gaps" class="ownership-validate-panel"></div>
+          <div id="ownership-validate-overlaps" class="ownership-validate-panel" style="display: none;"></div>
+          <div id="ownership-validate-contacts" class="ownership-validate-panel" style="display: none;"></div>
+        </div>
+        <div style="margin-top: 12px;">
+          <button type="button" class="btn btn-secondary btn-sm" onclick="ownershipValidateExportCSV()">Export results CSV</button>
         </div>
       </div>
     </div>
@@ -17472,7 +18306,10 @@
   <div class="toast-container" id="toast-container"></div>
   
   <!-- App Shell JavaScript -->
-  <script src="app-shell.js"></script>
+  <script src="/prototypes/create-new-inventory/app-shell.js"></script>
+  <script src="fixtures/ownership-fixtures.js"></script>
+  <script src="lib/ownership.js"></script>
+  <script src="lib/ownership-integrations.js"></script>
   
   <!-- Prototype JavaScript -->
   <script>
@@ -17502,6 +18339,11 @@
 
       document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
       targetView.classList.add('active');
+      targetView.style.display = 'block';
+
+      requestAnimationFrame(function () {
+        targetView.scrollIntoView({ behavior: 'instant', block: 'start' });
+      });
 
       // When entering view-only: use V2 view with read-only mode (no DOM move)
       if (viewOnlyMode && v2View && panel) {
@@ -17529,6 +18371,10 @@
       if (viewId === 'ef-selection-review') {
         initEFEntityTableFull();
       }
+      if (viewId === 'campaigns-overview' || viewId === 'create-campaign' || viewId === 'campaign-tracking' || viewId === 'campaign-detail' || viewId === 'ownership-register') {
+        if (typeof collapseSubmenuIfOpen === 'function') collapseSubmenuIfOpen();
+      }
+      if (viewId === 'ownership-register' && typeof ownershipRegisterInit === 'function') ownershipRegisterInit();
     }
     
     function getUomViewSuffix() {
@@ -18647,10 +19493,689 @@
     
     document.querySelectorAll('.submenu-item[data-view]').forEach(item => {
       item.addEventListener('click', (e) => {
+        var href = item.getAttribute('href') || '';
+        if (href === '#data-campaigns' || item.dataset.view === 'campaigns-overview') {
+          return;
+        }
         e.preventDefault();
         switchView(item.dataset.view);
       });
     });
+
+    // ============================================
+    // Data Campaigns – campaign overview, wizard, detail, tracking
+    // ============================================
+    var campaignWizardCurrentStep = 1;
+    var campaignWizardTotalSteps = 5;
+
+    function openCreateCampaignWizard() {
+      campaignWizardCurrentStep = 1;
+      updateCampaignWizardUI();
+      switchView('create-campaign');
+    }
+    function closeCreateCampaignWizard() {
+      switchView('campaigns-overview');
+    }
+    function campaignWizardNextStep() {
+      if (campaignWizardCurrentStep < campaignWizardTotalSteps) {
+        campaignWizardCurrentStep++;
+        updateCampaignWizardUI();
+      }
+    }
+    function campaignWizardPrevStep() {
+      if (campaignWizardCurrentStep > 1) {
+        campaignWizardCurrentStep--;
+        updateCampaignWizardUI();
+      }
+    }
+    function updateCampaignWizardUI() {
+      var stepper = document.getElementById('campaign-wizard-stepper');
+      var contents = document.querySelectorAll('#view-create-campaign .wizard-step-content');
+      var steps = stepper ? stepper.querySelectorAll('.wizard-step') : [];
+      steps.forEach(function(s, i) {
+        var n = parseInt(s.getAttribute('data-step'), 10);
+        s.classList.toggle('active', n === campaignWizardCurrentStep);
+        s.classList.toggle('completed', n < campaignWizardCurrentStep);
+      });
+      contents.forEach(function(c) {
+        var n = parseInt(c.getAttribute('data-step'), 10);
+        c.classList.toggle('active', n === campaignWizardCurrentStep);
+      });
+      var backBtn = document.getElementById('campaign-wizard-back');
+      var nextBtn = document.getElementById('campaign-wizard-next');
+      var publishBtn = document.getElementById('campaign-wizard-publish');
+      if (backBtn) backBtn.style.display = campaignWizardCurrentStep > 1 ? '' : 'none';
+      if (nextBtn) nextBtn.style.display = campaignWizardCurrentStep < campaignWizardTotalSteps ? '' : 'none';
+      if (publishBtn) publishBtn.style.display = campaignWizardCurrentStep === campaignWizardTotalSteps ? '' : 'none';
+      if (campaignWizardCurrentStep === 5) {
+        var name = document.getElementById('campaign-name');
+        var start = document.getElementById('campaign-period-start');
+        var end = document.getElementById('campaign-period-end');
+        var due = document.getElementById('campaign-due-date');
+        if (document.getElementById('campaign-review-name')) document.getElementById('campaign-review-name').textContent = name && name.value ? name.value : '—';
+        if (document.getElementById('campaign-review-period')) document.getElementById('campaign-review-period').textContent = (start && start.value && end && end.value) ? start.value + ' to ' + end.value : '—';
+        if (document.getElementById('campaign-review-due')) document.getElementById('campaign-review-due').textContent = due && due.value ? due.value : '—';
+      }
+    }
+    function toggleCampaignModule(el) {
+      if (el && el.classList) el.classList.toggle('selected');
+    }
+    function viewCampaignDetail(id) {
+      switchView('campaign-detail');
+      var names = { 'q1-2025': 'Q1 2025 Sustainability Data', 'q4-2024': 'Q4 2024 Environmental Reporting', 'q2-2025': 'Q2 2025 Energy & Travel', 'fuel-oct': 'October 2024 Fuel Consumption' };
+      var title = document.getElementById('campaign-detail-title');
+      var nameSpan = document.getElementById('campaign-detail-name');
+      if (title) title.textContent = names[id] || 'Campaign';
+      if (nameSpan) nameSpan.textContent = names[id] || 'Campaign';
+    }
+    function toggleCampaignActionsMenu(ev, id) {
+      ev.stopPropagation();
+      var menu = document.getElementById('campaign-actions-' + id);
+      var open = document.querySelector('.campaign-actions-menu.open');
+      if (open && open !== menu) open.classList.remove('open');
+      if (menu) menu.classList.toggle('open');
+      setTimeout(function() {
+        document.addEventListener('click', function closeCampaignMenu() {
+          document.querySelectorAll('.campaign-actions-menu.open').forEach(function(m) { m.classList.remove('open'); });
+          document.removeEventListener('click', closeCampaignMenu);
+        });
+      }, 0);
+    }
+    function duplicateCampaign(id) {
+      document.querySelectorAll('.campaign-actions-menu.open').forEach(function(m) { m.classList.remove('open'); });
+      if (typeof showToast === 'function') showToast('Campaign duplicated (prototype)', 'success');
+    }
+    function archiveCampaign(id) {
+      document.querySelectorAll('.campaign-actions-menu.open').forEach(function(m) { m.classList.remove('open'); });
+      if (typeof showToast === 'function') showToast('Campaign archived (prototype)', 'info');
+    }
+    var contributorDetailNames = { sarah: 'Sarah Chen', marcus: 'Marcus Webb', tokyo: 'Tokyo Office (group)', james: 'James Park', anna: 'Anna Lindqvist' };
+    var contributorDetailStatus = { sarah: 'Submitted', marcus: 'In progress', tokyo: 'Needs revision', james: 'Not started', anna: 'Approved' };
+    var contributorDetailModules = { sarah: 'Energy, Travel', marcus: 'Energy, Fuel, Waste', tokyo: 'Energy, Travel', james: 'Travel', anna: 'Energy, Fuel' };
+    function openContributorDetailModal(id) {
+      var titleEl = document.getElementById('contributor-detail-modal-title');
+      var statusEl = document.getElementById('contributor-detail-status');
+      var modulesEl = document.getElementById('contributor-detail-modules');
+      if (titleEl) titleEl.textContent = contributorDetailNames[id] || 'Contributor';
+      if (statusEl) statusEl.innerHTML = 'Status: <span class="contributor-status-badge ' + (contributorDetailStatus[id] || '').toLowerCase().replace(/\s+/g, '-') + '">' + (contributorDetailStatus[id] || '—') + '</span>';
+      if (modulesEl) modulesEl.textContent = 'Modules: ' + (contributorDetailModules[id] || '—');
+      if (typeof openModal === 'function') openModal('contributor-detail-modal');
+    }
+    function closeContributorDetailModal() {
+      if (typeof closeModal === 'function') closeModal('contributor-detail-modal');
+    }
+    function toggleExportCampaignMenu(ev) {
+      ev.stopPropagation();
+      var menu = document.getElementById('campaign-export-menu');
+      if (menu) menu.classList.toggle('open');
+      setTimeout(function() {
+        document.addEventListener('click', function closeExport() {
+          if (menu) menu.classList.remove('open');
+          document.removeEventListener('click', closeExport);
+        });
+      }, 0);
+    }
+    function exportCampaign(format) {
+      document.getElementById('campaign-export-menu').classList.remove('open');
+      if (typeof showToast === 'function') showToast('Export as ' + format.toUpperCase() + ' (prototype)', 'success');
+    }
+    function publishCampaign() {
+      if (typeof showToast === 'function') showToast('Campaign published (prototype)', 'success');
+      switchView('campaigns-overview');
+    }
+    document.querySelectorAll('.campaign-tab[data-campaign-tab]').forEach(function(tab) {
+      tab.addEventListener('click', function() {
+        document.querySelectorAll('.campaign-tab[data-campaign-tab]').forEach(function(t) { t.classList.remove('active'); });
+        tab.classList.add('active');
+      });
+    });
+
+    // ============================================
+    // Data Owner Directory
+    // ============================================
+    var _ownershipRules = [];
+    var _ownershipEditingId = null;
+
+    function getOwnershipData() {
+      var F = typeof OwnershipFixtures !== 'undefined' ? OwnershipFixtures : { users: [], teams: [], sites: [], businessUnits: [], dataCategories: [], ownershipRules: [] };
+      return {
+        users: (F.users || []).slice(),
+        teams: (F.teams || []).slice(),
+        sites: (F.sites || []).slice(),
+        businessUnits: (F.businessUnits || []).slice(),
+        dataCategories: (F.dataCategories || []).slice(),
+        rules: (_ownershipRules.length ? _ownershipRules : (F.ownershipRules || []).slice())
+      };
+    }
+
+    function ownershipRegisterInit() {
+      var d = getOwnershipData();
+      _ownershipRules = d.rules;
+      var siteSel = document.getElementById('ownership-filter-site');
+      var buSel = document.getElementById('ownership-filter-bu');
+      var catSel = document.getElementById('ownership-filter-category');
+      if (siteSel) {
+        siteSel.innerHTML = '<option value="">All sites</option>';
+        d.sites.forEach(function(s) { siteSel.appendChild(new Option(s.name + ' (' + s.code + ')', s.id)); });
+      }
+      if (buSel) {
+        buSel.innerHTML = '<option value="">All business units</option>';
+        d.businessUnits.forEach(function(b) { buSel.appendChild(new Option(b.name + ' (' + b.code + ')', b.id)); });
+      }
+      if (catSel) {
+        catSel.innerHTML = '<option value="">All categories</option>';
+        d.dataCategories.forEach(function(c) { catSel.appendChild(new Option(c.name + ' (' + c.code + ')', c.id)); });
+      }
+      ownershipApplyFilters();
+    }
+
+    function ownershipApplyFilters() {
+      var d = getOwnershipData();
+      var scope = (document.getElementById('ownership-filter-scope') || {}).value;
+      var siteId = (document.getElementById('ownership-filter-site') || {}).value;
+      var buId = (document.getElementById('ownership-filter-bu') || {}).value;
+      var catId = (document.getElementById('ownership-filter-category') || {}).value;
+      var activeOnlyEl = document.getElementById('ownership-filter-active-checkbox');
+      var activeOnly = activeOnlyEl ? activeOnlyEl.checked : true;
+      var filtered = d.rules.filter(function(r) {
+        if (scope && r.scope !== scope) return false;
+        if (siteId && r.siteId !== siteId) return false;
+        if (buId && r.businessUnitId !== buId) return false;
+        if (catId && r.dataCategoryId !== catId) return false;
+        if (activeOnly && !r.active) return false;
+        return true;
+      });
+      ownershipRenderTable(filtered, d);
+    }
+
+    function ownershipRenderTable(rules, d) {
+      d = d || getOwnershipData();
+      var tbody = document.getElementById('ownership-rules-tbody');
+      var emptyState = document.getElementById('ownership-empty-state');
+      var noResults = document.getElementById('ownership-no-results');
+      var tableCard = document.getElementById('ownership-table-card');
+      if (!tbody) return;
+      function byId(list, id) {
+        if (!id) return null;
+        for (var i = 0; i < list.length; i++) if (list[i].id === id) return list[i];
+        return null;
+      }
+      function userChip(u) {
+        if (!u) return '—';
+        var cls = u.active ? '' : ' inactive';
+        var title = (u.name || '') + (u.email ? ' (' + u.email + ')' : '');
+        return '<span class="ownership-user-chip' + cls + '" title="' + (title.replace(/"/g, '&quot;')) + '">' + (u.name || u.id) + (u.active ? '' : ' <span aria-label="Inactive">(inactive)</span>') + '</span>';
+      }
+      function scopeLabel(r) {
+        if (r.scope === 'site') return 'Site';
+        if (r.scope === 'businessUnit') return 'Business unit';
+        return 'Global';
+      }
+      function siteBuLabel(r) {
+        if (r.scope === 'site' && r.siteId) {
+          var s = byId(d.sites, r.siteId);
+          return s ? s.name + ' (' + s.code + ')' : r.siteId;
+        }
+        if (r.scope === 'businessUnit' && r.businessUnitId) {
+          var b = byId(d.businessUnits, r.businessUnitId);
+          return b ? b.name + ' (' + b.code + ')' : r.businessUnitId;
+        }
+        return '—';
+      }
+      function categoryLabel(r) {
+        var c = byId(d.dataCategories, r.dataCategoryId);
+        return c ? c.name + ' (' + c.code + ')' : r.dataCategoryId;
+      }
+      function effectiveLabel(r) {
+        var from = r.effectiveFrom || '—';
+        var to = r.effectiveTo || 'Ongoing';
+        var now = new Date();
+        var expired = r.effectiveTo && new Date(r.effectiveTo) < now;
+        var scheduled = r.effectiveFrom && new Date(r.effectiveFrom) > now;
+        var badge = expired ? ' <span class="badge badge-warning">Expired</span>' : (scheduled ? ' <span class="badge" style="background: var(--ghg-info-light); color: var(--ghg-info);">Scheduled</span>' : '');
+        return from + ' → ' + to + badge;
+      }
+      if (d.rules.length === 0) {
+        emptyState.style.display = 'block';
+        noResults.style.display = 'none';
+        tableCard.style.display = 'none';
+        tbody.innerHTML = '';
+        return;
+      }
+      emptyState.style.display = 'none';
+      if (rules.length === 0) {
+        noResults.style.display = 'block';
+        tableCard.style.display = 'none';
+        tbody.innerHTML = '';
+        return;
+      }
+      noResults.style.display = 'none';
+      tableCard.style.display = 'block';
+      var html = '';
+      rules.forEach(function(r) {
+        var primary = byId(d.users, r.primaryUserId);
+        var secondary = byId(d.users, r.secondaryUserId);
+        var approver = byId(d.users, r.approverUserId);
+        var team = byId(d.teams, r.teamId);
+        html += '<tr>';
+        html += '<td>' + siteBuLabel(r) + '</td>';
+        html += '<td>' + categoryLabel(r) + '</td>';
+        html += '<td>' + userChip(primary) + '</td>';
+        html += '<td>' + userChip(secondary) + '</td>';
+        html += '<td>' + (team ? team.name : '—') + '</td>';
+        html += '<td>' + userChip(approver) + '</td>';
+        html += '<td>' + effectiveLabel(r) + '</td>';
+        html += '<td><span class="campaign-status-badge ' + (r.active ? 'completed' : 'not-started') + '">' + (r.active ? 'Active' : 'Inactive') + '</span></td>';
+        html += '<td onclick="event.stopPropagation();">';
+        html += '<div class="dropdown-inline">';
+        html += '<button type="button" class="btn btn-ghost btn-sm" onclick="toggleOwnershipRowActionsMenu(event, \'' + r.id + '\')" aria-label="Row actions" aria-haspopup="true"><i class="fa-light fa-ellipsis"></i></button>';
+        html += '<div class="dropdown-menu ownership-row-actions-menu" id="ownership-row-actions-' + r.id + '">';
+        html += '<button type="button" class="dropdown-item" onclick="closeOwnershipRowActionsMenus(); ownershipRuleEdit(\'' + r.id + '\');"><i class="fa-light fa-pen"></i> Edit</button>';
+        html += '<button type="button" class="dropdown-item" onclick="closeOwnershipRowActionsMenus(); ownershipRuleToggleActive(\'' + r.id + '\');"><i class="fa-light fa-toggle-' + (r.active ? 'off' : 'on') + '"></i> ' + (r.active ? 'Deactivate' : 'Activate') + '</button>';
+        html += '<button type="button" class="dropdown-item" onclick="closeOwnershipRowActionsMenus(); ownershipRuleDuplicate(\'' + r.id + '\');"><i class="fa-light fa-copy"></i> Duplicate</button>';
+        html += '</div></div></td>';
+        html += '</tr>';
+      });
+      tbody.innerHTML = html;
+    }
+
+    function openOwnershipRuleModal(ruleId) {
+      _ownershipEditingId = ruleId || null;
+      var title = document.getElementById('ownership-rule-modal-title');
+      var saveBtn = document.getElementById('ownership-rule-save-btn');
+      if (title) title.textContent = ruleId ? 'Edit ownership rule' : 'Add ownership rule';
+      if (saveBtn) saveBtn.textContent = ruleId ? 'Save changes' : 'Add rule';
+      var d = getOwnershipData();
+      var siteGroup = document.getElementById('ownership-rule-site-group');
+      var buGroup = document.getElementById('ownership-rule-bu-group');
+      ['ownership-rule-site', 'ownership-rule-bu', 'ownership-rule-category', 'ownership-rule-primary', 'ownership-rule-secondary', 'ownership-rule-approver', 'ownership-rule-team'].forEach(function(id) {
+        var el = document.getElementById(id);
+        if (el) el.innerHTML = id.indexOf('category') !== -1 ? '<option value="">Select category</option>' : (id.indexOf('rule-team') !== -1 ? '<option value="">—</option>' : '<option value="">—</option>');
+      });
+      d.sites.forEach(function(s) {
+        var el = document.getElementById('ownership-rule-site');
+        if (el) el.appendChild(new Option(s.name + ' (' + s.code + ')', s.id));
+      });
+      d.businessUnits.forEach(function(b) {
+        var el = document.getElementById('ownership-rule-bu');
+        if (el) el.appendChild(new Option(b.name + ' (' + b.code + ')', b.id));
+      });
+      d.dataCategories.forEach(function(c) {
+        var el = document.getElementById('ownership-rule-category');
+        if (el) el.appendChild(new Option(c.name + ' (' + c.code + ')', c.id));
+      });
+      d.users.forEach(function(u) {
+        var opt = new Option(u.name + (u.email ? ' (' + u.email + ')' : ''), u.id);
+        ['ownership-rule-primary', 'ownership-rule-secondary', 'ownership-rule-approver'].forEach(function(id) {
+          var el = document.getElementById(id);
+          if (el) el.appendChild(new Option(opt.text, opt.value));
+        });
+      });
+      d.teams.forEach(function(t) {
+        var el = document.getElementById('ownership-rule-team');
+        if (el) el.appendChild(new Option(t.name, t.id));
+      });
+      if (ruleId) {
+        var r = d.rules.filter(function(x) { return x.id === ruleId; })[0];
+        if (r) {
+          document.getElementById('ownership-rule-scope').value = r.scope;
+          ownershipRuleScopeChange();
+          document.getElementById('ownership-rule-site').value = r.siteId || '';
+          document.getElementById('ownership-rule-bu').value = r.businessUnitId || '';
+          document.getElementById('ownership-rule-category').value = r.dataCategoryId || '';
+          document.getElementById('ownership-rule-primary').value = r.primaryUserId || '';
+          document.getElementById('ownership-rule-secondary').value = r.secondaryUserId || '';
+          document.getElementById('ownership-rule-approver').value = r.approverUserId || '';
+          document.getElementById('ownership-rule-team').value = r.teamId || '';
+          document.getElementById('ownership-rule-from').value = r.effectiveFrom || '';
+          document.getElementById('ownership-rule-to').value = r.effectiveTo || '';
+          document.getElementById('ownership-rule-notes').value = r.notes || '';
+          document.getElementById('ownership-rule-active').checked = r.active !== false;
+        }
+      } else {
+        document.getElementById('ownership-rule-scope').value = '';
+        ownershipRuleScopeChange();
+        document.getElementById('ownership-rule-from').value = '';
+        document.getElementById('ownership-rule-to').value = '';
+        document.getElementById('ownership-rule-notes').value = '';
+        document.getElementById('ownership-rule-active').checked = true;
+      }
+      document.getElementById('ownership-rule-validation-msg').style.display = 'none';
+      if (typeof openModal === 'function') openModal('ownership-rule-modal');
+    }
+
+    function ownershipRuleScopeChange() {
+      var scope = (document.getElementById('ownership-rule-scope') || {}).value;
+      document.getElementById('ownership-rule-site-group').style.display = scope === 'site' ? 'block' : 'none';
+      document.getElementById('ownership-rule-bu-group').style.display = scope === 'businessUnit' ? 'block' : 'none';
+    }
+
+    function ownershipRuleSave() {
+      var scope = (document.getElementById('ownership-rule-scope') || {}).value;
+      var siteId = (document.getElementById('ownership-rule-site') || {}).value;
+      var buId = (document.getElementById('ownership-rule-bu') || {}).value;
+      var categoryId = (document.getElementById('ownership-rule-category') || {}).value;
+      var msgEl = document.getElementById('ownership-rule-validation-msg');
+      if (!categoryId) {
+        msgEl.textContent = 'Please select a data category.';
+        msgEl.style.display = 'block';
+        return;
+      }
+      if (!scope) {
+        msgEl.textContent = 'Please select a scope (site, business unit, or global).';
+        msgEl.style.display = 'block';
+        return;
+      }
+      if (scope === 'site' && !siteId) {
+        msgEl.textContent = 'Please select a site.';
+        msgEl.style.display = 'block';
+        return;
+      }
+      if (scope === 'businessUnit' && !buId) {
+        msgEl.textContent = 'Please select a business unit.';
+        msgEl.style.display = 'block';
+        return;
+      }
+      msgEl.style.display = 'none';
+      var d = getOwnershipData();
+      var id = _ownershipEditingId || 'r' + (Date.now().toString(36));
+      var rule = {
+        id: id,
+        scope: scope,
+        siteId: scope === 'site' ? siteId : null,
+        businessUnitId: scope === 'businessUnit' ? buId : null,
+        dataCategoryId: categoryId,
+        primaryUserId: (document.getElementById('ownership-rule-primary') || {}).value || undefined,
+        secondaryUserId: (document.getElementById('ownership-rule-secondary') || {}).value || undefined,
+        approverUserId: (document.getElementById('ownership-rule-approver') || {}).value || undefined,
+        teamId: (document.getElementById('ownership-rule-team') || {}).value || undefined,
+        notes: (document.getElementById('ownership-rule-notes') || {}).value || undefined,
+        effectiveFrom: (document.getElementById('ownership-rule-from') || {}).value || undefined,
+        effectiveTo: (document.getElementById('ownership-rule-to') || {}).value || undefined,
+        active: (document.getElementById('ownership-rule-active') || {}).checked
+      };
+      var idx = d.rules.findIndex(function(x) { return x.id === id; });
+      if (idx >= 0) d.rules[idx] = rule; else d.rules.push(rule);
+      _ownershipRules = d.rules;
+      closeOwnershipRuleModal();
+      ownershipApplyFilters();
+      if (typeof showToast === 'function') showToast(_ownershipEditingId ? 'Rule updated' : 'Rule added', 'success');
+      _ownershipEditingId = null;
+    }
+
+    function closeOwnershipRuleModal() {
+      _ownershipEditingId = null;
+      if (typeof closeModal === 'function') closeModal('ownership-rule-modal');
+    }
+
+    function ownershipRuleEdit(ruleId) {
+      openOwnershipRuleModal(ruleId);
+    }
+
+    function ownershipRuleToggleActive(ruleId) {
+      var d = getOwnershipData();
+      var r = d.rules.filter(function(x) { return x.id === ruleId; })[0];
+      if (r) {
+        r.active = !r.active;
+        _ownershipRules = d.rules;
+        ownershipApplyFilters();
+        if (typeof showToast === 'function') showToast(r.active ? 'Rule activated' : 'Rule deactivated', 'info');
+      }
+    }
+
+    function ownershipRuleDuplicate(ruleId) {
+      var d = getOwnershipData();
+      var r = d.rules.filter(function(x) { return x.id === ruleId; })[0];
+      if (r) {
+        var copy = JSON.parse(JSON.stringify(r));
+        copy.id = 'r' + Date.now().toString(36);
+        d.rules.push(copy);
+        _ownershipRules = d.rules;
+        ownershipApplyFilters();
+        if (typeof showToast === 'function') showToast('Rule duplicated', 'success');
+      }
+    }
+
+    function ownershipResetFilters() {
+      document.getElementById('ownership-filter-site').value = '';
+      document.getElementById('ownership-filter-bu').value = '';
+      document.getElementById('ownership-filter-category').value = '';
+      var activeCheck = document.getElementById('ownership-filter-active-checkbox');
+      if (activeCheck) activeCheck.checked = true;
+      ownershipApplyFilters();
+    }
+
+    function ownershipExportCSV() {
+      var d = getOwnershipData();
+      var scope = (document.getElementById('ownership-filter-scope') || {}).value;
+      var siteId = (document.getElementById('ownership-filter-site') || {}).value;
+      var buId = (document.getElementById('ownership-filter-bu') || {}).value;
+      var catId = (document.getElementById('ownership-filter-category') || {}).value;
+      var activeOnlyEl = document.getElementById('ownership-filter-active-checkbox');
+      var activeOnly = activeOnlyEl ? activeOnlyEl.checked : true;
+      var rules = d.rules.filter(function(r) {
+        if (scope && r.scope !== scope) return false;
+        if (siteId && r.siteId !== siteId) return false;
+        if (buId && r.businessUnitId !== buId) return false;
+        if (catId && r.dataCategoryId !== catId) return false;
+        if (activeOnly && !r.active) return false;
+        return true;
+      });
+      function byId(list, id) {
+        if (!id) return null;
+        for (var i = 0; i < list.length; i++) if (list[i].id === id) return list[i];
+        return null;
+      }
+      var headers = 'Scope,Site/Business unit,Site Code,Business unit Code,Category,Category Code,Primary,Primary Email,Secondary,Approver,Team,Effective From,Effective To,Active,Notes\n';
+      var rows = rules.map(function(r) {
+        var s = byId(d.sites, r.siteId);
+        var b = byId(d.businessUnits, r.businessUnitId);
+        var c = byId(d.dataCategories, r.dataCategoryId);
+        var p = byId(d.users, r.primaryUserId);
+        var s2 = byId(d.users, r.secondaryUserId);
+        var a = byId(d.users, r.approverUserId);
+        var t = byId(d.teams, r.teamId);
+        return [
+          r.scope,
+          s ? s.name : (b ? b.name : '—'),
+          s ? s.code : '',
+          b ? b.code : '',
+          c ? c.name : '',
+          c ? c.code : '',
+          p ? p.name : '',
+          p ? p.email : '',
+          s2 ? s2.name : '',
+          a ? a.name : '',
+          t ? t.name : '',
+          r.effectiveFrom || '',
+          r.effectiveTo || '',
+          r.active ? 'Yes' : 'No',
+          (r.notes || '').replace(/"/g, '""')
+        ].map(function(cell) { return '"' + String(cell) + '"'; }).join(',');
+      });
+      var csv = headers + rows.join('\n');
+      var blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'ownership-rules.csv';
+      a.click();
+      URL.revokeObjectURL(a.href);
+      if (typeof showToast === 'function') showToast('CSV exported', 'success');
+    }
+
+    var _ownershipValidateResult = null;
+
+    function toggleOwnershipActionsMenu(ev) {
+      ev.stopPropagation();
+      var menu = document.getElementById('ownership-actions-menu');
+      var btn = document.getElementById('ownership-actions-btn');
+      if (menu) menu.classList.toggle('open');
+      if (btn) btn.setAttribute('aria-expanded', menu && menu.classList.contains('open'));
+      setTimeout(function() {
+        document.addEventListener('click', function closeOwnershipActionsMenuListener() {
+          if (menu) menu.classList.remove('open');
+          if (btn) btn.setAttribute('aria-expanded', 'false');
+          document.removeEventListener('click', closeOwnershipActionsMenuListener);
+        });
+      }, 0);
+    }
+    function closeOwnershipActionsMenu() {
+      var menu = document.getElementById('ownership-actions-menu');
+      var btn = document.getElementById('ownership-actions-btn');
+      if (menu) menu.classList.remove('open');
+      if (btn) btn.setAttribute('aria-expanded', 'false');
+    }
+    function toggleOwnershipRowActionsMenu(ev, ruleId) {
+      ev.stopPropagation();
+      var menu = document.getElementById('ownership-row-actions-' + ruleId);
+      var open = document.querySelector('.ownership-row-actions-menu.open');
+      if (open && open !== menu) open.classList.remove('open');
+      if (menu) menu.classList.toggle('open');
+      setTimeout(function() {
+        document.addEventListener('click', function closeRowMenu() {
+          document.querySelectorAll('.ownership-row-actions-menu.open').forEach(function(m) { m.classList.remove('open'); });
+          document.removeEventListener('click', closeRowMenu);
+        });
+      }, 0);
+    }
+    function closeOwnershipRowActionsMenus() {
+      document.querySelectorAll('.ownership-row-actions-menu.open').forEach(function(m) { m.classList.remove('open'); });
+    }
+
+    function openOwnershipValidateModal() {
+      var d = getOwnershipData();
+      var sitesEl = document.getElementById('ownership-validate-sites');
+      var busEl = document.getElementById('ownership-validate-bus');
+      var catsEl = document.getElementById('ownership-validate-categories');
+      if (sitesEl) {
+        sitesEl.innerHTML = '';
+        d.sites.forEach(function(s) { sitesEl.appendChild(new Option(s.name + ' (' + s.code + ')', s.id)); });
+      }
+      if (busEl) {
+        busEl.innerHTML = '';
+        d.businessUnits.forEach(function(b) { busEl.appendChild(new Option(b.name + ' (' + b.code + ')', b.id)); });
+      }
+      if (catsEl) {
+        catsEl.innerHTML = '';
+        d.dataCategories.forEach(function(c) { catsEl.appendChild(new Option(c.name + ' (' + c.code + ')', c.id)); });
+      }
+      document.getElementById('ownership-validate-date').value = new Date().toISOString().slice(0, 10);
+      _ownershipValidateResult = null;
+      ['ownership-validate-gaps', 'ownership-validate-overlaps', 'ownership-validate-contacts'].forEach(function(id) {
+        var el = document.getElementById(id);
+        if (el) el.innerHTML = '<p class="form-hint">Run validation to see results.</p>';
+      });
+      document.querySelectorAll('#ownership-validate-tabs .campaign-tab').forEach(function(t) { t.classList.remove('active'); });
+      document.querySelector('#ownership-validate-tabs .campaign-tab[data-validate-tab="gaps"]').classList.add('active');
+      document.getElementById('ownership-validate-gaps').style.display = 'block';
+      document.getElementById('ownership-validate-overlaps').style.display = 'none';
+      document.getElementById('ownership-validate-contacts').style.display = 'none';
+      if (typeof openModal === 'function') openModal('ownership-validate-modal');
+    }
+
+    function closeOwnershipValidateModal() {
+      if (typeof closeModal === 'function') closeModal('ownership-validate-modal');
+    }
+
+    function ownershipValidateRun() {
+      var d = getOwnershipData();
+      var siteIds = Array.from((document.getElementById('ownership-validate-sites') || {}).selectedOptions || []).map(function(o) { return o.value; });
+      var buIds = Array.from((document.getElementById('ownership-validate-bus') || {}).selectedOptions || []).map(function(o) { return o.value; });
+      var catIds = Array.from((document.getElementById('ownership-validate-categories') || {}).selectedOptions || []).map(function(o) { return o.value; });
+      var atDate = (document.getElementById('ownership-validate-date') || {}).value || undefined;
+      if (!catIds.length) {
+        if (typeof showToast === 'function') showToast('Select at least one category', 'info');
+        return;
+      }
+      var options = { siteIds: siteIds, businessUnitIds: buIds, dataCategoryIds: catIds, atDate: atDate, rules: d.rules, users: d.users, teams: d.teams };
+      var result = typeof OwnershipLib !== 'undefined' && OwnershipLib.validateCoverage ? OwnershipLib.validateCoverage(options) : { gaps: [], overlaps: [], contactIssues: [] };
+      _ownershipValidateResult = result;
+      var gapsEl = document.getElementById('ownership-validate-gaps');
+      var contactsEl = document.getElementById('ownership-validate-contacts');
+      function byId(list, id) {
+        if (!id) return null;
+        for (var i = 0; i < list.length; i++) if (list[i].id === id) return list[i];
+        return null;
+      }
+      if (result.gaps.length) {
+        gapsEl.innerHTML = '<table class="data-table"><thead><tr><th>Scope</th><th>Site / Business unit</th><th>Category</th><th>Message</th></tr></thead><tbody>' +
+          result.gaps.map(function(g) {
+            var site = byId(d.sites, g.siteId);
+            var bu = byId(d.businessUnits, g.businessUnitId);
+            var cat = byId(d.dataCategories, g.dataCategoryId);
+            return '<tr><td>' + (g.scope || '—') + '</td><td>' + (site ? site.name : (bu ? bu.name : '—')) + '</td><td>' + (cat ? cat.name : g.dataCategoryId) + '</td><td>' + (g.message || 'No rule') + '</td></tr>';
+          }).join('') + '</tbody></table>';
+      } else {
+        gapsEl.innerHTML = '<p class="form-hint">No gaps found.</p>';
+      }
+      if (result.contactIssues.length) {
+        contactsEl.innerHTML = '<table class="data-table"><thead><tr><th>Scope</th><th>Site / Business unit</th><th>Category</th><th>Rule</th><th>Issues</th></tr></thead><tbody>' +
+          result.contactIssues.map(function(g) {
+            var site = byId(d.sites, g.siteId);
+            var bu = byId(d.businessUnits, g.businessUnitId);
+            var cat = byId(d.dataCategories, g.dataCategoryId);
+            return '<tr><td>' + (g.scope || '—') + '</td><td>' + (site ? site.name : (bu ? bu.name : '—')) + '</td><td>' + (cat ? cat.name : g.dataCategoryId) + '</td><td>' + (g.sourceRuleId || '—') + '</td><td>' + (g.messages || []).join('; ') + '</td></tr>';
+          }).join('') + '</tbody></table>';
+      } else {
+        contactsEl.innerHTML = '<p class="form-hint">No contact issues.</p>';
+      }
+      var overlapsEl = document.getElementById('ownership-validate-overlaps');
+      overlapsEl.innerHTML = '<p class="form-hint">Overlap detection can be extended; currently no overlaps reported.</p>';
+      if (typeof showToast === 'function') showToast('Validation complete', 'success');
+    }
+
+    function ownershipValidateSwitchTab(tabId) {
+      document.querySelectorAll('#ownership-validate-tabs .campaign-tab').forEach(function(t) {
+        t.classList.toggle('active', t.getAttribute('data-validate-tab') === tabId);
+      });
+      document.getElementById('ownership-validate-gaps').style.display = tabId === 'gaps' ? 'block' : 'none';
+      document.getElementById('ownership-validate-overlaps').style.display = tabId === 'overlaps' ? 'block' : 'none';
+      document.getElementById('ownership-validate-contacts').style.display = tabId === 'contacts' ? 'block' : 'none';
+    }
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key !== 'Escape') return;
+      if (document.getElementById('ownership-rule-modal') && document.getElementById('ownership-rule-modal').classList.contains('open')) {
+        closeOwnershipRuleModal();
+      }
+      if (document.getElementById('ownership-validate-modal') && document.getElementById('ownership-validate-modal').classList.contains('open')) {
+        closeOwnershipValidateModal();
+      }
+    });
+
+    function ownershipValidateExportCSV() {
+      if (!_ownershipValidateResult) {
+        if (typeof showToast === 'function') showToast('Run validation first', 'info');
+        return;
+      }
+      var d = getOwnershipData();
+      function byId(list, id) {
+        if (!id) return null;
+        for (var i = 0; i < list.length; i++) if (list[i].id === id) return list[i];
+        return null;
+      }
+      var rows = [];
+      _ownershipValidateResult.gaps.forEach(function(g) {
+        var site = byId(d.sites, g.siteId);
+        var bu = byId(d.businessUnits, g.businessUnitId);
+        var cat = byId(d.dataCategories, g.dataCategoryId);
+        rows.push(['Gap', g.scope, site ? site.name : '', bu ? bu.name : '', cat ? cat.name : '', g.message || '']);
+      });
+      _ownershipValidateResult.contactIssues.forEach(function(g) {
+        var site = byId(d.sites, g.siteId);
+        var bu = byId(d.businessUnits, g.businessUnitId);
+        var cat = byId(d.dataCategories, g.dataCategoryId);
+        rows.push(['Contact issue', g.scope, site ? site.name : '', bu ? bu.name : '', cat ? cat.name : '', (g.messages || []).join('; ')]);
+      });
+      var csv = 'Type,Scope,Site,Business unit,Category,Detail\n' + rows.map(function(r) { return r.map(function(c) { return '"' + String(c).replace(/"/g, '""') + '"'; }).join(','); }).join('\n');
+      var blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'ownership-validate-results.csv';
+      a.click();
+      URL.revokeObjectURL(a.href);
+      if (typeof showToast === 'function') showToast('Results CSV exported', 'success');
+    }
     
     // Handle URL hash for cross-prototype navigation
     function handleHashNavigation() {
@@ -18660,7 +20185,10 @@
         'ef-selection': 'ef-selection-review',
         'unit-measure': 'unit-measure',
         'unit-measure-v2': 'unit-measure-v2',
-        'unit-measure-view-only': 'unit-measure-view-only'
+        'unit-measure-view-only': 'unit-measure-view-only',
+        'data-campaigns': 'campaigns-overview',
+        'data-owner-directory': 'ownership-register',
+        'ownership': 'ownership-register'
       };
       if (hash && hashToView[hash]) {
         switchView(hashToView[hash]);
@@ -18668,6 +20196,30 @@
     }
     handleHashNavigation();
     window.addEventListener('hashchange', handleHashNavigation);
+
+    (function moveCampaignViewsUp() {
+      var overview = document.getElementById('view-campaigns-overview');
+      var createCampaign = document.getElementById('view-create-campaign');
+      var tracking = document.getElementById('view-campaign-tracking');
+      var detail = document.getElementById('view-campaign-detail');
+      if (overview && overview.parentNode && createCampaign && tracking && detail) {
+        var parent = overview.parentNode;
+        if (overview.nextElementSibling && overview.nextElementSibling.id !== 'view-create-campaign') {
+          parent.insertBefore(detail, overview.nextSibling);
+          parent.insertBefore(tracking, overview.nextSibling);
+          parent.insertBefore(createCampaign, overview.nextSibling);
+        }
+      }
+    })();
+
+    function collapseSubmenuIfOpen() {
+      var panel = document.getElementById('submenuPanel');
+      if (panel && !panel.classList.contains('collapsed')) {
+        panel.classList.add('collapsed');
+        var icon = document.querySelector('.menu-toggle i');
+        if (icon) icon.className = 'fa-light fa-arrow-right-to-line';
+      }
+    }
     
     function viewInventoryResults(id) {
       switchView('inventory-results');

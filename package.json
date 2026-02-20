@@ -6,6 +6,9 @@
   "scripts": {
     "start": "python3 -m http.server 3333",
     "start:py": "python3 -m http.server 3333",
-    "serve": "npx --yes serve . -p 3333"
+    "serve": "npx --yes serve . -p 3333",
+    "serve:prototype": "python3 -m http.server 3334",
+    "open:prototype": "open http://localhost:3334/prototypes/create-new-inventory/index.html",
+    "dev": "node scripts/serve-and-open.js"
   }
 }
