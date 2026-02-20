@@ -1582,6 +1582,9 @@
       justify-content: center;
       opacity: 1;
     }
+    .modal-backdrop.open .modal {
+      display: flex;
+    }
     
     .modal {
       display: none;
@@ -10294,11 +10297,18 @@
     .campaign-detail-progress-card { background: var(--ghg-surface-elevated); border-radius: 8px; padding: 16px; text-align: center; }
     .campaign-detail-progress-card .value { font-size: 24px; font-weight: 700; color: var(--ghg-text); }
     .campaign-detail-progress-card .label { font-size: 12px; color: var(--ghg-text-muted); margin-top: 4px; }
+    .campaign-detail-progress-bars { display: flex; flex-direction: column; gap: 16px; }
+    .campaign-detail-progress-bar-row { display: flex; flex-direction: column; gap: 6px; }
+    .campaign-detail-progress-bar-label { font-size: 13px; font-weight: 600; color: var(--ghg-text); }
+    .campaign-detail-progress-bar-wrap { display: flex; align-items: center; gap: 12px; }
+    .campaign-detail-progress-bar-pct { font-size: 13px; font-weight: 600; color: var(--ghg-text-secondary); min-width: 36px; }
+    #view-create-campaign { display: none !important; }
     .campaign-wizard-stepper { margin-bottom: 28px; }
     .campaign-module-card { background: var(--ghg-surface); border: 1px solid var(--ghg-border); border-radius: 10px; padding: 16px; display: flex; align-items: center; gap: 16px; cursor: pointer; transition: all 0.2s; margin-bottom: 12px; }
     .campaign-module-card:hover { border-color: var(--ghg-border-strong); }
     .campaign-module-card.selected { border-color: var(--ghg-primary); box-shadow: 0 0 0 3px var(--ghg-primary-light); }
     .campaign-module-card .module-icon { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+    .campaign-modules-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
     .dropdown-inline { position: relative; display: inline-block; }
     .dropdown-menu { position: absolute; right: 0; top: 100%; margin-top: 4px; min-width: 160px; background: var(--ghg-surface); border: 1px solid var(--ghg-border); border-radius: 8px; box-shadow: var(--shadow-md); z-index: 100; padding: 6px; display: none; }
     .dropdown-menu.open { display: block; }
@@ -10313,12 +10323,27 @@
     .ownership-empty-state .btn { margin-top: 16px; }
     .ownership-user-chip { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border-radius: 6px; font-size: 12px; background: var(--ghg-surface-elevated); color: var(--ghg-text); }
     .ownership-user-chip.inactive { opacity: 0.7; color: var(--ghg-text-muted); }
+    .ownership-user-chip-clickable { cursor: pointer; border: none; font: inherit; font-family: var(--font-sans); }
+    .ownership-user-chip-clickable:hover { text-decoration: underline; }
+    .ownership-contact-popover { display: none; position: fixed; z-index: 200; min-width: 200px; padding: 12px; background: var(--ghg-surface); border: 1px solid var(--ghg-border); border-radius: 8px; box-shadow: var(--shadow-md); font-size: 13px; }
+    .ownership-contact-popover.open { display: block; }
+    .ownership-contact-popover .popover-name { font-weight: 600; margin-bottom: 8px; color: var(--ghg-text); }
+    .ownership-contact-popover .popover-row { margin-bottom: 4px; color: var(--ghg-text-secondary); }
+    .ownership-contact-popover .popover-row:last-child { margin-bottom: 0; }
     .ownership-validate-panel { min-height: 120px; }
     .ownership-validate-panel table { width: 100%; font-size: 13px; }
     .btn { white-space: nowrap; }
     .data-table td .btn-ghost { white-space: nowrap; }
     #ownership-validate-tabs { flex-wrap: nowrap; }
     .modal-footer .btn { white-space: nowrap; }
+    /* Create campaign modal: sticky footer */
+    .create-campaign-modal-wrap { max-height: 90vh; flex-direction: column; display: flex; }
+    .create-campaign-modal-body { flex: 1; min-height: 0; overflow-y: auto; padding: 24px; }
+    .create-campaign-modal-footer { flex-shrink: 0; background: var(--ghg-surface); border-top: 1px solid var(--ghg-border); padding: 16px 24px; }
+    #campaign-sites-table th:first-child,
+    #campaign-sites-table td:first-child { text-align: center; vertical-align: middle; }
+    .campaign-sites-select-all { display: inline-flex; align-items: center; justify-content: center; cursor: pointer; margin: 0; }
+    .campaign-site-module-chips { display: inline-flex; flex-wrap: wrap; gap: 6px; align-items: center; }
   </style>
 </head>
 <body>
@@ -10476,10 +10501,6 @@
                 <i class="fa-light fa-search"></i>
                 <input type="text" class="form-input" placeholder="Search campaigns..." id="campaign-search">
               </div>
-              <button class="btn btn-secondary">
-                <i class="fa-light fa-filter"></i>
-                Filter
-              </button>
             </div>
             <div class="campaign-tabs-wrap">
               <button class="campaign-tab active" data-campaign-tab="all">All</button>
@@ -10502,7 +10523,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr class="campaign-row" data-campaign-id="q1-2025" onclick="viewCampaignDetail('q1-2025')" style="cursor: pointer;">
+                    <tr class="campaign-row" data-campaign-id="q1-2025" onclick="openCampaignInNewPage('q1-2025')" style="cursor: pointer;">
                       <td><strong>Q1 2025 Sustainability Data</strong></td>
                       <td>Jan 1 – Mar 31, 2025</td>
                       <td><span class="campaign-status-badge in-progress"><i class="fa-light fa-spinner"></i> In progress</span></td>
@@ -10524,7 +10545,7 @@
                         </div>
                       </td>
                     </tr>
-                    <tr class="campaign-row" data-campaign-id="q4-2024" onclick="viewCampaignDetail('q4-2024')" style="cursor: pointer;">
+                    <tr class="campaign-row" data-campaign-id="q4-2024" onclick="openCampaignInNewPage('q4-2024')" style="cursor: pointer;">
                       <td><strong>Q4 2024 Environmental Reporting</strong></td>
                       <td>Oct 1 – Dec 31, 2024</td>
                       <td><span class="campaign-status-badge completed"><i class="fa-light fa-check-circle"></i> Completed</span></td>
@@ -10546,7 +10567,7 @@
                         </div>
                       </td>
                     </tr>
-                    <tr class="campaign-row" data-campaign-id="q2-2025" onclick="viewCampaignDetail('q2-2025')" style="cursor: pointer;">
+                    <tr class="campaign-row" data-campaign-id="q2-2025" onclick="openCampaignInNewPage('q2-2025')" style="cursor: pointer;">
                       <td><strong>Q2 2025 Energy & Travel</strong></td>
                       <td>Apr 1 – Jun 30, 2025</td>
                       <td><span class="campaign-status-badge scheduled"><i class="fa-light fa-calendar"></i> Scheduled</span></td>
@@ -10568,7 +10589,7 @@
                         </div>
                       </td>
                     </tr>
-                    <tr class="campaign-row" data-campaign-id="fuel-oct" onclick="viewCampaignDetail('fuel-oct')" style="cursor: pointer;">
+                    <tr class="campaign-row" data-campaign-id="fuel-oct" onclick="openCampaignInNewPage('fuel-oct')" style="cursor: pointer;">
                       <td><strong>October 2024 Fuel Consumption</strong></td>
                       <td>Oct 1 – Oct 31, 2024</td>
                       <td><span class="campaign-status-badge overdue"><i class="fa-light fa-clock"></i> Overdue</span></td>
@@ -10628,7 +10649,7 @@
                   </button>
                   <button type="button" class="dropdown-item" onclick="openOwnershipRuleModal(); closeOwnershipActionsMenu();">
                     <i class="fa-light fa-plus"></i>
-                    Add Rule
+                    Add data owner
                   </button>
                 </div>
               </div>
@@ -10636,14 +10657,11 @@
           </div>
           <div class="content-container">
             <div class="campaign-filters ownership-filters">
-              <select class="form-select ownership-filter" id="ownership-filter-site" aria-label="Filter by site" onchange="ownershipApplyFilters()">
-                <option value="">All sites</option>
+              <select class="form-select ownership-filter" id="ownership-filter-site" aria-label="Filter by business entity" onchange="ownershipApplyFilters()">
+                <option value="">All business entities</option>
               </select>
-              <select class="form-select ownership-filter" id="ownership-filter-bu" aria-label="Filter by business unit" onchange="ownershipApplyFilters()">
-                <option value="">All business units</option>
-              </select>
-              <select class="form-select ownership-filter" id="ownership-filter-category" aria-label="Filter by category" onchange="ownershipApplyFilters()">
-                <option value="">All categories</option>
+              <select class="form-select ownership-filter" id="ownership-filter-category" aria-label="Filter by data module" onchange="ownershipApplyFilters()">
+                <option value="">All data modules</option>
               </select>
             </div>
             <div class="ownership-toggle-row">
@@ -10657,7 +10675,7 @@
               <i class="fa-light fa-folder-open" aria-hidden="true"></i>
               <p><strong>No ownership rules yet</strong></p>
               <p>Add rules to map who owns data collection by site or business unit and category. This powers campaign auto-assignment and helps spot coverage gaps.</p>
-              <button type="button" class="btn btn-primary" onclick="openOwnershipRuleModal()">Add Rule</button>
+              <button type="button" class="btn btn-primary" onclick="openOwnershipRuleModal()">Add data owner</button>
             </div>
             <div id="ownership-no-results" class="ownership-empty-state" style="display: none;">
               <p>No rules match the current filters.</p>
@@ -10668,10 +10686,10 @@
                 <table class="data-table" id="ownership-rules-table" aria-label="Ownership rules">
                   <thead>
                     <tr>
-                      <th>Site / Business unit</th>
-                      <th>Category</th>
-                      <th>Primary</th>
-                      <th>Secondary</th>
+                      <th>Business entity</th>
+                      <th>Data module</th>
+                      <th>Primary contact</th>
+                      <th>Secondary contact</th>
                       <th>Team</th>
                       <th>Approver</th>
                       <th>Effective</th>
@@ -10683,6 +10701,11 @@
                   </tbody>
                 </table>
               </div>
+            </div>
+            <div id="ownership-contact-popover" class="ownership-contact-popover" role="tooltip" aria-live="polite">
+              <div class="popover-name" id="ownership-contact-popover-name"></div>
+              <div class="popover-row" id="ownership-contact-popover-role"></div>
+              <div class="popover-row" id="ownership-contact-popover-email"></div>
             </div>
           </div>
         </div>
@@ -17128,11 +17151,35 @@
                 <div class="card" style="margin-bottom: 24px;">
                   <div class="card-header"><h3 class="card-title" style="margin: 0;">Submission progress by category</h3></div>
                   <div class="card-body">
-                    <div class="campaign-detail-progress-grid">
-                      <div class="campaign-detail-progress-card"><div class="value">92%</div><div class="label">Energy</div></div>
-                      <div class="campaign-detail-progress-card"><div class="value">88%</div><div class="label">Fuel</div></div>
-                      <div class="campaign-detail-progress-card"><div class="value">75%</div><div class="label">Travel</div></div>
-                      <div class="campaign-detail-progress-card"><div class="value">100%</div><div class="label">Waste</div></div>
+                    <div class="campaign-detail-progress-bars">
+                      <div class="campaign-detail-progress-bar-row">
+                        <span class="campaign-detail-progress-bar-label">Energy</span>
+                        <div class="campaign-detail-progress-bar-wrap">
+                          <div class="progress-bar-wrap" style="flex: 1;"><div class="progress-bar-fill complete" style="width: 92%;"></div></div>
+                          <span class="campaign-detail-progress-bar-pct">92%</span>
+                        </div>
+                      </div>
+                      <div class="campaign-detail-progress-bar-row">
+                        <span class="campaign-detail-progress-bar-label">Fuel</span>
+                        <div class="campaign-detail-progress-bar-wrap">
+                          <div class="progress-bar-wrap" style="flex: 1;"><div class="progress-bar-fill complete" style="width: 88%;"></div></div>
+                          <span class="campaign-detail-progress-bar-pct">88%</span>
+                        </div>
+                      </div>
+                      <div class="campaign-detail-progress-bar-row">
+                        <span class="campaign-detail-progress-bar-label">Travel</span>
+                        <div class="campaign-detail-progress-bar-wrap">
+                          <div class="progress-bar-wrap" style="flex: 1;"><div class="progress-bar-fill" style="width: 75%;"></div></div>
+                          <span class="campaign-detail-progress-bar-pct">75%</span>
+                        </div>
+                      </div>
+                      <div class="campaign-detail-progress-bar-row">
+                        <span class="campaign-detail-progress-bar-label">Waste</span>
+                        <div class="campaign-detail-progress-bar-wrap">
+                          <div class="progress-bar-wrap" style="flex: 1;"><div class="progress-bar-fill complete" style="width: 100%;"></div></div>
+                          <span class="campaign-detail-progress-bar-pct">100%</span>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -17175,11 +17222,11 @@
               </div>
               <div class="card-body" style="padding: 0;">
                 <table class="data-table">
-                  <thead><tr><th>Contributor</th><th>Status</th><th>Last activity</th></tr></thead>
+                  <thead><tr><th>Contributor</th><th>Status</th><th>Last activity</th><th style="width: 100px;">Contact</th></tr></thead>
                   <tbody>
-                    <tr onclick="switchView('campaign-tracking')" style="cursor: pointer;"><td>Sarah Chen</td><td><span class="contributor-status-badge submitted">Submitted</span></td><td>Mar 12, 2025</td></tr>
-                    <tr onclick="switchView('campaign-tracking')" style="cursor: pointer;"><td>Marcus Webb</td><td><span class="contributor-status-badge in-progress">In progress</span></td><td>Mar 10, 2025</td></tr>
-                    <tr onclick="switchView('campaign-tracking')" style="cursor: pointer;"><td>Tokyo Office</td><td><span class="contributor-status-badge needs-revision">Needs revision</span></td><td>Mar 9, 2025</td></tr>
+                    <tr onclick="switchView('campaign-tracking')" style="cursor: pointer;"><td>Sarah Chen</td><td><span class="contributor-status-badge submitted">Submitted</span></td><td>Mar 12, 2025</td><td onclick="event.stopPropagation();"><button type="button" class="btn btn-ghost btn-sm" onclick="openContributorEmailModal('Sarah Chen', 'sarah.chen@example.com')" aria-label="Email Sarah Chen"><i class="fa-light fa-envelope"></i> Email</button></td></tr>
+                    <tr onclick="switchView('campaign-tracking')" style="cursor: pointer;"><td>Marcus Webb</td><td><span class="contributor-status-badge in-progress">In progress</span></td><td>Mar 10, 2025</td><td onclick="event.stopPropagation();"><button type="button" class="btn btn-ghost btn-sm" onclick="openContributorEmailModal('Marcus Webb', 'marcus.webb@example.com')" aria-label="Email Marcus Webb"><i class="fa-light fa-envelope"></i> Email</button></td></tr>
+                    <tr onclick="switchView('campaign-tracking')" style="cursor: pointer;"><td>Tokyo Office</td><td><span class="contributor-status-badge needs-revision">Needs revision</span></td><td>Mar 9, 2025</td><td onclick="event.stopPropagation();"><button type="button" class="btn btn-ghost btn-sm" onclick="openContributorEmailModal('Tokyo Office', 'apac-data@example.com')" aria-label="Email Tokyo Office"><i class="fa-light fa-envelope"></i> Email</button></td></tr>
                   </tbody>
                 </table>
               </div>
@@ -17245,6 +17292,239 @@
     </div>
   </div>
 
+  <!-- Create Data Campaign Modal (wizard: Basics → Data modules → Sites → Deadlines → Email preview → Review) -->
+  <div class="modal-backdrop" id="create-campaign-modal">
+    <div class="modal modal-xl create-campaign-modal-wrap" role="dialog" aria-labelledby="create-campaign-modal-title" aria-modal="true" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <h2 class="modal-title" id="create-campaign-modal-title">Create data campaign</h2>
+        <button type="button" class="modal-close" onclick="closeCreateCampaignWizard()" aria-label="Close">
+          <i class="fa-light fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body create-campaign-modal-body">
+        <p style="color: var(--ghg-text-secondary); font-size: 14px; margin: 0 0 20px 0;">Define what to collect, who reports, and when it’s due.</p>
+        <div class="wizard-stepper campaign-wizard-stepper" id="campaign-wizard-stepper">
+          <div class="wizard-step active" data-step="1"><div class="step-circle">1</div><span class="step-label">Basics</span></div>
+          <div class="step-connector"></div>
+          <div class="wizard-step" data-step="2"><div class="step-circle">2</div><span class="step-label">Data modules</span></div>
+          <div class="step-connector"></div>
+          <div class="wizard-step" data-step="3"><div class="step-circle">3</div><span class="step-label">Sites</span></div>
+          <div class="step-connector"></div>
+          <div class="wizard-step" data-step="4"><div class="step-circle">4</div><span class="step-label">Deadlines</span></div>
+          <div class="step-connector"></div>
+          <div class="wizard-step" data-step="5"><div class="step-circle">5</div><span class="step-label">Email preview</span></div>
+          <div class="step-connector"></div>
+          <div class="wizard-step" data-step="6"><div class="step-circle">6</div><span class="step-label">Review</span></div>
+        </div>
+        <!-- Step 1: Basics -->
+        <div class="wizard-step-content active" data-step="1" id="campaign-step-1">
+          <h3>Campaign basics</h3>
+          <div class="form-group">
+            <label class="form-label">Campaign name</label>
+            <input type="text" class="form-input" id="campaign-name" placeholder="e.g. Q1 2025 Sustainability Data">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Reporting period</label>
+            <div style="display: flex; gap: 12px; align-items: center;">
+              <input type="date" class="form-input" id="campaign-period-start" style="flex: 1;">
+              <span style="color: var(--ghg-text-muted);">to</span>
+              <input type="date" class="form-input" id="campaign-period-end" style="flex: 1;">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Description / instructions</label>
+            <textarea class="form-input" id="campaign-description" rows="4" placeholder="Optional instructions for contributors..."></textarea>
+          </div>
+        </div>
+        <!-- Step 2: Data modules (ESG) -->
+        <div class="wizard-step-content" data-step="2" id="campaign-step-2">
+          <h3>Required data modules</h3>
+          <p style="color: var(--ghg-text-secondary); font-size: 14px; margin-bottom: 20px;">Select which ESG data contributors must provide. Covers Environmental, Social, and Governance.</p>
+          <p style="font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--ghg-text-muted); margin-bottom: 10px;">Environmental</p>
+          <div class="campaign-modules-row">
+            <div class="campaign-module-card selected" data-module="energy" onclick="toggleCampaignModule(this)">
+              <div class="module-icon" style="background: var(--ghg-scope-2-light); color: var(--ghg-scope-2);"><i class="fa-light fa-bolt"></i></div>
+              <div><strong>Energy</strong><br><span style="font-size: 13px; color: var(--ghg-text-secondary);">Electricity, gas, district heating</span></div>
+            </div>
+            <div class="campaign-module-card selected" data-module="fuel" onclick="toggleCampaignModule(this)">
+              <div class="module-icon" style="background: var(--ghg-scope-1-light); color: var(--ghg-scope-1);"><i class="fa-light fa-gas-pump"></i></div>
+              <div><strong>Fuel</strong><br><span style="font-size: 13px; color: var(--ghg-text-secondary);">Fleet and mobile combustion</span></div>
+            </div>
+            <div class="campaign-module-card" data-module="waste" onclick="toggleCampaignModule(this)">
+              <div class="module-icon" style="background: var(--ghg-surface-elevated); color: var(--ghg-text-muted);"><i class="fa-light fa-trash"></i></div>
+              <div><strong>Waste</strong><br><span style="font-size: 13px; color: var(--ghg-text-secondary);">Waste types and disposal</span></div>
+            </div>
+            <div class="campaign-module-card" data-module="water" onclick="toggleCampaignModule(this)">
+              <div class="module-icon" style="background: var(--ghg-info-light); color: var(--ghg-info);"><i class="fa-light fa-droplet"></i></div>
+              <div><strong>Water</strong><br><span style="font-size: 13px; color: var(--ghg-text-secondary);">Consumption and discharge</span></div>
+            </div>
+            <div class="campaign-module-card selected" data-module="travel" onclick="toggleCampaignModule(this)">
+              <div class="module-icon" style="background: var(--ghg-scope-3-light); color: var(--ghg-scope-3);"><i class="fa-light fa-plane"></i></div>
+              <div><strong>Business travel</strong><br><span style="font-size: 13px; color: var(--ghg-text-secondary);">Flights, rail, car, accommodation</span></div>
+            </div>
+            <div class="campaign-module-card" data-module="activity" onclick="toggleCampaignModule(this)">
+              <div class="module-icon" style="background: var(--ghg-surface-elevated); color: var(--ghg-text-muted);"><i class="fa-light fa-chart-mixed"></i></div>
+              <div><strong>Activity data</strong><br><span style="font-size: 13px; color: var(--ghg-text-secondary);">Other activity-based metrics</span></div>
+            </div>
+          </div>
+          <p style="font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--ghg-text-muted); margin: 20px 0 10px;">Social</p>
+          <div class="campaign-modules-row">
+            <div class="campaign-module-card" data-module="diversity" onclick="toggleCampaignModule(this)">
+              <div class="module-icon" style="background: #E0E7FF; color: #4338CA;"><i class="fa-light fa-people-group"></i></div>
+              <div><strong>Diversity &amp; inclusion</strong><br><span style="font-size: 13px; color: var(--ghg-text-secondary);">Workforce diversity, pay equity</span></div>
+            </div>
+            <div class="campaign-module-card" data-module="health-safety" onclick="toggleCampaignModule(this)">
+              <div class="module-icon" style="background: #FEF3C7; color: #B45309;"><i class="fa-light fa-helmet-safety"></i></div>
+              <div><strong>Health &amp; safety</strong><br><span style="font-size: 13px; color: var(--ghg-text-secondary);">Incidents, training, OHS</span></div>
+            </div>
+            <div class="campaign-module-card" data-module="labor" onclick="toggleCampaignModule(this)">
+              <div class="module-icon" style="background: #D1FAE5; color: #047857;"><i class="fa-light fa-briefcase"></i></div>
+              <div><strong>Labor practices</strong><br><span style="font-size: 13px; color: var(--ghg-text-secondary);">Hours, turnover, benefits</span></div>
+            </div>
+            <div class="campaign-module-card" data-module="community" onclick="toggleCampaignModule(this)">
+              <div class="module-icon" style="background: #FCE7F3; color: #BE185D;"><i class="fa-light fa-hand-holding-heart"></i></div>
+              <div><strong>Community engagement</strong><br><span style="font-size: 13px; color: var(--ghg-text-secondary);">Local impact, volunteering</span></div>
+            </div>
+            <div class="campaign-module-card" data-module="human-rights" onclick="toggleCampaignModule(this)">
+              <div class="module-icon" style="background: #DBEAFE; color: #1D4ED8;"><i class="fa-light fa-scale-balanced"></i></div>
+              <div><strong>Human rights</strong><br><span style="font-size: 13px; color: var(--ghg-text-secondary);">Due diligence, grievances</span></div>
+            </div>
+          </div>
+          <p style="font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--ghg-text-muted); margin: 20px 0 10px;">Governance</p>
+          <div class="campaign-modules-row">
+            <div class="campaign-module-card" data-module="ethics" onclick="toggleCampaignModule(this)">
+              <div class="module-icon" style="background: var(--ghg-surface-elevated); color: var(--ghg-text-muted);"><i class="fa-light fa-shield-check"></i></div>
+              <div><strong>Ethics &amp; compliance</strong><br><span style="font-size: 13px; color: var(--ghg-text-secondary);">Code of conduct, training</span></div>
+            </div>
+            <div class="campaign-module-card" data-module="board" onclick="toggleCampaignModule(this)">
+              <div class="module-icon" style="background: var(--ghg-surface-elevated); color: var(--ghg-text-muted);"><i class="fa-light fa-building"></i></div>
+              <div><strong>Board &amp; leadership</strong><br><span style="font-size: 13px; color: var(--ghg-text-secondary);">Structure, independence, ESG oversight</span></div>
+            </div>
+            <div class="campaign-module-card" data-module="risk" onclick="toggleCampaignModule(this)">
+              <div class="module-icon" style="background: var(--ghg-surface-elevated); color: var(--ghg-text-muted);"><i class="fa-light fa-triangle-exclamation"></i></div>
+              <div><strong>Risk management</strong><br><span style="font-size: 13px; color: var(--ghg-text-secondary);">Risk framework, climate risk</span></div>
+            </div>
+            <div class="campaign-module-card" data-module="anticorruption" onclick="toggleCampaignModule(this)">
+              <div class="module-icon" style="background: var(--ghg-surface-elevated); color: var(--ghg-text-muted);"><i class="fa-light fa-handshake"></i></div>
+              <div><strong>Anti-corruption</strong><br><span style="font-size: 13px; color: var(--ghg-text-secondary);">Policies, disclosures</span></div>
+            </div>
+          </div>
+        </div>
+        <!-- Step 3: Sites / locations -->
+        <div class="wizard-step-content" data-step="3" id="campaign-step-3">
+          <h3>Sites &amp; locations</h3>
+          <p style="color: var(--ghg-text-secondary); font-size: 14px; margin-bottom: 16px;">Select business entities. Primary and secondary data owners for each will be contacted to submit data.</p>
+          <div class="form-group">
+            <div class="search-input-wrapper" style="max-width: 360px;">
+              <i class="fa-light fa-search"></i>
+              <input type="text" class="form-input" id="campaign-sites-search" placeholder="Search business entities..." aria-label="Search business entities" oninput="campaignSitesSearchFilter()">
+            </div>
+          </div>
+          <div class="card" style="margin-bottom: 20px;">
+            <div class="card-header"><span class="card-title">Selected business entities (<span id="campaign-sites-count">6</span>)</span></div>
+            <div class="card-body">
+              <table class="data-table" id="campaign-sites-table">
+                <thead><tr><th style="width: 44px;"><label class="campaign-sites-select-all"><input type="checkbox" id="campaign-sites-select-all" checked aria-label="Select all" onchange="campaignSitesToggleSelectAll()"></label></th><th>Business entity</th><th>Primary contact</th><th>Secondary contact</th><th>Data modules</th></tr></thead>
+                <tbody id="campaign-sites-tbody">
+                  <tr data-site-search="Chicago HQ Chicago Operations"><td><label><input type="checkbox" class="campaign-site-checkbox" checked onchange="campaignSitesUpdateCount()"></label></td><td>Chicago HQ</td><td>James Park</td><td>Sarah Chen</td><td><span class="campaign-site-module-chips"><span class="badge badge-neutral">Energy</span> <span class="badge badge-neutral">Fuel</span> <span class="badge badge-neutral">Water</span></span></td></tr>
+                  <tr data-site-search="London Office London EMEA"><td><label><input type="checkbox" class="campaign-site-checkbox" checked onchange="campaignSitesUpdateCount()"></label></td><td>London Office</td><td>Marcus Webb</td><td>Anna Lindqvist</td><td><span class="campaign-site-module-chips"><span class="badge badge-neutral">Energy</span> <span class="badge badge-neutral">Waste</span> <span class="badge badge-neutral">Travel</span></span></td></tr>
+                  <tr data-site-search="Tokyo Office Tokyo APAC"><td><label><input type="checkbox" class="campaign-site-checkbox" checked onchange="campaignSitesUpdateCount()"></label></td><td>Tokyo Office</td><td>Yuki Tanaka</td><td>Priya Sharma</td><td><span class="campaign-site-module-chips"><span class="badge badge-neutral">Energy</span> <span class="badge badge-neutral">Fuel</span></span></td></tr>
+                  <tr data-site-search="Mexico City Plant Mexico City Operations"><td><label><input type="checkbox" class="campaign-site-checkbox" checked onchange="campaignSitesUpdateCount()"></label></td><td>Mexico City Plant</td><td>Elena Rodriguez</td><td>Sarah Chen</td><td><span class="campaign-site-module-chips"><span class="badge badge-neutral">Energy</span> <span class="badge badge-neutral">Fuel</span> <span class="badge badge-neutral">Water</span></span></td></tr>
+                  <tr data-site-search="Stockholm Office Stockholm EMEA"><td><label><input type="checkbox" class="campaign-site-checkbox" checked onchange="campaignSitesUpdateCount()"></label></td><td>Stockholm Office</td><td>Anna Lindqvist</td><td>Marcus Webb</td><td><span class="campaign-site-module-chips"><span class="badge badge-neutral">Energy</span> <span class="badge badge-neutral">Travel</span></span></td></tr>
+                  <tr data-site-search="Mumbai Office Mumbai APAC"><td><label><input type="checkbox" class="campaign-site-checkbox" checked onchange="campaignSitesUpdateCount()"></label></td><td>Mumbai Office</td><td>Priya Sharma</td><td>Yuki Tanaka</td><td><span class="campaign-site-module-chips"><span class="badge badge-neutral">Energy</span> <span class="badge badge-neutral">Waste</span> <span class="badge badge-neutral">Travel</span></span></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <button type="button" class="btn btn-secondary btn-sm"><i class="fa-light fa-plus"></i> Add business entities</button>
+        </div>
+        <!-- Step 4: Deadlines -->
+        <div class="wizard-step-content" data-step="4" id="campaign-step-4">
+          <h3>Deadlines &amp; reminders</h3>
+          <div class="form-group">
+            <label class="form-label">Due date</label>
+            <input type="date" class="form-input" id="campaign-due-date" style="max-width: 200px;">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Automated reminders</label>
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+              <label class="option-item"><input type="checkbox" id="campaign-reminder-1" checked> 7 days before due</label>
+              <label class="option-item"><input type="checkbox" id="campaign-reminder-2" checked> 3 days before due</label>
+              <label class="option-item"><input type="checkbox" id="campaign-reminder-3" checked> On due date</label>
+              <label class="option-item"><input type="checkbox" id="campaign-reminder-4"> 1 day after due (overdue)</label>
+            </div>
+          </div>
+        </div>
+        <!-- Step 5: Email preview -->
+        <div class="wizard-step-content" data-step="5" id="campaign-step-5">
+          <h3>Email previews</h3>
+          <p style="color: var(--ghg-text-secondary); font-size: 14px; margin-bottom: 20px;">Preview the emails that will be sent to primary and secondary contributors.</p>
+          <div class="card" style="margin-bottom: 20px;">
+            <div class="card-header"><span class="card-title">Initial request email</span></div>
+            <div class="card-body" style="background: var(--ghg-surface-elevated); font-size: 13px;">
+              <div style="margin-bottom: 12px;"><strong>Subject:</strong> Data collection request — <span id="campaign-email-preview-name">Q1 2025 Sustainability Data</span></div>
+              <div style="white-space: pre-wrap; color: var(--ghg-text-secondary); line-height: 1.5;">Hi,
+
+You have been assigned as a data contributor for the campaign "<span id="campaign-email-preview-name-2">Q1 2025 Sustainability Data</span>". Please submit the required data by the due date.
+
+Reporting period: <span id="campaign-email-preview-period">Jan 1 – Mar 31, 2025</span>
+Due date: <span id="campaign-email-preview-due">Mar 15, 2025</span>
+
+Modules to complete: <span id="campaign-email-preview-modules">Energy, Fuel, Travel</span>
+
+Submit your data here: [Link to submission form]
+
+Thank you.</div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header"><span class="card-title">Reminder email (not yet submitted)</span></div>
+            <div class="card-body" style="background: var(--ghg-surface-elevated); font-size: 13px;">
+              <div style="margin-bottom: 12px;"><strong>Subject:</strong> Reminder: Data collection — <span id="campaign-reminder-email-preview-name">Q1 2025 Sustainability Data</span></div>
+              <div style="white-space: pre-wrap; color: var(--ghg-text-secondary); line-height: 1.5;">Hi,
+
+This is a reminder that your data submission for "<span id="campaign-reminder-email-preview-name-2">Q1 2025 Sustainability Data</span>" is still pending.
+
+Due date: <span id="campaign-reminder-email-preview-due">Mar 15, 2025</span>
+
+Please submit as soon as possible: [Link to submission form]
+
+Thank you.</div>
+            </div>
+          </div>
+        </div>
+        <!-- Step 6: Review -->
+        <div class="wizard-step-content" data-step="6" id="campaign-step-6">
+          <h3>Review &amp; publish</h3>
+          <div class="review-section">
+            <div class="review-section-title">Campaign summary</div>
+            <div class="review-card">
+              <div class="review-grid">
+                <div class="review-item"><span class="review-item-label">Name</span><span class="review-item-value" id="campaign-review-name">—</span></div>
+                <div class="review-item"><span class="review-item-label">Reporting period</span><span class="review-item-value" id="campaign-review-period">—</span></div>
+                <div class="review-item"><span class="review-item-label">Due date</span><span class="review-item-value" id="campaign-review-due">—</span></div>
+                <div class="review-item"><span class="review-item-label">Modules</span><span class="review-item-value" id="campaign-review-modules">Energy, Fuel, Travel</span></div>
+                <div class="review-item"><span class="review-item-label">Business entities</span><span class="review-item-value" id="campaign-review-sites">6</span></div>
+              </div>
+            </div>
+          </div>
+          <div style="padding: 16px; background: var(--ghg-primary-light); border-radius: 8px; display: flex; align-items: flex-start; gap: 12px;">
+            <i class="fa-light fa-info-circle" style="color: var(--ghg-primary-dark); margin-top: 2px;"></i>
+            <div><strong style="color: var(--ghg-primary-dark);">Ready to launch</strong><br><span style="font-size: 13px; color: var(--ghg-text-secondary);">Primary and secondary contributors at the selected sites will receive an email with a link to submit data. You can track progress from the campaign detail page.</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer create-campaign-modal-footer" id="campaign-wizard-footer">
+        <button type="button" class="btn btn-secondary" onclick="closeCreateCampaignWizard()">Cancel</button>
+        <div style="display: flex; gap: 8px;">
+          <button type="button" class="btn btn-secondary" id="campaign-wizard-back" onclick="campaignWizardPrevStep()" style="display: none;"><i class="fa-light fa-arrow-left"></i> Back</button>
+          <button type="button" class="btn btn-primary" id="campaign-wizard-next" onclick="campaignWizardNextStep()">Next <i class="fa-light fa-arrow-right"></i></button>
+          <button type="button" class="btn btn-primary" id="campaign-wizard-publish" onclick="publishCampaign()" style="display: none;"><i class="fa-light fa-paper-plane"></i> Publish campaign</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Contributor Detail Modal (Data Campaigns) -->
   <div class="modal-backdrop" id="contributor-detail-modal">
     <div class="modal modal-lg">
@@ -17277,6 +17557,44 @@
         <div style="margin-top: 20px; display: flex; gap: 8px;">
           <button class="btn btn-primary btn-sm" onclick="closeContributorDetailModal()">Done</button>
           <button class="btn btn-secondary btn-sm">Send reminder</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contributor Email Modal (AI draft) -->
+  <div class="modal-backdrop" id="contributor-email-modal">
+    <div class="modal modal-lg" role="dialog" aria-labelledby="contributor-email-modal-title" aria-modal="true">
+      <div class="modal-header">
+        <h2 class="modal-title" id="contributor-email-modal-title">Email contributor</h2>
+        <button type="button" class="modal-close" onclick="closeContributorEmailModal()" aria-label="Close">
+          <i class="fa-light fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="contributor-email-ai-callout" role="status">
+          <i class="fa-light fa-wand-magic-sparkles" aria-hidden="true"></i>
+          <div>
+            <strong>AI-generated draft</strong>
+            <span>Edit as needed, then copy or send.</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="contributor-email-to">To</label>
+          <input type="text" class="form-input" id="contributor-email-to" readonly>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="contributor-email-subject">Subject</label>
+          <input type="text" class="form-input" id="contributor-email-subject">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="contributor-email-body">Message</label>
+          <textarea class="form-input" id="contributor-email-body" rows="10" style="resize: vertical;"></textarea>
+        </div>
+        <div style="display: flex; gap: 8px; justify-content: flex-end;">
+          <button type="button" class="btn btn-secondary" onclick="closeContributorEmailModal()">Cancel</button>
+          <button type="button" class="btn btn-secondary" onclick="copyContributorEmailDraft()"><i class="fa-light fa-copy"></i> Copy</button>
+          <button type="button" class="btn btn-primary" onclick="sendContributorEmailDraft()"><i class="fa-light fa-paper-plane"></i> Send</button>
         </div>
       </div>
     </div>
@@ -19506,15 +19824,16 @@
     // Data Campaigns – campaign overview, wizard, detail, tracking
     // ============================================
     var campaignWizardCurrentStep = 1;
-    var campaignWizardTotalSteps = 5;
+    var campaignWizardTotalSteps = 6;
+    var campaignWizardModalId = 'create-campaign-modal';
 
     function openCreateCampaignWizard() {
       campaignWizardCurrentStep = 1;
       updateCampaignWizardUI();
-      switchView('create-campaign');
+      if (typeof openModal === 'function') openModal(campaignWizardModalId);
     }
     function closeCreateCampaignWizard() {
-      switchView('campaigns-overview');
+      if (typeof closeModal === 'function') closeModal(campaignWizardModalId);
     }
     function campaignWizardNextStep() {
       if (campaignWizardCurrentStep < campaignWizardTotalSteps) {
@@ -19528,11 +19847,28 @@
         updateCampaignWizardUI();
       }
     }
+    function getCampaignWizardContainer() {
+      return document.getElementById(campaignWizardModalId);
+    }
+    function getSelectedModuleLabels() {
+      var container = getCampaignWizardContainer();
+      if (!container) return [];
+      var cards = container.querySelectorAll('.campaign-module-card.selected');
+      var labels = [];
+      var map = { energy: 'Energy', fuel: 'Fuel', waste: 'Waste', water: 'Water', travel: 'Business travel', activity: 'Activity data', diversity: 'Diversity & inclusion', 'health-safety': 'Health & safety', labor: 'Labor practices', community: 'Community engagement', 'human-rights': 'Human rights', ethics: 'Ethics & compliance', board: 'Board & leadership', risk: 'Risk management', anticorruption: 'Anti-corruption' };
+      cards.forEach(function(c) {
+        var m = c.getAttribute('data-module');
+        if (map[m]) labels.push(map[m]);
+      });
+      return labels;
+    }
     function updateCampaignWizardUI() {
-      var stepper = document.getElementById('campaign-wizard-stepper');
-      var contents = document.querySelectorAll('#view-create-campaign .wizard-step-content');
+      var container = getCampaignWizardContainer();
+      if (!container) return;
+      var stepper = container.querySelector('#campaign-wizard-stepper');
+      var contents = container.querySelectorAll('.wizard-step-content');
       var steps = stepper ? stepper.querySelectorAll('.wizard-step') : [];
-      steps.forEach(function(s, i) {
+      steps.forEach(function(s) {
         var n = parseInt(s.getAttribute('data-step'), 10);
         s.classList.toggle('active', n === campaignWizardCurrentStep);
         s.classList.toggle('completed', n < campaignWizardCurrentStep);
@@ -19541,24 +19877,109 @@
         var n = parseInt(c.getAttribute('data-step'), 10);
         c.classList.toggle('active', n === campaignWizardCurrentStep);
       });
-      var backBtn = document.getElementById('campaign-wizard-back');
-      var nextBtn = document.getElementById('campaign-wizard-next');
-      var publishBtn = document.getElementById('campaign-wizard-publish');
+      var backBtn = container.querySelector('#campaign-wizard-back');
+      var nextBtn = container.querySelector('#campaign-wizard-next');
+      var publishBtn = container.querySelector('#campaign-wizard-publish');
       if (backBtn) backBtn.style.display = campaignWizardCurrentStep > 1 ? '' : 'none';
       if (nextBtn) nextBtn.style.display = campaignWizardCurrentStep < campaignWizardTotalSteps ? '' : 'none';
       if (publishBtn) publishBtn.style.display = campaignWizardCurrentStep === campaignWizardTotalSteps ? '' : 'none';
-      if (campaignWizardCurrentStep === 5) {
-        var name = document.getElementById('campaign-name');
-        var start = document.getElementById('campaign-period-start');
-        var end = document.getElementById('campaign-period-end');
-        var due = document.getElementById('campaign-due-date');
-        if (document.getElementById('campaign-review-name')) document.getElementById('campaign-review-name').textContent = name && name.value ? name.value : '—';
-        if (document.getElementById('campaign-review-period')) document.getElementById('campaign-review-period').textContent = (start && start.value && end && end.value) ? start.value + ' to ' + end.value : '—';
-        if (document.getElementById('campaign-review-due')) document.getElementById('campaign-review-due').textContent = due && due.value ? due.value : '—';
+      var nameEl = container ? container.querySelector('#campaign-name') : document.getElementById('campaign-name');
+      var startEl = container ? container.querySelector('#campaign-period-start') : document.getElementById('campaign-period-start');
+      var endEl = container ? container.querySelector('#campaign-period-end') : document.getElementById('campaign-period-end');
+      var dueEl = container ? container.querySelector('#campaign-due-date') : document.getElementById('campaign-due-date');
+      var name = nameEl && nameEl.value ? nameEl.value : '—';
+      var period = (startEl && startEl.value && endEl && endEl.value) ? startEl.value + ' – ' + endEl.value : '—';
+      var due = dueEl && dueEl.value ? dueEl.value : '—';
+      var moduleLabels = getSelectedModuleLabels();
+      var modulesStr = moduleLabels.length ? moduleLabels.join(', ') : '—';
+      var sitesTbody = container ? container.querySelector('#campaign-sites-tbody') : document.getElementById('campaign-sites-tbody');
+      var siteCount = 0;
+      if (sitesTbody) {
+        sitesTbody.querySelectorAll('.campaign-site-checkbox:checked').forEach(function() { siteCount++; });
+      }
+      if (campaignWizardCurrentStep === 5 && container) {
+        ['campaign-email-preview-name', 'campaign-email-preview-name-2', 'campaign-reminder-email-preview-name', 'campaign-reminder-email-preview-name-2'].forEach(function(id) {
+          var el = container.querySelector('#' + id);
+          if (el) el.textContent = name !== '—' ? name : 'Q1 2025 Sustainability Data';
+        });
+        var periodEl = container.querySelector('#campaign-email-preview-period');
+        if (periodEl) periodEl.textContent = period;
+        var duePreviewEl = container.querySelector('#campaign-email-preview-due');
+        if (duePreviewEl) duePreviewEl.textContent = due;
+        var modEl = container.querySelector('#campaign-email-preview-modules');
+        if (modEl) modEl.textContent = modulesStr;
+        var remDue = container.querySelector('#campaign-reminder-email-preview-due');
+        if (remDue) remDue.textContent = due;
+      }
+      if (campaignWizardCurrentStep === 6 && container) {
+        var rn = container.querySelector('#campaign-review-name');
+        var rp = container.querySelector('#campaign-review-period');
+        var rd = container.querySelector('#campaign-review-due');
+        var rm = container.querySelector('#campaign-review-modules');
+        var rs = container.querySelector('#campaign-review-sites');
+        if (rn) rn.textContent = name;
+        if (rp) rp.textContent = period;
+        if (rd) rd.textContent = due;
+        if (rm) rm.textContent = modulesStr;
+        if (rs) rs.textContent = String(siteCount);
       }
     }
     function toggleCampaignModule(el) {
       if (el && el.classList) el.classList.toggle('selected');
+    }
+    function campaignSitesUpdateCount() {
+      var container = getCampaignWizardContainer();
+      if (!container) return;
+      var tbody = container.querySelector('#campaign-sites-tbody');
+      var countEl = document.getElementById('campaign-sites-count');
+      var selectAll = container.querySelector('#campaign-sites-select-all');
+      if (!tbody || !countEl) return;
+      var checkboxes = tbody.querySelectorAll('.campaign-site-checkbox');
+      var checked = 0;
+      var total = 0;
+      checkboxes.forEach(function(cb) {
+        if (cb.closest('tr').style.display !== 'none') total++;
+        if (cb.checked) checked++;
+      });
+      countEl.textContent = String(checked);
+      if (selectAll) {
+        selectAll.checked = total > 0 && checked === total;
+        selectAll.indeterminate = checked > 0 && checked < total;
+      }
+    }
+    function campaignSitesToggleSelectAll() {
+      var container = getCampaignWizardContainer();
+      if (!container) return;
+      var selectAll = container.querySelector('#campaign-sites-select-all');
+      var tbody = container.querySelector('#campaign-sites-tbody');
+      if (!selectAll || !tbody) return;
+      var rows = tbody.querySelectorAll('tr');
+      rows.forEach(function(tr) {
+        if (tr.style.display === 'none') return;
+        var cb = tr.querySelector('.campaign-site-checkbox');
+        if (cb) cb.checked = selectAll.checked;
+      });
+      campaignSitesUpdateCount();
+    }
+    function campaignSitesSearchFilter() {
+      var container = getCampaignWizardContainer();
+      if (!container) return;
+      var input = container.querySelector('#campaign-sites-search');
+      var tbody = container.querySelector('#campaign-sites-tbody');
+      if (!input || !tbody) return;
+      var q = (input.value || '').toLowerCase().trim();
+      var rows = tbody.querySelectorAll('tr');
+      rows.forEach(function(tr) {
+        var searchText = (tr.getAttribute('data-site-search') || tr.textContent || '').toLowerCase();
+        var show = !q || searchText.indexOf(q) !== -1;
+        tr.style.display = show ? '' : 'none';
+      });
+      campaignSitesUpdateCount();
+    }
+    function openCampaignInNewPage(id) {
+      var base = window.location.pathname + (window.location.search || '');
+      var url = base + '#campaign-detail/' + encodeURIComponent(id);
+      window.open(url, '_blank');
     }
     function viewCampaignDetail(id) {
       switchView('campaign-detail');
@@ -19604,6 +20025,40 @@
     function closeContributorDetailModal() {
       if (typeof closeModal === 'function') closeModal('contributor-detail-modal');
     }
+    function openContributorEmailModal(name, email) {
+      var campaignName = (document.getElementById('campaign-detail-title') || {}).textContent || 'Q1 2025 Sustainability Data';
+      var toEl = document.getElementById('contributor-email-to');
+      var subjectEl = document.getElementById('contributor-email-subject');
+      var bodyEl = document.getElementById('contributor-email-body');
+      if (toEl) toEl.value = email || '';
+      if (subjectEl) subjectEl.value = 'Data collection request — ' + campaignName;
+      if (bodyEl) {
+        bodyEl.value = 'Hi ' + (name ? name.split(' ')[0] : 'there') + ',\n\n' +
+          'You\'re receiving this as a data contributor for the campaign "' + campaignName + '". ' +
+          'Please submit your data by the due date so we can complete our reporting.\n\n' +
+          'If you have any questions or need support, reply to this email.\n\n' +
+          'Thank you,\nSustainability Team';
+      }
+      if (document.getElementById('contributor-email-modal-title')) document.getElementById('contributor-email-modal-title').textContent = 'Email ' + (name || 'contributor');
+      if (typeof openModal === 'function') openModal('contributor-email-modal');
+    }
+    function closeContributorEmailModal() {
+      if (typeof closeModal === 'function') closeModal('contributor-email-modal');
+    }
+    function copyContributorEmailDraft() {
+      var subject = (document.getElementById('contributor-email-subject') || {}).value || '';
+      var body = (document.getElementById('contributor-email-body') || {}).value || '';
+      var text = 'Subject: ' + subject + '\n\n' + body;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function() {
+          if (typeof showToast === 'function') showToast('Copied to clipboard', 'success');
+        });
+      }
+    }
+    function sendContributorEmailDraft() {
+      closeContributorEmailModal();
+      if (typeof showToast === 'function') showToast('Email sent (prototype)', 'success');
+    }
     function toggleExportCampaignMenu(ev) {
       ev.stopPropagation();
       var menu = document.getElementById('campaign-export-menu');
@@ -19620,8 +20075,8 @@
       if (typeof showToast === 'function') showToast('Export as ' + format.toUpperCase() + ' (prototype)', 'success');
     }
     function publishCampaign() {
+      closeCreateCampaignWizard();
       if (typeof showToast === 'function') showToast('Campaign published (prototype)', 'success');
-      switchView('campaigns-overview');
     }
     document.querySelectorAll('.campaign-tab[data-campaign-tab]').forEach(function(tab) {
       tab.addEventListener('click', function() {
@@ -19652,18 +20107,13 @@
       var d = getOwnershipData();
       _ownershipRules = d.rules;
       var siteSel = document.getElementById('ownership-filter-site');
-      var buSel = document.getElementById('ownership-filter-bu');
       var catSel = document.getElementById('ownership-filter-category');
       if (siteSel) {
-        siteSel.innerHTML = '<option value="">All sites</option>';
+        siteSel.innerHTML = '<option value="">All business entities</option>';
         d.sites.forEach(function(s) { siteSel.appendChild(new Option(s.name + ' (' + s.code + ')', s.id)); });
       }
-      if (buSel) {
-        buSel.innerHTML = '<option value="">All business units</option>';
-        d.businessUnits.forEach(function(b) { buSel.appendChild(new Option(b.name + ' (' + b.code + ')', b.id)); });
-      }
       if (catSel) {
-        catSel.innerHTML = '<option value="">All categories</option>';
+        catSel.innerHTML = '<option value="">All data modules</option>';
         d.dataCategories.forEach(function(c) { catSel.appendChild(new Option(c.name + ' (' + c.code + ')', c.id)); });
       }
       ownershipApplyFilters();
@@ -19673,14 +20123,12 @@
       var d = getOwnershipData();
       var scope = (document.getElementById('ownership-filter-scope') || {}).value;
       var siteId = (document.getElementById('ownership-filter-site') || {}).value;
-      var buId = (document.getElementById('ownership-filter-bu') || {}).value;
       var catId = (document.getElementById('ownership-filter-category') || {}).value;
       var activeOnlyEl = document.getElementById('ownership-filter-active-checkbox');
       var activeOnly = activeOnlyEl ? activeOnlyEl.checked : true;
       var filtered = d.rules.filter(function(r) {
         if (scope && r.scope !== scope) return false;
         if (siteId && r.siteId !== siteId) return false;
-        if (buId && r.businessUnitId !== buId) return false;
         if (catId && r.dataCategoryId !== catId) return false;
         if (activeOnly && !r.active) return false;
         return true;
@@ -19700,11 +20148,17 @@
         for (var i = 0; i < list.length; i++) if (list[i].id === id) return list[i];
         return null;
       }
+      function escapeAttr(s) {
+        if (s == null || s === undefined) return '';
+        return String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      }
       function userChip(u) {
-        if (!u) return '—';
+        if (!u) return '<span class="ownership-user-chip">—</span>';
         var cls = u.active ? '' : ' inactive';
-        var title = (u.name || '') + (u.email ? ' (' + u.email + ')' : '');
-        return '<span class="ownership-user-chip' + cls + '" title="' + (title.replace(/"/g, '&quot;')) + '">' + (u.name || u.id) + (u.active ? '' : ' <span aria-label="Inactive">(inactive)</span>') + '</span>';
+        var name = u.name || u.id;
+        var role = u.jobTitle || '';
+        var email = u.email || '';
+        return '<button type="button" class="ownership-user-chip ownership-user-chip-clickable' + cls + '" data-name="' + escapeAttr(name) + '" data-role="' + escapeAttr(role) + '" data-email="' + escapeAttr(email) + '" onclick="showOwnershipContactPopover(event)">' + escapeAttr(name) + (u.active ? '' : ' <span aria-label="Inactive">(inactive)</span>') + '</button>';
       }
       function scopeLabel(r) {
         if (r.scope === 'site') return 'Site';
@@ -19730,10 +20184,12 @@
         var from = r.effectiveFrom || '—';
         var to = r.effectiveTo || 'Ongoing';
         var now = new Date();
-        var expired = r.effectiveTo && new Date(r.effectiveTo) < now;
         var scheduled = r.effectiveFrom && new Date(r.effectiveFrom) > now;
-        var badge = expired ? ' <span class="badge badge-warning">Expired</span>' : (scheduled ? ' <span class="badge" style="background: var(--ghg-info-light); color: var(--ghg-info);">Scheduled</span>' : '');
+        var badge = scheduled ? ' <span class="badge" style="background: var(--ghg-info-light); color: var(--ghg-info);">Scheduled</span>' : '';
         return from + ' → ' + to + badge;
+      }
+      function isRuleExpired(r) {
+        return r.effectiveTo && new Date(r.effectiveTo) < new Date();
       }
       if (d.rules.length === 0) {
         emptyState.style.display = 'block';
@@ -19765,7 +20221,8 @@
         html += '<td>' + (team ? team.name : '—') + '</td>';
         html += '<td>' + userChip(approver) + '</td>';
         html += '<td>' + effectiveLabel(r) + '</td>';
-        html += '<td><span class="campaign-status-badge ' + (r.active ? 'completed' : 'not-started') + '">' + (r.active ? 'Active' : 'Inactive') + '</span></td>';
+        var statusActive = r.active && !isRuleExpired(r);
+        html += '<td><span class="campaign-status-badge ' + (statusActive ? 'completed' : 'not-started') + '">' + (statusActive ? 'Active' : 'Inactive') + '</span></td>';
         html += '<td onclick="event.stopPropagation();">';
         html += '<div class="dropdown-inline">';
         html += '<button type="button" class="btn btn-ghost btn-sm" onclick="toggleOwnershipRowActionsMenu(event, \'' + r.id + '\')" aria-label="Row actions" aria-haspopup="true"><i class="fa-light fa-ellipsis"></i></button>';
@@ -19938,7 +20395,6 @@
 
     function ownershipResetFilters() {
       document.getElementById('ownership-filter-site').value = '';
-      document.getElementById('ownership-filter-bu').value = '';
       document.getElementById('ownership-filter-category').value = '';
       var activeCheck = document.getElementById('ownership-filter-active-checkbox');
       if (activeCheck) activeCheck.checked = true;
@@ -19949,14 +20405,12 @@
       var d = getOwnershipData();
       var scope = (document.getElementById('ownership-filter-scope') || {}).value;
       var siteId = (document.getElementById('ownership-filter-site') || {}).value;
-      var buId = (document.getElementById('ownership-filter-bu') || {}).value;
       var catId = (document.getElementById('ownership-filter-category') || {}).value;
       var activeOnlyEl = document.getElementById('ownership-filter-active-checkbox');
       var activeOnly = activeOnlyEl ? activeOnlyEl.checked : true;
       var rules = d.rules.filter(function(r) {
         if (scope && r.scope !== scope) return false;
         if (siteId && r.siteId !== siteId) return false;
-        if (buId && r.businessUnitId !== buId) return false;
         if (catId && r.dataCategoryId !== catId) return false;
         if (activeOnly && !r.active) return false;
         return true;
@@ -19966,7 +20420,7 @@
         for (var i = 0; i < list.length; i++) if (list[i].id === id) return list[i];
         return null;
       }
-      var headers = 'Scope,Site/Business unit,Site Code,Business unit Code,Category,Category Code,Primary,Primary Email,Secondary,Approver,Team,Effective From,Effective To,Active,Notes\n';
+      var headers = 'Scope,Business entity,Site Code,Business unit Code,Data module,Data module Code,Primary,Primary Email,Secondary,Approver,Team,Effective From,Effective To,Active,Notes\n';
       var rows = rules.map(function(r) {
         var s = byId(d.sites, r.siteId);
         var b = byId(d.businessUnits, r.businessUnitId);
@@ -20041,6 +20495,34 @@
     function closeOwnershipRowActionsMenus() {
       document.querySelectorAll('.ownership-row-actions-menu.open').forEach(function(m) { m.classList.remove('open'); });
     }
+    function showOwnershipContactPopover(ev) {
+      ev.preventDefault();
+      ev.stopPropagation();
+      var btn = ev.currentTarget;
+      var name = btn.getAttribute('data-name') || '';
+      var role = btn.getAttribute('data-role') || '';
+      var email = btn.getAttribute('data-email') || '';
+      var pop = document.getElementById('ownership-contact-popover');
+      if (!pop) return;
+      document.getElementById('ownership-contact-popover-name').textContent = name || '—';
+      document.getElementById('ownership-contact-popover-role').textContent = role ? 'Role: ' + role : '';
+      document.getElementById('ownership-contact-popover-email').textContent = email ? 'Email: ' + email : '';
+      pop.classList.add('open');
+      var rect = btn.getBoundingClientRect();
+      pop.style.left = rect.left + 'px';
+      pop.style.top = (rect.bottom + 6) + 'px';
+      pop.style.right = 'auto';
+      setTimeout(function() {
+        document.addEventListener('click', function closePop() {
+          pop.classList.remove('open');
+          document.removeEventListener('click', closePop);
+        });
+      }, 0);
+    }
+    function closeOwnershipContactPopover() {
+      var pop = document.getElementById('ownership-contact-popover');
+      if (pop) pop.classList.remove('open');
+    }
 
     function openOwnershipValidateModal() {
       var d = getOwnershipData();
@@ -20098,7 +20580,7 @@
         return null;
       }
       if (result.gaps.length) {
-        gapsEl.innerHTML = '<table class="data-table"><thead><tr><th>Scope</th><th>Site / Business unit</th><th>Category</th><th>Message</th></tr></thead><tbody>' +
+        gapsEl.innerHTML = '<table class="data-table"><thead><tr><th>Scope</th><th>Business entity</th><th>Data module</th><th>Message</th></tr></thead><tbody>' +
           result.gaps.map(function(g) {
             var site = byId(d.sites, g.siteId);
             var bu = byId(d.businessUnits, g.businessUnitId);
@@ -20109,7 +20591,7 @@
         gapsEl.innerHTML = '<p class="form-hint">No gaps found.</p>';
       }
       if (result.contactIssues.length) {
-        contactsEl.innerHTML = '<table class="data-table"><thead><tr><th>Scope</th><th>Site / Business unit</th><th>Category</th><th>Rule</th><th>Issues</th></tr></thead><tbody>' +
+        contactsEl.innerHTML = '<table class="data-table"><thead><tr><th>Scope</th><th>Business entity</th><th>Data module</th><th>Rule</th><th>Issues</th></tr></thead><tbody>' +
           result.contactIssues.map(function(g) {
             var site = byId(d.sites, g.siteId);
             var bu = byId(d.businessUnits, g.businessUnitId);
@@ -20135,11 +20617,17 @@
 
     document.addEventListener('keydown', function(e) {
       if (e.key !== 'Escape') return;
+      if (document.getElementById('create-campaign-modal') && document.getElementById('create-campaign-modal').classList.contains('open')) {
+        closeCreateCampaignWizard();
+      }
       if (document.getElementById('ownership-rule-modal') && document.getElementById('ownership-rule-modal').classList.contains('open')) {
         closeOwnershipRuleModal();
       }
       if (document.getElementById('ownership-validate-modal') && document.getElementById('ownership-validate-modal').classList.contains('open')) {
         closeOwnershipValidateModal();
+      }
+      if (document.getElementById('contributor-email-modal') && document.getElementById('contributor-email-modal').classList.contains('open')) {
+        closeContributorEmailModal();
       }
     });
 
@@ -20167,7 +20655,7 @@
         var cat = byId(d.dataCategories, g.dataCategoryId);
         rows.push(['Contact issue', g.scope, site ? site.name : '', bu ? bu.name : '', cat ? cat.name : '', (g.messages || []).join('; ')]);
       });
-      var csv = 'Type,Scope,Site,Business unit,Category,Detail\n' + rows.map(function(r) { return r.map(function(c) { return '"' + String(c).replace(/"/g, '""') + '"'; }).join(','); }).join('\n');
+      var csv = 'Type,Scope,Site,Business unit,Data module,Detail\n' + rows.map(function(r) { return r.map(function(c) { return '"' + String(c).replace(/"/g, '""') + '"'; }).join(','); }).join('\n');
       var blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
       var a = document.createElement('a');
       a.href = URL.createObjectURL(blob);
@@ -20192,6 +20680,11 @@
       };
       if (hash && hashToView[hash]) {
         switchView(hashToView[hash]);
+      } else if (hash && hash.indexOf('campaign-detail/') === 0) {
+        var campaignId = decodeURIComponent(hash.replace('campaign-detail/', ''));
+        if (campaignId && typeof viewCampaignDetail === 'function') {
+          viewCampaignDetail(campaignId);
+        }
       }
     }
     handleHashNavigation();
