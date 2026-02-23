@@ -9,6 +9,8 @@
     "serve": "npx --yes serve . -p 3333",
     "serve:prototype": "python3 -m http.server 3334",
     "open:prototype": "open http://localhost:3334/prototypes/create-new-inventory/index.html",
-    "dev": "node scripts/serve-and-open.js"
+    "dev": "node scripts/serve-and-open.js",
+    "serve:alt": "python3 -m http.server 5555",
+    "open:alt": "open http://localhost:5555/prototypes/create-new-inventory/index.html"
   }
 }

@@ -5,7 +5,7 @@
  */
 const { spawn } = require('child_process');
 const http = require('http');
-const PORT = 3334;
+const PORT = 5555;
 const URL = `http://localhost:${PORT}/prototypes/create-new-inventory/index.html`;
 
 const server = spawn('python3', ['-m', 'http.server', String(PORT)], {
