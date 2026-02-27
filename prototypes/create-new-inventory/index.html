@@ -10488,7 +10488,7 @@
         <nav class="submenu-nav">
           <a href="#data-campaigns" class="submenu-item" id="submenu-item-data-campaigns" data-view="campaigns-overview" onclick="event.preventDefault(); if(typeof switchView==='function'){switchView('campaigns-overview');} else { location.hash='data-campaigns'; }">Data Campaigns</a>
           <a href="#data-owner-directory" class="submenu-item" data-view="ownership-register" onclick="event.preventDefault(); if(typeof switchView==='function'){switchView('ownership-register');}">Data Owner Directory</a>
-          <a href="../../../platform/prototypes/activity-data-upload/index.html#upload" class="submenu-item">Upload Data</a>
+          <a href="../../../platform/prototypes/activity-data-upload/index.html#upload" class="submenu-item">Imports</a>
           <a href="../../../platform/prototypes/activity-data-upload/index.html#records" class="submenu-item">Activity Records</a>
           <a href="../../../platform/prototypes/activity-normalization-mapping/index.html" class="submenu-item">Activity Mapping</a>
         </nav>
@@ -23001,6 +23001,16 @@ Thank you.</div>
     // User activity log (Settings)
     // ============================================
     var ACTIVITY_LOG_DATA = [
+      { id: 13, timestamp: '2025-02-20 13:00:00', user: 'Jane Admin', action: 'updated', where: 'Inventory', objectType: 'Activity record', objectId: 'Chicago HQ / Stationary combustion — Natural gas', valueAtTime: 'Quantity: 125.4 MWh, Data source: Energy_Meters_Jan2025.csv, Period: Jan 2025' },
+      { id: 14, timestamp: '2025-02-20 10:30:00', user: 'James Park', action: 'updated', where: 'Inventory', objectType: 'Activity record', objectId: 'Chicago HQ / Stationary combustion — Natural gas', valueAtTime: 'Quantity: 118.2 MWh, Data source: Energy_Meters_Jan2025.csv, Period: Jan 2025' },
+      { id: 15, timestamp: '2025-02-18 14:00:00', user: 'Jane Admin', action: 'created', where: 'Inventory', objectType: 'Activity record', objectId: 'Chicago HQ / Stationary combustion — Natural gas', valueAtTime: 'Quantity: 110.0 MWh, Data source: Energy_Meters_Jan2025.csv, Period: Jan 2025' },
+      { id: 16, timestamp: '2025-02-20 11:20:00', user: 'Sarah Chen', action: 'updated', where: 'Inventory', objectType: 'Activity record', objectId: 'London Office / Mobile combustion — Fleet', valueAtTime: 'Quantity: 2,840 L diesel, Data source: Fleet_Data_Q1.xlsx, Period: Q1 2025' },
+      { id: 17, timestamp: '2025-02-19 15:00:00', user: 'Marcus Webb', action: 'updated', where: 'Inventory', objectType: 'Activity record', objectId: 'London Office / Mobile combustion — Fleet', valueAtTime: 'Quantity: 2,650 L diesel, Data source: Fleet_Data_Q1.xlsx, Period: Q1 2025' },
+      { id: 18, timestamp: '2025-02-19 09:00:00', user: 'Sarah Chen', action: 'created', where: 'Inventory', objectType: 'Activity record', objectId: 'London Office / Mobile combustion — Fleet', valueAtTime: 'Quantity: 2,400 L diesel, Data source: Fleet_Data_Q1.xlsx, Period: Q1 2025' },
+      { id: 19, timestamp: '2025-02-19 16:45:00', user: 'James Park', action: 'created', where: 'Inventory', objectType: 'Activity record', objectId: 'Tokyo Office / Business travel — Air', valueAtTime: 'Quantity: 12,500 km, Data source: Travel_Expenses_Feb.xlsx, Period: Feb 2025' },
+      { id: 20, timestamp: '2025-02-19 11:00:00', user: 'Anna Lindqvist', action: 'updated', where: 'Inventory', objectType: 'Activity record', objectId: 'London Office / Waste — General', valueAtTime: 'Quantity: 2.1 tonnes, Data source: Waste_Weights_Q1.xlsx, Period: Jan 2025' },
+      { id: 21, timestamp: '2025-02-18 16:30:00', user: 'Marcus Webb', action: 'updated', where: 'Inventory', objectType: 'Activity record', objectId: 'London Office / Waste — General', valueAtTime: 'Quantity: 1.8 tonnes, Data source: Waste_Weights_Q1.xlsx, Period: Jan 2025' },
+      { id: 22, timestamp: '2025-02-17 10:15:00', user: 'Anna Lindqvist', action: 'created', where: 'Inventory', objectType: 'Activity record', objectId: 'London Office / Waste — General', valueAtTime: 'Quantity: 1.5 tonnes, Data source: Waste_Weights_Q1.xlsx, Period: Jan 2025' },
       { id: 1, timestamp: '2025-02-20 14:32:00', user: 'Jane Admin', action: 'updated', where: 'Data Owner Directory', objectType: 'Ownership rule', objectId: 'Chicago HQ / Energy', valueAtTime: 'Primary: James Park, Secondary: Sarah Chen' },
       { id: 2, timestamp: '2025-02-20 14:28:15', user: 'Jane Admin', action: 'created', where: 'Data Campaigns', objectType: 'Campaign', objectId: 'Q1 2025 Sustainability Data', valueAtTime: 'Period: Jan–Mar 2025, Modules: Energy, Fuel, Travel' },
       { id: 3, timestamp: '2025-02-20 13:45:00', user: 'Marcus Webb', action: 'viewed', where: 'Data Owner Directory', objectType: 'Ownership rule', objectId: 'London Office / Waste', valueAtTime: 'Primary: Marcus Webb, Secondary: Anna Lindqvist' },
@@ -23009,6 +23019,10 @@ Thank you.</div>
       { id: 6, timestamp: '2025-02-20 11:30:00', user: 'Jane Admin', action: 'updated', where: 'Data Owner Directory', objectType: 'Ownership rule', objectId: 'Chicago HQ / Energy', valueAtTime: 'Primary: James Park, Secondary: Sarah Chen; Team: Operations' },
       { id: 7, timestamp: '2025-02-19 16:00:00', user: 'Anna Lindqvist', action: 'viewed', where: 'Data Campaigns', objectType: 'Campaign', objectId: 'Q1 2025 Sustainability Data', valueAtTime: 'Status: Draft' },
       { id: 8, timestamp: '2025-02-19 15:22:00', user: 'Jane Admin', action: 'created', where: 'Data Owner Directory', objectType: 'Ownership rule', objectId: 'Tokyo Office / Fuel', valueAtTime: 'Primary: Yuki Tanaka, Secondary: Priya Sharma' },
+      { id: 9, timestamp: '2025-02-20 10:15:00', user: 'Sarah Chen', action: 'created', where: 'Imports', objectType: 'Import', objectId: 'Fleet_Data_Q1.xlsx', valueAtTime: 'Campaign: Q1 2025, 1,240 records imported, status: Completed' },
+      { id: 10, timestamp: '2025-02-20 09:42:33', user: 'James Park', action: 'created', where: 'Imports', objectType: 'Import', objectId: 'Energy_Meters_Jan2025.csv', valueAtTime: 'Campaign: Q1 2025, 89 records imported, status: Completed' },
+      { id: 11, timestamp: '2025-02-19 17:20:00', user: 'Anna Lindqvist', action: 'created', where: 'Imports', objectType: 'Import', objectId: 'Travel_Expenses_Feb.xlsx', valueAtTime: 'Campaign: Q1 2025, 312 records imported, status: Completed' },
+      { id: 12, timestamp: '2025-02-19 14:05:00', user: 'Marcus Webb', action: 'viewed', where: 'Imports', objectType: 'Import', objectId: 'Waste_Weights_Q1.xlsx', valueAtTime: 'Campaign: Q1 2025, 56 records, status: Completed' },
     ];
     function activityLogEscape(s) {
       if (s == null || s === undefined) return '';
