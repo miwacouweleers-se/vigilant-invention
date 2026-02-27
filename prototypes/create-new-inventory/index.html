@@ -10281,6 +10281,20 @@
     .campaign-filters.ownership-filters .ownership-filter { width: 180px; min-width: 180px; max-width: 180px; padding: 6px 10px; font-size: 13px; box-sizing: border-box; }
     .campaign-filters.ownership-filters .ownership-filter-chip-wrap { flex-shrink: 0; }
     .ownership-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; margin-bottom: 16px; }
+    .activity-log-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-bottom: 16px; }
+    .activity-log-value-cell { max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 12px; color: var(--ghg-text-secondary); }
+    .activity-log-filter-badge { min-width: 18px; height: 18px; padding: 0 5px; font-size: 11px; font-weight: 600; background: var(--ghg-primary); color: #fff; border-radius: 9px; display: inline-flex; align-items: center; justify-content: center; margin-left: 6px; }
+    .activity-log-custom-dates-label { font-size: 13px; color: var(--ghg-text-secondary); }
+    .audit-trail-backdrop { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.4); z-index: 2000; opacity: 0; visibility: hidden; transition: opacity 0.25s ease, visibility 0.25s ease; }
+    .audit-trail-backdrop.open { opacity: 1; visibility: visible; }
+    .audit-trail-drawer { position: fixed; top: 0; right: -700px; width: 700px; max-width: 90vw; height: 100vh; background: var(--ghg-surface); box-shadow: -4px 0 24px rgba(0,0,0,0.15); z-index: 2001; transition: right 0.3s ease; display: flex; flex-direction: column; overflow: hidden; }
+    .audit-trail-drawer.open { right: 0; }
+    .audit-trail-drawer-header { position: relative; padding: 20px 24px; border-bottom: 1px solid var(--ghg-border); background: var(--ghg-surface-elevated); flex-shrink: 0; }
+    .audit-trail-drawer-header .audit-trail-drawer-title { font-family: var(--font-display); font-size: 18px; font-weight: 600; margin: 0; padding-right: 44px; }
+    .audit-trail-drawer-close { position: absolute; top: 16px; right: 16px; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; background: none; border: none; border-radius: 8px; cursor: pointer; color: var(--ghg-text-secondary); font-size: 18px; }
+    .audit-trail-drawer-close:hover { background: var(--ghg-surface-elevated); color: var(--ghg-text); }
+    .audit-trail-drawer-body { padding: 24px; overflow-y: auto; flex: 1; }
+    .audit-trail-drawer-body .activity-log-value-cell { max-width: none; white-space: normal; }
     .ownership-toggle-row { margin-top: 12px; margin-bottom: 16px; }
     .ownership-toggle-label { display: inline-flex; align-items: center; gap: 10px; cursor: pointer; font-size: 14px; font-weight: 500; color: var(--ghg-text); }
     .ownership-toggle-input { position: absolute; opacity: 0; width: 0; height: 0; }
@@ -10503,6 +10517,7 @@
         <nav class="submenu-nav">
           <a href="#" class="submenu-item">Organization</a>
           <a href="#" class="submenu-item">Users</a>
+          <a href="#" class="submenu-item" data-view="user-activity-log" onclick="event.preventDefault(); if(typeof switchView==='function'){switchView('user-activity-log');}">User activity log</a>
           <a href="#" class="submenu-item" data-view="unit-measure">Unit of measurement conversions</a>
           <a href="#" class="submenu-item" data-view="unit-measure-v2">Unit of measurement conversions (v2)</a>
           <a href="#" class="submenu-item" data-view="unit-measure-view-only">View only</a>
@@ -11823,6 +11838,95 @@
           </div>
         </div>
         
+        <!-- ============================================== -->
+        <!-- VIEW: USER ACTIVITY LOG (Settings)              -->
+        <!-- ============================================== -->
+        <div id="view-user-activity-log" class="view">
+          <div class="page-header">
+            <div class="page-header-left">
+              <div class="page-breadcrumb">
+                <a href="#">Settings</a>
+                <i class="fa-light fa-chevron-right"></i>
+                <span>User activity log</span>
+              </div>
+              <h1 class="page-title">User activity log</h1>
+              <p class="page-subtitle">Track all activities in the platform. View audit trails for specific objects.</p>
+            </div>
+          </div>
+          <div class="content-container">
+            <div class="activity-log-toolbar">
+              <div class="search-input-wrapper" style="width: 220px;">
+                <i class="fa-light fa-search"></i>
+                <input type="text" class="form-input" id="activity-log-search" placeholder="Search..." aria-label="Search activity log" oninput="activityLogApplyFilters()">
+              </div>
+              <div class="dropdown-inline">
+                <button type="button" class="btn btn-secondary" id="activity-log-filters-btn" onclick="toggleActivityLogFilters(event)" aria-haspopup="true" aria-expanded="false">
+                  <i class="fa-light fa-filter"></i> Filters
+                  <span class="activity-log-filter-badge" id="activity-log-filter-badge" style="display: none;"></span>
+                  <i class="fa-light fa-chevron-down" style="margin-left: 6px;"></i>
+                </button>
+                <div class="dropdown-menu activity-log-filters-dropdown" id="activity-log-filters-dropdown" style="min-width: 260px; padding: 16px;">
+                  <div class="form-group" style="margin-bottom: 12px;">
+                    <label class="form-label" for="activity-log-filter-user">User</label>
+                    <select class="form-select" id="activity-log-filter-user" aria-label="Filter by user" onchange="activityLogApplyFilters(); updateActivityLogFilterBadge();" style="width: 100%;">
+                      <option value="">All users</option>
+                    </select>
+                  </div>
+                  <div class="form-group" style="margin-bottom: 12px;">
+                    <label class="form-label" for="activity-log-filter-action">Action</label>
+                    <select class="form-select" id="activity-log-filter-action" aria-label="Filter by action" onchange="activityLogApplyFilters(); updateActivityLogFilterBadge();" style="width: 100%;">
+                      <option value="">All actions</option>
+                      <option value="created">Created</option>
+                      <option value="updated">Updated</option>
+                      <option value="deleted">Deleted</option>
+                      <option value="viewed">Viewed</option>
+                    </select>
+                  </div>
+                  <div class="form-group" style="margin-bottom: 0;">
+                    <label class="form-label" for="activity-log-filter-object">Object type</label>
+                    <select class="form-select" id="activity-log-filter-object" aria-label="Filter by object type" onchange="activityLogApplyFilters(); updateActivityLogFilterBadge();" style="width: 100%;">
+                      <option value="">All object types</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <select class="form-select" id="activity-log-timeframe" aria-label="Timeframe" onchange="activityLogTimeframeChange()" style="width: 160px;">
+                <option value="">All time</option>
+                <option value="today">Today</option>
+                <option value="yesterday">Yesterday</option>
+                <option value="last7">Last 7 days</option>
+                <option value="last30">Last 30 days</option>
+                <option value="custom">Custom</option>
+              </select>
+              <span class="activity-log-custom-dates" id="activity-log-custom-dates" style="display: none; align-items: center; gap: 8px;">
+                <label for="activity-log-from" class="activity-log-custom-dates-label">From</label>
+                <input type="date" class="form-input" id="activity-log-from" aria-label="From date" style="width: 140px;" onchange="activityLogApplyFilters()">
+                <label for="activity-log-to" class="activity-log-custom-dates-label">To</label>
+                <input type="date" class="form-input" id="activity-log-to" aria-label="To date" style="width: 140px;" onchange="activityLogApplyFilters()">
+              </span>
+            </div>
+            <div class="card">
+              <div class="card-body" style="padding: 0;">
+                <table class="data-table" id="activity-log-table" aria-label="User activity log">
+                  <thead>
+                    <tr>
+                      <th>Timestamp</th>
+                      <th>Who</th>
+                      <th>Action</th>
+                      <th>Where</th>
+                      <th>Object affected</th>
+                      <th>Value at time</th>
+                      <th style="width: 100px;">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="activity-log-tbody">
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <!-- ============================================== -->
         <!-- VIEW: UNIT MEASURE MANAGEMENT (Settings)        -->
         <!-- ============================================== -->
@@ -18065,6 +18169,36 @@ Thank you.</div>
     </div>
   </div>
 
+  <!-- Audit trail side drawer (User activity log) -->
+  <div class="audit-trail-backdrop" id="audit-trail-backdrop" onclick="if(event.target===this) closeAuditTrailDrawer()"></div>
+  <div class="audit-trail-drawer" id="audit-trail-drawer" role="dialog" aria-labelledby="audit-trail-drawer-title" aria-modal="true">
+    <div class="audit-trail-drawer-header">
+      <h2 class="audit-trail-drawer-title" id="audit-trail-drawer-title">Audit trail</h2>
+      <button type="button" class="audit-trail-drawer-close" onclick="closeAuditTrailDrawer()" aria-label="Close"><i class="fa-light fa-times"></i></button>
+    </div>
+    <div class="audit-trail-drawer-body">
+      <p id="audit-trail-subtitle" style="font-size: 14px; color: var(--ghg-text-secondary); margin: 0 0 16px 0;"></p>
+      <div class="card">
+        <div class="card-body" style="padding: 0;">
+          <table class="data-table" aria-label="Audit trail">
+            <thead>
+              <tr>
+                <th>Timestamp</th>
+                <th>Who</th>
+                <th>Action</th>
+                <th>Where</th>
+                <th>Value at time</th>
+              </tr>
+            </thead>
+            <tbody id="audit-trail-tbody">
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div style="margin-top: 16px;"><button type="button" class="btn btn-primary btn-sm" onclick="closeAuditTrailDrawer()">Close</button></div>
+    </div>
+  </div>
+
   <!-- Contributor Email Modal (AI draft) -->
   <div class="modal-backdrop" id="contributor-email-modal">
     <div class="modal modal-lg" role="dialog" aria-labelledby="contributor-email-modal-title" aria-modal="true">
@@ -19190,6 +19324,15 @@ Thank you.</div>
           item.classList.add('active');
         }
       });
+
+      if (viewId === 'user-activity-log' && typeof activityLogRender === 'function') {
+        activityLogPopulateFilters();
+        activityLogRender();
+        if (typeof updateActivityLogFilterBadge === 'function') updateActivityLogFilterBadge();
+        var tf = document.getElementById('activity-log-timeframe');
+        var customRow = document.getElementById('activity-log-custom-dates');
+        if (customRow) customRow.style.display = (tf && tf.value === 'custom') ? 'inline-flex' : 'none';
+      }
 
       // On Data Owner Directory, hide Data Campaigns in the sidebar; show it otherwise
       var dataCampaignsSubmenuItem = document.getElementById('submenu-item-data-campaigns');
@@ -22852,6 +22995,180 @@ Thank you.</div>
       if (modal) {
         modal.classList.remove('open');
       }
+    }
+
+    // ============================================
+    // User activity log (Settings)
+    // ============================================
+    var ACTIVITY_LOG_DATA = [
+      { id: 1, timestamp: '2025-02-20 14:32:00', user: 'Jane Admin', action: 'updated', where: 'Data Owner Directory', objectType: 'Ownership rule', objectId: 'Chicago HQ / Energy', valueAtTime: 'Primary: James Park, Secondary: Sarah Chen' },
+      { id: 2, timestamp: '2025-02-20 14:28:15', user: 'Jane Admin', action: 'created', where: 'Data Campaigns', objectType: 'Campaign', objectId: 'Q1 2025 Sustainability Data', valueAtTime: 'Period: Jan–Mar 2025, Modules: Energy, Fuel, Travel' },
+      { id: 3, timestamp: '2025-02-20 13:45:00', user: 'Marcus Webb', action: 'viewed', where: 'Data Owner Directory', objectType: 'Ownership rule', objectId: 'London Office / Waste', valueAtTime: 'Primary: Marcus Webb, Secondary: Anna Lindqvist' },
+      { id: 4, timestamp: '2025-02-20 12:10:22', user: 'Sarah Chen', action: 'updated', where: 'Unit of measurement conversions', objectType: 'UoM group', objectId: 'Energy', valueAtTime: 'Units: kWh, GJ, MWh (default: kWh)' },
+      { id: 5, timestamp: '2025-02-20 11:55:00', user: 'Jane Admin', action: 'deleted', where: 'Data Owner Directory', objectType: 'Ownership rule', objectId: 'Phoenix Site / Travel', valueAtTime: '(removed)' },
+      { id: 6, timestamp: '2025-02-20 11:30:00', user: 'Jane Admin', action: 'updated', where: 'Data Owner Directory', objectType: 'Ownership rule', objectId: 'Chicago HQ / Energy', valueAtTime: 'Primary: James Park, Secondary: Sarah Chen; Team: Operations' },
+      { id: 7, timestamp: '2025-02-19 16:00:00', user: 'Anna Lindqvist', action: 'viewed', where: 'Data Campaigns', objectType: 'Campaign', objectId: 'Q1 2025 Sustainability Data', valueAtTime: 'Status: Draft' },
+      { id: 8, timestamp: '2025-02-19 15:22:00', user: 'Jane Admin', action: 'created', where: 'Data Owner Directory', objectType: 'Ownership rule', objectId: 'Tokyo Office / Fuel', valueAtTime: 'Primary: Yuki Tanaka, Secondary: Priya Sharma' },
+    ];
+    function activityLogEscape(s) {
+      if (s == null || s === undefined) return '';
+      return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+    function activityLogApplyFilters() {
+      activityLogRender();
+    }
+    function activityLogTimeframeChange() {
+      var timeframeEl = document.getElementById('activity-log-timeframe');
+      var customRow = document.getElementById('activity-log-custom-dates');
+      if (customRow) customRow.style.display = (timeframeEl && timeframeEl.value === 'custom') ? 'inline-flex' : 'none';
+      activityLogApplyFilters();
+    }
+    function activityLogPopulateFilters() {
+      var users = {};
+      var objectTypes = {};
+      ACTIVITY_LOG_DATA.forEach(function(row) {
+        users[row.user] = true;
+        objectTypes[row.objectType] = true;
+      });
+      var userSelect = document.getElementById('activity-log-filter-user');
+      var objectSelect = document.getElementById('activity-log-filter-object');
+      if (userSelect && userSelect.options.length <= 1) {
+        Object.keys(users).sort().forEach(function(u) {
+          var opt = document.createElement('option');
+          opt.value = u;
+          opt.textContent = u;
+          userSelect.appendChild(opt);
+        });
+      }
+      if (objectSelect && objectSelect.options.length <= 1) {
+        Object.keys(objectTypes).sort().forEach(function(t) {
+          var opt = document.createElement('option');
+          opt.value = t;
+          opt.textContent = t;
+          objectSelect.appendChild(opt);
+        });
+      }
+    }
+    function activityLogRender() {
+      var tbody = document.getElementById('activity-log-tbody');
+      if (!tbody) return;
+      var search = (document.getElementById('activity-log-search') || {}).value || '';
+      var userFilter = (document.getElementById('activity-log-filter-user') || {}).value || '';
+      var actionFilter = (document.getElementById('activity-log-filter-action') || {}).value || '';
+      var objectFilter = (document.getElementById('activity-log-filter-object') || {}).value || '';
+      var timeframeEl = document.getElementById('activity-log-timeframe');
+      var timeframe = (timeframeEl && timeframeEl.value) || '';
+      var fromDate = '', toDate = '';
+      if (timeframe === 'custom') {
+        fromDate = (document.getElementById('activity-log-from') || {}).value || '';
+        toDate = (document.getElementById('activity-log-to') || {}).value || '';
+      } else if (timeframe) {
+        var today = new Date();
+        var y = today.getFullYear(), m = String(today.getMonth() + 1).padStart(2, '0'), d = String(today.getDate()).padStart(2, '0');
+        toDate = y + '-' + m + '-' + d;
+        if (timeframe === 'today' || timeframe === 'yesterday') {
+          if (timeframe === 'yesterday') {
+            var yesterday = new Date(today);
+            yesterday.setDate(yesterday.getDate() - 1);
+            fromDate = toDate = yesterday.getFullYear() + '-' + String(yesterday.getMonth() + 1).padStart(2, '0') + '-' + String(yesterday.getDate()).padStart(2, '0');
+          } else {
+            fromDate = toDate;
+          }
+        } else if (timeframe === 'last7' || timeframe === 'last30') {
+          var from = new Date(today);
+          from.setDate(from.getDate() - (timeframe === 'last7' ? 7 : 30));
+          fromDate = from.getFullYear() + '-' + String(from.getMonth() + 1).padStart(2, '0') + '-' + String(from.getDate()).padStart(2, '0');
+        }
+      }
+      var q = search.toLowerCase().trim();
+      var rows = ACTIVITY_LOG_DATA.filter(function(r) {
+        if (userFilter && r.user !== userFilter) return false;
+        if (actionFilter && r.action !== actionFilter) return false;
+        if (objectFilter && r.objectType !== objectFilter) return false;
+        var rowDate = (r.timestamp || '').slice(0, 10);
+        if (fromDate && rowDate < fromDate) return false;
+        if (toDate && rowDate > toDate) return false;
+        if (q) {
+          var text = (r.timestamp + ' ' + r.user + ' ' + r.action + ' ' + r.where + ' ' + r.objectType + ' ' + r.objectId + ' ' + r.valueAtTime).toLowerCase();
+          if (text.indexOf(q) === -1) return false;
+        }
+        return true;
+      });
+      tbody.innerHTML = rows.map(function(r) {
+        var valueShort = r.valueAtTime.length > 50 ? r.valueAtTime.slice(0, 47) + '…' : r.valueAtTime;
+        return '<tr data-activity-id="' + r.id + '" data-object-type="' + activityLogEscape(r.objectType) + '" data-object-id="' + activityLogEscape(r.objectId) + '">' +
+          '<td>' + activityLogEscape(r.timestamp) + '</td>' +
+          '<td>' + activityLogEscape(r.user) + '</td>' +
+          '<td>' + activityLogEscape(r.action) + '</td>' +
+          '<td>' + activityLogEscape(r.where) + '</td>' +
+          '<td>' + activityLogEscape(r.objectType) + ': ' + activityLogEscape(r.objectId) + '</td>' +
+          '<td class="activity-log-value-cell" title="' + activityLogEscape(r.valueAtTime) + '">' + activityLogEscape(valueShort) + '</td>' +
+          '<td><button type="button" class="btn btn-ghost btn-sm" onclick="openAuditTrailDrawer(\'' + activityLogEscape(r.objectType).replace(/'/g, "\\'") + '\', \'' + activityLogEscape(r.objectId).replace(/'/g, "\\'") + '\')">View audit trail</button></td></tr>';
+      }).join('');
+    }
+    function toggleActivityLogFilters(ev) {
+      ev.stopPropagation();
+      var btn = document.getElementById('activity-log-filters-btn');
+      var menu = document.getElementById('activity-log-filters-dropdown');
+      if (!btn || !menu) return;
+      var isOpen = menu.classList.toggle('open');
+      btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      if (isOpen) {
+        setTimeout(function() {
+          document.addEventListener('click', closeActivityLogFiltersOnClick);
+        }, 0);
+      } else {
+        document.removeEventListener('click', closeActivityLogFiltersOnClick);
+      }
+    }
+    function closeActivityLogFiltersOnClick(ev) {
+      var btn = document.getElementById('activity-log-filters-btn');
+      var menu = document.getElementById('activity-log-filters-dropdown');
+      if (ev && ev.target && (btn && btn.contains(ev.target)) || (menu && menu.contains(ev.target))) return;
+      if (menu) menu.classList.remove('open');
+      if (btn) btn.setAttribute('aria-expanded', 'false');
+      document.removeEventListener('click', closeActivityLogFiltersOnClick);
+    }
+    function updateActivityLogFilterBadge() {
+      var userEl = document.getElementById('activity-log-filter-user');
+      var actionEl = document.getElementById('activity-log-filter-action');
+      var objectEl = document.getElementById('activity-log-filter-object');
+      var badge = document.getElementById('activity-log-filter-badge');
+      if (!badge) return;
+      var n = 0;
+      if (userEl && userEl.value) n++;
+      if (actionEl && actionEl.value) n++;
+      if (objectEl && objectEl.value) n++;
+      if (n > 0) {
+        badge.textContent = n;
+        badge.style.display = 'inline-flex';
+      } else {
+        badge.style.display = 'none';
+      }
+    }
+    function openAuditTrailDrawer(objectType, objectId) {
+      var subtitle = document.getElementById('audit-trail-subtitle');
+      var titleEl = document.getElementById('audit-trail-drawer-title');
+      var tbody = document.getElementById('audit-trail-tbody');
+      if (!tbody) return;
+      var trail = ACTIVITY_LOG_DATA.filter(function(r) {
+        return r.objectType === objectType && r.objectId === objectId;
+      }).sort(function(a, b) { return a.timestamp < b.timestamp ? 1 : -1; });
+      if (titleEl) titleEl.textContent = 'Audit trail: ' + (objectType + ' — ' + objectId);
+      if (subtitle) subtitle.textContent = 'All changes to this object over time (' + trail.length + ' event' + (trail.length !== 1 ? 's' : '') + ').';
+      tbody.innerHTML = trail.map(function(r) {
+        return '<tr><td>' + activityLogEscape(r.timestamp) + '</td><td>' + activityLogEscape(r.user) + '</td><td>' + activityLogEscape(r.action) + '</td><td>' + activityLogEscape(r.where) + '</td><td class="activity-log-value-cell" title="' + activityLogEscape(r.valueAtTime) + '">' + activityLogEscape(r.valueAtTime.length > 60 ? r.valueAtTime.slice(0, 57) + '…' : r.valueAtTime) + '</td></tr>';
+      }).join('');
+      var backdrop = document.getElementById('audit-trail-backdrop');
+      var drawer = document.getElementById('audit-trail-drawer');
+      if (backdrop) backdrop.classList.add('open');
+      if (drawer) drawer.classList.add('open');
+    }
+    function closeAuditTrailDrawer() {
+      var backdrop = document.getElementById('audit-trail-backdrop');
+      var drawer = document.getElementById('audit-trail-drawer');
+      if (backdrop) backdrop.classList.remove('open');
+      if (drawer) drawer.classList.remove('open');
     }
 
     function filterModalList(modalId, query) {
