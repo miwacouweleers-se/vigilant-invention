@@ -10283,6 +10283,8 @@
     .ownership-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; margin-bottom: 16px; }
     .activity-log-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-bottom: 16px; }
     .activity-log-value-cell { max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 12px; color: var(--ghg-text-secondary); }
+    .activity-log-audit-btn { color: var(--ghg-primary-dark) !important; }
+    .activity-log-audit-btn:hover { color: var(--ghg-primary) !important; text-decoration: underline; }
     .activity-log-filter-badge { min-width: 18px; height: 18px; padding: 0 5px; font-size: 11px; font-weight: 600; background: var(--ghg-primary); color: #fff; border-radius: 9px; display: inline-flex; align-items: center; justify-content: center; margin-left: 6px; }
     .activity-log-custom-dates-label { font-size: 13px; color: var(--ghg-text-secondary); }
     .audit-trail-backdrop { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.4); z-index: 2000; opacity: 0; visibility: hidden; transition: opacity 0.25s ease, visibility 0.25s ease; }
@@ -23117,7 +23119,7 @@ Thank you.</div>
           '<td>' + activityLogEscape(r.where) + '</td>' +
           '<td>' + activityLogEscape(r.objectType) + ': ' + activityLogEscape(r.objectId) + '</td>' +
           '<td class="activity-log-value-cell" title="' + activityLogEscape(r.valueAtTime) + '">' + activityLogEscape(valueShort) + '</td>' +
-          '<td><button type="button" class="btn btn-ghost btn-sm" onclick="openAuditTrailDrawer(\'' + activityLogEscape(r.objectType).replace(/'/g, "\\'") + '\', \'' + activityLogEscape(r.objectId).replace(/'/g, "\\'") + '\')">View audit trail</button></td></tr>';
+          '<td><button type="button" class="btn btn-ghost btn-sm activity-log-audit-btn" onclick="openAuditTrailDrawer(\'' + activityLogEscape(r.objectType).replace(/'/g, "\\'") + '\', \'' + activityLogEscape(r.objectId).replace(/'/g, "\\'") + '\')">View audit trail</button></td></tr>';
       }).join('');
     }
     function toggleActivityLogFilters(ev) {
