@@ -1,33 +1,80 @@
 #!/usr/bin/env node
 /**
- * Start local server and open the Create New Inventory prototype in the default browser.
- * Usage: node scripts/serve-and-open.js
+ * Start local server and open the Create New Inventory prototype.
+ * Uses Node only (no Python or npx). Tries ports 5555, 5556, 3333 if one is in use.
+ * Usage: npm start   or   npm run dev
  */
-const { spawn } = require('child_process');
 const http = require('http');
-const PORT = 5555;
-const URL = `http://localhost:${PORT}/prototypes/create-new-inventory/index.html`;
+const fs = require('fs');
+const path = require('path');
 
-const server = spawn('python3', ['-m', 'http.server', String(PORT)], {
-  cwd: __dirname + '/..',
-  stdio: 'inherit',
-});
+const PORTS = [5555, 5556, 3333];
+const ROOT = path.resolve(__dirname, '..');
 
-function openBrowser() {
-  const start = process.platform === 'darwin' ? 'open' : process.platform === 'win32' ? 'start' : 'xdg-open';
-  require('child_process').exec(`${start} "${URL}"`);
-  console.log('\nPrototype URL: ' + URL);
-  console.log('Server running. Press Ctrl+C to stop.\n');
+const MIME = {
+  '.html': 'text/html',
+  '.css': 'text/css',
+  '.js': 'application/javascript',
+  '.json': 'application/json',
+  '.png': 'image/png',
+  '.jpg': 'image/jpeg',
+  '.jpeg': 'image/jpeg',
+  '.gif': 'image/gif',
+  '.ico': 'image/x-icon',
+  '.svg': 'image/svg+xml',
+  '.woff': 'font/woff',
+  '.woff2': 'font/woff2',
+};
+
+function createServer() {
+  return http.createServer((req, res) => {
+    let filePath = path.join(ROOT, req.url === '/' ? '/index.html' : req.url);
+    filePath = path.normalize(filePath);
+    if (!filePath.startsWith(ROOT)) {
+      res.statusCode = 403;
+      res.end('Forbidden');
+      return;
+    }
+    fs.stat(filePath, (err, stat) => {
+      if (err || !stat.isFile()) {
+        res.statusCode = 404;
+        res.end('Not Found');
+        return;
+      }
+      const ext = path.extname(filePath);
+      res.setHeader('Content-Type', MIME[ext] || 'application/octet-stream');
+      fs.createReadStream(filePath).pipe(res);
+    });
+  });
 }
 
-function waitForServer(retries = 20) {
-  const req = http.get(`http://127.0.0.1:${PORT}/`, { timeout: 500 }, (res) => {
-    openBrowser();
+function tryListen(portIndex) {
+  if (portIndex >= PORTS.length) {
+    console.error('  All ports ' + PORTS.join(', ') + ' are in use.');
+    console.log('  Stop the other process or use: python3 -m http.server 5555\n');
+    process.exit(1);
+  }
+  const port = PORTS[portIndex];
+  const url = `http://localhost:${port}/prototypes/create-new-inventory/index.html`;
+  const server = createServer();
+
+  server.on('error', (err) => {
+    if (err.code === 'EADDRINUSE') {
+      tryListen(portIndex + 1);
+    } else {
+      console.error('  Server error:', err.message);
+      process.exit(1);
+    }
   });
-  req.on('error', () => {
-    if (retries > 0) setTimeout(() => waitForServer(retries - 1), 300);
-    else openBrowser();
+
+  server.listen(port, '127.0.0.1', () => {
+    const openCmd = process.platform === 'darwin' ? 'open' : process.platform === 'win32' ? 'start' : 'xdg-open';
+    require('child_process').exec(`${openCmd} "${url}"`, () => {});
+    console.log('\n  Prototype URL (copy if browser did not open):');
+    console.log('  ' + url);
+    console.log('\n  Server: http://127.0.0.1:' + port + '/');
+    console.log('  Press Ctrl+C to stop.\n');
   });
 }
 
-setTimeout(() => waitForServer(), 800);
+tryListen(0);

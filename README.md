@@ -26,37 +26,28 @@ Styled with [Doodle CSS](https://github.com/chr15m/DoodleCSS) for a hand-drawn w
 
 ## Preview locally
 
-**Option 1 – Python (default):**
+**Recommended – one command (starts server and opens prototype):**
 
 ```bash
-npm start
+npm run dev
 ```
 
-Or directly: `python3 -m http.server 3333`
+This starts a local server on port **5555** (using Python’s built-in server if available) and opens the Create New Inventory prototype in your browser. If the browser doesn’t open, use the URL printed in the terminal.
 
-If you see **"Address already in use"**, another process is using port 3333. Either stop it or use a different port:
-
-```bash
-python3 -m http.server 3334
-```
-
-Then open **http://localhost:3334** (and **http://localhost:3334/prototypes/create-new-inventory/** for the Create New Inventory prototype).
-
-**Option 2 – Node (serve):**
+**Manual – start server then open URL:**
 
 ```bash
-npm install
 npm run serve
 ```
 
-*(If `npm run serve` fails with a system error, use `npm start` instead.)*
-
 Then open in your browser:
 
-- **Main prototype:** **http://localhost:3333**
-- **Create New Inventory prototype:** **http://localhost:3333/prototypes/create-new-inventory/**
+- **Create New Inventory prototype:** **http://localhost:5555/prototypes/create-new-inventory/index.html**
+- **Site root:** **http://localhost:5555/**
 
-If the URL does not work, ensure you run the command from the **repository root** (the folder that contains `index.html` and `prototypes/`).
+*(If `npm run serve` fails, run `python3 -m http.server 5555` from the repo root, then open the same URLs.)*
+
+Run all commands from the **repository root** (the folder that contains `index.html` and `prototypes/`).
 
 ## Contents
 

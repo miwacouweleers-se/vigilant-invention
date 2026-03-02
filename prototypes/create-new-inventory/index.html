@@ -10282,9 +10282,61 @@
     .campaign-filters.ownership-filters .ownership-filter-chip-wrap { flex-shrink: 0; }
     .ownership-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; margin-bottom: 16px; }
     .activity-log-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-bottom: 16px; }
-    .activity-log-value-cell { max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 12px; color: var(--ghg-text-secondary); }
+    .activity-log-card-body { padding: 0; overflow: hidden; }
+    .activity-log-table-wrap { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .activity-log-table { width: 100%; min-width: 800px; table-layout: fixed; font-size: 14px; }
+    .activity-log-table th,
+    .activity-log-table td { font-size: 14px; }
+    .activity-log-table th:nth-child(1) { width: 16%; min-width: 165px; }
+    .activity-log-table th:nth-child(2) { width: 10%; min-width: 100px; }
+    .activity-log-table th:nth-child(3) { width: 8%; min-width: 80px; }
+    .activity-log-table th:nth-child(4) { width: 10%; min-width: 100px; }
+    .activity-log-table th:nth-child(5) { width: 18%; min-width: 160px; }
+    .activity-log-table th:nth-child(6) { width: 28%; min-width: 160px; }
+    .activity-log-table th:nth-child(7) { width: 10%; min-width: 100px; }
+    @media (max-width: 1200px) {
+      .activity-log-table th:nth-child(6) { min-width: 140px; }
+    }
+    @media (max-width: 900px) {
+      .activity-log-table { min-width: 700px; }
+      .activity-log-table th:nth-child(1) { min-width: 150px; }
+      .activity-log-table th:nth-child(6) { min-width: 120px; }
+    }
+    .activity-log-where-col { }
+    .activity-log-where-cell { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .activity-log-details-col { }
+    .activity-log-audit-col { width: 100px; min-width: 100px; }
+    .activity-log-value-cell { max-width: 100%; white-space: normal; word-wrap: break-word; overflow-wrap: break-word; word-break: break-word; color: var(--ghg-text-secondary); }
+    .activity-log-value-cell .activity-log-view-full { margin-left: 6px; color: var(--ghg-primary-dark); cursor: pointer; white-space: nowrap; }
+    .activity-log-value-cell .activity-log-view-full:hover { text-decoration: underline; }
     .activity-log-audit-btn { color: var(--ghg-primary-dark) !important; }
     .activity-log-audit-btn:hover { color: var(--ghg-primary) !important; text-decoration: underline; }
+    /* Original activity log: one-line rows, row click opens drawer */
+    #view-user-activity-log .activity-log-table tbody tr { cursor: pointer; }
+    #view-user-activity-log .activity-log-one-line-clamp { display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.35; max-height: 1.4em; }
+    #view-user-activity-log .activity-log-audit-col .btn { pointer-events: auto; }
+    .activity-row-drawer-tabs { display: flex; gap: 0; border-bottom: 1px solid var(--ghg-border); padding: 0 24px; background: var(--ghg-surface-elevated); }
+    .activity-row-drawer-tab { padding: 12px 16px; font-size: 14px; font-weight: 500; color: var(--ghg-text-muted); background: none; border: none; border-bottom: 2px solid transparent; margin-bottom: -1px; cursor: pointer; }
+    .activity-row-drawer-tab:hover { color: var(--ghg-text); }
+    .activity-row-drawer-tab.active { color: var(--ghg-primary-dark); border-bottom-color: var(--ghg-primary-dark); }
+    .activity-row-drawer-body { flex: 1; min-height: 0; overflow: hidden; display: flex; flex-direction: column; }
+    .activity-row-drawer-panel { display: none; padding: 24px; overflow-y: auto; flex: 1; min-height: 0; }
+    .activity-row-drawer-panel.active { display: block; }
+    /* V2: max 2 lines per row, row click opens detail drawer */
+    #view-user-activity-log-v2 .activity-log-table-wrap { position: relative; }
+    #view-user-activity-log-v2 .activity-log-table tbody tr { cursor: pointer; }
+    #view-user-activity-log-v2 .activity-log-v2-line-clamp { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.35; max-height: 2.7em; }
+    #view-user-activity-log-v2 .activity-log-audit-col .btn { pointer-events: auto; }
+    .activity-log-v2-search-wrapper { position: relative; display: inline-flex; align-items: center; }
+    .activity-log-v2-search-wrapper .search-input-wrapper { flex: 1; min-width: 0; width: 100%; }
+    .activity-log-v2-search-clear { display: none; position: absolute; right: 10px; top: 50%; transform: translateY(-50%); width: 22px; height: 22px; padding: 0; border: none; border-radius: 50%; background: var(--ghg-text-muted); color: var(--ghg-surface); font-size: 12px; cursor: pointer; align-items: center; justify-content: center; flex-shrink: 0; }
+    .activity-log-v2-search-clear.visible { display: flex; }
+    .activity-log-v2-search-clear:hover { background: var(--ghg-text); }
+    .activity-log-v2-search-wrapper.has-audit-filter .form-input { padding-right: 36px; }
+    .activity-row-detail-row { margin-bottom: 14px; }
+    .activity-row-detail-label { display: block; font-size: 12px; font-weight: 600; color: var(--ghg-text-muted); margin-bottom: 4px; }
+    .activity-row-detail-value { font-size: 14px; color: var(--ghg-text); }
+    .activity-row-detail-value-full { white-space: pre-wrap; word-break: break-word; }
     .activity-log-filter-badge { min-width: 18px; height: 18px; padding: 0 5px; font-size: 11px; font-weight: 600; background: var(--ghg-primary); color: #fff; border-radius: 9px; display: inline-flex; align-items: center; justify-content: center; margin-left: 6px; }
     .activity-log-custom-dates-label { font-size: 13px; color: var(--ghg-text-secondary); }
     .audit-trail-backdrop { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.4); z-index: 2000; opacity: 0; visibility: hidden; transition: opacity 0.25s ease, visibility 0.25s ease; }
@@ -10520,6 +10572,7 @@
           <a href="#" class="submenu-item">Organization</a>
           <a href="#" class="submenu-item">Users</a>
           <a href="#" class="submenu-item" data-view="user-activity-log" onclick="event.preventDefault(); if(typeof switchView==='function'){switchView('user-activity-log');}">User activity log</a>
+          <a href="#" class="submenu-item" data-view="user-activity-log-v2" onclick="event.preventDefault(); if(typeof switchView==='function'){switchView('user-activity-log-v2');}">User activity log (V2)</a>
           <a href="#" class="submenu-item" data-view="unit-measure">Unit of measurement conversions</a>
           <a href="#" class="submenu-item" data-view="unit-measure-v2">Unit of measurement conversions (v2)</a>
           <a href="#" class="submenu-item" data-view="unit-measure-view-only">View only</a>
@@ -11908,22 +11961,118 @@
               </span>
             </div>
             <div class="card">
-              <div class="card-body" style="padding: 0;">
-                <table class="data-table" id="activity-log-table" aria-label="User activity log">
-                  <thead>
-                    <tr>
-                      <th>Timestamp</th>
-                      <th>Who</th>
-                      <th>Action</th>
-                      <th>Where</th>
-                      <th>Object affected</th>
-                      <th>Value at time</th>
-                      <th style="width: 100px;">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody id="activity-log-tbody">
-                  </tbody>
-                </table>
+              <div class="card-body activity-log-card-body">
+                <div class="activity-log-table-wrap">
+                  <table class="data-table activity-log-table" id="activity-log-table" aria-label="User activity log">
+                    <thead>
+                      <tr>
+                        <th>Timestamp</th>
+                        <th>Who</th>
+                        <th>Action</th>
+                        <th class="activity-log-where-col">Where</th>
+                        <th>Object affected</th>
+                        <th class="activity-log-details-col">Object details</th>
+                        <th class="activity-log-audit-col">Audit trail</th>
+                      </tr>
+                    </thead>
+                    <tbody id="activity-log-tbody">
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- VIEW: USER ACTIVITY LOG V2 (Settings)           -->
+        <!-- ============================================== -->
+        <div id="view-user-activity-log-v2" class="view">
+          <div class="page-header">
+            <div class="page-header-left">
+              <div class="page-breadcrumb">
+                <a href="#">Settings</a>
+                <i class="fa-light fa-chevron-right"></i>
+                <span>User activity log (V2)</span>
+              </div>
+              <h1 class="page-title">User activity log (V2)</h1>
+              <p class="page-subtitle">Track all activities in the platform. View audit trails for specific objects.</p>
+            </div>
+          </div>
+          <div class="content-container">
+            <div class="activity-log-toolbar">
+              <div class="activity-log-v2-search-wrapper" style="width: 420px;">
+                <div class="search-input-wrapper" style="width: 100%;">
+                  <i class="fa-light fa-search"></i>
+                  <input type="text" class="form-input" id="activity-log-search-v2" placeholder="Search..." aria-label="Search activity log" oninput="activityLogApplyFiltersV2()">
+                </div>
+                <button type="button" class="activity-log-v2-search-clear" id="activity-log-v2-search-clear" onclick="clearAuditFilterV2()" aria-label="Clear audit trail filter" title="Clear audit trail filter"><i class="fa-light fa-times"></i></button>
+              </div>
+              <div class="dropdown-inline">
+                <button type="button" class="btn btn-secondary" id="activity-log-filters-btn-v2" onclick="toggleActivityLogFiltersV2(event)" aria-haspopup="true" aria-expanded="false">
+                  <i class="fa-light fa-filter"></i> Filters
+                  <span class="activity-log-filter-badge" id="activity-log-filter-badge-v2" style="display: none;"></span>
+                  <i class="fa-light fa-chevron-down" style="margin-left: 6px;"></i>
+                </button>
+                <div class="dropdown-menu activity-log-filters-dropdown" id="activity-log-filters-dropdown-v2" style="min-width: 260px; padding: 16px;">
+                  <div class="form-group" style="margin-bottom: 12px;">
+                    <label class="form-label" for="activity-log-filter-user-v2">User</label>
+                    <select class="form-select" id="activity-log-filter-user-v2" aria-label="Filter by user" onchange="activityLogApplyFiltersV2(); updateActivityLogFilterBadgeV2();" style="width: 100%;">
+                      <option value="">All users</option>
+                    </select>
+                  </div>
+                  <div class="form-group" style="margin-bottom: 12px;">
+                    <label class="form-label" for="activity-log-filter-action-v2">Action</label>
+                    <select class="form-select" id="activity-log-filter-action-v2" aria-label="Filter by action" onchange="activityLogApplyFiltersV2(); updateActivityLogFilterBadgeV2();" style="width: 100%;">
+                      <option value="">All actions</option>
+                      <option value="created">Created</option>
+                      <option value="updated">Updated</option>
+                      <option value="deleted">Deleted</option>
+                      <option value="viewed">Viewed</option>
+                    </select>
+                  </div>
+                  <div class="form-group" style="margin-bottom: 0;">
+                    <label class="form-label" for="activity-log-filter-object-v2">Object type</label>
+                    <select class="form-select" id="activity-log-filter-object-v2" aria-label="Filter by object type" onchange="activityLogApplyFiltersV2(); updateActivityLogFilterBadgeV2();" style="width: 100%;">
+                      <option value="">All object types</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <select class="form-select" id="activity-log-timeframe-v2" aria-label="Timeframe" onchange="activityLogTimeframeChangeV2()" style="width: 160px;">
+                <option value="">All time</option>
+                <option value="today">Today</option>
+                <option value="yesterday">Yesterday</option>
+                <option value="last7">Last 7 days</option>
+                <option value="last30">Last 30 days</option>
+                <option value="custom">Custom</option>
+              </select>
+              <span class="activity-log-custom-dates" id="activity-log-custom-dates-v2" style="display: none; align-items: center; gap: 8px;">
+                <label for="activity-log-from-v2" class="activity-log-custom-dates-label">From</label>
+                <input type="date" class="form-input" id="activity-log-from-v2" aria-label="From date" style="width: 140px;" onchange="activityLogApplyFiltersV2()">
+                <label for="activity-log-to-v2" class="activity-log-custom-dates-label">To</label>
+                <input type="date" class="form-input" id="activity-log-to-v2" aria-label="To date" style="width: 140px;" onchange="activityLogApplyFiltersV2()">
+              </span>
+            </div>
+            <div class="card">
+              <div class="card-body activity-log-card-body">
+                <div class="activity-log-table-wrap">
+                  <table class="data-table activity-log-table" id="activity-log-table-v2" aria-label="User activity log V2">
+                    <thead>
+                      <tr>
+                        <th>Timestamp</th>
+                        <th>Who</th>
+                        <th>Action</th>
+                        <th class="activity-log-where-col">Where</th>
+                        <th>Object affected</th>
+                        <th class="activity-log-details-col">Object details</th>
+                        <th class="activity-log-audit-col">Audit trail</th>
+                      </tr>
+                    </thead>
+                    <tbody id="activity-log-tbody-v2">
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>
@@ -18171,33 +18320,78 @@ Thank you.</div>
     </div>
   </div>
 
-  <!-- Audit trail side drawer (User activity log) -->
-  <div class="audit-trail-backdrop" id="audit-trail-backdrop" onclick="if(event.target===this) closeAuditTrailDrawer()"></div>
+  <!-- Activity row drawer with Details + Audit trail tabs (User activity log) -->
+  <div class="audit-trail-backdrop" id="audit-trail-backdrop" onclick="if(event.target===this) closeActivityRowDrawer()"></div>
   <div class="audit-trail-drawer" id="audit-trail-drawer" role="dialog" aria-labelledby="audit-trail-drawer-title" aria-modal="true">
     <div class="audit-trail-drawer-header">
-      <h2 class="audit-trail-drawer-title" id="audit-trail-drawer-title">Audit trail</h2>
-      <button type="button" class="audit-trail-drawer-close" onclick="closeAuditTrailDrawer()" aria-label="Close"><i class="fa-light fa-times"></i></button>
+      <h2 class="audit-trail-drawer-title" id="audit-trail-drawer-title">Activity details</h2>
+      <button type="button" class="audit-trail-drawer-close" onclick="closeActivityRowDrawer()" aria-label="Close"><i class="fa-light fa-times"></i></button>
     </div>
-    <div class="audit-trail-drawer-body">
-      <p id="audit-trail-subtitle" style="font-size: 14px; color: var(--ghg-text-secondary); margin: 0 0 16px 0;"></p>
-      <div class="card">
-        <div class="card-body" style="padding: 0;">
-          <table class="data-table" aria-label="Audit trail">
-            <thead>
-              <tr>
-                <th>Timestamp</th>
-                <th>Who</th>
-                <th>Action</th>
-                <th>Where</th>
-                <th>Value at time</th>
-              </tr>
-            </thead>
-            <tbody id="audit-trail-tbody">
-            </tbody>
-          </table>
+    <div class="activity-row-drawer-tabs">
+      <button type="button" class="activity-row-drawer-tab active" id="activity-row-drawer-tab-details" onclick="switchActivityRowDrawerTab('details')">Details</button>
+      <button type="button" class="activity-row-drawer-tab" id="activity-row-drawer-tab-audit" onclick="switchActivityRowDrawerTab('audit')">Audit trail</button>
+    </div>
+    <div class="activity-row-drawer-body">
+      <div class="activity-row-drawer-panel active" id="activity-row-drawer-panel-details">
+        <div class="activity-row-detail-row"><span class="activity-row-detail-label">Timestamp</span><span class="activity-row-detail-value" id="activity-row-detail-timestamp"></span></div>
+        <div class="activity-row-detail-row"><span class="activity-row-detail-label">Who</span><span class="activity-row-detail-value" id="activity-row-detail-who"></span></div>
+        <div class="activity-row-detail-row"><span class="activity-row-detail-label">Action</span><span class="activity-row-detail-value" id="activity-row-detail-action"></span></div>
+        <div class="activity-row-detail-row"><span class="activity-row-detail-label">Where</span><span class="activity-row-detail-value" id="activity-row-detail-where"></span></div>
+        <div class="activity-row-detail-row"><span class="activity-row-detail-label">Object affected</span><span class="activity-row-detail-value" id="activity-row-detail-object"></span></div>
+        <div class="activity-row-detail-row"><span class="activity-row-detail-label">Object details</span><span class="activity-row-detail-value activity-row-detail-value-full" id="activity-row-detail-value"></span></div>
+      </div>
+      <div class="activity-row-drawer-panel" id="activity-row-drawer-panel-audit">
+        <p id="audit-trail-subtitle" style="font-size: 14px; color: var(--ghg-text-secondary); margin: 0 0 16px 0;"></p>
+        <div class="card">
+          <div class="card-body" style="padding: 0;">
+            <table class="data-table" aria-label="Audit trail">
+              <thead>
+                <tr>
+                  <th>Timestamp</th>
+                  <th>Who</th>
+                  <th>Action</th>
+                  <th>Where</th>
+                  <th>Object details</th>
+                </tr>
+              </thead>
+              <tbody id="audit-trail-tbody">
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
-      <div style="margin-top: 16px;"><button type="button" class="btn btn-primary btn-sm" onclick="closeAuditTrailDrawer()">Close</button></div>
+    </div>
+    <div style="padding: 16px 24px; border-top: 1px solid var(--ghg-border); flex-shrink: 0;"><button type="button" class="btn btn-primary btn-sm" onclick="closeActivityRowDrawer()">Close</button></div>
+  </div>
+
+  <!-- Object details full view (User activity log) -->
+  <div class="modal-backdrop" id="activity-log-full-details-modal" onclick="if(event.target===this) closeActivityLogFullDetails()">
+    <div class="modal modal-md" role="dialog" aria-labelledby="activity-log-full-details-title" aria-modal="true">
+      <div class="modal-header">
+        <h2 class="modal-title" id="activity-log-full-details-title">Object details</h2>
+        <button type="button" class="modal-close" onclick="closeActivityLogFullDetails()" aria-label="Close"><i class="fa-light fa-times"></i></button>
+      </div>
+      <div class="modal-body">
+        <div id="activity-log-full-details-content" style="white-space: pre-wrap; word-break: break-word; font-size: 14px; color: var(--ghg-text); max-height: 60vh; overflow-y: auto;"></div>
+        <div style="margin-top: 16px;"><button type="button" class="btn btn-primary btn-sm" onclick="closeActivityLogFullDetails()">Close</button></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Activity row detail drawer (User activity log V2) -->
+  <div class="audit-trail-backdrop" id="activity-row-detail-backdrop-v2" onclick="if(event.target===this) closeActivityRowDetailDrawerV2()"></div>
+  <div class="audit-trail-drawer" id="activity-row-detail-drawer-v2" role="dialog" aria-labelledby="activity-row-detail-title-v2" aria-modal="true">
+    <div class="audit-trail-drawer-header">
+      <h2 class="audit-trail-drawer-title" id="activity-row-detail-title-v2">Activity details</h2>
+      <button type="button" class="audit-trail-drawer-close" onclick="closeActivityRowDetailDrawerV2()" aria-label="Close"><i class="fa-light fa-times"></i></button>
+    </div>
+    <div class="audit-trail-drawer-body" id="activity-row-detail-body-v2">
+      <div class="activity-row-detail-row"><span class="activity-row-detail-label">Timestamp</span><span class="activity-row-detail-value" id="activity-row-detail-timestamp-v2"></span></div>
+      <div class="activity-row-detail-row"><span class="activity-row-detail-label">Who</span><span class="activity-row-detail-value" id="activity-row-detail-who-v2"></span></div>
+      <div class="activity-row-detail-row"><span class="activity-row-detail-label">Action</span><span class="activity-row-detail-value" id="activity-row-detail-action-v2"></span></div>
+      <div class="activity-row-detail-row"><span class="activity-row-detail-label">Where</span><span class="activity-row-detail-value" id="activity-row-detail-where-v2"></span></div>
+      <div class="activity-row-detail-row"><span class="activity-row-detail-label">Object affected</span><span class="activity-row-detail-value" id="activity-row-detail-object-v2"></span></div>
+      <div class="activity-row-detail-row"><span class="activity-row-detail-label">Object details</span><span class="activity-row-detail-value activity-row-detail-value-full" id="activity-row-detail-value-v2"></span></div>
     </div>
   </div>
 
@@ -19334,6 +19528,14 @@ Thank you.</div>
         var tf = document.getElementById('activity-log-timeframe');
         var customRow = document.getElementById('activity-log-custom-dates');
         if (customRow) customRow.style.display = (tf && tf.value === 'custom') ? 'inline-flex' : 'none';
+      }
+      if (viewId === 'user-activity-log-v2' && typeof activityLogRenderV2 === 'function') {
+        activityLogPopulateFiltersV2();
+        activityLogRenderV2();
+        if (typeof updateActivityLogFilterBadgeV2 === 'function') updateActivityLogFilterBadgeV2();
+        var tfV2 = document.getElementById('activity-log-timeframe-v2');
+        var customRowV2 = document.getElementById('activity-log-custom-dates-v2');
+        if (customRowV2) customRowV2.style.display = (tfV2 && tfV2.value === 'custom') ? 'inline-flex' : 'none';
       }
 
       // On Data Owner Directory, hide Data Campaigns in the sidebar; show it otherwise
@@ -23110,17 +23312,64 @@ Thank you.</div>
         }
         return true;
       });
+      var objTypeEsc, objIdEsc, ts, who, act, where, obj, val;
       tbody.innerHTML = rows.map(function(r) {
-        var valueShort = r.valueAtTime.length > 50 ? r.valueAtTime.slice(0, 47) + '…' : r.valueAtTime;
-        return '<tr data-activity-id="' + r.id + '" data-object-type="' + activityLogEscape(r.objectType) + '" data-object-id="' + activityLogEscape(r.objectId) + '">' +
-          '<td>' + activityLogEscape(r.timestamp) + '</td>' +
-          '<td>' + activityLogEscape(r.user) + '</td>' +
-          '<td>' + activityLogEscape(r.action) + '</td>' +
-          '<td>' + activityLogEscape(r.where) + '</td>' +
-          '<td>' + activityLogEscape(r.objectType) + ': ' + activityLogEscape(r.objectId) + '</td>' +
-          '<td class="activity-log-value-cell" title="' + activityLogEscape(r.valueAtTime) + '">' + activityLogEscape(valueShort) + '</td>' +
-          '<td><button type="button" class="btn btn-ghost btn-sm activity-log-audit-btn" onclick="openAuditTrailDrawer(\'' + activityLogEscape(r.objectType).replace(/'/g, "\\'") + '\', \'' + activityLogEscape(r.objectId).replace(/'/g, "\\'") + '\')">View audit trail</button></td></tr>';
+        objTypeEsc = activityLogEscape(r.objectType).replace(/'/g, "\\'");
+        objIdEsc = activityLogEscape(r.objectId).replace(/'/g, "\\'");
+        ts = activityLogEscape(r.timestamp);
+        who = activityLogEscape(r.user);
+        act = activityLogEscape(r.action);
+        where = activityLogEscape(r.where);
+        obj = activityLogEscape(r.objectType) + ': ' + activityLogEscape(r.objectId);
+        val = activityLogEscape(r.valueAtTime);
+        return '<tr data-activity-id="' + r.id + '" data-object-type="' + activityLogEscape(r.objectType) + '" data-object-id="' + activityLogEscape(r.objectId) + '" onclick="handleActivityRowClick(event)">' +
+          '<td><span class="activity-log-one-line-clamp">' + ts + '</span></td>' +
+          '<td><span class="activity-log-one-line-clamp">' + who + '</span></td>' +
+          '<td><span class="activity-log-one-line-clamp">' + act + '</span></td>' +
+          '<td class="activity-log-where-cell"><span class="activity-log-one-line-clamp">' + where + '</span></td>' +
+          '<td><span class="activity-log-one-line-clamp">' + obj + '</span></td>' +
+          '<td class="activity-log-value-cell"><span class="activity-log-one-line-clamp">' + val + '</span></td>' +
+          '<td class="activity-log-audit-col"><button type="button" class="btn btn-ghost btn-sm activity-log-audit-btn" onclick="event.stopPropagation(); openActivityRowDrawer(' + r.id + ', \'audit\')">View audit trail</button></td></tr>';
       }).join('');
+    }
+    function handleActivityRowClick(ev) {
+      if (ev.target.closest('button')) return;
+      var tr = ev.currentTarget;
+      var id = tr.getAttribute('data-activity-id');
+      if (id) openActivityRowDrawer(parseInt(id, 10), 'details');
+    }
+    function openActivityRowDrawer(activityId, openTab) {
+      var row = ACTIVITY_LOG_DATA.filter(function(r) { return r.id === activityId; })[0];
+      if (!row) return;
+      var objectType = row.objectType, objectId = row.objectId;
+      document.getElementById('activity-row-detail-timestamp').textContent = row.timestamp || '';
+      document.getElementById('activity-row-detail-who').textContent = row.user || '';
+      document.getElementById('activity-row-detail-action').textContent = row.action || '';
+      document.getElementById('activity-row-detail-where').textContent = row.where || '';
+      document.getElementById('activity-row-detail-object').textContent = (row.objectType || '') + ': ' + (row.objectId || '');
+      document.getElementById('activity-row-detail-value').textContent = row.valueAtTime || '';
+      var trail = ACTIVITY_LOG_DATA.filter(function(r) { return r.objectType === objectType && r.objectId === objectId; }).sort(function(a, b) { return a.timestamp < b.timestamp ? 1 : -1; });
+      var subtitle = document.getElementById('audit-trail-subtitle');
+      if (subtitle) subtitle.textContent = 'All changes to this object over time (' + trail.length + ' event' + (trail.length !== 1 ? 's' : '') + ').';
+      var tbody = document.getElementById('audit-trail-tbody');
+      if (tbody) tbody.innerHTML = trail.map(function(r) {
+        return '<tr><td>' + activityLogEscape(r.timestamp) + '</td><td>' + activityLogEscape(r.user) + '</td><td>' + activityLogEscape(r.action) + '</td><td>' + activityLogEscape(r.where) + '</td><td class="activity-log-value-cell" title="' + activityLogEscape(r.valueAtTime) + '">' + activityLogEscape(r.valueAtTime.length > 60 ? r.valueAtTime.slice(0, 57) + '…' : r.valueAtTime) + '</td></tr>';
+      }).join('');
+      switchActivityRowDrawerTab(openTab === 'audit' ? 'audit' : 'details');
+      document.getElementById('audit-trail-backdrop').classList.add('open');
+      document.getElementById('audit-trail-drawer').classList.add('open');
+    }
+    function switchActivityRowDrawerTab(tabName) {
+      document.querySelectorAll('.activity-row-drawer-tab').forEach(function(t) { t.classList.remove('active'); });
+      document.querySelectorAll('.activity-row-drawer-panel').forEach(function(p) { p.classList.remove('active'); });
+      var tab = document.getElementById('activity-row-drawer-tab-' + (tabName === 'audit' ? 'audit' : 'details'));
+      var panel = document.getElementById('activity-row-drawer-panel-' + (tabName === 'audit' ? 'audit' : 'details'));
+      if (tab) tab.classList.add('active');
+      if (panel) panel.classList.add('active');
+    }
+    function closeActivityRowDrawer() {
+      document.getElementById('audit-trail-backdrop').classList.remove('open');
+      document.getElementById('audit-trail-drawer').classList.remove('open');
     }
     function toggleActivityLogFilters(ev) {
       ev.stopPropagation();
@@ -23163,28 +23412,202 @@ Thank you.</div>
       }
     }
     function openAuditTrailDrawer(objectType, objectId) {
-      var subtitle = document.getElementById('audit-trail-subtitle');
-      var titleEl = document.getElementById('audit-trail-drawer-title');
-      var tbody = document.getElementById('audit-trail-tbody');
-      if (!tbody) return;
-      var trail = ACTIVITY_LOG_DATA.filter(function(r) {
-        return r.objectType === objectType && r.objectId === objectId;
-      }).sort(function(a, b) { return a.timestamp < b.timestamp ? 1 : -1; });
-      if (titleEl) titleEl.textContent = 'Audit trail: ' + (objectType + ' — ' + objectId);
-      if (subtitle) subtitle.textContent = 'All changes to this object over time (' + trail.length + ' event' + (trail.length !== 1 ? 's' : '') + ').';
-      tbody.innerHTML = trail.map(function(r) {
-        return '<tr><td>' + activityLogEscape(r.timestamp) + '</td><td>' + activityLogEscape(r.user) + '</td><td>' + activityLogEscape(r.action) + '</td><td>' + activityLogEscape(r.where) + '</td><td class="activity-log-value-cell" title="' + activityLogEscape(r.valueAtTime) + '">' + activityLogEscape(r.valueAtTime.length > 60 ? r.valueAtTime.slice(0, 57) + '…' : r.valueAtTime) + '</td></tr>';
-      }).join('');
-      var backdrop = document.getElementById('audit-trail-backdrop');
-      var drawer = document.getElementById('audit-trail-drawer');
-      if (backdrop) backdrop.classList.add('open');
-      if (drawer) drawer.classList.add('open');
+      var first = ACTIVITY_LOG_DATA.filter(function(r) { return r.objectType === objectType && r.objectId === objectId; })[0];
+      if (first) openActivityRowDrawer(first.id, 'audit');
     }
-    function closeAuditTrailDrawer() {
-      var backdrop = document.getElementById('audit-trail-backdrop');
-      var drawer = document.getElementById('audit-trail-drawer');
-      if (backdrop) backdrop.classList.remove('open');
-      if (drawer) drawer.classList.remove('open');
+    function openActivityLogFullDetails(activityId) {
+      var row = ACTIVITY_LOG_DATA.filter(function(r) { return r.id === activityId; })[0];
+      var content = document.getElementById('activity-log-full-details-content');
+      var modal = document.getElementById('activity-log-full-details-modal');
+      if (content && modal && row) {
+        content.textContent = row.valueAtTime || '';
+        modal.classList.add('open');
+      }
+    }
+    function closeActivityLogFullDetails() {
+      var modal = document.getElementById('activity-log-full-details-modal');
+      if (modal) modal.classList.remove('open');
+    }
+
+    // User activity log V2 (same logic, -v2 element IDs)
+    var activityLogV2AuditFilter = null;
+    function setAuditFilterV2(objectType, objectId) {
+      activityLogV2AuditFilter = { objectType: objectType, objectId: objectId };
+      var input = document.getElementById('activity-log-search-v2');
+      var clearBtn = document.getElementById('activity-log-v2-search-clear');
+      var wrapper = input && input.closest('.activity-log-v2-search-wrapper');
+      if (input) {
+        input.value = 'Audit trail: ' + objectType + ' — ' + objectId;
+        input.readOnly = true;
+      }
+      if (clearBtn) clearBtn.classList.add('visible');
+      if (wrapper) wrapper.classList.add('has-audit-filter');
+      activityLogRenderV2();
+    }
+    function clearAuditFilterV2() {
+      activityLogV2AuditFilter = null;
+      var input = document.getElementById('activity-log-search-v2');
+      var clearBtn = document.getElementById('activity-log-v2-search-clear');
+      var wrapper = input && input.closest('.activity-log-v2-search-wrapper');
+      if (input) {
+        input.value = '';
+        input.readOnly = false;
+      }
+      if (clearBtn) clearBtn.classList.remove('visible');
+      if (wrapper) wrapper.classList.remove('has-audit-filter');
+      activityLogRenderV2();
+    }
+    function openActivityRowDetailDrawerV2(activityId) {
+      var row = ACTIVITY_LOG_DATA.filter(function(r) { return r.id === activityId; })[0];
+      if (!row) return;
+      document.getElementById('activity-row-detail-timestamp-v2').textContent = row.timestamp || '';
+      document.getElementById('activity-row-detail-who-v2').textContent = row.user || '';
+      document.getElementById('activity-row-detail-action-v2').textContent = row.action || '';
+      document.getElementById('activity-row-detail-where-v2').textContent = row.where || '';
+      document.getElementById('activity-row-detail-object-v2').textContent = (row.objectType || '') + ': ' + (row.objectId || '');
+      document.getElementById('activity-row-detail-value-v2').textContent = row.valueAtTime || '';
+      document.getElementById('activity-row-detail-backdrop-v2').classList.add('open');
+      document.getElementById('activity-row-detail-drawer-v2').classList.add('open');
+    }
+    function closeActivityRowDetailDrawerV2() {
+      document.getElementById('activity-row-detail-backdrop-v2').classList.remove('open');
+      document.getElementById('activity-row-detail-drawer-v2').classList.remove('open');
+    }
+    function handleActivityRowClickV2(ev) {
+      if (ev.target.closest('button')) return;
+      var tr = ev.currentTarget;
+      var id = tr.getAttribute('data-activity-id');
+      if (id) openActivityRowDetailDrawerV2(parseInt(id, 10));
+    }
+    function activityLogApplyFiltersV2() { activityLogRenderV2(); }
+    function activityLogTimeframeChangeV2() {
+      var timeframeEl = document.getElementById('activity-log-timeframe-v2');
+      var customRow = document.getElementById('activity-log-custom-dates-v2');
+      if (customRow) customRow.style.display = (timeframeEl && timeframeEl.value === 'custom') ? 'inline-flex' : 'none';
+      activityLogApplyFiltersV2();
+    }
+    function activityLogPopulateFiltersV2() {
+      var users = {}, objectTypes = {};
+      ACTIVITY_LOG_DATA.forEach(function(row) { users[row.user] = true; objectTypes[row.objectType] = true; });
+      var userSelect = document.getElementById('activity-log-filter-user-v2');
+      var objectSelect = document.getElementById('activity-log-filter-object-v2');
+      if (userSelect && userSelect.options.length <= 1) {
+        Object.keys(users).sort().forEach(function(u) {
+          var opt = document.createElement('option'); opt.value = u; opt.textContent = u; userSelect.appendChild(opt);
+        });
+      }
+      if (objectSelect && objectSelect.options.length <= 1) {
+        Object.keys(objectTypes).sort().forEach(function(t) {
+          var opt = document.createElement('option'); opt.value = t; opt.textContent = t; objectSelect.appendChild(opt);
+        });
+      }
+    }
+    function activityLogRenderV2() {
+      var tbody = document.getElementById('activity-log-tbody-v2');
+      if (!tbody) return;
+      var searchInput = document.getElementById('activity-log-search-v2');
+      var search = (searchInput && !searchInput.readOnly) ? (searchInput.value || '') : '';
+      var userFilter = (document.getElementById('activity-log-filter-user-v2') || {}).value || '';
+      var actionFilter = (document.getElementById('activity-log-filter-action-v2') || {}).value || '';
+      var objectFilter = (document.getElementById('activity-log-filter-object-v2') || {}).value || '';
+      var timeframeEl = document.getElementById('activity-log-timeframe-v2');
+      var timeframe = (timeframeEl && timeframeEl.value) || '';
+      var fromDate = '', toDate = '';
+      if (timeframe === 'custom') {
+        fromDate = (document.getElementById('activity-log-from-v2') || {}).value || '';
+        toDate = (document.getElementById('activity-log-to-v2') || {}).value || '';
+      } else if (timeframe) {
+        var today = new Date();
+        var y = today.getFullYear(), m = String(today.getMonth() + 1).padStart(2, '0'), d = String(today.getDate()).padStart(2, '0');
+        toDate = y + '-' + m + '-' + d;
+        if (timeframe === 'today' || timeframe === 'yesterday') {
+          if (timeframe === 'yesterday') {
+            var yesterday = new Date(today); yesterday.setDate(yesterday.getDate() - 1);
+            fromDate = toDate = yesterday.getFullYear() + '-' + String(yesterday.getMonth() + 1).padStart(2, '0') + '-' + String(yesterday.getDate()).padStart(2, '0');
+          } else { fromDate = toDate; }
+        } else if (timeframe === 'last7' || timeframe === 'last30') {
+          var from = new Date(today); from.setDate(from.getDate() - (timeframe === 'last7' ? 7 : 30));
+          fromDate = from.getFullYear() + '-' + String(from.getMonth() + 1).padStart(2, '0') + '-' + String(from.getDate()).padStart(2, '0');
+        }
+      }
+      var q = search.toLowerCase().trim();
+      var rows = ACTIVITY_LOG_DATA.filter(function(r) {
+        if (userFilter && r.user !== userFilter) return false;
+        if (actionFilter && r.action !== actionFilter) return false;
+        if (objectFilter && r.objectType !== objectFilter) return false;
+        if (activityLogV2AuditFilter && (r.objectType !== activityLogV2AuditFilter.objectType || r.objectId !== activityLogV2AuditFilter.objectId)) return false;
+        var rowDate = (r.timestamp || '').slice(0, 10);
+        if (fromDate && rowDate < fromDate) return false;
+        if (toDate && rowDate > toDate) return false;
+        if (q) {
+          var text = (r.timestamp + ' ' + r.user + ' ' + r.action + ' ' + r.where + ' ' + r.objectType + ' ' + r.objectId + ' ' + r.valueAtTime).toLowerCase();
+          if (text.indexOf(q) === -1) return false;
+        }
+        return true;
+      });
+      var objTypeEsc, objIdEsc, ts, who, act, where, obj, val;
+      tbody.innerHTML = rows.map(function(r) {
+        objTypeEsc = activityLogEscape(r.objectType).replace(/'/g, "\\'");
+        objIdEsc = activityLogEscape(r.objectId).replace(/'/g, "\\'");
+        ts = activityLogEscape(r.timestamp);
+        who = activityLogEscape(r.user);
+        act = activityLogEscape(r.action);
+        where = activityLogEscape(r.where);
+        obj = activityLogEscape(r.objectType) + ': ' + activityLogEscape(r.objectId);
+        val = activityLogEscape(r.valueAtTime);
+        return '<tr data-activity-id="' + r.id + '" data-object-type="' + activityLogEscape(r.objectType) + '" data-object-id="' + activityLogEscape(r.objectId) + '" onclick="handleActivityRowClickV2(event)">' +
+          '<td><span class="activity-log-v2-line-clamp">' + ts + '</span></td>' +
+          '<td><span class="activity-log-v2-line-clamp">' + who + '</span></td>' +
+          '<td><span class="activity-log-v2-line-clamp">' + act + '</span></td>' +
+          '<td class="activity-log-where-cell"><span class="activity-log-v2-line-clamp">' + where + '</span></td>' +
+          '<td><span class="activity-log-v2-line-clamp">' + obj + '</span></td>' +
+          '<td class="activity-log-value-cell"><span class="activity-log-v2-line-clamp">' + val + '</span></td>' +
+          '<td class="activity-log-audit-col"><button type="button" class="btn btn-ghost btn-sm activity-log-audit-btn" onclick="event.stopPropagation(); setAuditFilterV2(\'' + objTypeEsc + '\', \'' + objIdEsc + '\')">View audit trail</button></td></tr>';
+      }).join('');
+      var input = document.getElementById('activity-log-search-v2');
+      var clearBtn = document.getElementById('activity-log-v2-search-clear');
+      var wrapper = input && input.closest('.activity-log-v2-search-wrapper');
+      if (activityLogV2AuditFilter && input && clearBtn && wrapper) {
+        input.value = 'Audit trail: ' + activityLogV2AuditFilter.objectType + ' — ' + activityLogV2AuditFilter.objectId;
+        input.readOnly = true;
+        clearBtn.classList.add('visible');
+        wrapper.classList.add('has-audit-filter');
+      } else if (input && clearBtn && wrapper) {
+        input.readOnly = false;
+        clearBtn.classList.remove('visible');
+        wrapper.classList.remove('has-audit-filter');
+      }
+    }
+    function toggleActivityLogFiltersV2(ev) {
+      ev.stopPropagation();
+      var btn = document.getElementById('activity-log-filters-btn-v2');
+      var menu = document.getElementById('activity-log-filters-dropdown-v2');
+      if (!btn || !menu) return;
+      var isOpen = menu.classList.toggle('open');
+      btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      if (isOpen) setTimeout(function() { document.addEventListener('click', closeActivityLogFiltersOnClickV2); }, 0);
+      else document.removeEventListener('click', closeActivityLogFiltersOnClickV2);
+    }
+    function closeActivityLogFiltersOnClickV2(ev) {
+      var btn = document.getElementById('activity-log-filters-btn-v2');
+      var menu = document.getElementById('activity-log-filters-dropdown-v2');
+      if (ev && ev.target && ((btn && btn.contains(ev.target)) || (menu && menu.contains(ev.target)))) return;
+      if (menu) menu.classList.remove('open');
+      if (btn) btn.setAttribute('aria-expanded', 'false');
+      document.removeEventListener('click', closeActivityLogFiltersOnClickV2);
+    }
+    function updateActivityLogFilterBadgeV2() {
+      var userEl = document.getElementById('activity-log-filter-user-v2');
+      var actionEl = document.getElementById('activity-log-filter-action-v2');
+      var objectEl = document.getElementById('activity-log-filter-object-v2');
+      var badge = document.getElementById('activity-log-filter-badge-v2');
+      if (!badge) return;
+      var n = 0;
+      if (userEl && userEl.value) n++;
+      if (actionEl && actionEl.value) n++;
+      if (objectEl && objectEl.value) n++;
+      badge.textContent = n;
+      badge.style.display = n > 0 ? 'inline-flex' : 'none';
     }
 
     function filterModalList(modalId, query) {
