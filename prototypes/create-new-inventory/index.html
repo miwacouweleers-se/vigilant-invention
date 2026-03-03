@@ -10315,13 +10315,13 @@
     #view-user-activity-log .activity-log-table tbody tr { cursor: pointer; }
     #view-user-activity-log .activity-log-one-line-clamp { display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.35; max-height: 1.4em; }
     #view-user-activity-log .activity-log-audit-col .btn { pointer-events: auto; }
-    .activity-row-drawer-tabs { display: flex; gap: 0; border-bottom: 1px solid var(--ghg-border); padding: 0 24px; background: var(--ghg-surface-elevated); }
-    .activity-row-drawer-tab { padding: 12px 16px; font-size: 14px; font-weight: 500; color: var(--ghg-text-muted); background: none; border: none; border-bottom: 2px solid transparent; margin-bottom: -1px; cursor: pointer; }
-    .activity-row-drawer-tab:hover { color: var(--ghg-text); }
-    .activity-row-drawer-tab.active { color: var(--ghg-primary-dark); border-bottom-color: var(--ghg-primary-dark); }
     .activity-row-drawer-body { flex: 1; min-height: 0; overflow: hidden; display: flex; flex-direction: column; }
-    .activity-row-drawer-panel { display: none; padding: 24px; overflow-y: auto; flex: 1; min-height: 0; }
-    .activity-row-drawer-panel.active { display: block; }
+    .activity-row-drawer-body-single { overflow-y: auto; padding: 24px; display: block; }
+    .activity-row-drawer-details-block { margin-bottom: 24px; }
+    .activity-row-drawer-audit-block { padding-top: 20px; border-top: 1px solid var(--ghg-border); }
+    .activity-row-drawer-audit-heading { font-family: var(--font-display); font-size: 15px; font-weight: 600; margin: 0 0 4px 0; color: var(--ghg-text); }
+    .activity-row-drawer-audit-object { font-size: 14px; font-weight: 500; color: var(--ghg-text); margin: 0 0 8px 0; }
+    .activity-row-drawer-audit-subtitle { font-size: 14px; color: var(--ghg-text-secondary); margin: 0 0 16px 0; }
     /* V2: max 2 lines per row, row click opens detail drawer */
     #view-user-activity-log-v2 .activity-log-table-wrap { position: relative; }
     #view-user-activity-log-v2 .activity-log-table tbody tr { cursor: pointer; }
@@ -11972,7 +11972,6 @@
                         <th class="activity-log-where-col">Where</th>
                         <th>Object affected</th>
                         <th class="activity-log-details-col">Object details</th>
-                        <th class="activity-log-audit-col">Audit trail</th>
                       </tr>
                     </thead>
                     <tbody id="activity-log-tbody">
@@ -12066,7 +12065,6 @@
                         <th class="activity-log-where-col">Where</th>
                         <th>Object affected</th>
                         <th class="activity-log-details-col">Object details</th>
-                        <th class="activity-log-audit-col">Audit trail</th>
                       </tr>
                     </thead>
                     <tbody id="activity-log-tbody-v2">
@@ -18320,19 +18318,15 @@ Thank you.</div>
     </div>
   </div>
 
-  <!-- Activity row drawer with Details + Audit trail tabs (User activity log) -->
+  <!-- Activity row drawer: Details + Audit trail in one view (User activity log) -->
   <div class="audit-trail-backdrop" id="audit-trail-backdrop" onclick="if(event.target===this) closeActivityRowDrawer()"></div>
   <div class="audit-trail-drawer" id="audit-trail-drawer" role="dialog" aria-labelledby="audit-trail-drawer-title" aria-modal="true">
     <div class="audit-trail-drawer-header">
       <h2 class="audit-trail-drawer-title" id="audit-trail-drawer-title">Activity details</h2>
       <button type="button" class="audit-trail-drawer-close" onclick="closeActivityRowDrawer()" aria-label="Close"><i class="fa-light fa-times"></i></button>
     </div>
-    <div class="activity-row-drawer-tabs">
-      <button type="button" class="activity-row-drawer-tab active" id="activity-row-drawer-tab-details" onclick="switchActivityRowDrawerTab('details')">Details</button>
-      <button type="button" class="activity-row-drawer-tab" id="activity-row-drawer-tab-audit" onclick="switchActivityRowDrawerTab('audit')">Audit trail</button>
-    </div>
-    <div class="activity-row-drawer-body">
-      <div class="activity-row-drawer-panel active" id="activity-row-drawer-panel-details">
+    <div class="activity-row-drawer-body activity-row-drawer-body-single">
+      <div class="activity-row-drawer-details-block">
         <div class="activity-row-detail-row"><span class="activity-row-detail-label">Timestamp</span><span class="activity-row-detail-value" id="activity-row-detail-timestamp"></span></div>
         <div class="activity-row-detail-row"><span class="activity-row-detail-label">Who</span><span class="activity-row-detail-value" id="activity-row-detail-who"></span></div>
         <div class="activity-row-detail-row"><span class="activity-row-detail-label">Action</span><span class="activity-row-detail-value" id="activity-row-detail-action"></span></div>
@@ -18340,8 +18334,10 @@ Thank you.</div>
         <div class="activity-row-detail-row"><span class="activity-row-detail-label">Object affected</span><span class="activity-row-detail-value" id="activity-row-detail-object"></span></div>
         <div class="activity-row-detail-row"><span class="activity-row-detail-label">Object details</span><span class="activity-row-detail-value activity-row-detail-value-full" id="activity-row-detail-value"></span></div>
       </div>
-      <div class="activity-row-drawer-panel" id="activity-row-drawer-panel-audit">
-        <p id="audit-trail-subtitle" style="font-size: 14px; color: var(--ghg-text-secondary); margin: 0 0 16px 0;"></p>
+      <div class="activity-row-drawer-audit-block">
+        <h3 class="activity-row-drawer-audit-heading" id="audit-trail-heading">Audit trail</h3>
+        <p class="activity-row-drawer-audit-object" id="audit-trail-object-label"></p>
+        <p id="audit-trail-subtitle" class="activity-row-drawer-audit-subtitle"></p>
         <div class="card">
           <div class="card-body" style="padding: 0;">
             <table class="data-table" aria-label="Audit trail">
@@ -18378,21 +18374,46 @@ Thank you.</div>
     </div>
   </div>
 
-  <!-- Activity row detail drawer (User activity log V2) -->
+  <!-- Activity row detail drawer (User activity log V2): details + audit trail in one view -->
   <div class="audit-trail-backdrop" id="activity-row-detail-backdrop-v2" onclick="if(event.target===this) closeActivityRowDetailDrawerV2()"></div>
   <div class="audit-trail-drawer" id="activity-row-detail-drawer-v2" role="dialog" aria-labelledby="activity-row-detail-title-v2" aria-modal="true">
     <div class="audit-trail-drawer-header">
       <h2 class="audit-trail-drawer-title" id="activity-row-detail-title-v2">Activity details</h2>
       <button type="button" class="audit-trail-drawer-close" onclick="closeActivityRowDetailDrawerV2()" aria-label="Close"><i class="fa-light fa-times"></i></button>
     </div>
-    <div class="audit-trail-drawer-body" id="activity-row-detail-body-v2">
-      <div class="activity-row-detail-row"><span class="activity-row-detail-label">Timestamp</span><span class="activity-row-detail-value" id="activity-row-detail-timestamp-v2"></span></div>
-      <div class="activity-row-detail-row"><span class="activity-row-detail-label">Who</span><span class="activity-row-detail-value" id="activity-row-detail-who-v2"></span></div>
-      <div class="activity-row-detail-row"><span class="activity-row-detail-label">Action</span><span class="activity-row-detail-value" id="activity-row-detail-action-v2"></span></div>
-      <div class="activity-row-detail-row"><span class="activity-row-detail-label">Where</span><span class="activity-row-detail-value" id="activity-row-detail-where-v2"></span></div>
-      <div class="activity-row-detail-row"><span class="activity-row-detail-label">Object affected</span><span class="activity-row-detail-value" id="activity-row-detail-object-v2"></span></div>
-      <div class="activity-row-detail-row"><span class="activity-row-detail-label">Object details</span><span class="activity-row-detail-value activity-row-detail-value-full" id="activity-row-detail-value-v2"></span></div>
+    <div class="audit-trail-drawer-body activity-row-drawer-body-single" id="activity-row-detail-body-v2">
+      <div class="activity-row-drawer-details-block">
+        <div class="activity-row-detail-row"><span class="activity-row-detail-label">Timestamp</span><span class="activity-row-detail-value" id="activity-row-detail-timestamp-v2"></span></div>
+        <div class="activity-row-detail-row"><span class="activity-row-detail-label">Who</span><span class="activity-row-detail-value" id="activity-row-detail-who-v2"></span></div>
+        <div class="activity-row-detail-row"><span class="activity-row-detail-label">Action</span><span class="activity-row-detail-value" id="activity-row-detail-action-v2"></span></div>
+        <div class="activity-row-detail-row"><span class="activity-row-detail-label">Where</span><span class="activity-row-detail-value" id="activity-row-detail-where-v2"></span></div>
+        <div class="activity-row-detail-row"><span class="activity-row-detail-label">Object affected</span><span class="activity-row-detail-value" id="activity-row-detail-object-v2"></span></div>
+        <div class="activity-row-detail-row"><span class="activity-row-detail-label">Object details</span><span class="activity-row-detail-value activity-row-detail-value-full" id="activity-row-detail-value-v2"></span></div>
+      </div>
+      <div class="activity-row-drawer-audit-block">
+        <h3 class="activity-row-drawer-audit-heading" id="audit-trail-heading-v2">Audit trail</h3>
+        <p class="activity-row-drawer-audit-object" id="audit-trail-object-label-v2"></p>
+        <p id="audit-trail-subtitle-v2" class="activity-row-drawer-audit-subtitle"></p>
+        <div class="card">
+          <div class="card-body" style="padding: 0;">
+            <table class="data-table" aria-label="Audit trail">
+              <thead>
+                <tr>
+                  <th>Timestamp</th>
+                  <th>Who</th>
+                  <th>Action</th>
+                  <th>Where</th>
+                  <th>Object details</th>
+                </tr>
+              </thead>
+              <tbody id="audit-trail-tbody-v2">
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
+    <div style="padding: 16px 24px; border-top: 1px solid var(--ghg-border); flex-shrink: 0;"><button type="button" class="btn btn-primary btn-sm" onclick="closeActivityRowDetailDrawerV2()">Close</button></div>
   </div>
 
   <!-- Contributor Email Modal (AI draft) -->
@@ -23328,8 +23349,7 @@ Thank you.</div>
           '<td><span class="activity-log-one-line-clamp">' + act + '</span></td>' +
           '<td class="activity-log-where-cell"><span class="activity-log-one-line-clamp">' + where + '</span></td>' +
           '<td><span class="activity-log-one-line-clamp">' + obj + '</span></td>' +
-          '<td class="activity-log-value-cell"><span class="activity-log-one-line-clamp">' + val + '</span></td>' +
-          '<td class="activity-log-audit-col"><button type="button" class="btn btn-ghost btn-sm activity-log-audit-btn" onclick="event.stopPropagation(); openActivityRowDrawer(' + r.id + ', \'audit\')">View audit trail</button></td></tr>';
+          '<td class="activity-log-value-cell"><span class="activity-log-one-line-clamp">' + val + '</span></td></tr>';
       }).join('');
     }
     function handleActivityRowClick(ev) {
@@ -23349,23 +23369,16 @@ Thank you.</div>
       document.getElementById('activity-row-detail-object').textContent = (row.objectType || '') + ': ' + (row.objectId || '');
       document.getElementById('activity-row-detail-value').textContent = row.valueAtTime || '';
       var trail = ACTIVITY_LOG_DATA.filter(function(r) { return r.objectType === objectType && r.objectId === objectId; }).sort(function(a, b) { return a.timestamp < b.timestamp ? 1 : -1; });
+      var objectLabel = document.getElementById('audit-trail-object-label');
+      if (objectLabel) objectLabel.textContent = 'Object: ' + (objectType || '') + ' — ' + (objectId || '');
       var subtitle = document.getElementById('audit-trail-subtitle');
       if (subtitle) subtitle.textContent = 'All changes to this object over time (' + trail.length + ' event' + (trail.length !== 1 ? 's' : '') + ').';
       var tbody = document.getElementById('audit-trail-tbody');
       if (tbody) tbody.innerHTML = trail.map(function(r) {
         return '<tr><td>' + activityLogEscape(r.timestamp) + '</td><td>' + activityLogEscape(r.user) + '</td><td>' + activityLogEscape(r.action) + '</td><td>' + activityLogEscape(r.where) + '</td><td class="activity-log-value-cell" title="' + activityLogEscape(r.valueAtTime) + '">' + activityLogEscape(r.valueAtTime.length > 60 ? r.valueAtTime.slice(0, 57) + '…' : r.valueAtTime) + '</td></tr>';
       }).join('');
-      switchActivityRowDrawerTab(openTab === 'audit' ? 'audit' : 'details');
       document.getElementById('audit-trail-backdrop').classList.add('open');
       document.getElementById('audit-trail-drawer').classList.add('open');
-    }
-    function switchActivityRowDrawerTab(tabName) {
-      document.querySelectorAll('.activity-row-drawer-tab').forEach(function(t) { t.classList.remove('active'); });
-      document.querySelectorAll('.activity-row-drawer-panel').forEach(function(p) { p.classList.remove('active'); });
-      var tab = document.getElementById('activity-row-drawer-tab-' + (tabName === 'audit' ? 'audit' : 'details'));
-      var panel = document.getElementById('activity-row-drawer-panel-' + (tabName === 'audit' ? 'audit' : 'details'));
-      if (tab) tab.classList.add('active');
-      if (panel) panel.classList.add('active');
     }
     function closeActivityRowDrawer() {
       document.getElementById('audit-trail-backdrop').classList.remove('open');
@@ -23460,12 +23473,22 @@ Thank you.</div>
     function openActivityRowDetailDrawerV2(activityId) {
       var row = ACTIVITY_LOG_DATA.filter(function(r) { return r.id === activityId; })[0];
       if (!row) return;
+      var objectType = row.objectType, objectId = row.objectId;
       document.getElementById('activity-row-detail-timestamp-v2').textContent = row.timestamp || '';
       document.getElementById('activity-row-detail-who-v2').textContent = row.user || '';
       document.getElementById('activity-row-detail-action-v2').textContent = row.action || '';
       document.getElementById('activity-row-detail-where-v2').textContent = row.where || '';
       document.getElementById('activity-row-detail-object-v2').textContent = (row.objectType || '') + ': ' + (row.objectId || '');
       document.getElementById('activity-row-detail-value-v2').textContent = row.valueAtTime || '';
+      var trail = ACTIVITY_LOG_DATA.filter(function(r) { return r.objectType === objectType && r.objectId === objectId; }).sort(function(a, b) { return a.timestamp < b.timestamp ? 1 : -1; });
+      var objectLabelV2 = document.getElementById('audit-trail-object-label-v2');
+      if (objectLabelV2) objectLabelV2.textContent = 'Object: ' + (objectType || '') + ' — ' + (objectId || '');
+      var subtitleEl = document.getElementById('audit-trail-subtitle-v2');
+      if (subtitleEl) subtitleEl.textContent = 'All changes to this object over time (' + trail.length + ' event' + (trail.length !== 1 ? 's' : '') + ').';
+      var tbodyV2 = document.getElementById('audit-trail-tbody-v2');
+      if (tbodyV2) tbodyV2.innerHTML = trail.map(function(r) {
+        return '<tr><td>' + activityLogEscape(r.timestamp) + '</td><td>' + activityLogEscape(r.user) + '</td><td>' + activityLogEscape(r.action) + '</td><td>' + activityLogEscape(r.where) + '</td><td class="activity-log-value-cell" title="' + activityLogEscape(r.valueAtTime) + '">' + activityLogEscape(r.valueAtTime.length > 60 ? r.valueAtTime.slice(0, 57) + '…' : r.valueAtTime) + '</td></tr>';
+      }).join('');
       document.getElementById('activity-row-detail-backdrop-v2').classList.add('open');
       document.getElementById('activity-row-detail-drawer-v2').classList.add('open');
     }
@@ -23561,8 +23584,7 @@ Thank you.</div>
           '<td><span class="activity-log-v2-line-clamp">' + act + '</span></td>' +
           '<td class="activity-log-where-cell"><span class="activity-log-v2-line-clamp">' + where + '</span></td>' +
           '<td><span class="activity-log-v2-line-clamp">' + obj + '</span></td>' +
-          '<td class="activity-log-value-cell"><span class="activity-log-v2-line-clamp">' + val + '</span></td>' +
-          '<td class="activity-log-audit-col"><button type="button" class="btn btn-ghost btn-sm activity-log-audit-btn" onclick="event.stopPropagation(); setAuditFilterV2(\'' + objTypeEsc + '\', \'' + objIdEsc + '\')">View audit trail</button></td></tr>';
+          '<td class="activity-log-value-cell"><span class="activity-log-v2-line-clamp">' + val + '</span></td></tr>';
       }).join('');
       var input = document.getElementById('activity-log-search-v2');
       var clearBtn = document.getElementById('activity-log-v2-search-clear');
