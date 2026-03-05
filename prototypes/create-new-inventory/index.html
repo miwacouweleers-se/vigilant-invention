@@ -10320,6 +10320,16 @@
     .activity-log-affected-cell { white-space: normal; }
     .activity-log-affected-main { display: block; }
     .activity-log-affected-sub { display: block; font-size: 0.8125rem; color: var(--ghg-text-secondary); line-height: 1.3; margin-top: 0.1em; overflow-wrap: break-word; word-break: break-word; max-width: 100%; }
+    .activity-log-affected-preview-trigger { cursor: help; }
+    .activity-log-affected-preview-trigger .activity-log-affected-record-link,
+    .activity-log-affected-preview-trigger .activity-log-affected-item-link { cursor: pointer; }
+    .activity-log-affected-record-link,
+    .activity-log-affected-item-link { color: var(--ghg-primary-dark); text-decoration: none; font-weight: 500; }
+    .activity-log-affected-record-link:hover,
+    .activity-log-affected-item-link:hover { text-decoration: underline; color: var(--ghg-primary); }
+    .activity-record-preview-popover { position: fixed; z-index: 2100; max-width: 320px; padding: 12px 14px; background: var(--ghg-surface-elevated); border: 1px solid var(--ghg-border); border-radius: 10px; box-shadow: 0 8px 24px rgba(0,0,0,0.12); font-size: 13px; line-height: 1.45; pointer-events: auto; }
+    .activity-record-preview-popover-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--ghg-text-muted); margin-bottom: 6px; }
+    .activity-record-preview-popover-body { color: var(--ghg-text); }
     #view-user-activity-log .activity-log-audit-col .btn { pointer-events: auto; }
     .activity-row-drawer-body { flex: 1; min-height: 0; overflow: hidden; display: flex; flex-direction: column; }
     .activity-row-drawer-body-single { overflow-y: auto; padding: 24px; display: block; }
@@ -18479,6 +18489,8 @@ Thank you.</div>
         <div class="activity-row-detail-row"><span class="activity-row-detail-label">Action</span><span class="activity-row-detail-value" id="activity-row-detail-action"></span></div>
         <div class="activity-row-detail-row"><span class="activity-row-detail-label">Page</span><span class="activity-row-detail-value" id="activity-row-detail-where"></span></div>
         <div class="activity-row-detail-row"><span class="activity-row-detail-label">Affected item</span><span class="activity-row-detail-value" id="activity-row-detail-object"></span></div>
+        <div class="activity-row-detail-row activity-row-detail-entity-type" id="activity-row-detail-entity-type-row"><span class="activity-row-detail-label">Business entity</span><span class="activity-row-detail-value" id="activity-row-detail-entity"></span></div>
+        <div class="activity-row-detail-row activity-row-detail-entity-type" id="activity-row-detail-activity-type-row"><span class="activity-row-detail-label">Activity type</span><span class="activity-row-detail-value" id="activity-row-detail-activity-type"></span></div>
         <div class="activity-row-detail-row"><span class="activity-row-detail-label">Details</span><span class="activity-row-detail-value activity-row-detail-value-full" id="activity-row-detail-value"></span></div>
       </div>
       <div class="activity-row-drawer-audit-block">
@@ -18521,6 +18533,8 @@ Thank you.</div>
         <div class="activity-row-detail-row"><span class="activity-row-detail-label">Action</span><span class="activity-row-detail-value" id="activity-row-detail-action-v2"></span></div>
         <div class="activity-row-detail-row"><span class="activity-row-detail-label">Page</span><span class="activity-row-detail-value" id="activity-row-detail-where-v2"></span></div>
         <div class="activity-row-detail-row"><span class="activity-row-detail-label">Affected item</span><span class="activity-row-detail-value" id="activity-row-detail-object-v2"></span></div>
+        <div class="activity-row-detail-row activity-row-detail-entity-type" id="activity-row-detail-entity-type-row-v2"><span class="activity-row-detail-label">Business entity</span><span class="activity-row-detail-value" id="activity-row-detail-entity-v2"></span></div>
+        <div class="activity-row-detail-row activity-row-detail-entity-type" id="activity-row-detail-activity-type-row-v2"><span class="activity-row-detail-label">Activity type</span><span class="activity-row-detail-value" id="activity-row-detail-activity-type-v2"></span></div>
         <div class="activity-row-detail-row"><span class="activity-row-detail-label">Details</span><span class="activity-row-detail-value activity-row-detail-value-full" id="activity-row-detail-value-v2"></span></div>
       </div>
       <div class="activity-row-drawer-audit-block">
@@ -18533,6 +18547,12 @@ Thank you.</div>
       </div>
     </div>
     <div style="padding: 16px 24px; border-top: 1px solid var(--ghg-border); flex-shrink: 0;"><button type="button" class="btn btn-primary btn-sm" onclick="closeActivityRowDetailDrawerV2()">Close</button></div>
+  </div>
+
+  <!-- Record preview popover (hover on REC link) -->
+  <div id="activity-record-preview-popover" class="activity-record-preview-popover" role="tooltip" aria-hidden="true" style="display: none;">
+    <div class="activity-record-preview-popover-title">Summary</div>
+    <div class="activity-record-preview-popover-body" id="activity-record-preview-popover-body"></div>
   </div>
 
   <!-- Contributor Email Modal (AI draft) -->
@@ -23389,9 +23409,13 @@ Thank you.</div>
       if (s == null || s === undefined) return '';
       return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
     }
+    function formatRecordId(recordId) {
+      if (recordId == null || recordId === undefined) return '';
+      return 'REC' + String(recordId).padStart(6, '0');
+    }
     function getAffectedItemMain(r) {
       if (!r) return '';
-      if (r.objectType === 'Activity record' && r.recordId != null) return String(r.recordId);
+      if (r.objectType === 'Activity record' && r.recordId != null) return formatRecordId(r.recordId);
       return r.objectId || '';
     }
     function getAffectedItemSub(r) {
@@ -23403,11 +23427,68 @@ Thank you.</div>
       if (sub) return main ? main + ' (' + sub + ')' : sub;
       return main;
     }
+    function getImportActivityType(objectId) {
+      if (!objectId) return '';
+      var s = String(objectId).toLowerCase();
+      if (s.indexOf('fleet') !== -1) return 'Fleet';
+      if (s.indexOf('energy') !== -1) return 'Energy';
+      if (s.indexOf('travel') !== -1) return 'Travel';
+      if (s.indexOf('waste') !== -1) return 'Waste';
+      if (s.indexOf('fuel') !== -1) return 'Fuel';
+      return '';
+    }
+    function getRecordPreviewSummary(r) {
+      if (!r) return '';
+      var type = r.objectType || 'Item';
+      var obj = r.objectId || '';
+      var val = (r.valueAtTime || '').trim();
+      var firstLine = val ? val.split(/\s*,\s*/)[0] : '';
+      if (type === 'Import' && (val || obj)) {
+        var recordsMatch = val ? val.match(/(\d[\d,]*)\s+records(?:\s+imported)?/i) : null;
+        var recordCount = recordsMatch ? recordsMatch[1] + ' records' : '';
+        var activityType = getImportActivityType(obj);
+        var parts = [];
+        if (recordCount) parts.push(recordCount);
+        if (activityType) parts.push('Activity type: ' + activityType);
+        return (parts.length ? parts.join(' · ') : (val || obj).slice(0, 120)) + ((val || obj).length > 120 ? '…' : '');
+      }
+      if (type === 'Activity record' && obj) {
+        return 'Activity at ' + obj + (firstLine ? '. ' + firstLine + '.' : '.');
+      }
+      if (obj && val) return type + ': ' + obj + ' — ' + (firstLine || val.slice(0, 80)) + (val.length > 80 ? '…' : '');
+      if (obj) return type + ': ' + obj + '.';
+      return type + (val ? ': ' + val.slice(0, 100) + (val.length > 100 ? '…' : '') : '');
+    }
+    function getAffectedItemHref(r) {
+      if (!r) return '#';
+      if (r.objectType === 'Activity record' && r.recordId != null) return '#record/' + r.recordId;
+      var type = (r.objectType || '').replace(/\s+/g, '-').toLowerCase();
+      var id = r.objectId != null ? encodeURIComponent(String(r.objectId)) : '';
+      if (type && id) return '#' + type + '/' + id;
+      return '#';
+    }
     function getAffectedItemHtml(r) {
-      var main = activityLogEscape(getAffectedItemMain(r));
+      var mainRaw = getAffectedItemMain(r);
+      var main = activityLogEscape(mainRaw);
       var sub = activityLogEscape(getAffectedItemSub(r));
-      if (!main && !sub) return '';
-      return '<span class="activity-log-affected-main">' + main + '</span>' + (sub ? '<span class="activity-log-affected-sub">' + sub + '</span>' : '');
+      if (!mainRaw && !sub) return '';
+      var href = getAffectedItemHref(r);
+      var aid = r.id != null ? activityLogEscape(String(r.id)) : '';
+      var linkClass = r.objectType === 'Activity record' && r.recordId != null ? 'activity-log-affected-record-link' : 'activity-log-affected-item-link';
+      var dataRecord = r.objectType === 'Activity record' && r.recordId != null ? ' data-record-id="' + activityLogEscape(String(r.recordId)) + '"' : '';
+      var mainHtml = '<a href="' + activityLogEscape(href) + '" class="' + linkClass + '" data-activity-id="' + aid + '"' + dataRecord + ' onclick="event.stopPropagation()">' + main + '</a>';
+      var inner = '<span class="activity-log-affected-main">' + mainHtml + '</span>' + (sub ? '<span class="activity-log-affected-sub">' + sub + '</span>' : '');
+      return '<span class="activity-log-affected-preview-trigger" data-activity-id="' + aid + '">' + inner + '</span>';
+    }
+    function getAffectedItemBusinessEntity(r) {
+      if (!r || !r.objectId) return '';
+      var idx = String(r.objectId).indexOf(' / ');
+      return idx >= 0 ? String(r.objectId).slice(0, idx).trim() : '';
+    }
+    function getAffectedItemActivityType(r) {
+      if (!r || !r.objectId) return '';
+      var idx = String(r.objectId).indexOf(' / ');
+      return idx >= 0 ? String(r.objectId).slice(idx + 3).trim() : '';
     }
     function formatValueChangeForTable(val) {
       if (val == null || val === '') return '';
@@ -23614,6 +23695,16 @@ Thank you.</div>
       document.getElementById('activity-row-detail-where').textContent = row.where || '';
       var objDetail = document.getElementById('activity-row-detail-object');
       if (objDetail) objDetail.innerHTML = getAffectedItemHtml(row);
+      var entityEl = document.getElementById('activity-row-detail-entity');
+      var activityTypeEl = document.getElementById('activity-row-detail-activity-type');
+      var entityRow = document.getElementById('activity-row-detail-entity-type-row');
+      var activityTypeRow = document.getElementById('activity-row-detail-activity-type-row');
+      var entityVal = getAffectedItemBusinessEntity(row);
+      var activityTypeVal = getAffectedItemActivityType(row);
+      if (entityEl) entityEl.textContent = entityVal || '—';
+      if (activityTypeEl) activityTypeEl.textContent = activityTypeVal || '—';
+      if (entityRow) entityRow.style.display = (entityVal || activityTypeVal) ? '' : 'none';
+      if (activityTypeRow) activityTypeRow.style.display = (entityVal || activityTypeVal) ? '' : 'none';
       document.getElementById('activity-row-detail-value').textContent = row.valueAtTime || '';
       var trail = ACTIVITY_LOG_DATA.filter(function(r) { return r.objectType === objectType && r.objectId === objectId; }).sort(function(a, b) { return a.timestamp < b.timestamp ? 1 : -1; });
       var eventsEl = document.getElementById('audit-trail-timeline-events');
@@ -23784,6 +23875,55 @@ Thank you.</div>
       group.classList.toggle('collapsed');
       btn.setAttribute('aria-expanded', group.classList.contains('collapsed') ? 'false' : 'true');
     }
+    var activityRecordPreviewShowTimer = null;
+    var activityRecordPreviewHideTimer = null;
+    function showActivityRecordPreview(linkEl) {
+      var activityId = linkEl.getAttribute('data-activity-id');
+      if (!activityId) return;
+      var row = ACTIVITY_LOG_DATA.filter(function(r) { return String(r.id) === activityId; })[0];
+      if (!row) return;
+      var pop = document.getElementById('activity-record-preview-popover');
+      var body = document.getElementById('activity-record-preview-popover-body');
+      if (!pop || !body) return;
+      body.textContent = getRecordPreviewSummary(row);
+      var rect = linkEl.getBoundingClientRect();
+      pop.style.display = '';
+      var popHeight = 120;
+      var top = rect.bottom + 8;
+      if (top + popHeight > window.innerHeight - 12) top = rect.top - 8 - popHeight;
+      var left = rect.left;
+      if (left + 320 > window.innerWidth - 12) left = window.innerWidth - 320 - 12;
+      if (left < 12) left = 12;
+      pop.style.top = top + 'px';
+      pop.style.left = left + 'px';
+      pop.setAttribute('aria-hidden', 'false');
+    }
+    function hideActivityRecordPreview() {
+      var pop = document.getElementById('activity-record-preview-popover');
+      if (pop) { pop.style.display = 'none'; pop.setAttribute('aria-hidden', 'true'); }
+    }
+    function bindActivityRecordPreviewPopover() {
+      document.addEventListener('mouseover', function(ev) {
+        var trigger = ev.target.closest('.activity-log-affected-preview-trigger');
+        if (trigger && trigger.getAttribute('data-activity-id')) {
+          if (activityRecordPreviewHideTimer) { clearTimeout(activityRecordPreviewHideTimer); activityRecordPreviewHideTimer = null; }
+          if (!activityRecordPreviewShowTimer) activityRecordPreviewShowTimer = setTimeout(function() { activityRecordPreviewShowTimer = null; showActivityRecordPreview(trigger); }, 400);
+          return;
+        }
+        var pop = document.getElementById('activity-record-preview-popover');
+        if (pop && ev.target.closest('#activity-record-preview-popover')) return;
+        if (activityRecordPreviewShowTimer) { clearTimeout(activityRecordPreviewShowTimer); activityRecordPreviewShowTimer = null; }
+        activityRecordPreviewHideTimer = setTimeout(function() { activityRecordPreviewHideTimer = null; hideActivityRecordPreview(); }, 150);
+      });
+      document.addEventListener('mouseout', function(ev) {
+        var trigger = ev.target.closest('.activity-log-affected-preview-trigger');
+        var pop = document.getElementById('activity-record-preview-popover');
+        if (trigger || (pop && ev.relatedTarget && pop.contains(ev.relatedTarget))) return;
+        if (activityRecordPreviewShowTimer) { clearTimeout(activityRecordPreviewShowTimer); activityRecordPreviewShowTimer = null; }
+        activityRecordPreviewHideTimer = setTimeout(function() { activityRecordPreviewHideTimer = null; hideActivityRecordPreview(); }, 150);
+      });
+    }
+    bindActivityRecordPreviewPopover();
     function openActivityRowDetailDrawerV2(activityId) {
       var row = ACTIVITY_LOG_DATA.filter(function(r) { return r.id === activityId; })[0];
       if (!row) return;
@@ -23797,6 +23937,16 @@ Thank you.</div>
       document.getElementById('activity-row-detail-where-v2').textContent = row.where || '';
       var objDetailV2 = document.getElementById('activity-row-detail-object-v2');
       if (objDetailV2) objDetailV2.innerHTML = getAffectedItemHtml(row);
+      var entityElV2 = document.getElementById('activity-row-detail-entity-v2');
+      var activityTypeElV2 = document.getElementById('activity-row-detail-activity-type-v2');
+      var entityRowV2 = document.getElementById('activity-row-detail-entity-type-row-v2');
+      var activityTypeRowV2 = document.getElementById('activity-row-detail-activity-type-row-v2');
+      var entityVal = getAffectedItemBusinessEntity(row);
+      var activityTypeVal = getAffectedItemActivityType(row);
+      if (entityElV2) entityElV2.textContent = entityVal || '—';
+      if (activityTypeElV2) activityTypeElV2.textContent = activityTypeVal || '—';
+      if (entityRowV2) entityRowV2.style.display = (entityVal || activityTypeVal) ? '' : 'none';
+      if (activityTypeRowV2) activityTypeRowV2.style.display = (entityVal || activityTypeVal) ? '' : 'none';
       document.getElementById('activity-row-detail-value-v2').textContent = row.valueAtTime || '';
       var trail = ACTIVITY_LOG_DATA.filter(function(r) { return r.objectType === objectType && r.objectId === objectId; }).sort(function(a, b) { return a.timestamp < b.timestamp ? 1 : -1; });
       var eventsEl = document.getElementById('audit-trail-timeline-events-v2');
