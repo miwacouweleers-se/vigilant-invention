@@ -10283,12 +10283,13 @@
     .ownership-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; margin-bottom: 16px; }
     .activity-log-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-bottom: 16px; }
     .activity-log-card-body { padding: 0; overflow: hidden; }
-    .activity-log-table-wrap { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
-    .activity-log-table { width: 100%; min-width: 800px; table-layout: fixed; font-size: 14px; }
+    .activity-log-table-wrap { width: 100%; min-width: 0; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .activity-log-table { width: 100%; min-width: 920px; table-layout: fixed; font-size: 14px; }
     .activity-log-table th,
     .activity-log-table td { font-size: 14px; }
     .activity-log-table th:nth-child(1) { width: 16%; min-width: 165px; }
-    .activity-log-table th:nth-child(2) { width: 10%; min-width: 100px; }
+    .activity-log-table th:nth-child(2),
+    .activity-log-table td:nth-child(2) { width: 220px; min-width: 220px; max-width: 220px; white-space: normal; overflow-wrap: break-word; word-break: break-word; overflow: hidden; }
     .activity-log-table th:nth-child(3) { width: 8%; min-width: 80px; }
     .activity-log-table th:nth-child(4) { width: 10%; min-width: 100px; }
     .activity-log-table th:nth-child(5) { width: 18%; min-width: 160px; }
@@ -10298,7 +10299,7 @@
       .activity-log-table th:nth-child(6) { min-width: 140px; }
     }
     @media (max-width: 900px) {
-      .activity-log-table { min-width: 700px; }
+      .activity-log-table { min-width: 920px; }
       .activity-log-table th:nth-child(1) { min-width: 150px; }
       .activity-log-table th:nth-child(6) { min-width: 120px; }
     }
@@ -10314,8 +10315,11 @@
     /* Original activity log: one-line rows, row click opens drawer */
     #view-user-activity-log .activity-log-table tbody tr { cursor: pointer; }
     #view-user-activity-log .activity-log-one-line-clamp { display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.35; max-height: 1.4em; }
-    .activity-log-user-email { display: block; font-size: 0.8125rem; color: var(--ghg-text-secondary); line-height: 1.3; margin-top: 0.1em; }
+    .activity-log-user-email { display: block; font-size: 0.8125rem; color: var(--ghg-text-secondary); line-height: 1.3; margin-top: 0.1em; overflow-wrap: break-word; word-break: break-word; max-width: 100%; }
     .activity-row-detail-user-wrap { display: block; }
+    .activity-log-affected-cell { white-space: normal; }
+    .activity-log-affected-main { display: block; }
+    .activity-log-affected-sub { display: block; font-size: 0.8125rem; color: var(--ghg-text-secondary); line-height: 1.3; margin-top: 0.1em; overflow-wrap: break-word; word-break: break-word; max-width: 100%; }
     #view-user-activity-log .activity-log-audit-col .btn { pointer-events: auto; }
     .activity-row-drawer-body { flex: 1; min-height: 0; overflow: hidden; display: flex; flex-direction: column; }
     .activity-row-drawer-body-single { overflow-y: auto; padding: 24px; display: block; }
@@ -10328,8 +10332,44 @@
     #view-user-activity-log-v2 .activity-log-table-wrap { position: relative; }
     #view-user-activity-log-v2 .activity-log-table tbody tr { cursor: pointer; }
     #view-user-activity-log-v2 .activity-log-v2-line-clamp { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.35; max-height: 2.7em; }
-    .activity-log-user-cell .activity-log-user-email { display: block; font-size: 0.8125rem; color: var(--ghg-text-secondary); line-height: 1.3; margin-top: 0.1em; }
+    .activity-log-user-cell .activity-log-user-email { display: block; font-size: 0.8125rem; color: var(--ghg-text-secondary); line-height: 1.3; margin-top: 0.1em; overflow-wrap: break-word; word-break: break-word; max-width: 100%; }
     #view-user-activity-log-v2 .activity-log-audit-col .btn { pointer-events: auto; }
+    /* V3: same as V2, plus Value before / Value after columns */
+    #view-user-activity-log-v3 .activity-log-table-wrap { position: relative; }
+    #view-user-activity-log-v3 .activity-log-table tbody tr { cursor: pointer; }
+    #view-user-activity-log-v3 .activity-log-v2-line-clamp { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.35; max-height: 2.7em; }
+    #view-user-activity-log-v3 .activity-log-audit-col .btn { pointer-events: auto; }
+    .activity-log-table-v3 { min-width: 1100px; }
+    .activity-log-table-v3 th:nth-child(6),
+    .activity-log-table-v3 td:nth-child(6),
+    .activity-log-table-v3 th:nth-child(7),
+    .activity-log-table-v3 td:nth-child(7) { white-space: normal; overflow-wrap: break-word; word-break: break-word; }
+    .activity-log-table-v3 .activity-log-value-before-col,
+    .activity-log-table-v3 .activity-log-value-after-col,
+    .activity-log-table-v3 th:nth-child(6),
+    .activity-log-table-v3 td:nth-child(6),
+    .activity-log-table-v3 th:nth-child(7),
+    .activity-log-table-v3 td:nth-child(7) { width: 160px; min-width: 160px; max-width: 160px; }
+    .activity-log-empty-cell { color: var(--ghg-text-muted); font-style: normal; }
+    /* Audit trail timeline (replaces table) */
+    .audit-trail-timeline { margin-top: 8px; }
+    .audit-trail-timeline-events { position: relative; }
+    .audit-trail-event { position: relative; padding-bottom: 20px; padding-left: 20px; }
+    .audit-trail-event:last-child { padding-bottom: 4px; }
+    .audit-trail-event-marker { position: absolute; left: -32px; top: 4px; width: 10px; height: 10px; border-radius: 50%; border: 2px solid var(--ghg-primary); background: var(--ghg-surface); box-sizing: border-box; }
+    .audit-trail-event-desc { font-size: 14px; font-weight: 500; color: var(--ghg-text); margin-bottom: 2px; }
+    .audit-trail-event-time { font-size: 12px; color: var(--ghg-text-muted); margin-bottom: 8px; }
+    .audit-trail-event-detail { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 6px; }
+    .audit-trail-date-group { margin-bottom: 16px; }
+    .audit-trail-date-group:last-child { margin-bottom: 0; }
+    .audit-trail-date-header { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 8px; background: none; border: none; padding: 6px 0; font-size: 14px; font-weight: 600; color: var(--ghg-text); cursor: pointer; text-align: left; }
+    .audit-trail-date-header:hover { color: var(--ghg-primary-dark); }
+    .audit-trail-date-chevron { font-size: 10px; color: var(--ghg-text-muted); transition: transform 0.2s ease; flex-shrink: 0; }
+    .audit-trail-date-group.collapsed .audit-trail-date-chevron { transform: rotate(-90deg); }
+    .audit-trail-date-group.collapsed .audit-trail-date-body { display: none; }
+    .audit-trail-date-body { position: relative; padding-left: 24px; border-left: 2px dashed var(--ghg-border); margin-left: 8px; margin-top: 8px; }
+    .audit-trail-pill { display: inline-block; padding: 4px 10px; font-size: 13px; color: var(--ghg-text); background: var(--ghg-surface-elevated); border-radius: 6px; border: 1px solid var(--ghg-border); max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .audit-trail-pill-arrow { color: var(--ghg-text-muted); font-size: 12px; flex-shrink: 0; }
     .activity-log-v2-search-wrapper { position: relative; display: inline-flex; align-items: center; }
     .activity-log-v2-search-wrapper .search-input-wrapper { flex: 1; min-width: 0; width: 100%; }
     .activity-log-v2-search-clear { display: none; position: absolute; right: 10px; top: 50%; transform: translateY(-50%); width: 22px; height: 22px; padding: 0; border: none; border-radius: 50%; background: var(--ghg-text-muted); color: var(--ghg-surface); font-size: 12px; cursor: pointer; align-items: center; justify-content: center; flex-shrink: 0; }
@@ -10576,6 +10616,7 @@
           <a href="#" class="submenu-item">Users</a>
           <a href="#" class="submenu-item" data-view="user-activity-log" onclick="event.preventDefault(); if(typeof switchView==='function'){switchView('user-activity-log');}">User activity log</a>
           <a href="#" class="submenu-item" data-view="user-activity-log-v2" onclick="event.preventDefault(); if(typeof switchView==='function'){switchView('user-activity-log-v2');}">User activity log (V2)</a>
+          <a href="#" class="submenu-item" data-view="user-activity-log-v3" onclick="event.preventDefault(); if(typeof switchView==='function'){switchView('user-activity-log-v3');}">User activity log V3</a>
           <a href="#" class="submenu-item" data-view="unit-measure">Unit of measurement conversions</a>
           <a href="#" class="submenu-item" data-view="unit-measure-v2">Unit of measurement conversions (v2)</a>
           <a href="#" class="submenu-item" data-view="unit-measure-view-only">View only</a>
@@ -11976,8 +12017,8 @@
                         <th>User</th>
                         <th>Action</th>
                         <th class="activity-log-where-col">Page</th>
-                        <th>Object affected</th>
-                        <th class="activity-log-details-col">Object details</th>
+                        <th>Affected item</th>
+                        <th class="activity-log-details-col">Details</th>
                       </tr>
                     </thead>
                     <tbody id="activity-log-tbody">
@@ -12072,11 +12113,108 @@
                         <th>User</th>
                         <th>Action</th>
                         <th class="activity-log-where-col">Page</th>
-                        <th>Object affected</th>
-                        <th class="activity-log-details-col">Object details</th>
+                        <th>Affected item</th>
+                        <th class="activity-log-details-col">Details</th>
                       </tr>
                     </thead>
                     <tbody id="activity-log-tbody-v2">
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- VIEW: USER ACTIVITY LOG V3 (Settings)           -->
+        <!-- ============================================== -->
+        <div id="view-user-activity-log-v3" class="view">
+          <div class="page-header">
+            <div class="page-header-left">
+              <div class="page-breadcrumb">
+                <a href="#">Settings</a>
+                <i class="fa-light fa-chevron-right"></i>
+                <span>User activity log V3</span>
+              </div>
+              <h1 class="page-title">User activity log V3</h1>
+              <p class="page-subtitle">Track all activities in the platform. View audit trails for specific objects.</p>
+            </div>
+          </div>
+          <div class="content-container">
+            <div class="activity-log-toolbar">
+              <div class="activity-log-v2-search-wrapper" style="width: 420px;">
+                <div class="search-input-wrapper" style="width: 100%;">
+                  <i class="fa-light fa-search"></i>
+                  <input type="text" class="form-input" id="activity-log-search-v3" placeholder="Search..." aria-label="Search activity log" oninput="activityLogApplyFiltersV3()">
+                </div>
+                <button type="button" class="activity-log-v2-search-clear" id="activity-log-v3-search-clear" onclick="clearAuditFilterV3()" aria-label="Clear audit trail filter" title="Clear audit trail filter"><i class="fa-light fa-times"></i></button>
+              </div>
+              <div class="dropdown-inline">
+                <button type="button" class="btn btn-secondary" id="activity-log-filters-btn-v3" onclick="toggleActivityLogFiltersV3(event)" aria-haspopup="true" aria-expanded="false">
+                  <i class="fa-light fa-filter"></i> Filters
+                  <span class="activity-log-filter-badge" id="activity-log-filter-badge-v3" style="display: none;"></span>
+                  <i class="fa-light fa-chevron-down" style="margin-left: 6px;"></i>
+                </button>
+                <div class="dropdown-menu activity-log-filters-dropdown" id="activity-log-filters-dropdown-v3" style="min-width: 260px; padding: 16px;">
+                  <div class="form-group" style="margin-bottom: 12px;">
+                    <label class="form-label" for="activity-log-filter-user-v3">User</label>
+                    <select class="form-select" id="activity-log-filter-user-v3" aria-label="Filter by user" onchange="activityLogApplyFiltersV3(); updateActivityLogFilterBadgeV3();" style="width: 100%;">
+                      <option value="">All users</option>
+                    </select>
+                  </div>
+                  <div class="form-group" style="margin-bottom: 12px;">
+                    <label class="form-label" for="activity-log-filter-action-v3">Action</label>
+                    <select class="form-select" id="activity-log-filter-action-v3" aria-label="Filter by action" onchange="activityLogApplyFiltersV3(); updateActivityLogFilterBadgeV3();" style="width: 100%;">
+                      <option value="">All actions</option>
+                      <option value="created">Created</option>
+                      <option value="updated">Updated</option>
+                      <option value="deleted">Deleted</option>
+                      <option value="viewed">Viewed</option>
+                    </select>
+                  </div>
+                  <div class="form-group" style="margin-bottom: 0;">
+                    <label class="form-label" for="activity-log-filter-object-v3">Object type</label>
+                    <select class="form-select" id="activity-log-filter-object-v3" aria-label="Filter by object type" onchange="activityLogApplyFiltersV3(); updateActivityLogFilterBadgeV3();" style="width: 100%;">
+                      <option value="">All object types</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <select class="form-select" id="activity-log-timeframe-v3" aria-label="Timeframe" onchange="activityLogTimeframeChangeV3()" style="width: 160px;">
+                <option value="">All time</option>
+                <option value="today">Today</option>
+                <option value="yesterday">Yesterday</option>
+                <option value="last7">Last 7 days</option>
+                <option value="last30">Last 30 days</option>
+                <option value="custom">Custom</option>
+              </select>
+              <span class="activity-log-custom-dates" id="activity-log-custom-dates-v3" style="display: none; align-items: center; gap: 8px;">
+                <label for="activity-log-from-v3" class="activity-log-custom-dates-label">From</label>
+                <input type="date" class="form-input" id="activity-log-from-v3" aria-label="From date" style="width: 140px;" onchange="activityLogApplyFiltersV3()">
+                <label for="activity-log-to-v3" class="activity-log-custom-dates-label">To</label>
+                <input type="date" class="form-input" id="activity-log-to-v3" aria-label="To date" style="width: 140px;" onchange="activityLogApplyFiltersV3()">
+              </span>
+              <button type="button" class="btn btn-secondary" onclick="exportActivityLogV3()" aria-label="Export activity log">
+                <i class="fa-light fa-download"></i> Export
+              </button>
+            </div>
+            <div class="card">
+              <div class="card-body activity-log-card-body">
+                <div class="activity-log-table-wrap">
+                  <table class="data-table activity-log-table activity-log-table-v3" id="activity-log-table-v3" aria-label="User activity log V3">
+                    <thead>
+                      <tr>
+                        <th>Timestamp</th>
+                        <th>User</th>
+                        <th>Action</th>
+                        <th class="activity-log-where-col">Page</th>
+                        <th>Affected item</th>
+                        <th class="activity-log-value-before-col">Value before change</th>
+                        <th class="activity-log-value-after-col">Value after change</th>
+                      </tr>
+                    </thead>
+                    <tbody id="activity-log-tbody-v3">
                     </tbody>
                   </table>
                 </div>
@@ -18340,28 +18478,14 @@ Thank you.</div>
         <div class="activity-row-detail-row"><span class="activity-row-detail-label">User</span><span class="activity-row-detail-value activity-row-detail-user-wrap" id="activity-row-detail-who"></span></div>
         <div class="activity-row-detail-row"><span class="activity-row-detail-label">Action</span><span class="activity-row-detail-value" id="activity-row-detail-action"></span></div>
         <div class="activity-row-detail-row"><span class="activity-row-detail-label">Page</span><span class="activity-row-detail-value" id="activity-row-detail-where"></span></div>
-        <div class="activity-row-detail-row"><span class="activity-row-detail-label">Object affected</span><span class="activity-row-detail-value" id="activity-row-detail-object"></span></div>
-        <div class="activity-row-detail-row"><span class="activity-row-detail-label">Object details</span><span class="activity-row-detail-value activity-row-detail-value-full" id="activity-row-detail-value"></span></div>
+        <div class="activity-row-detail-row"><span class="activity-row-detail-label">Affected item</span><span class="activity-row-detail-value" id="activity-row-detail-object"></span></div>
+        <div class="activity-row-detail-row"><span class="activity-row-detail-label">Details</span><span class="activity-row-detail-value activity-row-detail-value-full" id="activity-row-detail-value"></span></div>
       </div>
       <div class="activity-row-drawer-audit-block">
         <h3 class="activity-row-drawer-audit-heading" id="audit-trail-heading">Audit trail</h3>
-        <p class="activity-row-drawer-audit-object" id="audit-trail-object-label"></p>
-        <p id="audit-trail-subtitle" class="activity-row-drawer-audit-subtitle"></p>
-        <div class="card">
-          <div class="card-body" style="padding: 0;">
-            <table class="data-table" aria-label="Audit trail">
-              <thead>
-                <tr>
-                  <th>Timestamp</th>
-                  <th>User</th>
-                  <th>Action</th>
-                  <th>Page</th>
-                  <th>Object details</th>
-                </tr>
-              </thead>
-              <tbody id="audit-trail-tbody">
-              </tbody>
-            </table>
+        <div class="audit-trail-timeline" id="audit-trail-timeline">
+          <div class="audit-trail-timeline-body" id="audit-trail-timeline-body">
+            <div class="audit-trail-timeline-events" id="audit-trail-timeline-events"></div>
           </div>
         </div>
       </div>
@@ -18373,7 +18497,7 @@ Thank you.</div>
   <div class="modal-backdrop" id="activity-log-full-details-modal" onclick="if(event.target===this) closeActivityLogFullDetails()">
     <div class="modal modal-md" role="dialog" aria-labelledby="activity-log-full-details-title" aria-modal="true">
       <div class="modal-header">
-        <h2 class="modal-title" id="activity-log-full-details-title">Object details</h2>
+        <h2 class="modal-title" id="activity-log-full-details-title">Details</h2>
         <button type="button" class="modal-close" onclick="closeActivityLogFullDetails()" aria-label="Close"><i class="fa-light fa-times"></i></button>
       </div>
       <div class="modal-body">
@@ -18396,28 +18520,14 @@ Thank you.</div>
         <div class="activity-row-detail-row"><span class="activity-row-detail-label">User</span><span class="activity-row-detail-value activity-row-detail-user-wrap" id="activity-row-detail-who-v2"></span></div>
         <div class="activity-row-detail-row"><span class="activity-row-detail-label">Action</span><span class="activity-row-detail-value" id="activity-row-detail-action-v2"></span></div>
         <div class="activity-row-detail-row"><span class="activity-row-detail-label">Page</span><span class="activity-row-detail-value" id="activity-row-detail-where-v2"></span></div>
-        <div class="activity-row-detail-row"><span class="activity-row-detail-label">Object affected</span><span class="activity-row-detail-value" id="activity-row-detail-object-v2"></span></div>
-        <div class="activity-row-detail-row"><span class="activity-row-detail-label">Object details</span><span class="activity-row-detail-value activity-row-detail-value-full" id="activity-row-detail-value-v2"></span></div>
+        <div class="activity-row-detail-row"><span class="activity-row-detail-label">Affected item</span><span class="activity-row-detail-value" id="activity-row-detail-object-v2"></span></div>
+        <div class="activity-row-detail-row"><span class="activity-row-detail-label">Details</span><span class="activity-row-detail-value activity-row-detail-value-full" id="activity-row-detail-value-v2"></span></div>
       </div>
       <div class="activity-row-drawer-audit-block">
         <h3 class="activity-row-drawer-audit-heading" id="audit-trail-heading-v2">Audit trail</h3>
-        <p class="activity-row-drawer-audit-object" id="audit-trail-object-label-v2"></p>
-        <p id="audit-trail-subtitle-v2" class="activity-row-drawer-audit-subtitle"></p>
-        <div class="card">
-          <div class="card-body" style="padding: 0;">
-            <table class="data-table" aria-label="Audit trail">
-              <thead>
-                <tr>
-                  <th>Timestamp</th>
-                  <th>User</th>
-                  <th>Action</th>
-                  <th>Page</th>
-                  <th>Object details</th>
-                </tr>
-              </thead>
-              <tbody id="audit-trail-tbody-v2">
-              </tbody>
-            </table>
+        <div class="audit-trail-timeline" id="audit-trail-timeline-v2">
+          <div class="audit-trail-timeline-body" id="audit-trail-timeline-body-v2">
+            <div class="audit-trail-timeline-events" id="audit-trail-timeline-events-v2"></div>
           </div>
         </div>
       </div>
@@ -19566,6 +19676,14 @@ Thank you.</div>
         var tfV2 = document.getElementById('activity-log-timeframe-v2');
         var customRowV2 = document.getElementById('activity-log-custom-dates-v2');
         if (customRowV2) customRowV2.style.display = (tfV2 && tfV2.value === 'custom') ? 'inline-flex' : 'none';
+      }
+      if (viewId === 'user-activity-log-v3' && typeof activityLogRenderV3 === 'function') {
+        activityLogPopulateFiltersV3();
+        activityLogRenderV3();
+        if (typeof updateActivityLogFilterBadgeV3 === 'function') updateActivityLogFilterBadgeV3();
+        var tfV3 = document.getElementById('activity-log-timeframe-v3');
+        var customRowV3 = document.getElementById('activity-log-custom-dates-v3');
+        if (customRowV3) customRowV3.style.display = (tfV3 && tfV3.value === 'custom') ? 'inline-flex' : 'none';
       }
 
       // On Data Owner Directory, hide Data Campaigns in the sidebar; show it otherwise
@@ -23235,35 +23353,68 @@ Thank you.</div>
     // User activity log (Settings)
     // ============================================
     var ACTIVITY_LOG_DATA = [
-      { id: 13, timestamp: '2025-02-20 13:00:00', user: 'Jane Admin', email: 'jane.admin@company.com', action: 'updated', where: 'Inventory', objectType: 'Activity record', objectId: 'Chicago HQ / Stationary combustion — Natural gas', valueAtTime: 'Quantity: 125.4 MWh, Data source: Energy_Meters_Jan2025.csv, Period: Jan 2025' },
-      { id: 14, timestamp: '2025-02-20 10:30:00', user: 'James Park', email: 'james.park@company.com', action: 'updated', where: 'Inventory', objectType: 'Activity record', objectId: 'Chicago HQ / Stationary combustion — Natural gas', valueAtTime: 'Quantity: 118.2 MWh, Data source: Energy_Meters_Jan2025.csv, Period: Jan 2025' },
-      { id: 15, timestamp: '2025-02-18 14:00:00', user: 'Jane Admin', email: 'jane.admin@company.com', action: 'created', where: 'Inventory', objectType: 'Activity record', objectId: 'Chicago HQ / Stationary combustion — Natural gas', valueAtTime: 'Quantity: 110.0 MWh, Data source: Energy_Meters_Jan2025.csv, Period: Jan 2025' },
-      { id: 16, timestamp: '2025-02-20 11:20:00', user: 'Sarah Chen', email: 'sarah.chen@company.com', action: 'updated', where: 'Inventory', objectType: 'Activity record', objectId: 'London Office / Mobile combustion — Fleet', valueAtTime: 'Quantity: 2,840 L diesel, Data source: Fleet_Data_Q1.xlsx, Period: Q1 2025' },
-      { id: 17, timestamp: '2025-02-19 15:00:00', user: 'Marcus Webb', email: 'marcus.webb@company.com', action: 'updated', where: 'Inventory', objectType: 'Activity record', objectId: 'London Office / Mobile combustion — Fleet', valueAtTime: 'Quantity: 2,650 L diesel, Data source: Fleet_Data_Q1.xlsx, Period: Q1 2025' },
-      { id: 18, timestamp: '2025-02-19 09:00:00', user: 'Sarah Chen', email: 'sarah.chen@company.com', action: 'created', where: 'Inventory', objectType: 'Activity record', objectId: 'London Office / Mobile combustion — Fleet', valueAtTime: 'Quantity: 2,400 L diesel, Data source: Fleet_Data_Q1.xlsx, Period: Q1 2025' },
-      { id: 19, timestamp: '2025-02-19 16:45:00', user: 'James Park', email: 'james.park@company.com', action: 'created', where: 'Inventory', objectType: 'Activity record', objectId: 'Tokyo Office / Business travel — Air', valueAtTime: 'Quantity: 12,500 km, Data source: Travel_Expenses_Feb.xlsx, Period: Feb 2025' },
-      { id: 20, timestamp: '2025-02-19 11:00:00', user: 'Anna Lindqvist', email: 'anna.lindqvist@company.com', action: 'updated', where: 'Inventory', objectType: 'Activity record', objectId: 'London Office / Waste — General', valueAtTime: 'Quantity: 2.1 tonnes, Data source: Waste_Weights_Q1.xlsx, Period: Jan 2025' },
-      { id: 21, timestamp: '2025-02-18 16:30:00', user: 'Marcus Webb', email: 'marcus.webb@company.com', action: 'updated', where: 'Inventory', objectType: 'Activity record', objectId: 'London Office / Waste — General', valueAtTime: 'Quantity: 1.8 tonnes, Data source: Waste_Weights_Q1.xlsx, Period: Jan 2025' },
-      { id: 22, timestamp: '2025-02-17 10:15:00', user: 'Anna Lindqvist', email: 'anna.lindqvist@company.com', action: 'created', where: 'Inventory', objectType: 'Activity record', objectId: 'London Office / Waste — General', valueAtTime: 'Quantity: 1.5 tonnes, Data source: Waste_Weights_Q1.xlsx, Period: Jan 2025' },
-      { id: 1, timestamp: '2025-02-20 14:32:00', user: 'Jane Admin', email: 'jane.admin@company.com', action: 'updated', where: 'Data Owner Directory', objectType: 'Ownership rule', objectId: 'Chicago HQ / Energy', valueAtTime: 'Primary: James Park, Secondary: Sarah Chen' },
-      { id: 2, timestamp: '2025-02-20 14:28:15', user: 'Jane Admin', email: 'jane.admin@company.com', action: 'created', where: 'Data Campaigns', objectType: 'Campaign', objectId: 'Q1 2025 Sustainability Data', valueAtTime: 'Period: Jan–Mar 2025, Modules: Energy, Fuel, Travel' },
-      { id: 3, timestamp: '2025-02-20 13:45:00', user: 'Marcus Webb', email: 'marcus.webb@company.com', action: 'viewed', where: 'Data Owner Directory', objectType: 'Ownership rule', objectId: 'London Office / Waste', valueAtTime: 'Primary: Marcus Webb, Secondary: Anna Lindqvist' },
-      { id: 4, timestamp: '2025-02-20 12:10:22', user: 'Sarah Chen', email: 'sarah.chen@company.com', action: 'updated', where: 'Unit of measurement conversions', objectType: 'UoM group', objectId: 'Energy', valueAtTime: 'Units: kWh, GJ, MWh (default: kWh)' },
-      { id: 5, timestamp: '2025-02-20 11:55:00', user: 'Jane Admin', email: 'jane.admin@company.com', action: 'deleted', where: 'Data Owner Directory', objectType: 'Ownership rule', objectId: 'Phoenix Site / Travel', valueAtTime: '(removed)' },
-      { id: 6, timestamp: '2025-02-20 11:30:00', user: 'Jane Admin', email: 'jane.admin@company.com', action: 'updated', where: 'Data Owner Directory', objectType: 'Ownership rule', objectId: 'Chicago HQ / Energy', valueAtTime: 'Primary: James Park, Secondary: Sarah Chen; Team: Operations' },
-      { id: 7, timestamp: '2025-02-19 16:00:00', user: 'Anna Lindqvist', email: 'anna.lindqvist@company.com', action: 'viewed', where: 'Data Campaigns', objectType: 'Campaign', objectId: 'Q1 2025 Sustainability Data', valueAtTime: 'Status: Draft' },
-      { id: 8, timestamp: '2025-02-19 15:22:00', user: 'Jane Admin', email: 'jane.admin@company.com', action: 'created', where: 'Data Owner Directory', objectType: 'Ownership rule', objectId: 'Tokyo Office / Fuel', valueAtTime: 'Primary: Yuki Tanaka, Secondary: Priya Sharma' },
-      { id: 9, timestamp: '2025-02-20 10:15:00', user: 'Sarah Chen', email: 'sarah.chen@company.com', action: 'created', where: 'Imports', objectType: 'Import', objectId: 'Fleet_Data_Q1.xlsx', valueAtTime: 'Campaign: Q1 2025, 1,240 records imported, status: Completed' },
-      { id: 10, timestamp: '2025-02-20 09:42:33', user: 'James Park', email: 'james.park@company.com', action: 'created', where: 'Imports', objectType: 'Import', objectId: 'Energy_Meters_Jan2025.csv', valueAtTime: 'Campaign: Q1 2025, 89 records imported, status: Completed' },
-      { id: 11, timestamp: '2025-02-19 17:20:00', user: 'Anna Lindqvist', email: 'anna.lindqvist@company.com', action: 'created', where: 'Imports', objectType: 'Import', objectId: 'Travel_Expenses_Feb.xlsx', valueAtTime: 'Campaign: Q1 2025, 312 records imported, status: Completed' },
-      { id: 12, timestamp: '2025-02-19 14:05:00', user: 'Marcus Webb', email: 'marcus.webb@company.com', action: 'viewed', where: 'Imports', objectType: 'Import', objectId: 'Waste_Weights_Q1.xlsx', valueAtTime: 'Campaign: Q1 2025, 56 records, status: Completed' },
-      { id: 23, timestamp: '2025-02-20 15:20:00', user: 'Sarah Chen', email: 'sarah.chen@company.com', action: 'created', where: 'Strategy', objectType: 'Target', objectId: 'Net-zero by 2040 (Scope 1 & 2)', valueAtTime: 'Baseline: FY 2024, Target year: 2040, Reduction: 100%' },
-      { id: 24, timestamp: '2025-02-20 14:55:00', user: 'Jane Admin', email: 'jane.admin@company.com', action: 'created', where: 'Strategy', objectType: 'Initiative', objectId: 'Fleet electrification program', valueAtTime: 'Status: Planning, Owner: James Park, Start: Q2 2025' },
-      { id: 25, timestamp: '2025-02-19 11:30:00', user: 'James Park', email: 'james.park@company.com', action: 'updated', where: 'Strategy', objectType: 'Target', objectId: 'Net-zero by 2040 (Scope 1 & 2)', valueAtTime: 'Baseline: FY 2024, Target year: 2040, Reduction: 100%, Approved by leadership' },
+      { id: 13, timestamp: '2025-02-20 13:00:00', user: 'Jane Admin', email: 'jane.admin@company.com', action: 'updated', where: 'Inventory', objectType: 'Activity record', objectId: 'Chicago HQ / Stationary combustion — Natural gas', recordId: 100001, valueAtTime: 'Quantity: 125.4 MWh, Data source: Energy_Meters_Jan2025.csv, Period: Jan 2025', valueBefore: 'Quantity: 118.2 MWh, Data source: Energy_Meters_Jan2025.csv, Period: Jan 2025', valueAfter: 'Quantity: 125.4 MWh, Data source: Energy_Meters_Jan2025.csv, Period: Jan 2025' },
+      { id: 14, timestamp: '2025-02-20 10:30:00', user: 'James Park', email: 'james.park@company.com', action: 'updated', where: 'Inventory', objectType: 'Activity record', objectId: 'Chicago HQ / Stationary combustion — Natural gas', recordId: 100001, valueAtTime: 'Quantity: 118.2 MWh, Data source: Energy_Meters_Jan2025.csv, Period: Jan 2025', valueBefore: 'Quantity: 110.0 MWh, Data source: Energy_Meters_Jan2025.csv, Period: Jan 2025', valueAfter: 'Quantity: 118.2 MWh, Data source: Energy_Meters_Jan2025.csv, Period: Jan 2025' },
+      { id: 15, timestamp: '2025-02-18 14:00:00', user: 'Jane Admin', email: 'jane.admin@company.com', action: 'created', where: 'Inventory', objectType: 'Activity record', objectId: 'Chicago HQ / Stationary combustion — Natural gas', recordId: 100001, valueAtTime: 'Quantity: 110.0 MWh, Data source: Energy_Meters_Jan2025.csv, Period: Jan 2025', valueAfter: 'Quantity: 110.0 MWh, Data source: Energy_Meters_Jan2025.csv, Period: Jan 2025' },
+      { id: 30, timestamp: '2025-02-16 11:00:00', user: 'James Park', email: 'james.park@company.com', action: 'viewed', where: 'Inventory', objectType: 'Activity record', objectId: 'Chicago HQ / Stationary combustion — Natural gas', recordId: 100001, valueAtTime: 'Quantity: 105.0 MWh, Data source: Energy_Meters_Jan2025.csv, Period: Jan 2025', valueAfter: 'Quantity: 105.0 MWh, Data source: Energy_Meters_Jan2025.csv, Period: Jan 2025' },
+      { id: 16, timestamp: '2025-02-20 11:20:00', user: 'Sarah Chen', email: 'sarah.chen@company.com', action: 'updated', where: 'Inventory', objectType: 'Activity record', objectId: 'London Office / Mobile combustion — Fleet', recordId: 100002, valueAtTime: 'Quantity: 2,840 L diesel, Data source: Fleet_Data_Q1.xlsx, Period: Q1 2025', valueBefore: 'Quantity: 2,400 L diesel, Data source: Fleet_Data_Q1.xlsx, Period: Q1 2025', valueAfter: 'Quantity: 2,840 L diesel, Data source: Fleet_Data_Q1.xlsx, Period: Q1 2025' },
+      { id: 17, timestamp: '2025-02-19 15:00:00', user: 'Marcus Webb', email: 'marcus.webb@company.com', action: 'updated', where: 'Inventory', objectType: 'Activity record', objectId: 'London Office / Mobile combustion — Fleet', recordId: 100002, valueAtTime: 'Quantity: 2,650 L diesel, Data source: Fleet_Data_Q1.xlsx, Period: Q1 2025', valueBefore: 'Quantity: 2,400 L diesel, Data source: Fleet_Data_Q1.xlsx, Period: Q1 2025', valueAfter: 'Quantity: 2,650 L diesel, Data source: Fleet_Data_Q1.xlsx, Period: Q1 2025' },
+      { id: 18, timestamp: '2025-02-19 09:00:00', user: 'Sarah Chen', email: 'sarah.chen@company.com', action: 'created', where: 'Inventory', objectType: 'Activity record', objectId: 'London Office / Mobile combustion — Fleet', recordId: 100002, valueAtTime: 'Quantity: 2,400 L diesel, Data source: Fleet_Data_Q1.xlsx, Period: Q1 2025', valueAfter: 'Quantity: 2,400 L diesel, Data source: Fleet_Data_Q1.xlsx, Period: Q1 2025' },
+      { id: 31, timestamp: '2025-02-17 16:30:00', user: 'Anna Lindqvist', email: 'anna.lindqvist@company.com', action: 'viewed', where: 'Inventory', objectType: 'Activity record', objectId: 'London Office / Mobile combustion — Fleet', recordId: 100002, valueAtTime: 'Quantity: 2,200 L diesel, Data source: Fleet_Data_Q1.xlsx, Period: Q1 2025', valueAfter: 'Quantity: 2,200 L diesel, Data source: Fleet_Data_Q1.xlsx, Period: Q1 2025' },
+      { id: 19, timestamp: '2025-02-19 16:45:00', user: 'James Park', email: 'james.park@company.com', action: 'created', where: 'Inventory', objectType: 'Activity record', objectId: 'Tokyo Office / Business travel — Air', recordId: 100003, valueAtTime: 'Quantity: 12,500 km, Data source: Travel_Expenses_Feb.xlsx, Period: Feb 2025', valueAfter: 'Quantity: 12,500 km, Data source: Travel_Expenses_Feb.xlsx, Period: Feb 2025' },
+      { id: 20, timestamp: '2025-02-19 11:00:00', user: 'Anna Lindqvist', email: 'anna.lindqvist@company.com', action: 'updated', where: 'Inventory', objectType: 'Activity record', objectId: 'London Office / Waste — General', recordId: 100004, valueAtTime: 'Quantity: 2.1 tonnes, Data source: Waste_Weights_Q1.xlsx, Period: Jan 2025', valueBefore: 'Quantity: 1.8 tonnes, Data source: Waste_Weights_Q1.xlsx, Period: Jan 2025', valueAfter: 'Quantity: 2.1 tonnes, Data source: Waste_Weights_Q1.xlsx, Period: Jan 2025' },
+      { id: 21, timestamp: '2025-02-18 16:30:00', user: 'Marcus Webb', email: 'marcus.webb@company.com', action: 'updated', where: 'Inventory', objectType: 'Activity record', objectId: 'London Office / Waste — General', recordId: 100004, valueAtTime: 'Quantity: 1.8 tonnes, Data source: Waste_Weights_Q1.xlsx, Period: Jan 2025', valueBefore: 'Quantity: 1.5 tonnes, Data source: Waste_Weights_Q1.xlsx, Period: Jan 2025', valueAfter: 'Quantity: 1.8 tonnes, Data source: Waste_Weights_Q1.xlsx, Period: Jan 2025' },
+      { id: 22, timestamp: '2025-02-17 10:15:00', user: 'Anna Lindqvist', email: 'anna.lindqvist@company.com', action: 'created', where: 'Inventory', objectType: 'Activity record', objectId: 'London Office / Waste — General', recordId: 100004, valueAtTime: 'Quantity: 1.5 tonnes, Data source: Waste_Weights_Q1.xlsx, Period: Jan 2025', valueAfter: 'Quantity: 1.5 tonnes, Data source: Waste_Weights_Q1.xlsx, Period: Jan 2025' },
+      { id: 1, timestamp: '2025-02-20 14:32:00', user: 'Jane Admin', email: 'jane.admin@company.com', action: 'updated', where: 'Data Owner Directory', objectType: 'Ownership rule', objectId: 'Chicago HQ / Energy', valueAtTime: 'Primary: James Park, Secondary: Sarah Chen', valueBefore: 'Primary: Jane Admin, Secondary: Sarah Chen', valueAfter: 'Primary: James Park, Secondary: Sarah Chen' },
+      { id: 2, timestamp: '2025-02-20 14:28:15', user: 'Jane Admin', email: 'jane.admin@company.com', action: 'created', where: 'Data Campaigns', objectType: 'Campaign', objectId: 'Q1 2025 Sustainability Data', valueAtTime: 'Period: Jan–Mar 2025, Modules: Energy, Fuel, Travel', valueAfter: 'Period: Jan–Mar 2025, Modules: Energy, Fuel, Travel' },
+      { id: 3, timestamp: '2025-02-20 13:45:00', user: 'Marcus Webb', email: 'marcus.webb@company.com', action: 'viewed', where: 'Data Owner Directory', objectType: 'Ownership rule', objectId: 'London Office / Waste', valueAtTime: 'Primary: Marcus Webb, Secondary: Anna Lindqvist', valueAfter: 'Primary: Marcus Webb, Secondary: Anna Lindqvist' },
+      { id: 4, timestamp: '2025-02-20 12:10:22', user: 'Sarah Chen', email: 'sarah.chen@company.com', action: 'updated', where: 'Unit of measurement conversions', objectType: 'UoM group', objectId: 'Energy', valueAtTime: 'Units: kWh, GJ, MWh (default: kWh)', valueBefore: 'Units: kWh, MWh (default: kWh)', valueAfter: 'Units: kWh, GJ, MWh (default: kWh)' },
+      { id: 5, timestamp: '2025-02-20 11:55:00', user: 'Jane Admin', email: 'jane.admin@company.com', action: 'deleted', where: 'Data Owner Directory', objectType: 'Ownership rule', objectId: 'Phoenix Site / Travel', valueAtTime: '(removed)', valueBefore: 'Primary: Alex Rivera, Secondary: (none)' },
+      { id: 6, timestamp: '2025-02-20 11:30:00', user: 'Jane Admin', email: 'jane.admin@company.com', action: 'updated', where: 'Data Owner Directory', objectType: 'Ownership rule', objectId: 'Chicago HQ / Energy', valueAtTime: 'Primary: James Park, Secondary: Sarah Chen; Team: Operations', valueBefore: 'Primary: James Park, Secondary: Sarah Chen', valueAfter: 'Primary: James Park, Secondary: Sarah Chen; Team: Operations' },
+      { id: 7, timestamp: '2025-02-19 16:00:00', user: 'Anna Lindqvist', email: 'anna.lindqvist@company.com', action: 'viewed', where: 'Data Campaigns', objectType: 'Campaign', objectId: 'Q1 2025 Sustainability Data', valueAtTime: 'Status: Draft', valueAfter: 'Status: Draft' },
+      { id: 8, timestamp: '2025-02-19 15:22:00', user: 'Jane Admin', email: 'jane.admin@company.com', action: 'created', where: 'Data Owner Directory', objectType: 'Ownership rule', objectId: 'Tokyo Office / Fuel', valueAtTime: 'Primary: Yuki Tanaka, Secondary: Priya Sharma', valueAfter: 'Primary: Yuki Tanaka, Secondary: Priya Sharma' },
+      { id: 9, timestamp: '2025-02-20 10:15:00', user: 'Sarah Chen', email: 'sarah.chen@company.com', action: 'created', where: 'Imports', objectType: 'Import', objectId: 'Fleet_Data_Q1.xlsx', valueAtTime: 'Campaign: Q1 2025, 1,240 records imported, status: Completed', valueAfter: 'Campaign: Q1 2025, 1,240 records imported, status: Completed' },
+      { id: 10, timestamp: '2025-02-20 09:42:33', user: 'James Park', email: 'james.park@company.com', action: 'created', where: 'Imports', objectType: 'Import', objectId: 'Energy_Meters_Jan2025.csv', valueAtTime: 'Campaign: Q1 2025, 89 records imported, status: Completed', valueAfter: 'Campaign: Q1 2025, 89 records imported, status: Completed' },
+      { id: 11, timestamp: '2025-02-19 17:20:00', user: 'Anna Lindqvist', email: 'anna.lindqvist@company.com', action: 'created', where: 'Imports', objectType: 'Import', objectId: 'Travel_Expenses_Feb.xlsx', valueAtTime: 'Campaign: Q1 2025, 312 records imported, status: Completed', valueAfter: 'Campaign: Q1 2025, 312 records imported, status: Completed' },
+      { id: 12, timestamp: '2025-02-19 14:05:00', user: 'Marcus Webb', email: 'marcus.webb@company.com', action: 'viewed', where: 'Imports', objectType: 'Import', objectId: 'Waste_Weights_Q1.xlsx', valueAtTime: 'Campaign: Q1 2025, 56 records, status: Completed', valueAfter: 'Campaign: Q1 2025, 56 records, status: Completed' },
+      { id: 23, timestamp: '2025-02-20 15:20:00', user: 'Sarah Chen', email: 'sarah.chen@company.com', action: 'created', where: 'Strategy', objectType: 'Target', objectId: 'Net-zero by 2040 (Scope 1 & 2)', valueAtTime: 'Baseline: FY 2024, Target year: 2040, Reduction: 100%', valueAfter: 'Baseline: FY 2024, Target year: 2040, Reduction: 100%' },
+      { id: 24, timestamp: '2025-02-20 14:55:00', user: 'Jane Admin', email: 'jane.admin@company.com', action: 'created', where: 'Strategy', objectType: 'Initiative', objectId: 'Fleet electrification program', valueAtTime: 'Status: Planning, Owner: James Park, Start: Q2 2025', valueAfter: 'Status: Planning, Owner: James Park, Start: Q2 2025' },
+      { id: 25, timestamp: '2025-02-19 11:30:00', user: 'James Park', email: 'james.park@company.com', action: 'updated', where: 'Strategy', objectType: 'Target', objectId: 'Net-zero by 2040 (Scope 1 & 2)', valueAtTime: 'Baseline: FY 2024, Target year: 2040, Reduction: 100%, Approved by leadership', valueBefore: 'Baseline: FY 2024, Target year: 2040, Reduction: 100%', valueAfter: 'Baseline: FY 2024, Target year: 2040, Reduction: 100%, Approved by leadership' },
+      { id: 26, timestamp: '2025-02-18 09:00:00', user: 'Jane Admin', email: 'jane.admin@company.com', action: 'updated', where: 'Data Owner Directory', objectType: 'Ownership rule', objectId: 'Chicago HQ / Energy', valueAtTime: 'Primary: Jane Admin, Secondary: Sarah Chen', valueBefore: 'Primary: James Park, Secondary: Sarah Chen', valueAfter: 'Primary: Jane Admin, Secondary: Sarah Chen' },
+      { id: 27, timestamp: '2025-02-15 14:20:00', user: 'James Park', email: 'james.park@company.com', action: 'created', where: 'Data Owner Directory', objectType: 'Ownership rule', objectId: 'Chicago HQ / Energy', valueAtTime: 'Primary: James Park, Secondary: Sarah Chen', valueAfter: 'Primary: James Park, Secondary: Sarah Chen' },
+      { id: 28, timestamp: '2025-02-17 11:00:00', user: 'Jane Admin', email: 'jane.admin@company.com', action: 'updated', where: 'Data Campaigns', objectType: 'Campaign', objectId: 'Q1 2025 Sustainability Data', valueAtTime: 'Period: Jan–Mar 2025, Modules: Energy, Fuel, Travel, Status: Draft', valueBefore: 'Period: Jan–Mar 2025, Modules: Energy, Fuel, Travel', valueAfter: 'Period: Jan–Mar 2025, Modules: Energy, Fuel, Travel, Status: Draft' },
+      { id: 29, timestamp: '2025-02-17 10:00:00', user: 'Sarah Chen', email: 'sarah.chen@company.com', action: 'created', where: 'Strategy', objectType: 'Target', objectId: 'Net-zero by 2040 (Scope 1 & 2)', valueAtTime: 'Baseline: FY 2024, Target year: 2040, Reduction: 100%', valueAfter: 'Baseline: FY 2024, Target year: 2040, Reduction: 100%' },
     ];
     function activityLogEscape(s) {
       if (s == null || s === undefined) return '';
       return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+    function getAffectedItemMain(r) {
+      if (!r) return '';
+      if (r.objectType === 'Activity record' && r.recordId != null) return String(r.recordId);
+      return r.objectId || '';
+    }
+    function getAffectedItemSub(r) {
+      if (!r) return '';
+      return r.objectType || '';
+    }
+    function getAffectedItemLabel(r) {
+      var main = getAffectedItemMain(r), sub = getAffectedItemSub(r);
+      if (sub) return main ? main + ' (' + sub + ')' : sub;
+      return main;
+    }
+    function getAffectedItemHtml(r) {
+      var main = activityLogEscape(getAffectedItemMain(r));
+      var sub = activityLogEscape(getAffectedItemSub(r));
+      if (!main && !sub) return '';
+      return '<span class="activity-log-affected-main">' + main + '</span>' + (sub ? '<span class="activity-log-affected-sub">' + sub + '</span>' : '');
+    }
+    function formatValueChangeForTable(val) {
+      if (val == null || val === '') return '';
+      var s = String(val).trim();
+      var parts = s.split(/\s*,\s*/).filter(function(p) { return p.length > 0; });
+      if (parts.length > 1) return parts.length + ' values changed';
+      return s;
     }
     function getFilteredActivityLogRows(useV2) {
       var searchInput = useV2 ? document.getElementById('activity-log-search-v2') : document.getElementById('activity-log-search');
@@ -23316,9 +23467,9 @@ Thank you.</div>
     }
     function exportActivityLog() {
       var rows = getFilteredActivityLogRows(false);
-      var header = 'Timestamp,User,Action,Page,Object affected,Object details';
+      var header = 'Timestamp,User,Action,Page,Affected item,Details';
       var lines = [header].concat(rows.map(function(r) {
-        var obj = (r.objectType || '') + ': ' + (r.objectId || '');
+        var obj = getAffectedItemLabel(r);
         return activityLogCsvEscape(r.timestamp) + ',' + activityLogCsvEscape(r.user) + ',' + activityLogCsvEscape(r.action) + ',' + activityLogCsvEscape(r.where) + ',' + activityLogCsvEscape(obj) + ',' + activityLogCsvEscape(r.valueAtTime);
       }));
       var csv = lines.join('\r\n');
@@ -23331,9 +23482,9 @@ Thank you.</div>
     }
     function exportActivityLogV2() {
       var rows = getFilteredActivityLogRows(true);
-      var header = 'Timestamp,User,Action,Page,Object affected,Object details';
+      var header = 'Timestamp,User,Action,Page,Affected item,Details';
       var lines = [header].concat(rows.map(function(r) {
-        var obj = (r.objectType || '') + ': ' + (r.objectId || '');
+        var obj = getAffectedItemLabel(r);
         return activityLogCsvEscape(r.timestamp) + ',' + activityLogCsvEscape(r.user) + ',' + activityLogCsvEscape(r.action) + ',' + activityLogCsvEscape(r.where) + ',' + activityLogCsvEscape(obj) + ',' + activityLogCsvEscape(r.valueAtTime);
       }));
       var csv = lines.join('\r\n');
@@ -23424,7 +23575,7 @@ Thank you.</div>
         }
         return true;
       });
-      var objTypeEsc, objIdEsc, ts, who, emailEsc, act, where, obj, val;
+      var objTypeEsc, objIdEsc, ts, who, emailEsc, act, where, objHtml, val;
       tbody.innerHTML = rows.map(function(r) {
         objTypeEsc = activityLogEscape(r.objectType).replace(/'/g, "\\'");
         objIdEsc = activityLogEscape(r.objectId).replace(/'/g, "\\'");
@@ -23433,14 +23584,14 @@ Thank you.</div>
         emailEsc = activityLogEscape(r.email || '');
         act = activityLogEscape(r.action);
         where = activityLogEscape(r.where);
-        obj = activityLogEscape(r.objectType) + ': ' + activityLogEscape(r.objectId);
+        objHtml = getAffectedItemHtml(r);
         val = activityLogEscape(r.valueAtTime);
         return '<tr data-activity-id="' + r.id + '" data-object-type="' + activityLogEscape(r.objectType) + '" data-object-id="' + activityLogEscape(r.objectId) + '" onclick="handleActivityRowClick(event)">' +
           '<td><span class="activity-log-one-line-clamp">' + ts + '</span></td>' +
           '<td class="activity-log-user-cell"><span class="activity-log-one-line-clamp">' + who + '</span>' + (emailEsc ? '<span class="activity-log-user-email">' + emailEsc + '</span>' : '') + '</td>' +
           '<td><span class="activity-log-one-line-clamp">' + act + '</span></td>' +
           '<td class="activity-log-where-cell"><span class="activity-log-one-line-clamp">' + where + '</span></td>' +
-          '<td><span class="activity-log-one-line-clamp">' + obj + '</span></td>' +
+          '<td class="activity-log-affected-cell">' + objHtml + '</td>' +
           '<td class="activity-log-value-cell"><span class="activity-log-one-line-clamp">' + val + '</span></td></tr>';
       }).join('');
     }
@@ -23461,17 +23612,12 @@ Thank you.</div>
       }
       document.getElementById('activity-row-detail-action').textContent = row.action || '';
       document.getElementById('activity-row-detail-where').textContent = row.where || '';
-      document.getElementById('activity-row-detail-object').textContent = (row.objectType || '') + ': ' + (row.objectId || '');
+      var objDetail = document.getElementById('activity-row-detail-object');
+      if (objDetail) objDetail.innerHTML = getAffectedItemHtml(row);
       document.getElementById('activity-row-detail-value').textContent = row.valueAtTime || '';
       var trail = ACTIVITY_LOG_DATA.filter(function(r) { return r.objectType === objectType && r.objectId === objectId; }).sort(function(a, b) { return a.timestamp < b.timestamp ? 1 : -1; });
-      var objectLabel = document.getElementById('audit-trail-object-label');
-      if (objectLabel) objectLabel.textContent = 'Object: ' + (objectType || '') + ' — ' + (objectId || '');
-      var subtitle = document.getElementById('audit-trail-subtitle');
-      if (subtitle) subtitle.textContent = 'All changes to this object over time (' + trail.length + ' event' + (trail.length !== 1 ? 's' : '') + ').';
-      var tbody = document.getElementById('audit-trail-tbody');
-      if (tbody) tbody.innerHTML = trail.map(function(r) {
-        return '<tr><td>' + activityLogEscape(r.timestamp) + '</td><td>' + activityLogEscape(r.user) + '</td><td>' + activityLogEscape(r.action) + '</td><td>' + activityLogEscape(r.where) + '</td><td class="activity-log-value-cell" title="' + activityLogEscape(r.valueAtTime) + '">' + activityLogEscape(r.valueAtTime.length > 60 ? r.valueAtTime.slice(0, 57) + '…' : r.valueAtTime) + '</td></tr>';
-      }).join('');
+      var eventsEl = document.getElementById('audit-trail-timeline-events');
+      if (eventsEl) eventsEl.innerHTML = buildAuditTrailTimelineHtml(trail);
       document.getElementById('audit-trail-backdrop').classList.add('open');
       document.getElementById('audit-trail-drawer').classList.add('open');
     }
@@ -23565,6 +23711,79 @@ Thank you.</div>
       if (wrapper) wrapper.classList.remove('has-audit-filter');
       activityLogRenderV2();
     }
+    function formatAuditTrailTimestamp(ts) {
+      if (!ts || ts.length < 16) return ts || '';
+      var parts = ts.split(/[\s-:]/);
+      if (parts.length < 5) return ts;
+      var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      var y = parts[0], m = parseInt(parts[1], 10) - 1, d = parts[2], h = parseInt(parts[3], 10), min = parts[4];
+      var hour = h > 12 ? h - 12 : (h === 0 ? 12 : h);
+      var ampm = h >= 12 ? 'pm' : 'am';
+      return months[m] + ' ' + d + ', ' + y + ' @ ' + hour + ':' + min + ampm;
+    }
+    function formatAuditTrailDate(ts) {
+      if (!ts || ts.length < 10) return ts || '';
+      var parts = ts.split(/[\s-:]/);
+      if (parts.length < 3) return ts;
+      var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      var y = parts[0], m = parseInt(parts[1], 10) - 1, d = parts[2];
+      return months[m] + ' ' + d + ', ' + y;
+    }
+    function buildAuditTrailEventHtml(r) {
+      var actionLabel = (r.action ? (r.action.charAt(0).toUpperCase() + r.action.slice(1)) : '') + (r.where ? ' · ' + r.where : '');
+      var timeStr = formatAuditTrailTimestamp(r.timestamp);
+      var vb = r.valueBefore != null && r.valueBefore !== '' ? activityLogEscape(r.valueBefore) : '';
+      var va = r.valueAfter != null && r.valueAfter !== '' ? activityLogEscape(r.valueAfter) : '';
+      var detailHtml = '';
+      if (vb && va) {
+        detailHtml = '<span class="audit-trail-event-detail"><span class="audit-trail-pill" title="' + vb + '">' + (vb.length > 40 ? vb.slice(0, 37) + '…' : vb) + '</span><span class="audit-trail-pill-arrow" aria-hidden="true">→</span><span class="audit-trail-pill" title="' + va + '">' + (va.length > 40 ? va.slice(0, 37) + '…' : va) + '</span></span>';
+      } else if (va) {
+        detailHtml = '<span class="audit-trail-event-detail"><span class="audit-trail-pill" title="' + va + '">' + (va.length > 60 ? va.slice(0, 57) + '…' : va) + '</span></span>';
+      } else if (vb) {
+        detailHtml = '<span class="audit-trail-event-detail"><span class="audit-trail-pill" title="' + vb + '">' + (vb.length > 60 ? vb.slice(0, 57) + '…' : vb) + '</span></span>';
+      } else if (r.valueAtTime) {
+        var v = activityLogEscape(r.valueAtTime);
+        detailHtml = '<span class="audit-trail-event-detail"><span class="audit-trail-pill" title="' + v + '">' + (v.length > 60 ? v.slice(0, 57) + '…' : v) + '</span></span>';
+      }
+      return '<div class="audit-trail-event">' +
+        '<span class="audit-trail-event-marker" aria-hidden="true"></span>' +
+        '<div class="audit-trail-event-content">' +
+        '<div class="audit-trail-event-desc">' + activityLogEscape(actionLabel) + '</div>' +
+        '<div class="audit-trail-event-time">' + activityLogEscape(timeStr) + '</div>' +
+        (detailHtml || '') +
+        '</div></div>';
+    }
+    function buildAuditTrailTimelineHtml(trail) {
+      var byDate = {};
+      trail.forEach(function(r) {
+        var key = r.timestamp ? r.timestamp.slice(0, 10) : '';
+        if (!byDate[key]) byDate[key] = [];
+        byDate[key].push(r);
+      });
+      var dates = Object.keys(byDate).sort().reverse();
+      var html = '';
+      dates.forEach(function(dateKey) {
+        var events = byDate[dateKey];
+        var dateLabel = dateKey ? formatAuditTrailDate(events[0].timestamp) : 'Unknown date';
+        var n = events.length;
+        var eventLabel = n === 1 ? '1 event' : n + ' events';
+        html += '<div class="audit-trail-date-group" data-date="' + activityLogEscape(dateKey) + '">' +
+          '<button type="button" class="audit-trail-date-header" onclick="toggleAuditTrailDateSection(this)" aria-expanded="true">' +
+          '<span>' + activityLogEscape(dateLabel) + ' · ' + eventLabel + '</span>' +
+          '<span class="audit-trail-date-chevron" aria-hidden="true">▼</span>' +
+          '</button>' +
+          '<div class="audit-trail-date-body">' +
+          events.map(buildAuditTrailEventHtml).join('') +
+          '</div></div>';
+      });
+      return html;
+    }
+    function toggleAuditTrailDateSection(btn) {
+      var group = btn && btn.closest('.audit-trail-date-group');
+      if (!group) return;
+      group.classList.toggle('collapsed');
+      btn.setAttribute('aria-expanded', group.classList.contains('collapsed') ? 'false' : 'true');
+    }
     function openActivityRowDetailDrawerV2(activityId) {
       var row = ACTIVITY_LOG_DATA.filter(function(r) { return r.id === activityId; })[0];
       if (!row) return;
@@ -23576,17 +23795,12 @@ Thank you.</div>
       }
       document.getElementById('activity-row-detail-action-v2').textContent = row.action || '';
       document.getElementById('activity-row-detail-where-v2').textContent = row.where || '';
-      document.getElementById('activity-row-detail-object-v2').textContent = (row.objectType || '') + ': ' + (row.objectId || '');
+      var objDetailV2 = document.getElementById('activity-row-detail-object-v2');
+      if (objDetailV2) objDetailV2.innerHTML = getAffectedItemHtml(row);
       document.getElementById('activity-row-detail-value-v2').textContent = row.valueAtTime || '';
       var trail = ACTIVITY_LOG_DATA.filter(function(r) { return r.objectType === objectType && r.objectId === objectId; }).sort(function(a, b) { return a.timestamp < b.timestamp ? 1 : -1; });
-      var objectLabelV2 = document.getElementById('audit-trail-object-label-v2');
-      if (objectLabelV2) objectLabelV2.textContent = 'Object: ' + (objectType || '') + ' — ' + (objectId || '');
-      var subtitleEl = document.getElementById('audit-trail-subtitle-v2');
-      if (subtitleEl) subtitleEl.textContent = 'All changes to this object over time (' + trail.length + ' event' + (trail.length !== 1 ? 's' : '') + ').';
-      var tbodyV2 = document.getElementById('audit-trail-tbody-v2');
-      if (tbodyV2) tbodyV2.innerHTML = trail.map(function(r) {
-        return '<tr><td>' + activityLogEscape(r.timestamp) + '</td><td>' + activityLogEscape(r.user) + '</td><td>' + activityLogEscape(r.action) + '</td><td>' + activityLogEscape(r.where) + '</td><td class="activity-log-value-cell" title="' + activityLogEscape(r.valueAtTime) + '">' + activityLogEscape(r.valueAtTime.length > 60 ? r.valueAtTime.slice(0, 57) + '…' : r.valueAtTime) + '</td></tr>';
-      }).join('');
+      var eventsEl = document.getElementById('audit-trail-timeline-events-v2');
+      if (eventsEl) eventsEl.innerHTML = buildAuditTrailTimelineHtml(trail);
       document.getElementById('activity-row-detail-backdrop-v2').classList.add('open');
       document.getElementById('activity-row-detail-drawer-v2').classList.add('open');
     }
@@ -23666,7 +23880,7 @@ Thank you.</div>
         }
         return true;
       });
-      var objTypeEsc, objIdEsc, ts, who, emailEsc, act, where, obj, val;
+      var objTypeEsc, objIdEsc, ts, who, emailEsc, act, where, objHtml, val;
       tbody.innerHTML = rows.map(function(r) {
         objTypeEsc = activityLogEscape(r.objectType).replace(/'/g, "\\'");
         objIdEsc = activityLogEscape(r.objectId).replace(/'/g, "\\'");
@@ -23675,14 +23889,14 @@ Thank you.</div>
         emailEsc = activityLogEscape(r.email || '');
         act = activityLogEscape(r.action);
         where = activityLogEscape(r.where);
-        obj = activityLogEscape(r.objectType) + ': ' + activityLogEscape(r.objectId);
+        objHtml = getAffectedItemHtml(r);
         val = activityLogEscape(r.valueAtTime);
         return '<tr data-activity-id="' + r.id + '" data-object-type="' + activityLogEscape(r.objectType) + '" data-object-id="' + activityLogEscape(r.objectId) + '" onclick="handleActivityRowClickV2(event)">' +
           '<td><span class="activity-log-v2-line-clamp">' + ts + '</span></td>' +
           '<td class="activity-log-user-cell"><span class="activity-log-v2-line-clamp">' + who + '</span>' + (emailEsc ? '<span class="activity-log-user-email">' + emailEsc + '</span>' : '') + '</td>' +
           '<td><span class="activity-log-v2-line-clamp">' + act + '</span></td>' +
           '<td class="activity-log-where-cell"><span class="activity-log-v2-line-clamp">' + where + '</span></td>' +
-          '<td><span class="activity-log-v2-line-clamp">' + obj + '</span></td>' +
+          '<td class="activity-log-affected-cell">' + objHtml + '</td>' +
           '<td class="activity-log-value-cell"><span class="activity-log-v2-line-clamp">' + val + '</span></td></tr>';
       }).join('');
       var input = document.getElementById('activity-log-search-v2');
@@ -23722,6 +23936,230 @@ Thank you.</div>
       var actionEl = document.getElementById('activity-log-filter-action-v2');
       var objectEl = document.getElementById('activity-log-filter-object-v2');
       var badge = document.getElementById('activity-log-filter-badge-v2');
+      if (!badge) return;
+      var n = 0;
+      if (userEl && userEl.value) n++;
+      if (actionEl && actionEl.value) n++;
+      if (objectEl && objectEl.value) n++;
+      badge.textContent = n;
+      badge.style.display = n > 0 ? 'inline-flex' : 'none';
+    }
+
+    // User activity log V3 (same logic as V2, -v3 element IDs; reuses V2 drawer)
+    var activityLogV3AuditFilter = null;
+    function setAuditFilterV3(objectType, objectId) {
+      activityLogV3AuditFilter = { objectType: objectType, objectId: objectId };
+      var input = document.getElementById('activity-log-search-v3');
+      var clearBtn = document.getElementById('activity-log-v3-search-clear');
+      var wrapper = input && input.closest('.activity-log-v2-search-wrapper');
+      if (input) {
+        input.value = 'Audit trail: ' + objectType + ' — ' + objectId;
+        input.readOnly = true;
+      }
+      if (clearBtn) clearBtn.classList.add('visible');
+      if (wrapper) wrapper.classList.add('has-audit-filter');
+      activityLogRenderV3();
+    }
+    function clearAuditFilterV3() {
+      activityLogV3AuditFilter = null;
+      var input = document.getElementById('activity-log-search-v3');
+      var clearBtn = document.getElementById('activity-log-v3-search-clear');
+      var wrapper = input && input.closest('.activity-log-v2-search-wrapper');
+      if (input) {
+        input.value = '';
+        input.readOnly = false;
+      }
+      if (clearBtn) clearBtn.classList.remove('visible');
+      if (wrapper) wrapper.classList.remove('has-audit-filter');
+      activityLogRenderV3();
+    }
+    function handleActivityRowClickV3(ev) {
+      if (ev.target.closest('button')) return;
+      var tr = ev.currentTarget;
+      var id = tr.getAttribute('data-activity-id');
+      if (id) openActivityRowDetailDrawerV2(parseInt(id, 10));
+    }
+    function activityLogApplyFiltersV3() { activityLogRenderV3(); }
+    function activityLogTimeframeChangeV3() {
+      var timeframeEl = document.getElementById('activity-log-timeframe-v3');
+      var customRow = document.getElementById('activity-log-custom-dates-v3');
+      if (customRow) customRow.style.display = (timeframeEl && timeframeEl.value === 'custom') ? 'inline-flex' : 'none';
+      activityLogApplyFiltersV3();
+    }
+    function activityLogPopulateFiltersV3() {
+      var users = {}, objectTypes = {};
+      ACTIVITY_LOG_DATA.forEach(function(row) { users[row.user] = true; objectTypes[row.objectType] = true; });
+      var userSelect = document.getElementById('activity-log-filter-user-v3');
+      var objectSelect = document.getElementById('activity-log-filter-object-v3');
+      if (userSelect && userSelect.options.length <= 1) {
+        Object.keys(users).sort().forEach(function(u) {
+          var opt = document.createElement('option'); opt.value = u; opt.textContent = u; userSelect.appendChild(opt);
+        });
+      }
+      if (objectSelect && objectSelect.options.length <= 1) {
+        Object.keys(objectTypes).sort().forEach(function(t) {
+          var opt = document.createElement('option'); opt.value = t; opt.textContent = t; objectSelect.appendChild(opt);
+        });
+      }
+    }
+    function getFilteredActivityLogRowsForV3() {
+      var searchInput = document.getElementById('activity-log-search-v3');
+      var search = (searchInput && !searchInput.readOnly) ? (searchInput.value || '') : '';
+      var userFilter = (document.getElementById('activity-log-filter-user-v3') || {}).value || '';
+      var actionFilter = (document.getElementById('activity-log-filter-action-v3') || {}).value || '';
+      var objectFilter = (document.getElementById('activity-log-filter-object-v3') || {}).value || '';
+      var timeframeEl = document.getElementById('activity-log-timeframe-v3');
+      var timeframe = (timeframeEl && timeframeEl.value) || '';
+      var fromDate = '', toDate = '';
+      if (timeframe === 'custom') {
+        fromDate = (document.getElementById('activity-log-from-v3') || {}).value || '';
+        toDate = (document.getElementById('activity-log-to-v3') || {}).value || '';
+      } else if (timeframe) {
+        var today = new Date();
+        var y = today.getFullYear(), m = String(today.getMonth() + 1).padStart(2, '0'), d = String(today.getDate()).padStart(2, '0');
+        toDate = y + '-' + m + '-' + d;
+        if (timeframe === 'today' || timeframe === 'yesterday') {
+          if (timeframe === 'yesterday') {
+            var yesterday = new Date(today); yesterday.setDate(yesterday.getDate() - 1);
+            fromDate = toDate = yesterday.getFullYear() + '-' + String(yesterday.getMonth() + 1).padStart(2, '0') + '-' + String(yesterday.getDate()).padStart(2, '0');
+          } else { fromDate = toDate; }
+        } else if (timeframe === 'last7' || timeframe === 'last30') {
+          var from = new Date(today); from.setDate(from.getDate() - (timeframe === 'last7' ? 7 : 30));
+          fromDate = from.getFullYear() + '-' + String(from.getMonth() + 1).padStart(2, '0') + '-' + String(from.getDate()).padStart(2, '0');
+        }
+      }
+      var q = search.toLowerCase().trim();
+      return ACTIVITY_LOG_DATA.filter(function(r) {
+        if (userFilter && r.user !== userFilter) return false;
+        if (actionFilter && r.action !== actionFilter) return false;
+        if (objectFilter && r.objectType !== objectFilter) return false;
+        if (activityLogV3AuditFilter && (r.objectType !== activityLogV3AuditFilter.objectType || r.objectId !== activityLogV3AuditFilter.objectId)) return false;
+        var rowDate = (r.timestamp || '').slice(0, 10);
+        if (fromDate && rowDate < fromDate) return false;
+        if (toDate && rowDate > toDate) return false;
+        if (q) {
+          var text = (r.timestamp + ' ' + r.user + ' ' + r.action + ' ' + r.where + ' ' + r.objectType + ' ' + r.objectId + ' ' + (r.valueBefore || '') + ' ' + (r.valueAfter || '')).toLowerCase();
+          if (text.indexOf(q) === -1) return false;
+        }
+        return true;
+      });
+    }
+    function exportActivityLogV3() {
+      var rows = getFilteredActivityLogRowsForV3();
+      var header = 'Timestamp,User,Action,Page,Affected item,Value before change,Value after change';
+      var lines = [header].concat(rows.map(function(r) {
+        var obj = getAffectedItemLabel(r);
+        return activityLogCsvEscape(r.timestamp) + ',' + activityLogCsvEscape(r.user) + ',' + activityLogCsvEscape(r.action) + ',' + activityLogCsvEscape(r.where) + ',' + activityLogCsvEscape(obj) + ',' + activityLogCsvEscape(r.valueBefore || '') + ',' + activityLogCsvEscape(r.valueAfter || '');
+      }));
+      var csv = lines.join('\r\n');
+      var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'activity-log-' + new Date().toISOString().slice(0, 10) + '.csv';
+      a.click();
+      URL.revokeObjectURL(a.href);
+    }
+    function activityLogRenderV3() {
+      var tbody = document.getElementById('activity-log-tbody-v3');
+      if (!tbody) return;
+      var searchInput = document.getElementById('activity-log-search-v3');
+      var search = (searchInput && !searchInput.readOnly) ? (searchInput.value || '') : '';
+      var userFilter = (document.getElementById('activity-log-filter-user-v3') || {}).value || '';
+      var actionFilter = (document.getElementById('activity-log-filter-action-v3') || {}).value || '';
+      var objectFilter = (document.getElementById('activity-log-filter-object-v3') || {}).value || '';
+      var timeframeEl = document.getElementById('activity-log-timeframe-v3');
+      var timeframe = (timeframeEl && timeframeEl.value) || '';
+      var fromDate = '', toDate = '';
+      if (timeframe === 'custom') {
+        fromDate = (document.getElementById('activity-log-from-v3') || {}).value || '';
+        toDate = (document.getElementById('activity-log-to-v3') || {}).value || '';
+      } else if (timeframe) {
+        var today = new Date();
+        var y = today.getFullYear(), m = String(today.getMonth() + 1).padStart(2, '0'), d = String(today.getDate()).padStart(2, '0');
+        toDate = y + '-' + m + '-' + d;
+        if (timeframe === 'today' || timeframe === 'yesterday') {
+          if (timeframe === 'yesterday') {
+            var yesterday = new Date(today); yesterday.setDate(yesterday.getDate() - 1);
+            fromDate = toDate = yesterday.getFullYear() + '-' + String(yesterday.getMonth() + 1).padStart(2, '0') + '-' + String(yesterday.getDate()).padStart(2, '0');
+          } else { fromDate = toDate; }
+        } else if (timeframe === 'last7' || timeframe === 'last30') {
+          var from = new Date(today); from.setDate(from.getDate() - (timeframe === 'last7' ? 7 : 30));
+          fromDate = from.getFullYear() + '-' + String(from.getMonth() + 1).padStart(2, '0') + '-' + String(from.getDate()).padStart(2, '0');
+        }
+      }
+      var q = search.toLowerCase().trim();
+      var rows = ACTIVITY_LOG_DATA.filter(function(r) {
+        if (userFilter && r.user !== userFilter) return false;
+        if (actionFilter && r.action !== actionFilter) return false;
+        if (objectFilter && r.objectType !== objectFilter) return false;
+        if (activityLogV3AuditFilter && (r.objectType !== activityLogV3AuditFilter.objectType || r.objectId !== activityLogV3AuditFilter.objectId)) return false;
+        var rowDate = (r.timestamp || '').slice(0, 10);
+        if (fromDate && rowDate < fromDate) return false;
+        if (toDate && rowDate > toDate) return false;
+        if (q) {
+          var text = (r.timestamp + ' ' + r.user + ' ' + r.action + ' ' + r.where + ' ' + r.objectType + ' ' + r.objectId + ' ' + (r.valueBefore || '') + ' ' + (r.valueAfter || '')).toLowerCase();
+          if (text.indexOf(q) === -1) return false;
+        }
+        return true;
+      });
+      var objTypeEsc, objIdEsc, ts, who, emailEsc, act, where, objHtml, valBefore, valAfter;
+      tbody.innerHTML = rows.map(function(r) {
+        objTypeEsc = activityLogEscape(r.objectType).replace(/'/g, "\\'");
+        objIdEsc = activityLogEscape(r.objectId).replace(/'/g, "\\'");
+        ts = activityLogEscape(r.timestamp);
+        who = activityLogEscape(r.user);
+        emailEsc = activityLogEscape(r.email || '');
+        act = activityLogEscape(r.action);
+        where = activityLogEscape(r.where);
+        objHtml = getAffectedItemHtml(r);
+        valBefore = activityLogEscape(formatValueChangeForTable(r.valueBefore));
+        valAfter = activityLogEscape(formatValueChangeForTable(r.valueAfter));
+        return '<tr data-activity-id="' + r.id + '" data-object-type="' + activityLogEscape(r.objectType) + '" data-object-id="' + activityLogEscape(r.objectId) + '" onclick="handleActivityRowClickV3(event)">' +
+          '<td><span class="activity-log-v2-line-clamp">' + ts + '</span></td>' +
+          '<td class="activity-log-user-cell"><span class="activity-log-v2-line-clamp">' + who + '</span>' + (emailEsc ? '<span class="activity-log-user-email">' + emailEsc + '</span>' : '') + '</td>' +
+          '<td><span class="activity-log-v2-line-clamp">' + act + '</span></td>' +
+          '<td class="activity-log-where-cell"><span class="activity-log-v2-line-clamp">' + where + '</span></td>' +
+          '<td class="activity-log-affected-cell">' + objHtml + '</td>' +
+          '<td class="activity-log-value-cell">' + (valBefore ? '<span class="activity-log-v2-line-clamp">' + valBefore + '</span>' : '<span class="activity-log-empty-cell">—</span>') + '</td>' +
+          '<td class="activity-log-value-cell">' + (valAfter ? '<span class="activity-log-v2-line-clamp">' + valAfter + '</span>' : '<span class="activity-log-empty-cell">—</span>') + '</td></tr>';
+      }).join('');
+      var input = document.getElementById('activity-log-search-v3');
+      var clearBtn = document.getElementById('activity-log-v3-search-clear');
+      var wrapper = input && input.closest('.activity-log-v2-search-wrapper');
+      if (activityLogV3AuditFilter && input && clearBtn && wrapper) {
+        input.value = 'Audit trail: ' + activityLogV3AuditFilter.objectType + ' — ' + activityLogV3AuditFilter.objectId;
+        input.readOnly = true;
+        clearBtn.classList.add('visible');
+        wrapper.classList.add('has-audit-filter');
+      } else if (input && clearBtn && wrapper) {
+        input.readOnly = false;
+        clearBtn.classList.remove('visible');
+        wrapper.classList.remove('has-audit-filter');
+      }
+    }
+    function toggleActivityLogFiltersV3(ev) {
+      ev.stopPropagation();
+      var btn = document.getElementById('activity-log-filters-btn-v3');
+      var menu = document.getElementById('activity-log-filters-dropdown-v3');
+      if (!btn || !menu) return;
+      var isOpen = menu.classList.toggle('open');
+      btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      if (isOpen) setTimeout(function() { document.addEventListener('click', closeActivityLogFiltersOnClickV3); }, 0);
+      else document.removeEventListener('click', closeActivityLogFiltersOnClickV3);
+    }
+    function closeActivityLogFiltersOnClickV3(ev) {
+      var btn = document.getElementById('activity-log-filters-btn-v3');
+      var menu = document.getElementById('activity-log-filters-dropdown-v3');
+      if (ev && ev.target && ((btn && btn.contains(ev.target)) || (menu && menu.contains(ev.target)))) return;
+      if (menu) menu.classList.remove('open');
+      if (btn) btn.setAttribute('aria-expanded', 'false');
+      document.removeEventListener('click', closeActivityLogFiltersOnClickV3);
+    }
+    function updateActivityLogFilterBadgeV3() {
+      var userEl = document.getElementById('activity-log-filter-user-v3');
+      var actionEl = document.getElementById('activity-log-filter-action-v3');
+      var objectEl = document.getElementById('activity-log-filter-object-v3');
+      var badge = document.getElementById('activity-log-filter-badge-v3');
       if (!badge) return;
       var n = 0;
       if (userEl && userEl.value) n++;
