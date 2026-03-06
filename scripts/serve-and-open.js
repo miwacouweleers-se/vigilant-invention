@@ -1,15 +1,18 @@
 #!/usr/bin/env node
 /**
  * Start local server and open the Create New Inventory prototype.
- * Uses Node only (no Python or npx). Tries ports 5555, 5556, 3333 if one is in use.
- * Usage: npm start   or   npm run dev
+ * Uses Node only (no Python or npx). Tries 3456, 5555, 5556, 3333, 5557, 5558. If all in use, finds a working port and opens it.
+ * Usage: npm start | npm run dev
+ *        node scripts/serve-and-open.js --no-open   (start server only, do not open browser)
  */
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
 
-const PORTS = [5555, 5556, 3333];
+// Prefer a high port to avoid conflict with macOS "Personal Agent" (5555) and Freeciv (5556)
+const PORTS = [3456, 5555, 5556, 3333, 5557, 5558];
 const ROOT = path.resolve(__dirname, '..');
+const PROTOTYPE_PATH = '/prototypes/create-new-inventory/index.html';
 
 const MIME = {
   '.html': 'text/html',
@@ -48,14 +51,47 @@ function createServer() {
   });
 }
 
+function openBrowser(url) {
+  if (process.argv.includes('--no-open')) return;
+  const openCmd = process.platform === 'darwin' ? 'open' : process.platform === 'win32' ? 'start' : 'xdg-open';
+  require('child_process').exec(`${openCmd} "${url}"`, () => {});
+}
+
+function probePort(port, cb) {
+  const req = http.get(`http://127.0.0.1:${port}${PROTOTYPE_PATH}`, (res) => {
+    cb(res.statusCode === 200 ? port : null);
+  });
+  req.on('error', () => cb(null));
+  req.setTimeout(800, () => { req.destroy(); cb(null); });
+}
+
+function tryOpenWorkingPort(portIndex, cb) {
+  if (portIndex >= PORTS.length) return cb(null);
+  probePort(PORTS[portIndex], (ok) => {
+    if (ok) return cb(ok);
+    tryOpenWorkingPort(portIndex + 1, cb);
+  });
+}
+
 function tryListen(portIndex) {
   if (portIndex >= PORTS.length) {
-    console.error('  All ports ' + PORTS.join(', ') + ' are in use.');
-    console.log('  Stop the other process or use: python3 -m http.server 5555\n');
-    process.exit(1);
+    console.log('  All ports ' + PORTS.join(', ') + ' are in use.');
+    console.log('  Checking which port is serving the prototype...\n');
+    tryOpenWorkingPort(0, (port) => {
+      const url = port
+        ? `http://localhost:${port}${PROTOTYPE_PATH}`
+        : `http://localhost:${PORTS[0]}${PROTOTYPE_PATH}`;
+      if (port) console.log('  Found server on port ' + port + '. Opening browser.\n');
+      else console.log('  Could not find a running server. Opening port ' + PORTS[0] + ' (copy URL and try again if it fails).\n');
+      openBrowser(url);
+      console.log('  Prototype URL (copy if browser did not open):');
+      console.log('  ' + url + '\n');
+      process.exit(0);
+    });
+    return;
   }
   const port = PORTS[portIndex];
-  const url = `http://localhost:${port}/prototypes/create-new-inventory/index.html`;
+  const url = `http://localhost:${port}${PROTOTYPE_PATH}`;
   const server = createServer();
 
   server.on('error', (err) => {
@@ -68,8 +104,7 @@ function tryListen(portIndex) {
   });
 
   server.listen(port, '127.0.0.1', () => {
-    const openCmd = process.platform === 'darwin' ? 'open' : process.platform === 'win32' ? 'start' : 'xdg-open';
-    require('child_process').exec(`${openCmd} "${url}"`, () => {});
+    openBrowser(url);
     console.log('\n  Prototype URL (copy if browser did not open):');
     console.log('  ' + url);
     console.log('\n  Server: http://127.0.0.1:' + port + '/');

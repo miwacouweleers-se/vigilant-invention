@@ -570,19 +570,26 @@
     .estimations-data-type-btn[aria-expanded="true"] .estimations-data-type-chevron { transform: rotate(180deg); }
     .estimations-data-type-dropdown .estimations-data-type-menu { left: 0; right: auto; min-width: 240px; max-height: 320px; overflow-y: auto; }
     #view-estimations .search-input-wrapper.estimations-search { max-width: 320px; }
-    #view-estimations .card-body { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-    .estimations-table { min-width: max-content; }
+    #view-estimations .card:has(.estimations-table-wrapper) { width: fit-content; max-width: 100%; }
+    #view-estimations .card-body:has(.estimations-table-wrapper) { overflow-x: auto; -webkit-overflow-scrolling: touch; width: fit-content; max-width: 100%; }
+    #view-estimations .estimations-table-wrapper { display: inline-block; }
+    .estimations-table { min-width: max-content; table-layout: auto; }
     .estimations-table th,
     .estimations-table td { white-space: nowrap; }
     .estimations-table td:first-child { max-width: 220px; overflow: hidden; text-overflow: ellipsis; }
     .estimations-table tbody td.numeric { cursor: pointer; }
     .estimations-table tbody td.numeric:hover { background: var(--ghg-surface-hover); }
+    .estimations-table tbody tr:hover td { background: var(--ghg-surface-elevated); }
+    .estimations-table tbody tr:hover td:last-child { background: var(--ghg-surface-elevated); }
     .estimations-table .estimations-cell-warning { background: var(--ghg-warning-light); color: var(--ghg-text); }
     .estimations-table tr:hover .estimations-cell-warning { background: #FED7AA; }
+    .estimations-table tr:hover td.estimations-cell-warning:last-child { background: #FED7AA; }
     .estimations-table .estimations-cell-filled { background: var(--ghg-success-light); color: var(--ghg-text); }
     .estimations-table tr:hover .estimations-cell-filled { background: #BBF7D0; }
+    .estimations-table tr:hover td.estimations-cell-filled:last-child { background: #BBF7D0; }
     .estimations-table .estimations-cell-unfilled { background: #FEE2E2; color: var(--ghg-text); }
     .estimations-table tr:hover .estimations-cell-unfilled { background: #FECACA; }
+    .estimations-table tr:hover td.estimations-cell-unfilled:last-child { background: #FECACA; }
     .estimations-filled-icon { color: var(--ghg-success); margin-right: 4px; font-size: 12px; }
     .estimations-unfilled-icon { color: var(--ghg-danger); margin-right: 4px; font-size: 12px; }
     .estimations-warning-icon { color: var(--ghg-warning); margin-right: 4px; font-size: 12px; }
@@ -2080,6 +2087,13 @@
     
     .routine-saved-confirm-modal .modal-body { padding: 20px 24px; }
     .routine-saved-confirm-message { margin: 0; font-size: 14px; line-height: 1.5; color: var(--ghg-text); }
+    
+    /* Create intensity routine modal */
+    .create-intensity-pref-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 14px; flex-wrap: wrap; }
+    .create-intensity-pref-row:last-child { margin-bottom: 0; }
+    .create-intensity-pref-label { font-size: 14px; color: var(--ghg-text); display: inline-flex; align-items: center; gap: 6px; }
+    .create-intensity-cbecs-note { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--ghg-text); line-height: 1.5; margin: 14px 0 0 0; }
+    .create-intensity-cbecs-note .create-intensity-cbecs-icon { width: 20px; height: 20px; border-radius: 50%; background: #2563EB; color: #fff; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; font-style: normal; flex-shrink: 0; font-family: var(--font-sans); }
     
     /* Gap filling progress overlay */
     .gap-filling-progress-backdrop {
@@ -12399,12 +12413,8 @@
                     <i class="fa-light fa-chevron-down" style="margin-left: 6px; font-size: 10px;"></i>
                   </button>
                   <div class="dropdown-menu estimations-action-menu" id="estimations-intensity-menu" aria-hidden="true">
-                    <button type="button" class="dropdown-item" onclick="runEstimationsOption('intensity', 'Revenue-based'); closeEstimationsIntensityMenu();">Revenue-based</button>
-                    <button type="button" class="dropdown-item" onclick="runEstimationsOption('intensity', 'Floor area-based'); closeEstimationsIntensityMenu();">Floor area-based</button>
-                    <button type="button" class="dropdown-item" onclick="runEstimationsOption('intensity', 'FTE-based'); closeEstimationsIntensityMenu();">FTE-based</button>
-                    <button type="button" class="dropdown-item" onclick="runEstimationsOption('intensity', 'Output-based'); closeEstimationsIntensityMenu();">Output-based</button>
-                    <div class="dropdown-divider"></div>
-                    <button type="button" class="dropdown-item dropdown-item-create" onclick="openCreateEstimationsPreset('intensity'); closeEstimationsIntensityMenu();"><i class="fa-light fa-plus"></i> Create new...</button>
+                    <button type="button" class="dropdown-item" onclick="openRunElectricityEstimationModal(); closeEstimationsIntensityMenu();">Run electricity routine</button>
+                    <button type="button" class="dropdown-item dropdown-item-create" onclick="openCreateIntensityRoutineModal(); closeEstimationsIntensityMenu();"><i class="fa-light fa-plus"></i> Create New</button>
                   </div>
                 </div>
                 <div class="estimations-routines-menu-wrap">
@@ -12414,6 +12424,7 @@
                   <div class="dropdown-menu estimations-action-menu" id="estimations-routines-menu" aria-hidden="true">
                     <button type="button" class="dropdown-item" onclick="estimationsRoutinesAction('edit-gap-filling'); closeEstimationsRoutinesMenu();">Edit gap filling routines</button>
                     <button type="button" class="dropdown-item" onclick="estimationsRoutinesAction('edit-intensity'); closeEstimationsRoutinesMenu();">Edit intensity estimation routines</button>
+                    <button type="button" class="dropdown-item" onclick="estimationsRoutinesAction('add-entity-details-intensity'); closeEstimationsRoutinesMenu();">Add entity details for intensity</button>
                     <button type="button" class="dropdown-item" onclick="estimationsRoutinesAction('past-reports'); closeEstimationsRoutinesMenu();">See past routines reports</button>
                   </div>
                 </div>
@@ -12432,6 +12443,7 @@
             </div>
             <div class="card">
               <div class="card-body" style="padding: 0; overflow-x: auto;">
+                <div class="estimations-table-wrapper">
                 <table class="data-table estimations-table" id="estimations-table" onclick="handleEstimationsCellClick(event)">
                   <thead>
                     <tr>
@@ -12447,6 +12459,7 @@
                       <th class="numeric">Feb 24</th>
                       <th class="numeric">Mar 24</th>
                       <th class="numeric">Apr 24</th>
+                      <th class="numeric">May 24</th>
                       <th class="numeric">Jun 24</th>
                     </tr>
                   </thead>
@@ -12460,10 +12473,11 @@
                       <td class="numeric">398.5</td>
                       <td class="numeric">521.3</td>
                       <td class="numeric">489.0</td>
-                      <td class="numeric estimations-cell-warning" data-gap-days="3" title="No data — entire month has no data"><span class="estimations-warning-icon" aria-hidden="true"><i class="fa-solid fa-triangle-exclamation"></i></span> No data</td>
-                      <td class="numeric estimations-cell-warning" data-gap-days="5" title="No data — entire month has no data"><span class="estimations-warning-icon" aria-hidden="true"><i class="fa-solid fa-triangle-exclamation"></i></span> No data</td>
+                      <td class="numeric">512.4</td>
+                      <td class="numeric">498.6</td>
                       <td class="numeric">534.7</td>
                       <td class="numeric">502.4</td>
+                      <td class="numeric">490.2</td>
                       <td class="numeric">478.9</td>
                     </tr>
                     <tr>
@@ -12474,11 +12488,13 @@
                       <td class="numeric">276.4</td>
                       <td class="numeric estimations-cell-warning" data-gap-days="2" title="Estimated — gap of 2 days in this period"><span class="estimations-warning-icon" aria-hidden="true"><i class="fa-solid fa-triangle-exclamation"></i></span> 334.8</td>
                       <td class="numeric">289.1</td>
-                      <td class="numeric estimations-cell-warning" data-gap-days="4" title="No data — entire month has no data"><span class="estimations-warning-icon" aria-hidden="true"><i class="fa-solid fa-triangle-exclamation"></i></span> No data</td>
+                      <td class="numeric">305.2</td>
                       <td class="numeric">301.5</td>
                       <td class="numeric">267.9</td>
                       <td class="numeric">318.2</td>
-                      <td class="numeric estimations-cell-warning" data-gap-days="6" title="No data — entire month has no data"><span class="estimations-warning-icon" aria-hidden="true"><i class="fa-solid fa-triangle-exclamation"></i></span> No data</td>
+                      <td class="numeric">295.8</td>
+                      <td class="numeric estimations-cell-warning" data-gap-days="4" title="No data — entire month has no data"><span class="estimations-warning-icon" aria-hidden="true"><i class="fa-solid fa-triangle-exclamation"></i></span> No data</td>
+                      <td class="numeric estimations-cell-warning" data-gap-days="4" title="No data — entire month has no data"><span class="estimations-warning-icon" aria-hidden="true"><i class="fa-solid fa-triangle-exclamation"></i></span> No data</td>
                     </tr>
                     <tr>
                       <td>North Suburban Medical Center</td>
@@ -12487,12 +12503,13 @@
                       <td class="numeric">178.4</td>
                       <td class="numeric estimations-cell-warning" data-gap-days="2" title="Estimated — gap of 2 days in this period"><span class="estimations-warning-icon" aria-hidden="true"><i class="fa-solid fa-triangle-exclamation"></i></span> 192.3</td>
                       <td class="numeric">165.2</td>
-                      <td class="numeric estimations-cell-warning" data-gap-days="3" title="No data — entire month has no data"><span class="estimations-warning-icon" aria-hidden="true"><i class="fa-solid fa-triangle-exclamation"></i></span> No data</td>
+                      <td class="numeric">188.6</td>
                       <td class="numeric">203.8</td>
                       <td class="numeric">187.5</td>
                       <td class="numeric">214.6</td>
                       <td class="numeric">198.2</td>
                       <td class="numeric">176.9</td>
+                      <td class="numeric">193.5</td>
                       <td class="numeric">209.1</td>
                     </tr>
                     <tr>
@@ -12504,25 +12521,28 @@
                       <td class="numeric">612.4</td>
                       <td class="numeric">657.3</td>
                       <td class="numeric">589.6</td>
-                      <td class="numeric estimations-cell-warning" data-gap-days="5" title="No data — entire month has no data"><span class="estimations-warning-icon" aria-hidden="true"><i class="fa-solid fa-triangle-exclamation"></i></span> No data</td>
+                      <td class="numeric">638.2</td>
                       <td class="numeric">674.1</td>
                       <td class="numeric">608.9</td>
                       <td class="numeric">631.2</td>
-                      <td class="numeric">618.4</td>
+                      <td class="numeric">624.8</td>
+                      <td class="numeric estimations-cell-warning" data-gap-days="4" title="No data — entire month has no data"><span class="estimations-warning-icon" aria-hidden="true"><i class="fa-solid fa-triangle-exclamation"></i></span> No data</td>
                     </tr>
                     <tr>
                       <td>Rose Medical Center</td>
                       <td>kWh</td>
                       <td class="numeric">445.2</td>
                       <td class="numeric">428.6</td>
-                      <td class="numeric estimations-cell-warning" data-gap-days="4" title="No data — entire month has no data"><span class="estimations-warning-icon" aria-hidden="true"><i class="fa-solid fa-triangle-exclamation"></i></span> No data</td>
+                      <td class="numeric">471.5</td>
                       <td class="numeric">462.3</td>
                       <td class="numeric">491.8</td>
                       <td class="numeric">438.5</td>
                       <td class="numeric">507.2</td>
                       <td class="numeric">473.9</td>
                       <td class="numeric">456.1</td>
-                      <td class="numeric">489.3</td>
+                      <td class="numeric">472.8</td>
+                      <td class="numeric estimations-cell-warning" data-gap-days="4" title="No data — entire month has no data"><span class="estimations-warning-icon" aria-hidden="true"><i class="fa-solid fa-triangle-exclamation"></i></span> No data</td>
+                      <td class="numeric estimations-cell-warning" data-gap-days="4" title="No data — entire month has no data"><span class="estimations-warning-icon" aria-hidden="true"><i class="fa-solid fa-triangle-exclamation"></i></span> No data</td>
                     </tr>
                     <tr>
                       <td>Sky Ridge Medical Center</td>
@@ -12530,13 +12550,14 @@
                       <td class="numeric">234.6</td>
                       <td class="numeric">258.3</td>
                       <td class="numeric">241.7</td>
-                      <td class="numeric estimations-cell-warning" data-gap-days="2" title="No data — entire month has no data"><span class="estimations-warning-icon" aria-hidden="true"><i class="fa-solid fa-triangle-exclamation"></i></span> No data</td>
-                      <td class="numeric estimations-cell-warning" data-gap-days="3" title="No data — entire month has no data"><span class="estimations-warning-icon" aria-hidden="true"><i class="fa-solid fa-triangle-exclamation"></i></span> No data</td>
-                      <td class="numeric estimations-cell-warning" data-gap-days="5" title="No data — entire month has no data"><span class="estimations-warning-icon" aria-hidden="true"><i class="fa-solid fa-triangle-exclamation"></i></span> No data</td>
+                      <td class="numeric">251.3</td>
+                      <td class="numeric">264.8</td>
+                      <td class="numeric">259.2</td>
                       <td class="numeric">272.4</td>
                       <td class="numeric">265.8</td>
                       <td class="numeric">248.9</td>
                       <td class="numeric">256.5</td>
+                      <td class="numeric">262.8</td>
                       <td class="numeric">269.1</td>
                     </tr>
                     <tr>
@@ -12552,7 +12573,8 @@
                       <td class="numeric">926.1</td>
                       <td class="numeric">879.5</td>
                       <td class="numeric">896.2</td>
-                      <td class="numeric">918.4</td>
+                      <td class="numeric">907.3</td>
+                      <td class="numeric estimations-cell-warning" data-gap-days="4" title="No data — entire month has no data"><span class="estimations-warning-icon" aria-hidden="true"><i class="fa-solid fa-triangle-exclamation"></i></span> No data</td>
                     </tr>
                     <tr>
                       <td>Platte Valley Medical Center</td>
@@ -12567,7 +12589,8 @@
                       <td class="numeric">74.1</td>
                       <td class="numeric">70.7</td>
                       <td class="numeric">77.2</td>
-                      <td class="numeric">75.5</td>
+                      <td class="numeric">76.4</td>
+                      <td class="numeric estimations-cell-warning" data-gap-days="4" title="No data — entire month has no data"><span class="estimations-warning-icon" aria-hidden="true"><i class="fa-solid fa-triangle-exclamation"></i></span> No data</td>
                     </tr>
                     <tr>
                       <td>Littleton Adventist Hospital</td>
@@ -12582,6 +12605,7 @@
                       <td class="numeric">342.3</td>
                       <td class="numeric">389.4</td>
                       <td class="numeric">371.2</td>
+                      <td class="numeric">364.8</td>
                       <td class="numeric">358.5</td>
                     </tr>
                     <tr>
@@ -12597,10 +12621,12 @@
                       <td class="numeric">235.8</td>
                       <td class="numeric">207.1</td>
                       <td class="numeric">196.7</td>
-                      <td class="numeric">229.3</td>
+                      <td class="numeric">213.0</td>
+                      <td class="numeric estimations-cell-warning" data-gap-days="4" title="No data — entire month has no data"><span class="estimations-warning-icon" aria-hidden="true"><i class="fa-solid fa-triangle-exclamation"></i></span> No data</td>
                     </tr>
                   </tbody>
                 </table>
+                </div>
               </div>
             </div>
             <div class="estimations-pagination">
@@ -12786,7 +12812,7 @@
                     <span class="toggle-link" id="run-estimation-toggle-summary">Less <i class="fa-light fa-chevron-up"></i></span>
                   </div>
                   <div class="run-estimation-card-body">
-                    <div class="run-estimation-summary-line">Data Stream: <strong>Electric Power</strong></div>
+                    <div class="run-estimation-summary-line">Activity type: <strong>Electric Power</strong></div>
                     <div class="run-estimation-summary-line">Gaps to be filled: <strong>500</strong></div>
                     <div class="run-estimation-summary-line">Sites affected: <strong>480</strong></div>
                   </div>
@@ -12917,7 +12943,7 @@
 
               <div class="create-routine-section">
                 <h3 class="create-routine-section-title">Sites</h3>
-                <p class="create-routine-section-desc">What's shown is a list of the sites that use the selected data stream. Gap filling will only happen with an entity's active period defined by the entity's Open date and Close date.</p>
+                <p class="create-routine-section-desc">What's shown is a list of the sites that use the selected activity type. Gap filling will only happen with an entity's active period defined by the entity's Open date and Close date.</p>
                 <div class="create-routine-sites-empty" id="create-routine-sites-empty">
                   <i class="fa-light fa-folder"></i>
                   The list of sites that use the activity type you select will show here.
@@ -13107,6 +13133,158 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-primary" onclick="closeRoutineSavedConfirm()">OK</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Create intensity routine modal -->
+        <div class="modal-backdrop create-routine-backdrop" id="create-intensity-routine-backdrop" onclick="if(event.target===this) closeCreateIntensityRoutineModal()">
+          <div class="modal create-routine-modal" id="create-intensity-routine-modal" onclick="event.stopPropagation()">
+            <div class="modal-header">
+              <div>
+                <h2 class="modal-title">Create new routine</h2>
+                <p class="modal-subtitle">Routines are manually triggered and run intensity estimation for selected sites.</p>
+              </div>
+              <button type="button" class="modal-close" onclick="closeCreateIntensityRoutineModal()" aria-label="Close"><i class="fa-light fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+              <div class="create-routine-section">
+                <h3 class="create-routine-section-title">Details</h3>
+                <div class="create-routine-details-row">
+                  <div class="form-group">
+                    <label class="form-label" for="create-intensity-name">Routine name <span aria-hidden="true">*</span></label>
+                    <input type="text" class="form-input" id="create-intensity-name" placeholder="e.g. Electric power intensity" aria-required="true">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="create-intensity-scope">Scope and category <span aria-hidden="true">*</span></label>
+                    <select class="form-select" id="create-intensity-scope" aria-required="true" onchange="createIntensityRoutineDetailsChange()">
+                      <option value="">Select</option>
+                      <option value="Scope 1">Scope 1</option>
+                      <option value="Scope 2" selected>Scope 2</option>
+                      <option value="Scope 3">Scope 3</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="create-intensity-activity">Activity type <span aria-hidden="true">*</span></label>
+                    <select class="form-select" id="create-intensity-activity" aria-required="true" onchange="createIntensityRoutineDetailsChange()">
+                      <option value="">Select</option>
+                      <option value="Electric power" selected>Electric power</option>
+                      <option value="Natural gas">Natural gas</option>
+                      <option value="District heating / cooling">District heating / cooling</option>
+                      <option value="Fuel oil">Fuel oil</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="create-routine-section">
+                <h3 class="create-routine-section-title">Intensity calculation preference</h3>
+                <div class="create-intensity-pref-row">
+                  <span class="create-intensity-pref-label">Minimum how many months of data exists for the site <i class="fa-solid fa-circle-info info-icon" title="Minimum months of data"></i></span>
+                  <select class="form-select" id="create-intensity-min-months" style="min-width: 140px;">
+                    <option value="1">1 month</option>
+                    <option value="3">3 months</option>
+                    <option value="6" selected>6 months</option>
+                    <option value="12">12 months</option>
+                  </select>
+                </div>
+                <div class="create-intensity-pref-row">
+                  <label class="create-intensity-pref-label" style="cursor: pointer;">
+                    <input type="checkbox" id="create-intensity-actual-only" style="margin: 0; margin-right: 8px; accent-color: var(--ghg-primary);">
+                    Only actual data is included for intensity calculation
+                  </label>
+                </div>
+                <div class="create-intensity-pref-row">
+                  <span class="create-intensity-pref-label">Maximum intensity value before going to the fallback <i class="fa-solid fa-circle-info info-icon" title="Above this value, the system uses the fallback (e.g. CBECS)"></i></span>
+                  <input type="number" class="form-input" id="create-intensity-max-value" min="0" step="0.1" placeholder="e.g. 0.5" style="min-width: 120px; max-width: 140px;" aria-label="Maximum intensity value before fallback">
+                </div>
+                <div class="create-intensity-cbecs-note"><span class="create-intensity-cbecs-icon" aria-hidden="true">i</span><span>Default fallback is CBECS values.</span></div>
+              </div>
+
+              <div class="create-routine-section">
+                <h3 class="create-routine-section-title">Include for estimation</h3>
+                <p class="create-routine-section-desc">Sites that use the selected activity type. Estimation will apply to entities' active period (Open date and Close date).</p>
+                <div class="create-routine-sites-empty" id="create-intensity-sites-empty">
+                  <i class="fa-light fa-folder"></i>
+                  The list of sites that use the activity type you select will show here.
+                </div>
+                <div id="create-intensity-sites-content" style="display: none;">
+                  <div class="create-routine-sites-toolbar">
+                    <span class="create-routine-sites-count">Showing 500 records</span>
+                    <div class="search-input-wrapper create-routine-sites-search">
+                      <i class="fa-light fa-search"></i>
+                      <input type="text" class="form-input" placeholder="Search for sites" aria-label="Search for sites">
+                    </div>
+                    <button type="button" class="btn btn-secondary" aria-label="Filter sites"><i class="fa-light fa-filter"></i></button>
+                  </div>
+                  <div class="create-routine-sites-table-wrap">
+                    <table class="create-routine-sites-table" id="create-intensity-sites-table">
+                      <thead>
+                        <tr>
+                          <th class="col-checkbox"><input type="checkbox" id="create-intensity-sites-select-all" onclick="toggleCreateIntensitySitesSelectAll()" aria-label="Select all"></th>
+                          <th class="col-expand"></th>
+                          <th>Sites</th>
+                          <th class="col-entities"># of entities within</th>
+                          <th class="col-status">Status</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td class="col-checkbox"><input type="checkbox" class="create-intensity-site-cb"></td>
+                          <td class="col-expand"><button type="button" class="create-routine-site-expand" onclick="toggleCreateRoutineSiteRow(this)" aria-expanded="false"><i class="fa-light fa-chevron-right"></i></button></td>
+                          <td class="create-routine-site-name">1234 Elm St, Springfield, IL 62704</td>
+                          <td>2</td>
+                          <td><span class="create-routine-status-dot multiple">Multiple</span></td>
+                        </tr>
+                        <tr>
+                          <td class="col-checkbox"><input type="checkbox" class="create-intensity-site-cb"></td>
+                          <td class="col-expand"><button type="button" class="create-routine-site-expand" onclick="toggleCreateRoutineSiteRow(this)" aria-expanded="false"><i class="fa-light fa-chevron-right"></i></button></td>
+                          <td class="create-routine-site-name">5678 Oak Ave, Metropolis, IL 62960</td>
+                          <td>5</td>
+                          <td><span class="create-routine-status-dot active">Active</span></td>
+                        </tr>
+                        <tr>
+                          <td class="col-checkbox"><input type="checkbox" class="create-intensity-site-cb"></td>
+                          <td class="col-expand"><button type="button" class="create-routine-site-expand" onclick="toggleCreateRoutineSiteRow(this)" aria-expanded="false"><i class="fa-light fa-chevron-right"></i></button></td>
+                          <td class="create-routine-site-name">4444 Cedar Ct, Lakeview, FL 32123</td>
+                          <td>4</td>
+                          <td><span class="create-routine-status-dot multiple">Multiple</span></td>
+                        </tr>
+                        <tr>
+                          <td class="col-checkbox"><input type="checkbox" class="create-intensity-site-cb"></td>
+                          <td class="col-expand"><button type="button" class="create-routine-site-expand" onclick="toggleCreateRoutineSiteRow(this)" aria-expanded="false"><i class="fa-light fa-chevron-right"></i></button></td>
+                          <td class="create-routine-site-name">9012 Pine Rd, Denver, CO 80202</td>
+                          <td>3</td>
+                          <td><span class="create-routine-status-dot inactive">All Inactive</span></td>
+                        </tr>
+                        <tr>
+                          <td class="col-checkbox"><input type="checkbox" class="create-intensity-site-cb"></td>
+                          <td class="col-expand"><button type="button" class="create-routine-site-expand" onclick="toggleCreateRoutineSiteRow(this)" aria-expanded="false"><i class="fa-light fa-chevron-right"></i></button></td>
+                          <td class="create-routine-site-name">3456 Maple Dr, Seattle, WA 98101</td>
+                          <td>2</td>
+                          <td><span class="create-routine-status-dot closed">Closed</span></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="estimations-pagination" style="margin-top: 12px;">
+                    <span class="estimations-pagination-count">Showing 1–10 of 500 records</span>
+                    <div class="estimations-pagination-controls">
+                      <button type="button" class="btn btn-ghost btn-icon" aria-label="Previous"><i class="fa-light fa-chevron-left"></i></button>
+                      <button type="button" class="btn btn-ghost btn-sm estimations-page-btn active">1</button>
+                      <button type="button" class="btn btn-ghost btn-sm estimations-page-btn">2</button>
+                      <span class="estimations-pagination-ellipsis">…</span>
+                      <button type="button" class="btn btn-ghost btn-sm estimations-page-btn">50</button>
+                      <button type="button" class="btn btn-ghost btn-icon" aria-label="Next"><i class="fa-light fa-chevron-right"></i></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" onclick="saveCreateIntensityRoutine()">Save</button>
+              <button type="button" class="btn btn-secondary" onclick="saveCreateIntensityRoutineDraft()">Save as draft</button>
+              <button type="button" class="btn btn-secondary" onclick="closeCreateIntensityRoutineModal()">Cancel</button>
             </div>
           </div>
         </div>
@@ -25005,6 +25183,7 @@ Thank you.</div>
     function estimationsRoutinesAction(action) {
       if (action === 'edit-gap-filling') { /* Navigate or open edit gap filling routines */ }
       if (action === 'edit-intensity') { /* Navigate or open edit intensity estimation routines */ }
+      if (action === 'add-entity-details-intensity') { /* Navigate or open add entity details for intensity */ }
       if (action === 'past-reports') { /* Navigate or open past routines reports */ }
     }
     function closeEstimationsActionMenusOnClick(ev) {
@@ -25107,6 +25286,20 @@ Thank you.</div>
       'Insufficient history for estimation',
       'No matching method could be applied'
     ];
+    function ensureEstimationsTableGapsStyled() {
+      var table = document.getElementById('estimations-table');
+      if (!table) return;
+      var numericCells = table.querySelectorAll('tbody td.numeric');
+      numericCells.forEach(function(td) {
+        if (td.classList.contains('estimations-cell-warning') || td.classList.contains('estimations-cell-filled') || td.classList.contains('estimations-cell-unfilled')) return;
+        var text = (td.textContent || '').trim();
+        if (text !== '') return;
+        td.classList.add('estimations-cell-warning');
+        td.setAttribute('data-gap-days', '4');
+        td.setAttribute('title', 'No data — entire month has no data');
+        td.innerHTML = '<span class="estimations-warning-icon" aria-hidden="true"><i class="fa-solid fa-triangle-exclamation"></i></span> No data';
+      });
+    }
     function applyGapFillingResults() {
       var table = document.getElementById('estimations-table');
       if (!table) return;
@@ -25163,6 +25356,9 @@ Thank you.</div>
         if (toast.parentNode) toast.parentNode.removeChild(toast);
       }, 6000);
     }
+    document.addEventListener('DOMContentLoaded', function() {
+      ensureEstimationsTableGapsStyled();
+    });
     function openCreateEstimationsPreset(kind) {
       if (kind === 'gap-filling') { openCreateRoutineModal(); }
       if (kind === 'intensity') { /* Open create intensity preset modal/wizard */ }
@@ -25265,6 +25461,44 @@ Thank you.</div>
     }
     function saveCreateRoutineDraft() {
       closeCreateRoutineModal();
+      openRoutineSavedConfirm('Routine saved as draft');
+    }
+    function openCreateIntensityRoutineModal() {
+      var backdrop = document.getElementById('create-intensity-routine-backdrop');
+      var modal = document.getElementById('create-intensity-routine-modal');
+      if (backdrop) backdrop.classList.add('open');
+      if (modal) modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      createIntensityRoutineDetailsChange();
+    }
+    function closeCreateIntensityRoutineModal() {
+      var backdrop = document.getElementById('create-intensity-routine-backdrop');
+      var modal = document.getElementById('create-intensity-routine-modal');
+      if (backdrop) backdrop.classList.remove('open');
+      if (modal) modal.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    function createIntensityRoutineDetailsChange() {
+      var scope = document.getElementById('create-intensity-scope');
+      var activity = document.getElementById('create-intensity-activity');
+      var empty = document.getElementById('create-intensity-sites-empty');
+      var content = document.getElementById('create-intensity-sites-content');
+      var hasSelection = (scope && scope.value) && (activity && activity.value);
+      if (empty) empty.style.display = hasSelection ? 'none' : 'block';
+      if (content) content.style.display = hasSelection ? 'block' : 'none';
+    }
+    function toggleCreateIntensitySitesSelectAll() {
+      var master = document.getElementById('create-intensity-sites-select-all');
+      var checkboxes = document.querySelectorAll('#create-intensity-routine-modal .create-intensity-site-cb');
+      if (!master) return;
+      checkboxes.forEach(function(cb) { cb.checked = master.checked; });
+    }
+    function saveCreateIntensityRoutine() {
+      closeCreateIntensityRoutineModal();
+      openRoutineSavedConfirm('Routine saved');
+    }
+    function saveCreateIntensityRoutineDraft() {
+      closeCreateIntensityRoutineModal();
       openRoutineSavedConfirm('Routine saved as draft');
     }
     function openRoutineSavedConfirm(title) {

@@ -5,8 +5,8 @@
   "private": true,
   "scripts": {
     "start": "node scripts/serve-and-open.js",
-    "serve": "npx --yes serve . -p 5555",
     "dev": "node scripts/serve-and-open.js",
-    "open:prototype": "open http://localhost:5555/prototypes/create-new-inventory/index.html"
+    "serve": "node scripts/serve-and-open.js --no-open",
+    "open:prototype": "open http://localhost:3456/prototypes/create-new-inventory/index.html"
   }
 }
