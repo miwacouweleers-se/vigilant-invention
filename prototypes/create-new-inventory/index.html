@@ -558,7 +558,8 @@
     .estimations-dropdown-btn-wrap { position: relative; }
     .estimations-routines-menu-wrap { position: relative; }
     .estimations-routines-menu-btn { width: 36px; min-width: 36px; padding: 0; display: inline-flex; align-items: center; justify-content: center; }
-    .estimations-routines-menu-wrap .dropdown-menu { right: 0; left: auto; min-width: 220px; }
+    .estimations-routines-menu-wrap .dropdown-menu { right: 0; left: auto; min-width: 300px; }
+    .estimations-routines-menu-wrap .dropdown-menu .dropdown-item { white-space: nowrap; }
     .estimations-action-dropdown-btn { white-space: nowrap; }
     .estimations-dropdown-btn-wrap .dropdown-menu { right: 0; left: auto; min-width: 220px; }
     .dropdown-divider { height: 1px; background: var(--ghg-border); margin: 6px 0; }
@@ -570,13 +571,14 @@
     .estimations-data-type-btn[aria-expanded="true"] .estimations-data-type-chevron { transform: rotate(180deg); }
     .estimations-data-type-dropdown .estimations-data-type-menu { left: 0; right: auto; min-width: 240px; max-height: 320px; overflow-y: auto; }
     #view-estimations .search-input-wrapper.estimations-search { max-width: 320px; }
-    #view-estimations .card:has(.estimations-table-wrapper) { width: fit-content; max-width: 100%; }
-    #view-estimations .card-body:has(.estimations-table-wrapper) { overflow-x: auto; -webkit-overflow-scrolling: touch; width: fit-content; max-width: 100%; }
-    #view-estimations .estimations-table-wrapper { display: inline-block; }
-    .estimations-table { min-width: max-content; table-layout: auto; }
+    #view-estimations .card:has(.estimations-table-wrapper) { width: 100%; }
+    #view-estimations .card-body:has(.estimations-table-wrapper) { overflow-x: auto; -webkit-overflow-scrolling: touch; width: 100%; }
+    #view-estimations .estimations-table-wrapper { display: block; }
+    .estimations-table { min-width: max-content; width: 100%; table-layout: auto; }
     .estimations-table th,
     .estimations-table td { white-space: nowrap; }
-    .estimations-table td:first-child { max-width: 220px; overflow: hidden; text-overflow: ellipsis; }
+    .estimations-table td:first-child,
+    .estimations-table th:first-child { max-width: 320px; overflow: hidden; text-overflow: ellipsis; }
     .estimations-table tbody td.numeric { cursor: pointer; }
     .estimations-table tbody td.numeric:hover { background: var(--ghg-surface-hover); }
     .estimations-table tbody tr:hover td { background: var(--ghg-surface-elevated); }
