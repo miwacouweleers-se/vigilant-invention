@@ -610,6 +610,12 @@
     .estimations-cell-fill-gap-divider { height: 1px; background: var(--ghg-border); margin: 12px 0 10px 0; }
     .estimations-fill-gap-btn { width: 100%; justify-content: center; gap: 8px; }
     .estimations-cell-fill-gap-input-row { display: flex; gap: 8px; align-items: center; margin-top: 10px; }
+    .estimations-cell-approve-gap { margin-top: 10px; }
+    .estimations-cell-approve-gap .form-label { display: block; margin-bottom: 6px; font-size: 13px; }
+    .estimations-cell-approve-reason { width: 100%; min-height: 72px; resize: vertical; margin-bottom: 10px; box-sizing: border-box; }
+    .estimations-cell-approved { background: #D1FAE5; color: var(--ghg-text); }
+    .estimations-table tr:hover .estimations-cell-approved { background: #A7F3D0; }
+    .estimations-approved-icon { color: #059669; margin-right: 4px; font-size: 12px; }
     
     /* ============================================== */
     /* Unit Measure Management (Settings)            */
@@ -2089,6 +2095,45 @@
     
     .routine-saved-confirm-modal .modal-body { padding: 20px 24px; }
     .routine-saved-confirm-message { margin: 0; font-size: 14px; line-height: 1.5; color: var(--ghg-text); }
+    
+    /* Estimation settings page */
+    .estimation-settings-tabs { display: flex; gap: 0; border-bottom: 2px solid var(--ghg-border); margin-bottom: 24px; }
+    .estimation-settings-tab { padding: 10px 16px; background: none; border: none; border-bottom: 3px solid transparent; margin-bottom: -2px; font-size: 14px; font-weight: 500; color: var(--ghg-text-secondary); cursor: pointer; font-family: var(--font-sans); }
+    .estimation-settings-tab:hover { color: var(--ghg-text); }
+    .estimation-settings-tab.active { color: var(--ghg-primary-dark); border-bottom-color: var(--ghg-primary); font-weight: 600; }
+    .estimation-settings-panel { display: none; }
+    .estimation-settings-panel.active { display: block; }
+    .estimation-settings-section { margin-bottom: 32px; }
+    .estimation-settings-section:last-child { margin-bottom: 0; }
+    .estimation-settings-section-header { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 12px; flex-wrap: wrap; }
+    .estimation-settings-section-title { font-size: 16px; font-weight: 600; color: var(--ghg-text); margin: 0; }
+    .estimation-settings-section-desc { font-size: 13px; color: var(--ghg-text-secondary); margin: 0 0 16px 0; line-height: 1.5; }
+    .estimation-settings-table-wrap { border: 1px solid var(--ghg-border); border-radius: 10px; overflow: hidden; }
+    .estimation-settings-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    .estimation-settings-table th { text-align: left; padding: 12px 16px; background: var(--ghg-surface-elevated); font-weight: 600; color: var(--ghg-text); border-bottom: 1px solid var(--ghg-border); }
+    .estimation-settings-table td { padding: 12px 16px; border-bottom: 1px solid var(--ghg-border); color: var(--ghg-text); }
+    .estimation-settings-table tbody tr:last-child td { border-bottom: none; }
+    .estimation-settings-table tbody tr:hover { background: var(--ghg-surface-hover); }
+    .estimation-settings-table .col-actions { width: 100px; text-align: right; }
+    .estimation-reports-table .col-date { width: 140px; }
+    .estimation-reports-table .col-type { width: 140px; }
+    .estimation-reports-table .col-routine { min-width: 180px; }
+    .estimation-reports-table .col-actions { width: 100px; text-align: right; }
+    /* Report detail modal */
+    .report-detail-modal .modal { max-width: 720px; width: 95%; max-height: 90vh; display: flex; flex-direction: column; }
+    .report-detail-modal .modal-body { overflow-y: auto; flex: 1; }
+    .report-detail-section { margin-bottom: 24px; }
+    .report-detail-section:last-child { margin-bottom: 0; }
+    .report-detail-section-title { font-size: 15px; font-weight: 600; color: var(--ghg-text); margin: 0 0 12px 0; }
+    .report-gap-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .report-gap-table th { text-align: left; padding: 10px 12px; background: var(--ghg-surface-elevated); font-weight: 600; border-bottom: 1px solid var(--ghg-border); }
+    .report-gap-table td { padding: 10px 12px; border-bottom: 1px solid var(--ghg-border); }
+    .report-gap-table .method-used { color: var(--ghg-success); }
+    .report-gap-table .method-failed { color: var(--ghg-text-muted); font-size: 12px; }
+    .report-intensity-summary { padding: 14px; background: var(--ghg-surface-elevated); border-radius: 8px; font-size: 14px; line-height: 1.5; }
+    .report-intensity-factor { font-weight: 600; color: var(--ghg-text); margin-bottom: 8px; }
+    .report-intensity-source { color: var(--ghg-text-secondary); }
+    .report-intensity-source.cbecs { color: var(--ghg-warning); }
     
     /* Create intensity routine modal */
     .create-intensity-pref-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 14px; flex-wrap: wrap; }
@@ -12670,6 +12715,18 @@
                 <input type="text" class="form-input" id="estimations-fill-gap-input" placeholder="Enter value" aria-label="Value to fill gap" style="flex: 1; min-width: 0;">
                 <button type="button" class="btn btn-primary btn-sm" id="estimations-fill-gap-save" onclick="saveEstimationsFillGap()">Save</button>
               </div>
+              <div class="estimations-cell-approve-gap" id="estimations-cell-approve-gap" style="display: none;">
+                <div class="estimations-cell-fill-gap-divider"></div>
+                <button type="button" class="btn btn-secondary estimations-fill-gap-btn" id="estimations-approve-gap-btn" onclick="revealApproveGapReason()">
+                  <i class="fa-light fa-circle-check" aria-hidden="true"></i>
+                  Approve gap
+                </button>
+                <div id="estimations-approve-gap-form" style="display: none;">
+                  <label class="form-label" for="estimations-approve-gap-reason">Explain why the gap was approved <span aria-hidden="true">*</span></label>
+                  <textarea class="form-input estimations-cell-approve-reason" id="estimations-approve-gap-reason" placeholder="e.g. Meter was under maintenance; data not available for this period" aria-required="true"></textarea>
+                  <button type="button" class="btn btn-primary btn-sm" onclick="submitApproveGap()">Submit approval</button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -13291,6 +13348,94 @@
           </div>
         </div>
 
+        <!-- Gap filling report detail modal -->
+        <div class="modal-backdrop report-detail-modal" id="gap-report-detail-backdrop" onclick="if(event.target===this) closeGapFillingReportDetail()">
+          <div class="modal" id="gap-report-detail-modal" onclick="event.stopPropagation()">
+            <div class="modal-header">
+              <h2 class="modal-title" id="gap-report-detail-title">Gap filling report</h2>
+              <button type="button" class="modal-close" onclick="closeGapFillingReportDetail()" aria-label="Close"><i class="fa-light fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+              <div class="report-detail-section">
+                <h3 class="report-detail-section-title">Run summary</h3>
+                <p id="gap-report-summary" style="margin: 0; font-size: 14px; color: var(--ghg-text-secondary);">Electric power routine — Mar 5, 2025, 2:30 PM. 42 gaps filled, 8 unable to fill.</p>
+              </div>
+              <div class="report-detail-section">
+                <h3 class="report-detail-section-title">Gaps filled and methods used</h3>
+                <p style="margin: 0 0 12px 0; font-size: 13px; color: var(--ghg-text-secondary);">For each gap, the method that was used is shown. If higher-priority methods were tried first, the reason they did not apply is listed.</p>
+                <div style="overflow-x: auto;">
+                  <table class="report-gap-table" id="gap-report-detail-table">
+                    <thead>
+                      <tr>
+                        <th>Entity</th>
+                        <th>Period</th>
+                        <th>Method used</th>
+                        <th>Higher-priority attempts (if any)</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Alaska Regional Hospital</td>
+                        <td>Jan 24</td>
+                        <td class="method-used">Average value of surrounding months (+/- 2 months)</td>
+                        <td class="method-failed">—</td>
+                      </tr>
+                      <tr>
+                        <td>West Hills Hospital &amp; Medical Center</td>
+                        <td>Jun 24</td>
+                        <td class="method-used">Average value from past 6 months</td>
+                        <td class="method-failed">Method 1: Insufficient surrounding data</td>
+                      </tr>
+                      <tr>
+                        <td>North Suburban Medical Center</td>
+                        <td>Nov 24</td>
+                        <td class="method-used">Last known value within prior 4 months</td>
+                        <td class="method-failed">Method 1–2: No data in range</td>
+                      </tr>
+                      <tr>
+                        <td>Rose Medical Center</td>
+                        <td>Sep 24</td>
+                        <td class="method-used">Value from same month of prior year</td>
+                        <td class="method-failed">Methods 1–3: Not applicable</td>
+                      </tr>
+                      <tr>
+                        <td>Sky Ridge Medical Center</td>
+                        <td>Dec 24</td>
+                        <td>—</td>
+                        <td class="method-failed">Unable to fill: No prior data available (all methods tried)</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Intensity report detail modal -->
+        <div class="modal-backdrop report-detail-modal" id="intensity-report-detail-backdrop" onclick="if(event.target===this) closeIntensityReportDetail()">
+          <div class="modal" id="intensity-report-detail-modal" onclick="event.stopPropagation()">
+            <div class="modal-header">
+              <h2 class="modal-title" id="intensity-report-detail-title">Intensity estimation report</h2>
+              <button type="button" class="modal-close" onclick="closeIntensityReportDetail()" aria-label="Close"><i class="fa-light fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+              <div class="report-detail-section">
+                <h3 class="report-detail-section-title">Run summary</h3>
+                <p id="intensity-report-summary" style="margin: 0; font-size: 14px; color: var(--ghg-text-secondary);">Electric power intensity — Mar 4, 2025, 10:15 AM.</p>
+              </div>
+              <div class="report-detail-section">
+                <h3 class="report-detail-section-title">Intensity factor and source</h3>
+                <div class="report-intensity-summary" id="intensity-report-factor-block">
+                  <div class="report-intensity-factor">Intensity factor used: <strong id="intensity-report-factor-value">0.28</strong> kWh per sq ft</div>
+                  <div class="report-intensity-source" id="intensity-report-source">Calculated from intensity of <strong>12 sites</strong> with sufficient data (min 6 months). Weighted average of site-level intensities.</div>
+                </div>
+                <p style="margin: 12px 0 0 0; font-size: 13px; color: var(--ghg-text-secondary);">When the system cannot compute a factor from your sites (e.g. insufficient months of data or no eligible sites), it uses the <strong>CBECS fallback</strong> value. The report above indicates whether the factor came from site data or CBECS.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <!-- Toast container for notifications -->
         <div class="toast-container" id="toast-container" aria-live="polite"></div>
 
@@ -13306,11 +13451,149 @@
                 <span>Estimation settings</span>
               </div>
               <h1 class="page-title">Estimation settings</h1>
-              <p class="page-subtitle">Manage gap filling and intensity estimation routines.</p>
+              <p class="page-subtitle">Manage gap filling and intensity estimation routines. View and edit settings, and see past routine reports.</p>
             </div>
           </div>
           <div class="content-container">
-            <p class="page-subtitle" style="margin-top: 0;">Edit and configure your gap filling and intensity estimation routines here.</p>
+            <div class="estimation-settings-tabs" role="tablist">
+              <button type="button" class="estimation-settings-tab active" role="tab" aria-selected="true" id="est-settings-tab-routines" onclick="switchEstimationSettingsTab('routines')">Routines</button>
+              <button type="button" class="estimation-settings-tab" role="tab" aria-selected="false" id="est-settings-tab-reports" onclick="switchEstimationSettingsTab('reports')">Past reports</button>
+            </div>
+
+            <div id="estimation-settings-panel-routines" class="estimation-settings-panel active">
+              <div class="estimation-settings-section">
+                <div class="estimation-settings-section-header">
+                  <h2 class="estimation-settings-section-title">Gap filling routines</h2>
+                  <button type="button" class="btn btn-primary" onclick="openCreateRoutineModal();"><i class="fa-light fa-plus" aria-hidden="true"></i> Create routine</button>
+                </div>
+                <p class="estimation-settings-section-desc">View and edit your gap filling routines. Each routine defines activity type, sites, methods (in priority order), and preferences.</p>
+                <div class="estimation-settings-table-wrap">
+                  <table class="estimation-settings-table" id="estimation-gap-routines-table">
+                    <thead>
+                      <tr>
+                        <th>Routine name</th>
+                        <th>Activity type</th>
+                        <th>Scope</th>
+                        <th>Status</th>
+                        <th class="col-actions"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr data-routine-id="gf-1">
+                        <td>Electric power routine</td>
+                        <td>Electric power</td>
+                        <td>Scope 2</td>
+                        <td><span class="create-routine-status-dot active">Active</span></td>
+                        <td class="col-actions"><button type="button" class="btn btn-ghost btn-sm" onclick="openEditGapRoutine('gf-1')">Edit</button></td>
+                      </tr>
+                      <tr data-routine-id="gf-2">
+                        <td>Natural gas gap filling</td>
+                        <td>Natural gas</td>
+                        <td>Scope 1</td>
+                        <td><span class="create-routine-status-dot active">Active</span></td>
+                        <td class="col-actions"><button type="button" class="btn btn-ghost btn-sm" onclick="openEditGapRoutine('gf-2')">Edit</button></td>
+                      </tr>
+                      <tr data-routine-id="gf-3">
+                        <td>District heating draft</td>
+                        <td>District heating / cooling</td>
+                        <td>Scope 1</td>
+                        <td><span class="create-routine-status-dot inactive">Draft</span></td>
+                        <td class="col-actions"><button type="button" class="btn btn-ghost btn-sm" onclick="openEditGapRoutine('gf-3')">Edit</button></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="estimation-settings-section">
+                <div class="estimation-settings-section-header">
+                  <h2 class="estimation-settings-section-title">Intensity estimation routines</h2>
+                  <button type="button" class="btn btn-primary" onclick="openCreateIntensityRoutineModal();"><i class="fa-light fa-plus" aria-hidden="true"></i> Create routine</button>
+                </div>
+                <p class="estimation-settings-section-desc">View and edit intensity estimation routines. Configure minimum months of data, maximum intensity before fallback (CBECS), and which sites to include.</p>
+                <div class="estimation-settings-table-wrap">
+                  <table class="estimation-settings-table" id="estimation-intensity-routines-table">
+                    <thead>
+                      <tr>
+                        <th>Routine name</th>
+                        <th>Activity type</th>
+                        <th>Min months</th>
+                        <th>Max before fallback</th>
+                        <th>Status</th>
+                        <th class="col-actions"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr data-routine-id="int-1">
+                        <td>Electric power intensity</td>
+                        <td>Electric power</td>
+                        <td>6 months</td>
+                        <td>0.5</td>
+                        <td><span class="create-routine-status-dot active">Active</span></td>
+                        <td class="col-actions"><button type="button" class="btn btn-ghost btn-sm" onclick="openEditIntensityRoutine('int-1')">Edit</button></td>
+                      </tr>
+                      <tr data-routine-id="int-2">
+                        <td>Natural gas intensity</td>
+                        <td>Natural gas</td>
+                        <td>3 months</td>
+                        <td>—</td>
+                        <td><span class="create-routine-status-dot active">Active</span></td>
+                        <td class="col-actions"><button type="button" class="btn btn-ghost btn-sm" onclick="openEditIntensityRoutine('int-2')">Edit</button></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <div id="estimation-settings-panel-reports" class="estimation-settings-panel">
+              <div class="estimation-settings-section">
+                <h2 class="estimation-settings-section-title">Past routine reports</h2>
+                <p class="estimation-settings-section-desc">View reports from past gap filling and intensity estimation runs. Gap filling reports show which gaps were filled and which methods were used (or why higher-priority methods did not apply). Intensity reports show the factor used and whether it came from site data or CBECS fallback.</p>
+                <div class="estimation-settings-table-wrap">
+                  <table class="estimation-settings-table estimation-reports-table" id="estimation-past-reports-table">
+                    <thead>
+                      <tr>
+                        <th class="col-date">Date run</th>
+                        <th class="col-type">Type</th>
+                        <th class="col-routine">Routine</th>
+                        <th>Summary</th>
+                        <th class="col-actions"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr data-report-id="r-gf-1">
+                        <td>Mar 5, 2025, 2:30 PM</td>
+                        <td>Gap filling</td>
+                        <td>Electric power routine</td>
+                        <td>42 gaps filled, 8 unable to fill</td>
+                        <td class="col-actions"><button type="button" class="btn btn-ghost btn-sm" onclick="openGapFillingReportDetail('r-gf-1')">View report</button></td>
+                      </tr>
+                      <tr data-report-id="r-int-1">
+                        <td>Mar 4, 2025, 10:15 AM</td>
+                        <td>Intensity estimation</td>
+                        <td>Electric power intensity</td>
+                        <td>Factor 0.28 from site data (12 sites)</td>
+                        <td class="col-actions"><button type="button" class="btn btn-ghost btn-sm" onclick="openIntensityReportDetail('r-int-1')">View report</button></td>
+                      </tr>
+                      <tr data-report-id="r-int-2">
+                        <td>Mar 3, 2025, 4:00 PM</td>
+                        <td>Intensity estimation</td>
+                        <td>Electric power intensity</td>
+                        <td>Factor 0.35 — CBECS fallback (insufficient data)</td>
+                        <td class="col-actions"><button type="button" class="btn btn-ghost btn-sm" onclick="openIntensityReportDetail('r-int-2')">View report</button></td>
+                      </tr>
+                      <tr data-report-id="r-gf-2">
+                        <td>Mar 2, 2025, 9:00 AM</td>
+                        <td>Gap filling</td>
+                        <td>Natural gas gap filling</td>
+                        <td>15 gaps filled, 2 unable to fill</td>
+                        <td class="col-actions"><button type="button" class="btn btn-ghost btn-sm" onclick="openGapFillingReportDetail('r-gf-2')">View report</button></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -23360,7 +23643,7 @@ Thank you.</div>
     
     // Handle URL hash for cross-prototype navigation
     function handleHashNavigation() {
-      const hash = window.location.hash.replace('#', '');
+      const hash = window.location.hash.replace(/^#/, '');
       const hashToView = {
         'ef-library': 'ef-library',
         'ef-selection': 'ef-selection-review',
@@ -23373,6 +23656,16 @@ Thank you.</div>
       };
       if (hash && hashToView[hash]) {
         switchView(hashToView[hash]);
+      } else if (hash === 'estimation-settings' || hash === 'estimation-settings-routines') {
+        if (typeof switchView === 'function') switchView('estimation-settings');
+        setTimeout(function() {
+          if (typeof switchEstimationSettingsTab === 'function') switchEstimationSettingsTab('routines');
+        }, 0);
+      } else if (hash === 'estimation-settings-reports') {
+        if (typeof switchView === 'function') switchView('estimation-settings');
+        setTimeout(function() {
+          if (typeof switchEstimationSettingsTab === 'function') switchEstimationSettingsTab('reports');
+        }, 0);
       } else if (hash && hash.indexOf('campaign-detail/') === 0) {
         var campaignId = decodeURIComponent(hash.replace('campaign-detail/', ''));
         if (campaignId && typeof viewCampaignDetail === 'function') {
@@ -25183,10 +25476,12 @@ Thank you.</div>
       document.removeEventListener('click', closeEstimationsActionMenusOnClick);
     }
     function estimationsRoutinesAction(action) {
-      if (action === 'edit-gap-filling') { /* Navigate or open edit gap filling routines */ }
-      if (action === 'edit-intensity') { /* Navigate or open edit intensity estimation routines */ }
-      if (action === 'add-entity-details-intensity') { /* Navigate or open add entity details for intensity */ }
-      if (action === 'past-reports') { /* Navigate or open past routines reports */ }
+      var baseUrl = location.href.split('#')[0];
+      if (action === 'edit-gap-filling' || action === 'edit-intensity') {
+        window.open(baseUrl + '#estimation-settings-routines', '_blank');
+      } else if (action === 'past-reports') {
+        window.open(baseUrl + '#estimation-settings-reports', '_blank');
+      } else if (action === 'add-entity-details-intensity') { /* Navigate or open add entity details for intensity */ }
     }
     function closeEstimationsActionMenusOnClick(ev) {
       var gapBtn = document.getElementById('estimations-gap-filling-btn');
@@ -25293,7 +25588,7 @@ Thank you.</div>
       if (!table) return;
       var numericCells = table.querySelectorAll('tbody td.numeric');
       numericCells.forEach(function(td) {
-        if (td.classList.contains('estimations-cell-warning') || td.classList.contains('estimations-cell-filled') || td.classList.contains('estimations-cell-unfilled')) return;
+        if (td.classList.contains('estimations-cell-warning') || td.classList.contains('estimations-cell-filled') || td.classList.contains('estimations-cell-unfilled') || td.classList.contains('estimations-cell-approved')) return;
         var text = (td.textContent || '').trim();
         if (text !== '') return;
         td.classList.add('estimations-cell-warning');
@@ -25519,6 +25814,66 @@ Thank you.</div>
       if (modal) modal.classList.remove('open');
       document.body.style.overflow = '';
     }
+    function switchEstimationSettingsTab(tabName) {
+      var tabs = document.querySelectorAll('.estimation-settings-tab');
+      var panels = document.querySelectorAll('.estimation-settings-panel');
+      tabs.forEach(function(t) {
+        t.classList.toggle('active', t.id === 'est-settings-tab-' + tabName);
+        t.setAttribute('aria-selected', t.id === 'est-settings-tab-' + tabName);
+      });
+      panels.forEach(function(p) {
+        p.classList.toggle('active', p.id === 'estimation-settings-panel-' + tabName);
+      });
+    }
+    function openEditGapRoutine(id) {
+      switchView('estimation-settings');
+      var modalTitle = document.querySelector('#create-routine-modal .modal-title');
+      if (modalTitle) modalTitle.textContent = 'Edit gap filling routine';
+      openCreateRoutineModal();
+    }
+    function openEditIntensityRoutine(id) {
+      switchView('estimation-settings');
+      var modalTitle = document.querySelector('#create-intensity-routine-modal .modal-title');
+      if (modalTitle) modalTitle.textContent = 'Edit intensity estimation routine';
+      openCreateIntensityRoutineModal();
+    }
+    function openGapFillingReportDetail(reportId) {
+      var backdrop = document.getElementById('gap-report-detail-backdrop');
+      var modal = document.getElementById('gap-report-detail-modal');
+      if (backdrop) backdrop.classList.add('open');
+      if (modal) modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeGapFillingReportDetail() {
+      var backdrop = document.getElementById('gap-report-detail-backdrop');
+      var modal = document.getElementById('gap-report-detail-modal');
+      if (backdrop) backdrop.classList.remove('open');
+      if (modal) modal.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    function openIntensityReportDetail(reportId) {
+      var backdrop = document.getElementById('intensity-report-detail-backdrop');
+      var modal = document.getElementById('intensity-report-detail-modal');
+      var factorEl = document.getElementById('intensity-report-factor-value');
+      var sourceEl = document.getElementById('intensity-report-source');
+      if (backdrop) backdrop.classList.add('open');
+      if (modal) modal.classList.add('open');
+      if (reportId === 'r-int-2') {
+        if (factorEl) factorEl.textContent = '0.35';
+        if (sourceEl) { sourceEl.textContent = 'CBECS fallback — insufficient site data to compute intensity (fewer than minimum months or no eligible sites).'; sourceEl.classList.add('cbecs'); }
+      } else {
+        if (factorEl) factorEl.textContent = '0.28';
+        if (sourceEl) { sourceEl.textContent = 'Calculated from intensity of 12 sites with sufficient data (min 6 months). Weighted average of site-level intensities.'; sourceEl.classList.remove('cbecs'); }
+      }
+      document.body.style.overflow = 'hidden';
+    }
+    function closeIntensityReportDetail() {
+      var backdrop = document.getElementById('intensity-report-detail-backdrop');
+      var modal = document.getElementById('intensity-report-detail-modal');
+      if (backdrop) backdrop.classList.remove('open');
+      if (modal) modal.classList.remove('open');
+      document.body.style.overflow = '';
+    }
     var estimationsCellDetailsTargetCell = null;
     var estimationsCellDetailsCloseListener = null;
     function handleEstimationsCellClick(ev) {
@@ -25537,6 +25892,7 @@ Thank you.</div>
       var rawValue = td.textContent.trim().replace(/\s*No data\s*/, 'No data').replace(/\s*Unable to fill\s*/, 'Unable to fill').trim();
       var isFilled = td.classList.contains('estimations-cell-filled');
       var isUnfilled = td.classList.contains('estimations-cell-unfilled');
+      var isApproved = td.classList.contains('estimations-cell-approved');
       var isWarning = td.classList.contains('estimations-cell-warning');
       var value = rawValue.replace(/^[\s\s▲\u25B2✓✗]*/, '').trim();
       var status;
@@ -25547,11 +25903,15 @@ Thank you.</div>
       } else if (isUnfilled) {
         status = 'No data';
         source = '—';
+      } else if (isApproved) {
+        status = 'Approved';
+        value = 'Approved';
+        source = '—';
       } else {
         status = isWarning ? (value === 'No data' ? 'No data' : 'Estimated') : 'Reported';
         source = (status === 'Reported' ? 'Meter / direct input' : (status === 'Estimated' ? 'Gap filling or estimation' : '—'));
       }
-      if (value === '' && rawValue.indexOf('No data') !== -1) value = 'No data';
+      if (value === '' && rawValue.indexOf('No data') !== -1 && !isApproved) value = 'No data';
       var dataTypeEl = document.getElementById('estimations-data-type-label');
       var dataType = dataTypeEl ? dataTypeEl.textContent : 'Electric power';
       openEstimationsCellDetails(td, entity, period, uom, value, status, dataType, source);
@@ -25571,13 +25931,17 @@ Thank you.</div>
       setEl('estimations-detail-source', source || '—');
       var isFilledCell = td.classList.contains('estimations-cell-filled');
       var isUnfilledCell = td.classList.contains('estimations-cell-unfilled');
-      var isGap = (status === 'No data' || status === 'Estimated') && !isFilledCell && !isUnfilledCell;
+      var isApprovedCell = td.classList.contains('estimations-cell-approved');
+      var isGap = (status === 'No data' || status === 'Estimated') && !isFilledCell && !isUnfilledCell && !isApprovedCell;
       var gapReasonRow = document.getElementById('estimations-detail-gap-reason-row');
       var gapReasonEl = document.getElementById('estimations-detail-gap-reason');
-      var showReason = isGap || isFilledCell || isUnfilledCell;
+      var showReason = isGap || isFilledCell || isUnfilledCell || isApprovedCell;
       if (gapReasonRow) gapReasonRow.style.display = showReason ? 'block' : 'none';
       if (showReason && gapReasonEl) {
-        if (isFilledCell) {
+        if (isApprovedCell) {
+          var approvedReason = td.getAttribute('data-approved-reason') || '';
+          gapReasonEl.textContent = 'Approved: ' + (approvedReason || 'No reason provided.');
+        } else if (isFilledCell) {
           var method = td.getAttribute('data-fill-method') || 'Gap filling routine';
           gapReasonEl.textContent = 'Gap-fill method: ' + method;
         } else if (isUnfilledCell) {
@@ -25591,6 +25955,12 @@ Thank you.</div>
         }
       }
       if (fillGapSection) fillGapSection.style.display = (isGap || isUnfilledCell) ? 'block' : 'none';
+      var approveGapBlock = document.getElementById('estimations-cell-approve-gap');
+      if (approveGapBlock) approveGapBlock.style.display = isGap ? 'block' : 'none';
+      var approveForm = document.getElementById('estimations-approve-gap-form');
+      var approveReasonInput = document.getElementById('estimations-approve-gap-reason');
+      if (approveForm) approveForm.style.display = 'none';
+      if (approveReasonInput) approveReasonInput.value = '';
       var fillGapInputRow = document.getElementById('estimations-cell-fill-gap-input-row');
       if (fillGapInputRow) fillGapInputRow.style.display = 'none';
       if (fillGapInput) { fillGapInput.value = (value && value !== 'No data') ? value : ''; fillGapInput.placeholder = 'Enter value'; }
@@ -25736,6 +26106,37 @@ Thank you.</div>
         document.removeEventListener('click', estimationsCellDetailsCloseListener);
         estimationsCellDetailsCloseListener = null;
       }
+    }
+    function revealApproveGapReason() {
+      var form = document.getElementById('estimations-approve-gap-form');
+      var btn = document.getElementById('estimations-approve-gap-btn');
+      var textarea = document.getElementById('estimations-approve-gap-reason');
+      if (form) form.style.display = 'block';
+      if (btn) btn.style.display = 'none';
+      if (textarea) { textarea.focus(); textarea.placeholder = 'e.g. Meter was under maintenance; data not available for this period'; }
+    }
+    function submitApproveGap() {
+      var td = estimationsCellDetailsTargetCell;
+      var textarea = document.getElementById('estimations-approve-gap-reason');
+      if (!td || !textarea) return;
+      var reason = textarea.value.trim();
+      if (!reason) {
+        textarea.setAttribute('aria-invalid', 'true');
+        textarea.placeholder = 'Please explain why the gap was approved (required).';
+        return;
+      }
+      textarea.removeAttribute('aria-invalid');
+      td.classList.remove('estimations-cell-warning');
+      td.classList.add('estimations-cell-approved');
+      td.setAttribute('data-approved-reason', reason);
+      td.setAttribute('title', 'Approved: ' + reason);
+      td.innerHTML = '<span class="estimations-approved-icon" aria-hidden="true"><i class="fa-solid fa-circle-check"></i></span> Approved';
+      var form = document.getElementById('estimations-approve-gap-form');
+      var btn = document.getElementById('estimations-approve-gap-btn');
+      if (form) form.style.display = 'none';
+      if (btn) btn.style.display = '';
+      if (textarea) textarea.value = '';
+      closeEstimationsCellDetails();
     }
     function toggleActivityLogFilters(ev) {
       ev.stopPropagation();
