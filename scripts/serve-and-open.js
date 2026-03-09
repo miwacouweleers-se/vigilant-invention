@@ -31,7 +31,8 @@ const MIME = {
 
 function createServer() {
   return http.createServer((req, res) => {
-    let filePath = path.join(ROOT, req.url === '/' ? '/index.html' : req.url);
+    const pathname = (req.url || '/').split('?')[0].split('#')[0];
+    let filePath = path.join(ROOT, pathname === '/' ? '/index.html' : pathname);
     filePath = path.normalize(filePath);
     if (!filePath.startsWith(ROOT)) {
       res.statusCode = 403;
@@ -110,6 +111,14 @@ function tryListen(portIndex) {
     console.log('\n  Server: http://127.0.0.1:' + port + '/');
     console.log('  Press Ctrl+C to stop.\n');
   });
+}
+
+// Verify prototype exists before starting
+const prototypeIndex = path.join(ROOT, 'prototypes', 'create-new-inventory', 'index.html');
+if (!fs.existsSync(prototypeIndex)) {
+  console.error('\n  Error: Prototype not found at prototypes/create-new-inventory/index.html');
+  console.error('  Run this script from the repo root (the folder that contains package.json).\n');
+  process.exit(1);
 }
 
 tryListen(0);

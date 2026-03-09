@@ -602,14 +602,36 @@
     .estimations-pagination-controls { display: flex; align-items: center; gap: 4px; }
     .estimations-pagination-controls .estimations-page-btn.active { background: var(--ghg-primary-light); color: var(--ghg-primary-dark); font-weight: 600; }
     .estimations-pagination-ellipsis { padding: 0 4px; color: var(--ghg-text-muted); }
-    .estimations-cell-popover { position: fixed; z-index: 2100; width: 320px; max-width: min(320px, calc(100vw - 24px)); max-height: calc(100vh - 24px); overflow-y: auto; background: var(--ghg-surface-elevated); border: 1px solid var(--ghg-border); border-radius: 12px; box-shadow: 0 12px 32px rgba(0,0,0,0.15); font-size: 13px; line-height: 1.45; pointer-events: auto; }
-    .estimations-cell-popover-header { display: flex; align-items: center; justify-content: space-between; padding: 12px 14px; border-bottom: 1px solid var(--ghg-border); }
-    .estimations-cell-popover-title { font-family: var(--font-display); font-size: 14px; font-weight: 600; margin: 0; color: var(--ghg-text); }
-    .estimations-cell-popover-close { width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; background: none; border: none; border-radius: 6px; cursor: pointer; color: var(--ghg-text-muted); font-size: 14px; }
-    .estimations-cell-popover-close:hover { background: var(--ghg-surface-hover); color: var(--ghg-text); }
-    .estimations-cell-popover-body { padding: 12px 14px; }
-    .estimations-cell-popover-body .activity-row-detail-row { margin-bottom: 8px; }
-    .estimations-cell-popover-body .activity-row-detail-row:last-of-type { margin-bottom: 0; }
+    .estimations-cell-selected { outline: 2px solid var(--ghg-primary); outline-offset: -2px; background: var(--ghg-primary-light) !important; position: relative; z-index: 1; }
+    .estimations-table tbody tr:hover td.estimations-cell-selected { background: var(--ghg-primary-light) !important; }
+    .estimations-drawer-backdrop { position: fixed; inset: 0; z-index: 2099; background: rgba(0,0,0,0.25); opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 0.2s ease, visibility 0.2s ease; }
+    .estimations-drawer-backdrop.open { opacity: 1; visibility: visible; pointer-events: auto; }
+    .estimations-cell-drawer { position: fixed; top: 0; right: 0; z-index: 2100; width: 380px; max-width: 100vw; height: 100vh; background: var(--ghg-surface-elevated); box-shadow: -4px 0 24px rgba(0,0,0,0.12); font-size: 13px; line-height: 1.45; display: flex; flex-direction: column; transform: translateX(100%); transition: transform 0.25s ease; overflow: hidden; }
+    .estimations-cell-drawer.open { transform: translateX(0); }
+    .estimations-cell-drawer .estimations-cell-popover-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 18px; border-bottom: 1px solid var(--ghg-border); flex-shrink: 0; }
+    .estimations-cell-drawer .estimations-cell-popover-title { font-family: var(--font-display); font-size: 16px; font-weight: 600; margin: 0; color: var(--ghg-text); }
+    .estimations-cell-drawer .estimations-cell-popover-close { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; background: none; border: none; border-radius: 8px; cursor: pointer; color: var(--ghg-text-muted); font-size: 16px; }
+    .estimations-cell-drawer .estimations-cell-popover-close:hover { background: var(--ghg-surface-hover); color: var(--ghg-text); }
+    .estimations-cell-drawer .estimations-cell-popover-body { padding: 16px 18px; overflow-y: auto; flex: 1; }
+    .estimations-cell-drawer .activity-row-detail-row { margin-bottom: 12px; }
+    .estimations-cell-drawer .activity-row-detail-row:last-of-type { margin-bottom: 0; }
+    .estimations-detail-entries-wrap .activity-row-detail-label { display: block; margin-bottom: 8px; }
+    .activity-row-detail-entries-list { display: flex; flex-direction: column; gap: 6px; }
+    .estimations-entry-accordion { border: 1px solid var(--ghg-border); border-radius: 8px; overflow: hidden; }
+    .estimations-entry-accordion + .estimations-entry-accordion { margin-top: 0; }
+    .estimations-entry-accordion-header { width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 10px 12px; background: var(--ghg-surface); border: none; font-family: inherit; font-size: 14px; color: var(--ghg-text); text-align: left; cursor: pointer; gap: 8px; }
+    .estimations-entry-accordion-header:hover { background: var(--ghg-surface-hover); }
+    .estimations-entry-accordion-header .entry-summary { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0; }
+    .estimations-entry-accordion-header .entry-summary-value { font-weight: 600; }
+    .estimations-entry-accordion-header .entry-summary-dates { font-size: 12px; color: var(--ghg-text-muted); margin-top: 14px; }
+    .estimations-entry-accordion-header .entry-accordion-chevron { flex-shrink: 0; color: var(--ghg-text-muted); font-size: 12px; transition: transform 0.2s ease; }
+    .estimations-entry-accordion.expanded .entry-accordion-chevron { transform: rotate(180deg); }
+    .estimations-entry-accordion-content { padding: 0 12px 12px 12px; display: none; }
+    .estimations-entry-accordion.expanded .estimations-entry-accordion-content { display: block; }
+    .estimations-entry-accordion-content .entry-detail-row { font-size: 13px; margin-bottom: 6px; }
+    .estimations-entry-accordion-content .entry-detail-row:last-child { margin-bottom: 0; }
+    .estimations-entry-accordion-content .entry-detail-label { color: var(--ghg-text-muted); margin-right: 6px; }
+    .estimations-single-entry-details { padding: 0; }
     .estimations-cell-fill-gap-divider { height: 1px; background: var(--ghg-border); margin: 12px 0 10px 0; }
     .estimations-fill-gap-btn { width: 100%; justify-content: center; gap: 8px; }
     .estimations-cell-fill-gap-input-row { display: flex; gap: 8px; align-items: center; margin-top: 10px; }
@@ -1820,6 +1842,9 @@
     .add-activity-data-modal .modal { max-width: 560px; }
     .add-activity-data-modal .modal-header { flex-wrap: wrap; gap: 8px; }
     .add-activity-data-modal .modal-title { font-size: 22px; }
+    .add-activity-data-modal .add-activity-data-column { font-size: 14px; color: var(--ghg-text-secondary); margin: 4px 0 0 0; }
+    .add-activity-data-modal .add-activity-data-column strong { color: var(--ghg-text); }
+    .add-activity-data-date-error { font-size: 13px; color: var(--ghg-error, #DC2626); margin-top: 8px; }
     .add-activity-data-modal .add-activity-data-description {
       width: 100%;
       font-size: 14px;
@@ -12694,8 +12719,9 @@
           </div>
         </div>
 
-        <!-- Estimations data point details popover -->
-        <div class="estimations-cell-popover" id="estimations-cell-popover" role="dialog" aria-labelledby="estimations-cell-details-title" aria-hidden="true" style="display: none;">
+        <!-- Estimations data point details drawer -->
+        <div class="estimations-drawer-backdrop" id="estimations-drawer-backdrop" onclick="if(event.target===this) closeEstimationsCellDetails()" aria-hidden="true"></div>
+        <div class="estimations-cell-drawer" id="estimations-cell-popover" role="dialog" aria-labelledby="estimations-cell-details-title" aria-hidden="true">
           <div class="estimations-cell-popover-header">
             <h3 class="estimations-cell-popover-title" id="estimations-cell-details-title">Data point details</h3>
             <button type="button" class="estimations-cell-popover-close" onclick="closeEstimationsCellDetails()" aria-label="Close"><i class="fa-light fa-times"></i></button>
@@ -12703,12 +12729,11 @@
           <div class="estimations-cell-popover-body">
             <div class="activity-row-detail-row"><span class="activity-row-detail-label">Business entity</span><span class="activity-row-detail-value" id="estimations-detail-entity"></span></div>
             <div class="activity-row-detail-row"><span class="activity-row-detail-label">Period</span><span class="activity-row-detail-value" id="estimations-detail-period"></span></div>
-            <div class="activity-row-detail-row"><span class="activity-row-detail-label">Unit of measure</span><span class="activity-row-detail-value" id="estimations-detail-uom"></span></div>
-            <div class="activity-row-detail-row"><span class="activity-row-detail-label">Value</span><span class="activity-row-detail-value" id="estimations-detail-value"></span></div>
-            <div class="activity-row-detail-row"><span class="activity-row-detail-label">Status</span><span class="activity-row-detail-value" id="estimations-detail-status"></span></div>
-            <div class="activity-row-detail-row estimations-gap-reason-row" id="estimations-detail-gap-reason-row" style="display: none;"><span class="activity-row-detail-label">Reason</span><span class="activity-row-detail-value" id="estimations-detail-gap-reason"></span></div>
+            <div class="activity-row-detail-row"><span class="activity-row-detail-label" id="estimations-detail-value-label">Value</span><span class="activity-row-detail-value" id="estimations-detail-value"></span></div>
+            <div class="activity-row-detail-row estimations-detail-date-range-wrap" id="estimations-detail-date-range-wrap" style="display: none;"><span class="activity-row-detail-label">Date range of data</span><span class="activity-row-detail-value" id="estimations-detail-date-range"></span></div>
+            <div class="activity-row-detail-row estimations-gap-reason-row" id="estimations-detail-gap-reason-row" style="display: none;"><span class="activity-row-detail-label">Reason for gap alert</span><span class="activity-row-detail-value" id="estimations-detail-gap-reason"></span></div>
             <div class="activity-row-detail-row"><span class="activity-row-detail-label">Data type</span><span class="activity-row-detail-value" id="estimations-detail-data-type"></span></div>
-            <div class="activity-row-detail-row"><span class="activity-row-detail-label">Data source</span><span class="activity-row-detail-value" id="estimations-detail-source"></span></div>
+            <div class="activity-row-detail-row estimations-detail-entries-wrap" id="estimations-detail-entries-wrap" style="display: none;"><span class="activity-row-detail-label" id="estimations-detail-entries-label">Entries</span><div class="activity-row-detail-entries-list" id="estimations-detail-entries"></div></div>
             <div class="estimations-cell-fill-gap" id="estimations-cell-fill-gap" style="display: none;">
               <div class="estimations-cell-fill-gap-divider"></div>
               <button type="button" class="btn btn-primary estimations-fill-gap-btn" id="estimations-fill-gap-reveal-btn" onclick="openAddActivityDataModal()">
@@ -12742,6 +12767,7 @@
               <div>
                 <h2 class="modal-title">Add activity data</h2>
                 <p class="add-activity-data-description">After you save, the activity data will be added to the right source data table.</p>
+                <p class="add-activity-data-column" id="add-activity-data-column-wrap" style="display: none;">Adding to column: <strong id="add-activity-data-column-name"></strong></p>
                 <div class="add-activity-data-progress" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="2">
                   <div class="add-activity-data-progress-fill" id="add-activity-data-progress-fill" style="width: 50%;"></div>
                 </div>
@@ -12766,28 +12792,20 @@
                 <div class="form-group">
                   <label class="form-label" for="add-activity-date-from">Activity date <span aria-hidden="true">*</span> <i class="fa-solid fa-circle-info info-icon" aria-hidden="true" title="Date range for the activity"></i></label>
                   <div class="add-activity-data-date-range">
-                    <input type="text" class="form-input" id="add-activity-date-from" placeholder="Select date" aria-label="From date" readonly>
+                    <input type="date" class="form-input" id="add-activity-date-from" aria-label="From date" aria-describedby="add-activity-data-date-error">
                     <span class="to-text">to</span>
-                    <input type="text" class="form-input" id="add-activity-date-to" placeholder="Select date" aria-label="To date" readonly>
+                    <input type="date" class="form-input" id="add-activity-date-to" aria-label="To date" aria-describedby="add-activity-data-date-error">
                   </div>
+                  <div class="add-activity-data-date-error" id="add-activity-data-date-error" role="alert" style="display: none;"></div>
                 </div>
                 <div class="form-group">
                   <label class="form-label" for="add-activity-type">Activity type <span aria-hidden="true">*</span> <i class="fa-solid fa-circle-info info-icon" aria-hidden="true" title="Type of activity"></i></label>
                   <select class="form-select" id="add-activity-type" aria-required="true">
                     <option value="">Select</option>
-                    <option value="Electric power">Electric power</option>
+                    <option value="Electric power" selected>Electric power</option>
                     <option value="Natural gas">Natural gas</option>
                     <option value="Fuel">Fuel</option>
                     <option value="Other">Other</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label class="form-label" for="add-activity-scope">Scope and category <span aria-hidden="true">*</span> <i class="fa-solid fa-circle-info info-icon" aria-hidden="true" title="Scope and category"></i></label>
-                  <select class="form-select" id="add-activity-scope" aria-required="true">
-                    <option value="">Select</option>
-                    <option value="Scope 1 - Direct">Scope 1 - Direct</option>
-                    <option value="Scope 2 - Energy">Scope 2 - Energy</option>
-                    <option value="Scope 3">Scope 3</option>
                   </select>
                 </div>
               </div>
@@ -25908,11 +25926,27 @@ Thank you.</div>
       var isApproved = td.classList.contains('estimations-cell-approved');
       var isWarning = td.classList.contains('estimations-cell-warning');
       var value = rawValue.replace(/^[\s\s▲\u25B2✓✗]*/, '').trim();
+      var entries = [];
+      try {
+        var stored = td.getAttribute('data-entries');
+        if (stored) {
+          entries = JSON.parse(stored);
+          if (entries.length > 0) {
+            var total = 0;
+            var uomFirst = '';
+            entries.forEach(function(e) {
+              total += e.num;
+              if (!uomFirst && e.uom) uomFirst = e.uom;
+            });
+            value = (Math.round(total * 100) / 100) + (uomFirst ? ' ' + uomFirst : '');
+          }
+        }
+      } catch (e) {}
       var status;
       var source;
       if (isFilled) {
         status = 'Filled';
-        source = 'Gap filling routine';
+        source = td.getAttribute('data-fill-method') || 'Gap filling routine';
       } else if (isUnfilled) {
         status = 'No data';
         source = '—';
@@ -25927,24 +25961,132 @@ Thank you.</div>
       if (value === '' && rawValue.indexOf('No data') !== -1 && !isApproved) value = 'No data';
       var dataTypeEl = document.getElementById('estimations-data-type-label');
       var dataType = dataTypeEl ? dataTypeEl.textContent : 'Electric power';
-      openEstimationsCellDetails(td, entity, period, uom, value, status, dataType, source);
+      openEstimationsCellDetails(td, entity, period, uom, value, status, dataType, source, entries);
     }
-    function openEstimationsCellDetails(td, entity, period, uom, value, status, dataType, source) {
-      var popover = document.getElementById('estimations-cell-popover');
+    function parseLocalDateString(str) {
+      if (!str || typeof str !== 'string') return null;
+      var match = str.trim().match(/^(\d{4})-(\d{2})-(\d{2})/);
+      if (!match) return new Date(str);
+      var y = parseInt(match[1], 10);
+      var m = parseInt(match[2], 10) - 1;
+      var d = parseInt(match[3], 10);
+      var date = new Date(y, m, d);
+      return isNaN(date.getTime()) ? null : date;
+    }
+    function formatEntryDateRange(from, to) {
+      if (!from && !to) return '';
+      if (!to) return from;
+      if (!from) return to;
+      if (from === to) return from;
+      return from + ' – ' + to;
+    }
+    function formatEntryDateDisplay(fromStr, toStr) {
+      if (!fromStr && !toStr) return '';
+      var from = fromStr ? parseLocalDateString(fromStr) : null;
+      var to = toStr ? parseLocalDateString(toStr) : null;
+      if (!from && !to) return formatEntryDateRange(fromStr, toStr);
+      function fmt(d) {
+        if (!d || isNaN(d.getTime())) return '';
+        var m = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        return m[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
+      }
+      if (from && to && from.getTime() === to.getTime()) return fmt(from);
+      return (fmt(from) && fmt(to)) ? fmt(from) + ' – ' + fmt(to) : formatEntryDateRange(fromStr, toStr);
+    }
+    function openEstimationsCellDetails(td, entity, period, uom, value, status, dataType, source, entries) {
+      var drawer = document.getElementById('estimations-cell-popover');
+      var backdrop = document.getElementById('estimations-drawer-backdrop');
       var fillGapSection = document.getElementById('estimations-cell-fill-gap');
       var fillGapInput = document.getElementById('estimations-fill-gap-input');
-      if (!popover) return;
+      if (!drawer || !backdrop) return;
+      document.querySelectorAll('.estimations-cell-selected').forEach(function(cell) { cell.classList.remove('estimations-cell-selected'); });
+      if (td) td.classList.add('estimations-cell-selected');
       estimationsCellDetailsTargetCell = td;
       setEl('estimations-detail-entity', entity);
       setEl('estimations-detail-period', period);
-      setEl('estimations-detail-uom', uom);
       setEl('estimations-detail-value', value);
-      setEl('estimations-detail-status', status);
       setEl('estimations-detail-data-type', dataType || '—');
-      setEl('estimations-detail-source', source || '—');
-      var isFilledCell = td.classList.contains('estimations-cell-filled');
-      var isUnfilledCell = td.classList.contains('estimations-cell-unfilled');
-      var isApprovedCell = td.classList.contains('estimations-cell-approved');
+      var valueLabelEl = document.getElementById('estimations-detail-value-label');
+      if (valueLabelEl) valueLabelEl.textContent = (entries && entries.length > 1) ? 'Total value' : 'Value';
+      var dateRangeWrap = document.getElementById('estimations-detail-date-range-wrap');
+      var dateRangeEl = document.getElementById('estimations-detail-date-range');
+      if (dateRangeWrap && dateRangeEl) {
+        if (entries && entries.length > 0) {
+          var actualRangeStr = '';
+          if (entries.length === 1) {
+            actualRangeStr = formatEntryDateDisplay(entries[0].from, entries[0].to) || '—';
+          } else {
+            var earliest = '';
+            var latest = '';
+            entries.forEach(function(e) {
+              var from = e.from || e.to;
+              var to = e.to || e.from;
+              if (from && (!earliest || from < earliest)) earliest = from;
+              if (to && (!latest || to > latest)) latest = to;
+            });
+            actualRangeStr = formatEntryDateDisplay(earliest, latest) || '—';
+          }
+          dateRangeEl.textContent = actualRangeStr;
+          dateRangeWrap.style.display = 'block';
+        } else {
+          dateRangeWrap.style.display = 'none';
+          dateRangeEl.textContent = '';
+        }
+      }
+      var entriesWrap = document.getElementById('estimations-detail-entries-wrap');
+      var entriesList = document.getElementById('estimations-detail-entries');
+      if (entriesWrap && entriesList) {
+        var esc = function(s) { return (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); };
+        if (entries && entries.length === 1) {
+          entriesWrap.style.display = 'block';
+          var entriesLabel = document.getElementById('estimations-detail-entries-label');
+          if (entriesLabel) { entriesLabel.textContent = ''; entriesLabel.style.display = 'none'; }
+          entriesList.innerHTML = '';
+          var e = entries[0];
+          var singleBlock = document.createElement('div');
+          singleBlock.className = 'estimations-single-entry-details';
+          singleBlock.innerHTML = '<div class="activity-row-detail-row"><span class="activity-row-detail-label">Record type</span><span class="activity-row-detail-value">' + esc(e.recordType || '—') + '</span></div><div class="activity-row-detail-row"><span class="activity-row-detail-label">Renewable energy</span><span class="activity-row-detail-value">' + esc(e.renewable || '—') + '</span></div>';
+          entriesList.appendChild(singleBlock);
+        } else if (entries && entries.length > 1) {
+          entriesWrap.style.display = 'block';
+          var entriesLabel = document.getElementById('estimations-detail-entries-label');
+          if (entriesLabel) { entriesLabel.textContent = 'Entries'; entriesLabel.style.display = 'block'; }
+          entriesList.innerHTML = '';
+          entries.forEach(function(e, i) {
+            var entryVal = (Math.round(e.num * 100) / 100) + (e.uom ? ' ' + e.uom : '');
+            var dateStr = formatEntryDateDisplay(e.from, e.to);
+            var item = document.createElement('div');
+            item.className = 'estimations-entry-accordion';
+            item.setAttribute('data-entry-index', i);
+            var header = document.createElement('button');
+            header.type = 'button';
+            header.className = 'estimations-entry-accordion-header';
+            header.setAttribute('aria-expanded', 'false');
+            header.setAttribute('aria-controls', 'estimations-entry-content-' + i);
+            header.id = 'estimations-entry-header-' + i;
+            header.innerHTML = '<span class="entry-summary"><span class="entry-summary-value">' + esc(entryVal) + '</span>' + (dateStr ? '<span class="entry-summary-dates">' + esc(dateStr) + '</span>' : '') + '</span><i class="fa-solid fa-chevron-down entry-accordion-chevron" aria-hidden="true"></i>';
+            header.onclick = function() {
+              item.classList.toggle('expanded');
+              header.setAttribute('aria-expanded', item.classList.contains('expanded'));
+            };
+            var content = document.createElement('div');
+            content.id = 'estimations-entry-content-' + i;
+            content.className = 'estimations-entry-accordion-content';
+            content.setAttribute('role', 'region');
+            content.setAttribute('aria-labelledby', 'estimations-entry-header-' + i);
+            content.innerHTML = '<div class="activity-row-detail-row"><span class="activity-row-detail-label">Record type</span><span class="activity-row-detail-value">' + esc(e.recordType || '—') + '</span></div><div class="activity-row-detail-row"><span class="activity-row-detail-label">Renewable energy</span><span class="activity-row-detail-value">' + esc(e.renewable || '—') + '</span></div>';
+            item.appendChild(header);
+            item.appendChild(content);
+            entriesList.appendChild(item);
+          });
+        } else {
+          entriesWrap.style.display = 'none';
+          entriesList.innerHTML = '';
+        }
+      }
+      var isFilledCell = td && td.classList.contains('estimations-cell-filled');
+      var isUnfilledCell = td && td.classList.contains('estimations-cell-unfilled');
+      var isApprovedCell = td && td.classList.contains('estimations-cell-approved');
       var isGap = (status === 'No data' || status === 'Estimated') && !isFilledCell && !isUnfilledCell && !isApprovedCell;
       var gapReasonRow = document.getElementById('estimations-detail-gap-reason-row');
       var gapReasonEl = document.getElementById('estimations-detail-gap-reason');
@@ -25964,7 +26106,11 @@ Thank you.</div>
           gapReasonEl.textContent = 'Entire month has no data — fill below to complete.';
         } else {
           var gapDays = td.getAttribute('data-gap-days');
-          gapReasonEl.textContent = gapDays ? 'Gap of ' + gapDays + ' day' + (gapDays === '1' ? '' : 's') + ' in this period — fill below to complete.' : 'Gap of a few days in this period — fill below to complete.';
+          if (gapDays === 'partial') {
+            gapReasonEl.textContent = 'Partial manual entry — more dates in this period need to be filled.';
+          } else {
+            gapReasonEl.textContent = gapDays ? 'Gap of ' + gapDays + ' day' + (gapDays === '1' ? '' : 's') + ' in this period — fill below to complete.' : 'Gap of a few days in this period — fill below to complete.';
+          }
         }
       }
       if (fillGapSection) fillGapSection.style.display = (isGap || isUnfilledCell) ? 'block' : 'none';
@@ -25977,37 +26123,17 @@ Thank you.</div>
       var fillGapInputRow = document.getElementById('estimations-cell-fill-gap-input-row');
       if (fillGapInputRow) fillGapInputRow.style.display = 'none';
       if (fillGapInput) { fillGapInput.value = (value && value !== 'No data') ? value : ''; fillGapInput.placeholder = 'Enter value'; }
-      popover.style.display = 'block';
-      popover.setAttribute('aria-hidden', 'false');
-      var rect = td.getBoundingClientRect();
-      var pad = 12;
-      var popWidth = popover.offsetWidth;
-      var popHeight = popover.offsetHeight;
-      var viewW = window.innerWidth;
-      var viewH = window.innerHeight;
-      var top = rect.bottom + 8;
-      if (top + popHeight > viewH - pad) top = rect.top - popHeight - 8;
-      if (top < pad) top = pad;
-      if (top + popHeight > viewH - pad) top = viewH - popHeight - pad;
-      var left = rect.left;
-      if (left + popWidth > viewW - pad) left = viewW - popWidth - pad;
-      if (left < pad) left = pad;
-      popover.style.top = top + 'px';
-      popover.style.left = left + 'px';
-      if (estimationsCellDetailsCloseListener) document.removeEventListener('click', estimationsCellDetailsCloseListener);
-      estimationsCellDetailsCloseListener = function(ev) {
-        if (popover.contains(ev.target) || (td && td.contains(ev.target))) return;
-        closeEstimationsCellDetails();
-        document.removeEventListener('click', estimationsCellDetailsCloseListener);
-        estimationsCellDetailsCloseListener = null;
-      };
-      setTimeout(function() { document.addEventListener('click', estimationsCellDetailsCloseListener); }, 0);
+      backdrop.classList.add('open');
+      backdrop.setAttribute('aria-hidden', 'false');
+      drawer.classList.add('open');
+      drawer.setAttribute('aria-hidden', 'false');
     }
     function setEl(id, text) {
       var el = document.getElementById(id);
       if (el) el.textContent = text || '—';
     }
     var addActivityDataTargetCell = null;
+    var addActivityDataPeriod = '';
     function openAddActivityDataModal() {
       addActivityDataTargetCell = estimationsCellDetailsTargetCell;
       closeEstimationsCellDetails();
@@ -26016,6 +26142,32 @@ Thank you.</div>
       if (!backdrop || !modal) return;
       addActivityDataCurrentStep = 1;
       setAddActivityDataStep(1);
+      var periodStr = '';
+      var td = addActivityDataTargetCell;
+      if (td) {
+        var tr = td.closest('tr');
+        var table = document.getElementById('estimations-table');
+        if (tr && table) {
+          var colIndex = Array.prototype.indexOf.call(tr.children, td);
+          var headerRow = table.querySelector('thead tr');
+          var th = headerRow && headerRow.children[colIndex];
+          if (th) periodStr = th.textContent.trim();
+        }
+      }
+      addActivityDataPeriod = periodStr;
+      var columnWrap = document.getElementById('add-activity-data-column-wrap');
+      var columnName = document.getElementById('add-activity-data-column-name');
+      if (columnWrap && columnName) {
+        if (periodStr) {
+          columnName.textContent = periodStr;
+          columnWrap.style.display = '';
+        } else {
+          columnWrap.style.display = 'none';
+          columnName.textContent = '';
+        }
+      }
+      var dateErrorEl = document.getElementById('add-activity-data-date-error');
+      if (dateErrorEl) { dateErrorEl.style.display = 'none'; dateErrorEl.textContent = ''; }
       var entityEl = document.getElementById('estimations-detail-entity');
       var periodEl = document.getElementById('estimations-detail-period');
       var entitySelect = document.getElementById('add-activity-entity');
@@ -26030,13 +26182,14 @@ Thank you.</div>
       var dateTo = document.getElementById('add-activity-date-to');
       if (dateFrom) dateFrom.value = '';
       if (dateTo) dateTo.value = '';
-      if (periodEl) {
-        var period = periodEl.textContent.trim();
-        if (period && period !== '—') {
-          if (dateFrom) dateFrom.placeholder = period;
-          if (dateTo) dateTo.placeholder = period;
-        }
+      function clearAddActivityDateError() {
+        var dateErrorEl = document.getElementById('add-activity-data-date-error');
+        if (dateErrorEl) { dateErrorEl.style.display = 'none'; dateErrorEl.textContent = ''; }
       }
+      if (dateFrom) { dateFrom.oninput = clearAddActivityDateError; dateFrom.onchange = clearAddActivityDateError; }
+      if (dateTo) { dateTo.oninput = clearAddActivityDateError; dateTo.onchange = clearAddActivityDateError; }
+      var activityTypeSelect = document.getElementById('add-activity-type');
+      if (activityTypeSelect) activityTypeSelect.value = 'Electric power';
       backdrop.classList.add('open');
       modal.classList.add('open');
       document.body.style.overflow = 'hidden';
@@ -26058,7 +26211,39 @@ Thank you.</div>
       if (saveBtn) saveBtn.style.display = step === 2 ? '' : 'none';
     }
     function nextAddActivityDataStep() {
-      setAddActivityDataStep(2);
+      var dateFromEl = document.getElementById('add-activity-date-from');
+      var dateToEl = document.getElementById('add-activity-date-to');
+      var dateErrorEl = document.getElementById('add-activity-data-date-error');
+      var fromStr = dateFromEl && dateFromEl.value ? dateFromEl.value.trim() : '';
+      var toStr = dateToEl && dateToEl.value ? dateToEl.value.trim() : '';
+      var periodStr = addActivityDataPeriod;
+      var periodRange = parsePeriodToMonthRange(periodStr);
+      var hasError = false;
+      if (dateErrorEl) { dateErrorEl.style.display = 'none'; dateErrorEl.textContent = ''; }
+      if (periodRange && (fromStr || toStr)) {
+        var fromDate = fromStr ? parseLocalDateString(fromStr) : null;
+        var toDate = toStr ? parseLocalDateString(toStr) : null;
+        if (!fromDate && toDate) fromDate = toDate;
+        if (fromDate && !toDate) toDate = fromDate;
+        if (fromDate && toDate && !isNaN(fromDate.getTime()) && !isNaN(toDate.getTime())) {
+          if (fromDate.getTime() > toDate.getTime()) { var tmp = fromDate; fromDate = toDate; toDate = tmp; }
+          var monthStart = new Date(periodRange.start.getFullYear(), periodRange.start.getMonth(), periodRange.start.getDate()).getTime();
+          var monthEnd = new Date(periodRange.end.getFullYear(), periodRange.end.getMonth(), periodRange.end.getDate()).getTime();
+          var userStart = new Date(fromDate.getFullYear(), fromDate.getMonth(), fromDate.getDate()).getTime();
+          var userEnd = new Date(toDate.getFullYear(), toDate.getMonth(), toDate.getDate()).getTime();
+          var overlaps = userStart <= monthEnd && userEnd >= monthStart;
+          if (!overlaps) {
+            hasError = true;
+            var monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+            var monthLabel = monthNames[periodRange.start.getMonth()] + ' ' + periodRange.start.getFullYear();
+            if (dateErrorEl) {
+              dateErrorEl.textContent = 'The date range must include at least one day in ' + monthLabel + ' (the selected column).';
+              dateErrorEl.style.display = 'block';
+            }
+          }
+        }
+      }
+      if (!hasError) setAddActivityDataStep(2);
     }
     function backAddActivityDataStep() {
       setAddActivityDataStep(1);
@@ -26070,25 +26255,153 @@ Thank you.</div>
       if (modal) modal.classList.remove('open');
       document.body.style.overflow = '';
     }
+    function parsePeriodToMonthRange(periodStr) {
+      if (!periodStr || typeof periodStr !== 'string') return null;
+      var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      var parts = periodStr.trim().split(/\s+/);
+      if (parts.length < 2) return null;
+      var monthIdx = months.indexOf(parts[0]);
+      if (monthIdx === -1) return null;
+      var y = parseInt(parts[1], 10);
+      var year = y < 100 ? 2000 + y : y;
+      var start = new Date(year, monthIdx, 1);
+      var end = new Date(year, monthIdx + 1, 0);
+      return { start: start, end: end };
+    }
+    function parseOneEntryFromCellText(text) {
+      if (!text || typeof text !== 'string') return null;
+      var stripped = text.replace(/^[\s\s▲\u25B2✓✗]*/, '').trim();
+      var match = stripped.match(/^([\d.,]+)\s*(.*)$/);
+      if (!match) return null;
+      var num = parseFloat(match[1].replace(',', ''));
+      if (isNaN(num)) return null;
+      return { num: num, uom: (match[2] || '').trim(), from: '', to: '' };
+    }
     function saveAddActivityData() {
       var usageVal = document.getElementById('add-activity-usage-value');
       var usageUom = document.getElementById('add-activity-usage-uom');
       var spendVal = document.getElementById('add-activity-spend-value');
+      var spendUomEl = document.getElementById('add-activity-spend-uom');
+      var dateFromEl = document.getElementById('add-activity-date-from');
+      var dateToEl = document.getElementById('add-activity-date-to');
       var td = addActivityDataTargetCell;
-      var val = '';
+      var newNum = NaN;
+      var newUom = '';
       if (usageVal && usageVal.value.trim() !== '') {
-        val = usageVal.value.trim();
-        if (usageUom && usageUom.value) val += ' ' + usageUom.value;
+        newNum = parseFloat(usageVal.value.trim());
+        newUom = usageUom && usageUom.value ? usageUom.value : '';
       } else if (spendVal && spendVal.value.trim() !== '') {
-        val = spendVal.value.trim();
-        var spendUom = document.getElementById('add-activity-spend-uom');
-        if (spendUom && spendUom.value) val += ' ' + spendUom.value;
+        newNum = parseFloat(spendVal.value.trim());
+        newUom = spendUomEl && spendUomEl.value ? spendUomEl.value : '';
       }
-      if (td && val) {
-        td.textContent = val;
-        td.classList.remove('estimations-cell-warning');
-        var icon = td.querySelector('.estimations-warning-icon');
-        if (icon) icon.remove();
+      if (!td || isNaN(newNum)) {
+        addActivityDataTargetCell = null;
+        closeAddActivityDataModal();
+        return;
+      }
+      var fromStr = dateFromEl && dateFromEl.value ? dateFromEl.value.trim() : '';
+      var toStr = dateToEl && dateToEl.value ? dateToEl.value.trim() : '';
+      var recordType = '';
+      var recordTypeRadios = document.querySelectorAll('input[name="add-activity-record-type"]:checked');
+      if (recordTypeRadios.length) recordType = recordTypeRadios[0].value;
+      var renewable = '';
+      var renewableRadios = document.querySelectorAll('input[name="add-activity-renewable"]:checked');
+      if (renewableRadios.length) renewable = renewableRadios[0].value;
+      var entries = [];
+      try {
+        var stored = td.getAttribute('data-entries');
+        if (stored) entries = JSON.parse(stored);
+      } catch (e) {}
+      if (entries.length === 0 && (td.classList.contains('estimations-cell-filled') || td.classList.contains('estimations-cell-warning'))) {
+        var one = parseOneEntryFromCellText(td.textContent);
+        if (one) entries.push(one);
+      }
+      entries.push({ num: newNum, uom: newUom, from: fromStr, to: toStr, recordType: recordType, renewable: renewable });
+      var totalNum = 0;
+      var displayUom = '';
+      entries.forEach(function(e) {
+        totalNum += e.num;
+        if (!displayUom && e.uom) displayUom = e.uom;
+      });
+      var displayVal = (Math.round(totalNum * 100) / 100) + (displayUom ? ' ' + displayUom : '');
+      td.setAttribute('data-entries', JSON.stringify(entries));
+      var periodStr = '';
+      var tr = td.closest('tr');
+      var table = document.getElementById('estimations-table');
+      if (tr && table) {
+        var colIndex = Array.prototype.indexOf.call(tr.children, td);
+        var headerRow = table.querySelector('thead tr');
+        var th = headerRow && headerRow.children[colIndex];
+        if (th) periodStr = th.textContent.trim();
+      }
+      var periodRange = parsePeriodToMonthRange(periodStr);
+      var fullCoverage = false;
+      if (periodRange && entries.length > 0) {
+        var ps = periodRange.start.getTime();
+        var pe = periodRange.end.getTime();
+        var dayMs = 86400000;
+        var entryRanges = [];
+        entries.forEach(function(e) {
+          var from = e.from ? parseLocalDateString(e.from) : null;
+          var to = e.to ? parseLocalDateString(e.to) : null;
+          if (!from && to) from = to;
+          if (from && !to) to = from;
+          if (from && to && !isNaN(from.getTime()) && !isNaN(to.getTime())) {
+            var fromDay = new Date(from.getFullYear(), from.getMonth(), from.getDate()).getTime();
+            var toDay = new Date(to.getFullYear(), to.getMonth(), to.getDate()).getTime();
+            if (fromDay <= toDay) entryRanges.push({ start: fromDay, end: toDay });
+          }
+        });
+        if (entryRanges.length > 0) {
+          var allDaysCovered = true;
+          for (var d = ps; d <= pe; d += dayMs) {
+            var covered = entryRanges.some(function(r) { return d >= r.start && d <= r.end; });
+            if (!covered) { allDaysCovered = false; break; }
+          }
+          fullCoverage = allDaysCovered;
+        }
+      }
+      td.classList.remove('estimations-cell-warning', 'estimations-cell-unfilled', 'estimations-cell-approved');
+      var icon = td.querySelector('.estimations-warning-icon');
+      if (icon) icon.remove();
+      if (fullCoverage) {
+        td.classList.add('estimations-cell-filled');
+        td.setAttribute('data-fill-method', 'Manual entry');
+        td.removeAttribute('data-gap-days');
+        td.removeAttribute('data-unfilled-reason');
+        td.title = 'Manual entry — period fully covered';
+        td.innerHTML = '<span class="estimations-filled-icon" aria-hidden="true"><i class="fa-solid fa-circle-check"></i></span> ' + displayVal;
+      } else {
+        td.classList.add('estimations-cell-warning');
+        var gapDaysAttr = 'partial';
+        if (periodRange && entries.length > 0) {
+          var ps = periodRange.start.getTime();
+          var pe = periodRange.end.getTime();
+          var dayMs = 86400000;
+          var entryRanges = [];
+          entries.forEach(function(e) {
+            var from = e.from ? parseLocalDateString(e.from) : null;
+            var to = e.to ? parseLocalDateString(e.to) : null;
+            if (!from && to) from = to;
+            if (from && !to) to = from;
+            if (from && to && !isNaN(from.getTime()) && !isNaN(to.getTime())) {
+              var fromDay = new Date(from.getFullYear(), from.getMonth(), from.getDate()).getTime();
+              var toDay = new Date(to.getFullYear(), to.getMonth(), to.getDate()).getTime();
+              if (fromDay <= toDay) entryRanges.push({ start: fromDay, end: toDay });
+            }
+          });
+          if (entryRanges.length > 0) {
+            var uncoveredCount = 0;
+            for (var d = ps; d <= pe; d += dayMs) {
+              var covered = entryRanges.some(function(r) { return d >= r.start && d <= r.end; });
+              if (!covered) uncoveredCount++;
+            }
+            if (uncoveredCount > 0) gapDaysAttr = String(uncoveredCount);
+          }
+        }
+        td.setAttribute('data-gap-days', gapDaysAttr);
+        td.title = gapDaysAttr === 'partial' ? 'Partial data — more dates in this period need to be filled' : 'Partial data — ' + gapDaysAttr + ' day' + (gapDaysAttr === '1' ? '' : 's') + ' in this period still need to be filled';
+        td.innerHTML = '<span class="estimations-warning-icon" aria-hidden="true"><i class="fa-solid fa-triangle-exclamation"></i></span> ' + displayVal;
       }
       addActivityDataTargetCell = null;
       closeAddActivityDataModal();
@@ -26112,13 +26425,14 @@ Thank you.</div>
       closeEstimationsCellDetails();
     }
     function closeEstimationsCellDetails() {
-      var popover = document.getElementById('estimations-cell-popover');
-      if (popover) { popover.style.display = 'none'; popover.setAttribute('aria-hidden', 'true'); }
-      estimationsCellDetailsTargetCell = null;
-      if (estimationsCellDetailsCloseListener) {
-        document.removeEventListener('click', estimationsCellDetailsCloseListener);
-        estimationsCellDetailsCloseListener = null;
+      var drawer = document.getElementById('estimations-cell-popover');
+      var backdrop = document.getElementById('estimations-drawer-backdrop');
+      if (estimationsCellDetailsTargetCell) {
+        estimationsCellDetailsTargetCell.classList.remove('estimations-cell-selected');
       }
+      estimationsCellDetailsTargetCell = null;
+      if (backdrop) { backdrop.classList.remove('open'); backdrop.setAttribute('aria-hidden', 'true'); }
+      if (drawer) { drawer.classList.remove('open'); drawer.setAttribute('aria-hidden', 'true'); }
     }
     function revealApproveGapReason() {
       var form = document.getElementById('estimations-approve-gap-form');
