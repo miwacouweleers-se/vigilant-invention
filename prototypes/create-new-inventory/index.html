@@ -569,7 +569,10 @@
     .estimations-data-type-btn:hover { color: var(--ghg-primary-dark); }
     .estimations-data-type-chevron { font-size: 12px; color: var(--ghg-text-muted); transition: transform 0.2s ease; }
     .estimations-data-type-btn[aria-expanded="true"] .estimations-data-type-chevron { transform: rotate(180deg); }
-    .estimations-data-type-dropdown .estimations-data-type-menu { left: 0; right: auto; min-width: 240px; max-height: 320px; overflow-y: auto; }
+    .estimations-data-type-summary { font-size: 13px; color: var(--ghg-text-secondary); margin: 4px 0 0 0; line-height: 1.4; }
+    .estimations-data-type-dropdown .estimations-data-type-menu { left: 0; right: auto; min-width: 280px; max-height: 320px; overflow-y: auto; }
+    .estimations-data-type-menu .dropdown-item { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; text-align: left; padding: 10px 14px; }
+    .estimations-data-type-menu .dropdown-item .estimations-data-type-item-meta { font-size: 12px; color: var(--ghg-text-muted); font-weight: normal; }
     #view-estimations .search-input-wrapper.estimations-search { max-width: 320px; }
     #view-estimations .card:has(.estimations-table-wrapper) { width: 100%; }
     #view-estimations .card-body:has(.estimations-table-wrapper) { overflow-x: auto; -webkit-overflow-scrolling: touch; width: 100%; }
@@ -12426,21 +12429,22 @@
                   <span class="estimations-data-type-label" id="estimations-data-type-label">Electric power</span>
                   <i class="fa-light fa-chevron-down estimations-data-type-chevron" aria-hidden="true"></i>
                 </button>
+                <p class="estimations-data-type-summary" id="estimations-data-type-summary">12 gaps across 6 business entities</p>
                 <div class="dropdown-menu estimations-data-type-menu" id="estimations-data-type-menu" role="listbox" aria-hidden="true">
-                  <button type="button" class="dropdown-item" role="option" data-type="Electric power" onclick="selectEstimationsDataType('Electric power')">Electric power</button>
-                  <button type="button" class="dropdown-item" role="option" data-type="Natural gas" onclick="selectEstimationsDataType('Natural gas')">Natural gas</button>
-                  <button type="button" class="dropdown-item" role="option" data-type="District heating / cooling" onclick="selectEstimationsDataType('District heating / cooling')">District heating / cooling</button>
-                  <button type="button" class="dropdown-item" role="option" data-type="Fuel oil" onclick="selectEstimationsDataType('Fuel oil')">Fuel oil</button>
-                  <button type="button" class="dropdown-item" role="option" data-type="Fleet / Diesel" onclick="selectEstimationsDataType('Fleet / Diesel')">Fleet / Diesel</button>
-                  <button type="button" class="dropdown-item" role="option" data-type="Fleet / Gasoline" onclick="selectEstimationsDataType('Fleet / Gasoline')">Fleet / Gasoline</button>
-                  <button type="button" class="dropdown-item" role="option" data-type="Refrigerants" onclick="selectEstimationsDataType('Refrigerants')">Refrigerants</button>
-                  <button type="button" class="dropdown-item" role="option" data-type="Business travel" onclick="selectEstimationsDataType('Business travel')">Business travel</button>
-                  <button type="button" class="dropdown-item" role="option" data-type="Employee commuting" onclick="selectEstimationsDataType('Employee commuting')">Employee commuting</button>
-                  <button type="button" class="dropdown-item" role="option" data-type="Waste" onclick="selectEstimationsDataType('Waste')">Waste</button>
-                  <button type="button" class="dropdown-item" role="option" data-type="Purchased goods and services" onclick="selectEstimationsDataType('Purchased goods and services')">Purchased goods and services</button>
-                  <button type="button" class="dropdown-item" role="option" data-type="Capital goods" onclick="selectEstimationsDataType('Capital goods')">Capital goods</button>
-                  <button type="button" class="dropdown-item" role="option" data-type="Upstream transportation" onclick="selectEstimationsDataType('Upstream transportation')">Upstream transportation</button>
-                  <button type="button" class="dropdown-item" role="option" data-type="Downstream transportation" onclick="selectEstimationsDataType('Downstream transportation')">Downstream transportation</button>
+                  <button type="button" class="dropdown-item" role="option" data-type="Electric power" data-gaps="12" data-entities="6" onclick="selectEstimationsDataType('Electric power')"><span>Electric power</span><span class="estimations-data-type-item-meta">12 gaps · 6 business entities</span></button>
+                  <button type="button" class="dropdown-item" role="option" data-type="Natural gas" data-gaps="8" data-entities="4" onclick="selectEstimationsDataType('Natural gas')"><span>Natural gas</span><span class="estimations-data-type-item-meta">8 gaps · 4 business entities</span></button>
+                  <button type="button" class="dropdown-item" role="option" data-type="District heating / cooling" data-gaps="3" data-entities="2" onclick="selectEstimationsDataType('District heating / cooling')"><span>District heating / cooling</span><span class="estimations-data-type-item-meta">3 gaps · 2 business entities</span></button>
+                  <button type="button" class="dropdown-item" role="option" data-type="Fuel oil" data-gaps="5" data-entities="3" onclick="selectEstimationsDataType('Fuel oil')"><span>Fuel oil</span><span class="estimations-data-type-item-meta">5 gaps · 3 business entities</span></button>
+                  <button type="button" class="dropdown-item" role="option" data-type="Fleet / Diesel" data-gaps="0" data-entities="0" onclick="selectEstimationsDataType('Fleet / Diesel')"><span>Fleet / Diesel</span><span class="estimations-data-type-item-meta">0 gaps · 0 business entities</span></button>
+                  <button type="button" class="dropdown-item" role="option" data-type="Fleet / Gasoline" data-gaps="2" data-entities="1" onclick="selectEstimationsDataType('Fleet / Gasoline')"><span>Fleet / Gasoline</span><span class="estimations-data-type-item-meta">2 gaps · 1 business entity</span></button>
+                  <button type="button" class="dropdown-item" role="option" data-type="Refrigerants" data-gaps="0" data-entities="0" onclick="selectEstimationsDataType('Refrigerants')"><span>Refrigerants</span><span class="estimations-data-type-item-meta">0 gaps · 0 business entities</span></button>
+                  <button type="button" class="dropdown-item" role="option" data-type="Business travel" data-gaps="18" data-entities="7" onclick="selectEstimationsDataType('Business travel')"><span>Business travel</span><span class="estimations-data-type-item-meta">18 gaps · 7 business entities</span></button>
+                  <button type="button" class="dropdown-item" role="option" data-type="Employee commuting" data-gaps="4" data-entities="3" onclick="selectEstimationsDataType('Employee commuting')"><span>Employee commuting</span><span class="estimations-data-type-item-meta">4 gaps · 3 business entities</span></button>
+                  <button type="button" class="dropdown-item" role="option" data-type="Waste" data-gaps="1" data-entities="1" onclick="selectEstimationsDataType('Waste')"><span>Waste</span><span class="estimations-data-type-item-meta">1 gap · 1 business entity</span></button>
+                  <button type="button" class="dropdown-item" role="option" data-type="Purchased goods and services" data-gaps="0" data-entities="0" onclick="selectEstimationsDataType('Purchased goods and services')"><span>Purchased goods and services</span><span class="estimations-data-type-item-meta">0 gaps · 0 business entities</span></button>
+                  <button type="button" class="dropdown-item" role="option" data-type="Capital goods" data-gaps="0" data-entities="0" onclick="selectEstimationsDataType('Capital goods')"><span>Capital goods</span><span class="estimations-data-type-item-meta">0 gaps · 0 business entities</span></button>
+                  <button type="button" class="dropdown-item" role="option" data-type="Upstream transportation" data-gaps="6" data-entities="3" onclick="selectEstimationsDataType('Upstream transportation')"><span>Upstream transportation</span><span class="estimations-data-type-item-meta">6 gaps · 3 business entities</span></button>
+                  <button type="button" class="dropdown-item" role="option" data-type="Downstream transportation" data-gaps="0" data-entities="0" onclick="selectEstimationsDataType('Downstream transportation')"><span>Downstream transportation</span><span class="estimations-data-type-item-meta">0 gaps · 0 business entities</span></button>
                 </div>
               </div>
               <div class="estimations-actions-row">
@@ -25405,6 +25409,15 @@ Thank you.</div>
       var btn = document.getElementById('estimations-data-type-btn');
       if (menu) { menu.classList.remove('open'); menu.setAttribute('aria-hidden', 'true'); }
       if (btn) btn.setAttribute('aria-expanded', 'false');
+      var option = menu ? menu.querySelector('.dropdown-item[data-type="' + type.replace(/"/g, '\\"') + '"]') : null;
+      var summaryEl = document.getElementById('estimations-data-type-summary');
+      if (summaryEl && option) {
+        var gaps = option.getAttribute('data-gaps') || '0';
+        var entities = option.getAttribute('data-entities') || '0';
+        var g = parseInt(gaps, 10);
+        var e = parseInt(entities, 10);
+        summaryEl.textContent = g === 1 && e === 1 ? '1 gap across 1 business entity' : g === 1 ? '1 gap across ' + e + ' business entities' : e === 1 ? g + ' gaps across 1 business entity' : g + ' gaps across ' + e + ' business entities';
+      }
       document.removeEventListener('click', closeEstimationsDataTypeMenuOnClick);
     }
     function toggleEstimationsGapFillingMenu(ev) {
