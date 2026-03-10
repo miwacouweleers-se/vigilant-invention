@@ -2118,13 +2118,14 @@
     /* Add intensity model wizard modal (full page) */
     #add-intensity-model-wizard-backdrop .modal { max-width: none; width: 100%; height: 100%; max-height: none; border-radius: 0; display: flex; flex-direction: column; }
     #add-intensity-model-wizard-backdrop .modal-body { flex: 1; min-height: 0; display: flex; flex-direction: column; overflow: hidden; }
-    .add-intensity-model-wizard-stepper-wrap { flex-shrink: 0; overflow-x: auto; margin-bottom: 12px; padding: 20px 0 6px; -webkit-overflow-scrolling: touch; }
-    .add-intensity-model-wizard-stepper { flex-wrap: nowrap; justify-content: flex-start; min-width: max-content; margin-bottom: 0; padding: 0 16px; }
-    .add-intensity-model-wizard-stepper .wizard-step { gap: 6px; }
-    .add-intensity-model-wizard-stepper .step-circle { width: 28px; height: 28px; font-size: 12px; }
+    .add-intensity-model-wizard-stepper-wrap { flex-shrink: 0; overflow-x: auto; margin-bottom: 0; padding: 17px 0; display: flex; justify-content: center; min-height: 60px; box-sizing: border-box; -webkit-overflow-scrolling: touch; }
+    .add-intensity-model-wizard-stepper-wrap > .add-intensity-model-wizard-stepper { flex-shrink: 0; }
+    .add-intensity-model-wizard-content-wrap { flex: 1; min-height: 0; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+    .add-intensity-model-wizard-stepper { flex-wrap: nowrap; justify-content: flex-start; min-width: max-content; margin-bottom: 0; padding: 0 14px; display: flex; align-items: center; }
+    .add-intensity-model-wizard-stepper .wizard-step { gap: 5px; }
+    .add-intensity-model-wizard-stepper .step-circle { width: 26px; height: 26px; font-size: 12px; }
     .add-intensity-model-wizard-stepper .step-label { white-space: nowrap; font-size: 11px; }
-    .add-intensity-model-wizard-stepper .step-connector { width: 24px; margin: 0 6px; flex-shrink: 0; }
-    .add-intensity-model-wizard-content-wrap { flex: 1; min-height: 0; overflow-y: auto; }
+    .add-intensity-model-wizard-stepper .step-connector { width: 22px; margin: 0 5px; flex-shrink: 0; }
     .add-intensity-model-step-title { font-size: 14px; font-weight: 600; margin: 0 0 4px 0; color: var(--ghg-text); }
     .add-intensity-model-step-desc { font-size: 13px; color: var(--ghg-text-secondary); margin: 0; line-height: 1.4; }
     .add-intensity-model-wizard-footer { flex-shrink: 0; display: flex; justify-content: flex-end; align-items: center; gap: 10px; flex-wrap: wrap; padding: 12px 24px; }
@@ -2147,6 +2148,96 @@
     .add-intensity-model-date-wrap .form-input { padding-right: 36px; }
     .add-intensity-model-date-wrap .fa-calendar { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: var(--ghg-text-muted); font-size: 14px; pointer-events: none; }
     #add-intensity-model-step-2 .form-input[readonly] { background: var(--ghg-surface-elevated); color: var(--ghg-text); }
+    /* Step 4: Inclusions – site preferences */
+    .add-intensity-sites-pref-option { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .add-intensity-sites-pref-option label { margin: 0; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; font-size: 14px; font-weight: 600; color: var(--ghg-text); }
+    .add-intensity-sites-pref-option .form-select { width: auto; min-width: 120px; font-size: 14px; padding: 6px 28px 6px 10px; }
+    .add-intensity-sites-pref-option span { font-size: 14px; font-weight: 600; color: var(--ghg-text); }
+    /* Step 5: Thresholds */
+    .add-intensity-thresholds-section { margin-bottom: 24px; }
+    .add-intensity-thresholds-section:last-child { margin-bottom: 0; }
+    .add-intensity-threshold-inline { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .add-intensity-threshold-inline .form-input { width: 80px; }
+    .add-intensity-threshold-inline .threshold-unit { font-size: 14px; color: var(--ghg-text-secondary); }
+    /* Step 3: Aggregation matrix */
+    .add-intensity-aggregation-granularity-note { font-size: 13px; color: var(--ghg-text-secondary); line-height: 1.5; margin: 0 0 20px 0; padding: 12px 14px; background: var(--ghg-surface-elevated); border-radius: 8px; border-left: 3px solid var(--ghg-primary); }
+    .add-intensity-aggregation-matrix-wrap { display: inline-block; border: 1px solid var(--ghg-border); border-radius: 8px; overflow: hidden; margin-top: 8px; }
+    .add-intensity-aggregation-matrix { display: grid; grid-template-columns: 120px repeat(3, minmax(100px, 1fr)); grid-template-rows: auto repeat(3, 44px); font-size: 13px; min-width: 400px; }
+    .add-intensity-aggregation-matrix .matrix-corner { background: var(--ghg-surface-elevated); border-right: 1px solid var(--ghg-border); border-bottom: 1px solid var(--ghg-border); min-width: 120px; min-height: 40px; }
+    .add-intensity-aggregation-matrix .matrix-granularity-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.02em; }
+    .add-intensity-aggregation-matrix .matrix-granularity-least { color: var(--ghg-text-muted); }
+    .add-intensity-aggregation-matrix .matrix-granularity-most { color: rgba(255,255,255,0.95); }
+    .add-intensity-aggregation-matrix .matrix-col-header { padding: 8px 10px; background: var(--ghg-surface-elevated); border-right: 1px solid var(--ghg-border); border-bottom: 1px solid var(--ghg-border); display: flex; align-items: center; justify-content: center; min-height: 40px; }
+    .add-intensity-aggregation-matrix .matrix-col-header:last-child { border-right: none; }
+    .add-intensity-aggregation-matrix .matrix-col-header .form-select { width: 100%; min-width: 110px; font-size: 13px; padding: 6px 28px 6px 10px; }
+    .add-intensity-aggregation-matrix .matrix-row-header { padding: 8px 10px; background: var(--ghg-surface-elevated); border-right: 1px solid var(--ghg-border); border-bottom: 1px solid var(--ghg-border); display: flex; align-items: center; min-width: 120px; min-height: 44px; }
+    .add-intensity-aggregation-matrix .matrix-row-header .form-select { width: 100%; min-width: 110px; font-size: 13px; padding: 6px 28px 6px 10px; }
+    .add-intensity-aggregation-matrix .matrix-cell { border-right: 1px solid var(--ghg-border); border-bottom: 1px solid var(--ghg-border); min-width: 80px; min-height: 44px; }
+    .add-intensity-aggregation-matrix .matrix-cell:last-child { border-right: none; }
+    .add-intensity-aggregation-matrix .matrix-cell:nth-last-child(-n+3) { border-bottom: none; }
+    .add-intensity-aggregation-matrix .matrix-row-header:nth-child(13) { border-bottom: none; }
+    .add-intensity-aggregation-matrix .matrix-cell.granularity-0-0 { background: #e3f2fd; display: flex; align-items: center; justify-content: center; padding: 8px; }
+    .add-intensity-aggregation-matrix .matrix-cell.granularity-0-1 { background: #bbdefb; }
+    .add-intensity-aggregation-matrix .matrix-cell.granularity-0-2 { background: #90caf9; }
+    .add-intensity-aggregation-matrix .matrix-cell.granularity-1-0 { background: #bbdefb; }
+    .add-intensity-aggregation-matrix .matrix-cell.granularity-1-1 { background: #90caf9; }
+    .add-intensity-aggregation-matrix .matrix-cell.granularity-1-2 { background: #64b5f6; }
+    .add-intensity-aggregation-matrix .matrix-cell.granularity-2-0 { background: #90caf9; }
+    .add-intensity-aggregation-matrix .matrix-cell.granularity-2-1 { background: #64b5f6; }
+    .add-intensity-aggregation-matrix .matrix-cell.granularity-2-2 { background: #42a5f5; display: flex; align-items: center; justify-content: center; padding: 8px; }
+    /* Dataset Preview (BI-style) from aggregation step onward */
+    .add-intensity-dataset-preview { margin-top: 24px; }
+    .add-intensity-dataset-preview-persistent { flex-shrink: 0; margin-top: 0; padding-top: 10px; border-top: 1px solid var(--ghg-border); background: var(--ghg-surface); margin-left: -24px; margin-right: -24px; margin-bottom: -16px; padding-left: 24px; padding-right: 24px; padding-bottom: 10px; }
+    .add-intensity-dataset-preview-persistent .add-intensity-dataset-preview-table-wrap { max-height: 180px; }
+    .add-intensity-dataset-preview-title { font-size: 14px; font-weight: 600; color: var(--ghg-success); margin: 0 0 8px 0; }
+    .add-intensity-dataset-preview-table-wrap { border: 1px solid var(--ghg-border); border-radius: 8px; overflow: auto; max-height: 320px; background: var(--ghg-surface); -webkit-overflow-scrolling: touch; }
+    .add-intensity-dataset-preview-table { width: max-content; min-width: 100%; border-collapse: collapse; font-size: 13px; }
+    .add-intensity-dataset-preview-table thead { position: sticky; top: 0; z-index: 1; }
+    .add-intensity-dataset-preview-table th { text-align: left; padding: 6px 10px; background: var(--ghg-success); color: #fff; font-weight: 600; white-space: nowrap; border-bottom: 1px solid rgba(255,255,255,0.2); font-size: 12px; }
+    .add-intensity-dataset-preview-table th .bi-col-icon { display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; margin-right: 6px; font-size: 11px; font-weight: 700; background: rgba(255,255,255,0.25); border-radius: 4px; }
+    .add-intensity-dataset-preview-table th .bi-col-sort { margin-left: 4px; opacity: 0.9; font-size: 10px; }
+    .add-intensity-dataset-preview-table td { padding: 5px 10px; border-bottom: 1px solid var(--ghg-border); color: var(--ghg-text); font-size: 12px; }
+    .add-intensity-dataset-preview-table tbody tr:nth-child(even) { background: var(--ghg-surface-elevated); }
+    .add-intensity-dataset-preview-table tbody tr:nth-child(odd) { background: var(--ghg-surface); }
+    .add-intensity-dataset-preview-table th,
+    .add-intensity-dataset-preview-table td { min-width: 110px; max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .add-intensity-dataset-preview-footer { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 6px 0 0; flex-wrap: wrap; }
+    .add-intensity-dataset-preview-footer .records-select { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--ghg-text-secondary); }
+    .add-intensity-dataset-preview-footer .records-select select { padding: 4px 8px; font-size: 13px; border-radius: 6px; border: 1px solid var(--ghg-border); background: var(--ghg-surface); color: var(--ghg-text); }
+    .add-intensity-dataset-preview-footer .previewing-text { font-size: 13px; font-weight: 500; color: var(--ghg-success); }
+    .add-intensity-dataset-preview-header { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 8px; flex-wrap: wrap; }
+    .add-intensity-dataset-preview-header .add-intensity-dataset-preview-title { margin: 0; }
+    .add-intensity-columns-dropdown { position: relative; }
+    .add-intensity-columns-btn { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; font-size: 13px; font-weight: 500; color: var(--ghg-text); background: var(--ghg-surface-elevated); border: 1px solid var(--ghg-border); border-radius: 6px; cursor: pointer; }
+    .add-intensity-columns-btn:hover { background: var(--ghg-surface-hover); }
+    .add-intensity-columns-btn .fa-chevron-down { font-size: 10px; transition: transform 0.2s; }
+    .add-intensity-columns-dropdown.open .add-intensity-columns-btn .fa-chevron-down { transform: rotate(180deg); }
+    .add-intensity-columns-panel { position: absolute; right: 0; top: 100%; margin-top: 4px; width: 320px; max-width: 90vw; background: var(--ghg-surface); border: 1px solid var(--ghg-border); border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.15); padding: 12px; max-height: 380px; overflow: hidden; display: flex; flex-direction: column; z-index: 100; display: none; }
+    .add-intensity-columns-dropdown.open .add-intensity-columns-panel { display: flex; }
+    .add-intensity-columns-list { overflow-y: auto; flex: 1; margin-bottom: 12px; }
+    .add-intensity-columns-row { display: flex; align-items: center; gap: 10px; padding: 8px 10px; font-size: 13px; color: var(--ghg-text); border-radius: 6px; }
+    .add-intensity-columns-row:hover { background: var(--ghg-surface-hover); }
+    .add-intensity-columns-row.dragging { opacity: 0.6; }
+    .add-intensity-columns-drag { color: var(--ghg-text-muted); cursor: grab; font-size: 14px; }
+    .add-intensity-columns-drag:active { cursor: grabbing; }
+    .add-intensity-columns-row .col-name { flex: 1; }
+    .add-intensity-columns-toggle-wrap { display: inline-flex; cursor: pointer; flex-shrink: 0; }
+    .add-intensity-columns-toggle-wrap input { position: absolute; opacity: 0; width: 0; height: 0; }
+    .add-intensity-columns-toggle { width: 36px; height: 20px; border-radius: 10px; background: var(--ghg-border); position: relative; transition: background 0.2s; display: block; }
+    .add-intensity-columns-toggle-wrap:has(input:checked) .add-intensity-columns-toggle { background: var(--ghg-success); }
+    .add-intensity-columns-toggle::after { content: ''; position: absolute; width: 16px; height: 16px; border-radius: 50%; background: #fff; top: 2px; left: 2px; box-shadow: 0 1px 3px rgba(0,0,0,0.2); transition: transform 0.2s; }
+    .add-intensity-columns-toggle-wrap:has(input:checked) .add-intensity-columns-toggle::after { transform: translateX(16px); }
+    .add-intensity-columns-actions { display: flex; gap: 8px; flex-shrink: 0; }
+    .add-intensity-columns-actions .btn { flex: 1; }
+    /* UoM step: search + data type rows */
+    .add-intensity-uom-search-wrap { position: relative; margin: 16px 0 20px 0; }
+    .add-intensity-uom-search-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); font-size: 16px; color: var(--ghg-text-muted); pointer-events: none; }
+    .add-intensity-uom-search { padding-left: 42px; width: 100%; }
+    .add-intensity-uom-list { display: flex; flex-direction: column; gap: 16px; }
+    .add-intensity-uom-row { display: flex; flex-direction: column; gap: 6px; }
+    .add-intensity-uom-row-label { font-size: 14px; font-weight: 500; color: var(--ghg-text); }
+    .add-intensity-uom-row select.add-intensity-uom-select { width: 100%; max-width: 320px; padding: 8px 32px 8px 12px; font-size: 14px; border: 1px solid var(--ghg-border); border-radius: 6px; background: var(--ghg-surface); color: var(--ghg-text); }
+    .add-intensity-uom-row select.add-intensity-uom-select:focus { outline: none; border-color: var(--ghg-success); box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.2); }
     /* Data types dropdown (multi-select with tags) */
     .add-intensity-data-types-dropdown { position: relative; }
     .add-intensity-data-types-trigger { position: relative; width: 100%; text-align: left; display: flex; align-items: center; flex-wrap: wrap; gap: 6px; padding: 8px 36px 8px 14px; min-height: 42px; cursor: pointer; }
@@ -10851,7 +10942,11 @@
     .campaign-filters.ownership-filters .ownership-filter { width: 180px; min-width: 180px; max-width: 180px; padding: 6px 10px; font-size: 13px; box-sizing: border-box; }
     .campaign-filters.ownership-filters .ownership-filter-chip-wrap { flex-shrink: 0; }
     .ownership-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; margin-bottom: 16px; }
+    .activity-log-product-row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+    .activity-log-product-label { font-size: 13px; color: var(--ghg-text-secondary); margin: 0; white-space: nowrap; }
     .activity-log-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-bottom: 16px; }
+    .activity-log-table-v3 .activity-log-product-col,
+    .activity-log-table-v3 .activity-log-product-cell { min-width: 120px; width: 1%; white-space: nowrap; }
     .activity-log-card-body { padding: 0; overflow: hidden; }
     .activity-log-table-wrap { width: 100%; min-width: 0; overflow-x: auto; -webkit-overflow-scrolling: touch; }
     .activity-log-table { width: 100%; min-width: 920px; table-layout: fixed; font-size: 14px; }
@@ -10932,20 +11027,23 @@
     .activity-log-filter-multi-options input[type="checkbox"] { margin: 0; width: 16px; height: 16px; accent-color: var(--ghg-success); flex-shrink: 0; }
     .activity-log-table-v3 th .activity-log-th-tooltip { cursor: help; margin-left: 4px; color: var(--ghg-text-muted); }
     .activity-log-table-v3 th .activity-log-th-tooltip:hover { color: var(--ghg-primary); }
-    .activity-log-table-v3 { min-width: 1100px; }
+    .activity-log-table-v3 { width: 100%; table-layout: auto; }
+    .activity-log-table-v3 .activity-log-ts-col,
+    .activity-log-table-v3 .activity-log-ts-cell { min-width: 130px; width: 1%; white-space: nowrap; }
+    .activity-log-table-v3 .activity-log-user-col,
+    .activity-log-table-v3 .activity-log-user-cell { min-width: 140px; width: 1%; }
+    .activity-log-table-v3 .activity-log-action-col,
+    .activity-log-table-v3 .activity-log-action-cell { min-width: 80px; width: 1%; white-space: nowrap; }
+    .activity-log-table-v3 .activity-log-where-col,
+    .activity-log-table-v3 .activity-log-where-cell { min-width: 100px; width: 1%; }
     .activity-log-table-v3 .activity-log-affected-col,
-    .activity-log-table-v3 th:nth-child(5),
-    .activity-log-table-v3 td:nth-child(5) { max-width: 200px; width: 200px; }
-    .activity-log-table-v3 th:nth-child(6),
-    .activity-log-table-v3 td:nth-child(6),
-    .activity-log-table-v3 th:nth-child(7),
-    .activity-log-table-v3 td:nth-child(7) { white-space: normal; overflow-wrap: break-word; word-break: break-word; }
-    .activity-log-table-v3 .activity-log-value-before-col,
-    .activity-log-table-v3 .activity-log-value-after-col,
-    .activity-log-table-v3 th:nth-child(6),
-    .activity-log-table-v3 td:nth-child(6),
-    .activity-log-table-v3 th:nth-child(7),
-    .activity-log-table-v3 td:nth-child(7) { width: 200px; min-width: 200px; max-width: 200px; }
+    .activity-log-table-v3 .activity-log-affected-cell { min-width: 160px; width: 15%; white-space: normal; overflow-wrap: break-word; word-break: break-word; }
+    .activity-log-table-v3 .activity-log-details-col,
+    .activity-log-table-v3 .activity-log-details-cell { min-width: 180px; width: 25%; white-space: normal; overflow-wrap: break-word; word-break: break-word; }
+    .activity-log-table-v3 .activity-log-agent-col { min-width: 90px; width: 1%; white-space: nowrap; }
+    .activity-log-table-v3 .activity-log-details-cell { color: var(--ghg-text-secondary); }
+    .activity-log-table-v3 .activity-log-details-cell .activity-log-view-details { margin-left: 6px; color: var(--ghg-primary-dark); cursor: pointer; white-space: nowrap; font-size: 12px; }
+    .activity-log-table-v3 .activity-log-details-cell .activity-log-view-details:hover { text-decoration: underline; }
     /* Activity log V3 filters drawer */
     .activity-log-filters-backdrop-v3 { position: fixed; inset: 0; z-index: 2099; background: rgba(0,0,0,0.25); opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 0.2s ease, visibility 0.2s ease; }
     .activity-log-filters-backdrop-v3.open { opacity: 1; visibility: visible; pointer-events: auto; }
@@ -13519,11 +13617,7 @@
                   <div class="step-connector"></div>
                   <div class="wizard-step" data-step="5" role="tab"><span class="step-circle">5</span><span class="step-label">Thresholds</span></div>
                   <div class="step-connector"></div>
-                  <div class="wizard-step" data-step="6" role="tab"><span class="step-circle">6</span><span class="step-label">Columns</span></div>
-                  <div class="step-connector"></div>
-                  <div class="wizard-step" data-step="7" role="tab"><span class="step-circle">7</span><span class="step-label">UoM</span></div>
-                  <div class="step-connector"></div>
-                  <div class="wizard-step" data-step="8" role="tab"><span class="step-circle">8</span><span class="step-label">Permissions</span></div>
+                  <div class="wizard-step" data-step="6" role="tab"><span class="step-circle">6</span><span class="step-label">UoM</span></div>
                 </div>
               </div>
               <div class="add-intensity-model-wizard-content-wrap">
@@ -13541,6 +13635,7 @@
                     <div class="add-intensity-model-radio-options">
                       <label><input type="radio" name="add-intensity-source" value="inventory" checked> Use intensities based on our inventory</label>
                       <label><input type="radio" name="add-intensity-source" value="standard"> Use a standard intensity set</label>
+                      <label><input type="radio" name="add-intensity-source" value="manual"> Use manually entered intensities</label>
                     </div>
                   </div>
                   <h4 class="add-intensity-model-setup-heading">Intensity Calculation Setup</h4>
@@ -13586,34 +13681,271 @@
                   </div>
                   <div class="form-group">
                     <label class="form-label" for="add-intensity-size-indicator">Size Indicator</label>
-                    <input type="text" class="form-input" id="add-intensity-size-indicator" value="CDP Square Footage" readonly aria-label="Size indicator">
+                    <select class="form-select" id="add-intensity-size-indicator" aria-label="Size indicator">
+                      <option value="Floor size" selected>Floor size</option>
+                      <option value="Production pounds">Production pounds</option>
+                      <option value="Headcount">Headcount</option>
+                      <option value="Operational hours">Operational hours</option>
+                    </select>
                   </div>
                 </div>
                 <div class="wizard-step-content" data-step="3" id="add-intensity-model-step-3">
-                  <h3 class="add-intensity-model-step-title">Aggregation dimensions</h3>
-                  <p class="add-intensity-model-step-desc">Choose which dimensions to aggregate by (e.g. site, entity, period).</p>
+                  <h3 class="add-intensity-model-step-title">Aggregation</h3>
+                  <p class="add-intensity-model-step-desc">Define how location and building dimensions combine. Each row and column label is a dropdown—select the level of granularity for that position.</p>
+                  <p class="add-intensity-aggregation-granularity-note">The <strong>bottom-most row</strong> and <strong>right-most column</strong> represent the most granular levels. The cell at their intersection (bottom-right) yields the <strong>most granular intensity value</strong>. Rows above and columns to the left are less granular; the gradient indicates increasing granularity toward that corner.</p>
+                  <div class="add-intensity-aggregation-matrix-wrap">
+                    <div class="add-intensity-aggregation-matrix" id="add-intensity-aggregation-matrix" role="grid" aria-label="Aggregation matrix">
+                      <div class="matrix-corner" role="presentation"></div>
+                      <div class="matrix-col-header" role="columnheader">
+                        <select class="form-select" id="add-intensity-matrix-col-0" aria-label="Column 1 dimension">
+                          <option value="building-type-1">Building Type 1</option>
+                          <option value="building-type-2">Building Type 2</option>
+                          <option value="building-type-3">Building Type 3</option>
+                        </select>
+                      </div>
+                      <div class="matrix-col-header" role="columnheader">
+                        <select class="form-select" id="add-intensity-matrix-col-1" aria-label="Column 2 dimension">
+                          <option value="building-type-1">Building Type 1</option>
+                          <option value="building-type-2" selected>Building Type 2</option>
+                          <option value="building-type-3">Building Type 3</option>
+                        </select>
+                      </div>
+                      <div class="matrix-col-header" role="columnheader">
+                        <select class="form-select" id="add-intensity-matrix-col-2" aria-label="Column 3 dimension">
+                          <option value="building-type-1">Building Type 1</option>
+                          <option value="building-type-2">Building Type 2</option>
+                          <option value="building-type-3" selected>Building Type 3</option>
+                        </select>
+                      </div>
+                      <div class="matrix-row-header" role="rowheader">
+                        <select class="form-select" id="add-intensity-matrix-row-0" aria-label="Row 1 dimension">
+                          <option value="location-type-1" selected>Location Type 1</option>
+                          <option value="location-type-2">Location Type 2</option>
+                          <option value="location-type-3">Location Type 3</option>
+                        </select>
+                      </div>
+                      <div class="matrix-cell granularity-0-0" role="gridcell"><span class="matrix-granularity-label matrix-granularity-least">Least granular</span></div>
+                      <div class="matrix-cell granularity-0-1" role="gridcell"></div>
+                      <div class="matrix-cell granularity-0-2" role="gridcell"></div>
+                      <div class="matrix-row-header" role="rowheader">
+                        <select class="form-select" id="add-intensity-matrix-row-1" aria-label="Row 2 dimension">
+                          <option value="location-type-1">Location Type 1</option>
+                          <option value="location-type-2" selected>Location Type 2</option>
+                          <option value="location-type-3">Location Type 3</option>
+                        </select>
+                      </div>
+                      <div class="matrix-cell granularity-1-0" role="gridcell"></div>
+                      <div class="matrix-cell granularity-1-1" role="gridcell"></div>
+                      <div class="matrix-cell granularity-1-2" role="gridcell"></div>
+                      <div class="matrix-row-header" role="rowheader">
+                        <select class="form-select" id="add-intensity-matrix-row-2" aria-label="Row 3 dimension">
+                          <option value="location-type-1">Location Type 1</option>
+                          <option value="location-type-2">Location Type 2</option>
+                          <option value="location-type-3" selected>Location Type 3</option>
+                        </select>
+                      </div>
+                      <div class="matrix-cell granularity-2-0" role="gridcell"></div>
+                      <div class="matrix-cell granularity-2-1" role="gridcell"></div>
+                      <div class="matrix-cell granularity-2-2" role="gridcell"><span class="matrix-granularity-label matrix-granularity-most">Most granular</span></div>
+                    </div>
+                  </div>
                 </div>
                 <div class="wizard-step-content" data-step="4" id="add-intensity-model-step-4">
                   <h3 class="add-intensity-model-step-title">Inclusions</h3>
                   <p class="add-intensity-model-step-desc">Specify which sites, entities, or categories to include in this model.</p>
+                  <div class="add-intensity-model-radio-group" style="margin-top: 16px;">
+                    <div class="add-intensity-model-radio-options">
+                      <label>
+                        <input type="radio" name="add-intensity-sites-pref" value="all" checked> All Sites
+                      </label>
+                      <div class="add-intensity-sites-pref-option">
+                        <label>
+                          <input type="radio" name="add-intensity-sites-pref" value="actual"> Sites with at least
+                        </label>
+                        <select class="form-select" id="add-intensity-sites-actual-duration" aria-label="Minimum duration for actual data">
+                          <option value="3">3 months</option>
+                          <option value="6" selected>6 months</option>
+                          <option value="12">12 months</option>
+                        </select>
+                        <span>actual data</span>
+                      </div>
+                      <div class="add-intensity-sites-pref-option">
+                        <label>
+                          <input type="radio" name="add-intensity-sites-pref" value="any"> Sites with at least
+                        </label>
+                        <select class="form-select" id="add-intensity-sites-any-duration" aria-label="Minimum duration for any data">
+                          <option value="3">3 months</option>
+                          <option value="6" selected>6 months</option>
+                          <option value="12">12 months</option>
+                        </select>
+                        <span>any data</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <div class="wizard-step-content" data-step="5" id="add-intensity-model-step-5">
                   <h3 class="add-intensity-model-step-title">Thresholds</h3>
                   <p class="add-intensity-model-step-desc">Set minimum or maximum thresholds for data quality or applicability.</p>
+                  <div class="add-intensity-thresholds-section" style="margin-top: 20px;">
+                    <h4 class="add-intensity-model-setup-heading">Fallback Intensity</h4>
+                    <div class="add-intensity-model-radio-group">
+                      <div class="add-intensity-model-radio-options">
+                        <label><input type="checkbox" id="add-intensity-cbecs-fallback" checked> Use CBECS as a fallback intensity</label>
+                      </div>
+                    </div>
+                    <div class="form-group" style="margin-top: 12px;">
+                      <label class="form-label" for="add-intensity-cbecs-attribute">Site Attribute Comparison</label>
+                      <select class="form-select" id="add-intensity-cbecs-attribute" aria-label="Site attribute comparison">
+                        <option value="CBECS Property Type" selected>CBECS Property Type</option>
+                        <option value="Building Type">Building Type</option>
+                        <option value="Sector">Sector</option>
+                      </select>
+                    </div>
+                    <p class="add-intensity-model-step-desc" style="margin: 8px 0 0 0; font-size: 12px;">CBECs intensities are limited to kWh, cf, and gallons for Electric Power, Natural Gas, and Water.</p>
+                  </div>
+                  <div class="add-intensity-thresholds-section">
+                    <h4 class="add-intensity-model-setup-heading">Outlier Threshold</h4>
+                    <div class="add-intensity-model-radio-group">
+                      <div class="add-intensity-model-radio-options">
+                        <label><input type="radio" name="add-intensity-outlier" value="max"> Set Maximum Site Outlier Threshold</label>
+                        <label><input type="radio" name="add-intensity-outlier" value="fallback" checked> Set Threshold Based on Fallback Intensity</label>
+                      </div>
+                    </div>
+                    <div class="form-group" style="margin-top: 12px;">
+                      <label class="form-label" for="add-intensity-outlier-threshold">Threshold</label>
+                      <div class="add-intensity-threshold-inline">
+                        <input type="number" class="form-input" id="add-intensity-outlier-threshold" value="3.00" step="0.01" min="0" aria-label="Outlier threshold multiplier">
+                        <span class="threshold-unit">x fallback value</span>
+                      </div>
+                    </div>
+                    <div class="form-group" style="margin-top: 12px;">
+                      <label class="form-label" for="add-intensity-min-site-count">Minimum site count in aggregation group</label>
+                      <input type="number" class="form-input" id="add-intensity-min-site-count" value="5" min="1" aria-label="Minimum site count" style="width: 80px;">
+                    </div>
+                  </div>
                 </div>
                 <div class="wizard-step-content" data-step="6" id="add-intensity-model-step-6">
-                  <h3 class="add-intensity-model-step-title">Columns</h3>
-                  <p class="add-intensity-model-step-desc">Define which columns (metrics or attributes) are used in the model.</p>
-                </div>
-                <div class="wizard-step-content" data-step="7" id="add-intensity-model-step-7">
                   <h3 class="add-intensity-model-step-title">Units of measure</h3>
-                  <p class="add-intensity-model-step-desc">Select or configure units of measure for inputs and outputs (e.g. kWh, sq ft).</p>
-                </div>
-                <div class="wizard-step-content" data-step="8" id="add-intensity-model-step-8">
-                  <h3 class="add-intensity-model-step-title">Permissions</h3>
-                  <p class="add-intensity-model-step-desc">Set who can view, edit, or run this intensity model.</p>
+                  <p class="add-intensity-model-step-desc">Select units of measure for each data type. The data types shown depend on the data types selected on the Intensity step.</p>
+                  <div class="add-intensity-uom-search-wrap">
+                    <i class="fa-light fa-search add-intensity-uom-search-icon" aria-hidden="true"></i>
+                    <input type="text" class="form-input add-intensity-uom-search" id="add-intensity-uom-search" placeholder="Search all UOMs..." aria-label="Search all UOMs" oninput="filterAddIntensityUomBySearch()">
+                  </div>
+                  <div class="add-intensity-uom-list" id="add-intensity-uom-list"></div>
                 </div>
               </div>
+              <div class="add-intensity-dataset-preview add-intensity-dataset-preview-persistent" id="add-intensity-dataset-preview-persistent" style="display: none;">
+                  <div class="add-intensity-dataset-preview-header">
+                    <h4 class="add-intensity-dataset-preview-title">Dataset Preview</h4>
+                    <div class="add-intensity-columns-dropdown" id="add-intensity-columns-dropdown">
+                      <button type="button" class="add-intensity-columns-btn" onclick="toggleIntensityColumnsPanel(event)" aria-expanded="false" aria-haspopup="true">
+                        <i class="fa-light fa-table-columns" aria-hidden="true"></i> Columns <i class="fa-light fa-chevron-down" aria-hidden="true"></i>
+                      </button>
+                      <div class="add-intensity-columns-panel" id="add-intensity-columns-panel" role="dialog" aria-label="Customize columns">
+                        <div class="add-intensity-columns-list" id="add-intensity-columns-list" ondragover="handleIntensityColumnDragover(event)" ondrop="handleIntensityColumnDrop(event)" ondragstart="handleIntensityColumnDragstart(event)" ondragend="handleIntensityColumnDragend(event)">
+                          <div class="add-intensity-columns-row" draggable="true"><span class="add-intensity-columns-drag" aria-hidden="true"><i class="fa-light fa-grip-vertical"></i></span><span class="col-name">PARTICIPANT_LEVEL</span><label class="add-intensity-columns-toggle-wrap"><input type="checkbox" data-col-index="0" checked><span class="add-intensity-columns-toggle"></span></label></div>
+                          <div class="add-intensity-columns-row" draggable="true"><span class="add-intensity-columns-drag" aria-hidden="true"><i class="fa-light fa-grip-vertical"></i></span><span class="col-name">CLIENT_HIER_ID</span><label class="add-intensity-columns-toggle-wrap"><input type="checkbox" data-col-index="1" checked><span class="add-intensity-columns-toggle"></span></label></div>
+                          <div class="add-intensity-columns-row" draggable="true"><span class="add-intensity-columns-drag" aria-hidden="true"><i class="fa-light fa-grip-vertical"></i></span><span class="col-name">SITEGROUP_NAME</span><label class="add-intensity-columns-toggle-wrap"><input type="checkbox" data-col-index="2" checked><span class="add-intensity-columns-toggle"></span></label></div>
+                          <div class="add-intensity-columns-row" draggable="true"><span class="add-intensity-columns-drag" aria-hidden="true"><i class="fa-light fa-grip-vertical"></i></span><span class="col-name">DIVISION</span><label class="add-intensity-columns-toggle-wrap"><input type="checkbox" data-col-index="3" checked><span class="add-intensity-columns-toggle"></span></label></div>
+                          <div class="add-intensity-columns-row" draggable="true"><span class="add-intensity-columns-drag" aria-hidden="true"><i class="fa-light fa-grip-vertical"></i></span><span class="col-name">PARTICIPANT_NAME</span><label class="add-intensity-columns-toggle-wrap"><input type="checkbox" data-col-index="4" checked><span class="add-intensity-columns-toggle"></span></label></div>
+                          <div class="add-intensity-columns-row" draggable="true"><span class="add-intensity-columns-drag" aria-hidden="true"><i class="fa-light fa-grip-vertical"></i></span><span class="col-name">SITE_STATUS</span><label class="add-intensity-columns-toggle-wrap"><input type="checkbox" data-col-index="5" checked><span class="add-intensity-columns-toggle"></span></label></div>
+                          <div class="add-intensity-columns-row" draggable="true"><span class="add-intensity-columns-drag" aria-hidden="true"><i class="fa-light fa-grip-vertical"></i></span><span class="col-name">SITE_REFERENCE_NUMBER</span><label class="add-intensity-columns-toggle-wrap"><input type="checkbox" data-col-index="6" checked><span class="add-intensity-columns-toggle"></span></label></div>
+                          <div class="add-intensity-columns-row" draggable="true"><span class="add-intensity-columns-drag" aria-hidden="true"><i class="fa-light fa-grip-vertical"></i></span><span class="col-name">ADDRESS</span><label class="add-intensity-columns-toggle-wrap"><input type="checkbox" data-col-index="7" checked><span class="add-intensity-columns-toggle"></span></label></div>
+                          <div class="add-intensity-columns-row" draggable="true"><span class="add-intensity-columns-drag" aria-hidden="true"><i class="fa-light fa-grip-vertical"></i></span><span class="col-name">CITY</span><label class="add-intensity-columns-toggle-wrap"><input type="checkbox" data-col-index="8" checked><span class="add-intensity-columns-toggle"></span></label></div>
+                          <div class="add-intensity-columns-row" draggable="true"><span class="add-intensity-columns-drag" aria-hidden="true"><i class="fa-light fa-grip-vertical"></i></span><span class="col-name">STATE</span><label class="add-intensity-columns-toggle-wrap"><input type="checkbox" data-col-index="9" checked><span class="add-intensity-columns-toggle"></span></label></div>
+                          <div class="add-intensity-columns-row" draggable="true"><span class="add-intensity-columns-drag" aria-hidden="true"><i class="fa-light fa-grip-vertical"></i></span><span class="col-name">COUNTRY</span><label class="add-intensity-columns-toggle-wrap"><input type="checkbox" data-col-index="10" checked><span class="add-intensity-columns-toggle"></span></label></div>
+                          <div class="add-intensity-columns-row" draggable="true"><span class="add-intensity-columns-drag" aria-hidden="true"><i class="fa-light fa-grip-vertical"></i></span><span class="col-name">ZIPCODE</span><label class="add-intensity-columns-toggle-wrap"><input type="checkbox" data-col-index="11" checked><span class="add-intensity-columns-toggle"></span></label></div>
+                          <div class="add-intensity-columns-row" draggable="true"><span class="add-intensity-columns-drag" aria-hidden="true"><i class="fa-light fa-grip-vertical"></i></span><span class="col-name">COMMODITY_ID</span><label class="add-intensity-columns-toggle-wrap"><input type="checkbox" data-col-index="12" checked><span class="add-intensity-columns-toggle"></span></label></div>
+                          <div class="add-intensity-columns-row" draggable="true"><span class="add-intensity-columns-drag" aria-hidden="true"><i class="fa-light fa-grip-vertical"></i></span><span class="col-name">DATA_STREAM</span><label class="add-intensity-columns-toggle-wrap"><input type="checkbox" data-col-index="13" checked><span class="add-intensity-columns-toggle"></span></label></div>
+                          <div class="add-intensity-columns-row" draggable="true"><span class="add-intensity-columns-drag" aria-hidden="true"><i class="fa-light fa-grip-vertical"></i></span><span class="col-name">MONTH</span><label class="add-intensity-columns-toggle-wrap"><input type="checkbox" data-col-index="14" checked><span class="add-intensity-columns-toggle"></span></label></div>
+                          <div class="add-intensity-columns-row" draggable="true"><span class="add-intensity-columns-drag" aria-hidden="true"><i class="fa-light fa-grip-vertical"></i></span><span class="col-name">QUARTER</span><label class="add-intensity-columns-toggle-wrap"><input type="checkbox" data-col-index="15" checked><span class="add-intensity-columns-toggle"></span></label></div>
+                          <div class="add-intensity-columns-row" draggable="true"><span class="add-intensity-columns-drag" aria-hidden="true"><i class="fa-light fa-grip-vertical"></i></span><span class="col-name">YEAR</span><label class="add-intensity-columns-toggle-wrap"><input type="checkbox" data-col-index="16" checked><span class="add-intensity-columns-toggle"></span></label></div>
+                          <div class="add-intensity-columns-row" draggable="true"><span class="add-intensity-columns-drag" aria-hidden="true"><i class="fa-light fa-grip-vertical"></i></span><span class="col-name">SERVICE_MONTH</span><label class="add-intensity-columns-toggle-wrap"><input type="checkbox" data-col-index="17" checked><span class="add-intensity-columns-toggle"></span></label></div>
+                          <div class="add-intensity-columns-row" draggable="true"><span class="add-intensity-columns-drag" aria-hidden="true"><i class="fa-light fa-grip-vertical"></i></span><span class="col-name">TOTAL_COST</span><label class="add-intensity-columns-toggle-wrap"><input type="checkbox" data-col-index="18" checked><span class="add-intensity-columns-toggle"></span></label></div>
+                          <div class="add-intensity-columns-row" draggable="true"><span class="add-intensity-columns-drag" aria-hidden="true"><i class="fa-light fa-grip-vertical"></i></span><span class="col-name">ACTUAL_COST</span><label class="add-intensity-columns-toggle-wrap"><input type="checkbox" data-col-index="19" checked><span class="add-intensity-columns-toggle"></span></label></div>
+                          <div class="add-intensity-columns-row" draggable="true"><span class="add-intensity-columns-drag" aria-hidden="true"><i class="fa-light fa-grip-vertical"></i></span><span class="col-name">ESTIMATED_COST</span><label class="add-intensity-columns-toggle-wrap"><input type="checkbox" data-col-index="20" checked><span class="add-intensity-columns-toggle"></span></label></div>
+                          <div class="add-intensity-columns-row" draggable="true"><span class="add-intensity-columns-drag" aria-hidden="true"><i class="fa-light fa-grip-vertical"></i></span><span class="col-name">UNIT_COST</span><label class="add-intensity-columns-toggle-wrap"><input type="checkbox" data-col-index="21" checked><span class="add-intensity-columns-toggle"></span></label></div>
+                          <div class="add-intensity-columns-row" draggable="true"><span class="add-intensity-columns-drag" aria-hidden="true"><i class="fa-light fa-grip-vertical"></i></span><span class="col-name">COST_UOM</span><label class="add-intensity-columns-toggle-wrap"><input type="checkbox" data-col-index="22" checked><span class="add-intensity-columns-toggle"></span></label></div>
+                          <div class="add-intensity-columns-row" draggable="true"><span class="add-intensity-columns-drag" aria-hidden="true"><i class="fa-light fa-grip-vertical"></i></span><span class="col-name">TOTAL_USAGE</span><label class="add-intensity-columns-toggle-wrap"><input type="checkbox" data-col-index="23" checked><span class="add-intensity-columns-toggle"></span></label></div>
+                          <div class="add-intensity-columns-row" draggable="true"><span class="add-intensity-columns-drag" aria-hidden="true"><i class="fa-light fa-grip-vertical"></i></span><span class="col-name">ACTUAL_USAGE</span><label class="add-intensity-columns-toggle-wrap"><input type="checkbox" data-col-index="24" checked><span class="add-intensity-columns-toggle"></span></label></div>
+                          <div class="add-intensity-columns-row" draggable="true"><span class="add-intensity-columns-drag" aria-hidden="true"><i class="fa-light fa-grip-vertical"></i></span><span class="col-name">ESTIMATED_USAGE</span><label class="add-intensity-columns-toggle-wrap"><input type="checkbox" data-col-index="25" checked><span class="add-intensity-columns-toggle"></span></label></div>
+                          <div class="add-intensity-columns-row" draggable="true"><span class="add-intensity-columns-drag" aria-hidden="true"><i class="fa-light fa-grip-vertical"></i></span><span class="col-name">BILLED_VOLUME</span><label class="add-intensity-columns-toggle-wrap"><input type="checkbox" data-col-index="26" checked><span class="add-intensity-columns-toggle"></span></label></div>
+                          <div class="add-intensity-columns-row" draggable="true"><span class="add-intensity-columns-drag" aria-hidden="true"><i class="fa-light fa-grip-vertical"></i></span><span class="col-name">USAGE_UOM</span><label class="add-intensity-columns-toggle-wrap"><input type="checkbox" data-col-index="27" checked><span class="add-intensity-columns-toggle"></span></label></div>
+                          <div class="add-intensity-columns-row" draggable="true"><span class="add-intensity-columns-drag" aria-hidden="true"><i class="fa-light fa-grip-vertical"></i></span><span class="col-name">USAGE_UOM_ID</span><label class="add-intensity-columns-toggle-wrap"><input type="checkbox" data-col-index="28" checked><span class="add-intensity-columns-toggle"></span></label></div>
+                          <div class="add-intensity-columns-row" draggable="true"><span class="add-intensity-columns-drag" aria-hidden="true"><i class="fa-light fa-grip-vertical"></i></span><span class="col-name">DEMAND</span><label class="add-intensity-columns-toggle-wrap"><input type="checkbox" data-col-index="29" checked><span class="add-intensity-columns-toggle"></span></label></div>
+                          <div class="add-intensity-columns-row" draggable="true"><span class="add-intensity-columns-drag" aria-hidden="true"><i class="fa-light fa-grip-vertical"></i></span><span class="col-name">DEMAND_UOM</span><label class="add-intensity-columns-toggle-wrap"><input type="checkbox" data-col-index="30" checked><span class="add-intensity-columns-toggle"></span></label></div>
+                        </div>
+                        <div class="add-intensity-columns-actions">
+                          <button type="button" class="btn btn-primary" onclick="applyIntensityDatasetColumns()">Apply</button>
+                          <button type="button" class="btn btn-secondary" onclick="resetIntensityDatasetColumns()">Reset</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="add-intensity-dataset-preview-table-wrap">
+                    <table class="add-intensity-dataset-preview-table" aria-label="Dataset preview">
+                      <thead>
+                        <tr>
+                          <th><span class="bi-col-icon" aria-hidden="true">A</span>PARTICIPANT_LEVEL<span class="bi-col-sort" aria-hidden="true">▾</span></th>
+                          <th><span class="bi-col-icon" aria-hidden="true">#</span>CLIENT_HIER_ID<span class="bi-col-sort" aria-hidden="true">▾</span></th>
+                          <th><span class="bi-col-icon" aria-hidden="true">A</span>SITEGROUP_NAME<span class="bi-col-sort" aria-hidden="true">▾</span></th>
+                          <th><span class="bi-col-icon" aria-hidden="true">A</span>DIVISION<span class="bi-col-sort" aria-hidden="true">▾</span></th>
+                          <th><span class="bi-col-icon" aria-hidden="true">A</span>PARTICIPANT_NAME<span class="bi-col-sort" aria-hidden="true">▾</span></th>
+                          <th><span class="bi-col-icon" aria-hidden="true">A</span>SITE_STATUS<span class="bi-col-sort" aria-hidden="true">▾</span></th>
+                          <th><span class="bi-col-icon" aria-hidden="true">#</span>SITE_REFERENCE_NUMBER<span class="bi-col-sort" aria-hidden="true">▾</span></th>
+                          <th><span class="bi-col-icon" aria-hidden="true">A</span>ADDRESS<span class="bi-col-sort" aria-hidden="true">▾</span></th>
+                          <th><span class="bi-col-icon" aria-hidden="true">A</span>CITY<span class="bi-col-sort" aria-hidden="true">▾</span></th>
+                          <th><span class="bi-col-icon" aria-hidden="true">A</span>STATE<span class="bi-col-sort" aria-hidden="true">▾</span></th>
+                          <th><span class="bi-col-icon" aria-hidden="true">A</span>COUNTRY<span class="bi-col-sort" aria-hidden="true">▾</span></th>
+                          <th><span class="bi-col-icon" aria-hidden="true">A</span>ZIPCODE<span class="bi-col-sort" aria-hidden="true">▾</span></th>
+                          <th><span class="bi-col-icon" aria-hidden="true">#</span>COMMODITY_ID<span class="bi-col-sort" aria-hidden="true">▾</span></th>
+                          <th><span class="bi-col-icon" aria-hidden="true">A</span>DATA_STREAM<span class="bi-col-sort" aria-hidden="true">▾</span></th>
+                          <th><span class="bi-col-icon" aria-hidden="true">#</span>MONTH<span class="bi-col-sort" aria-hidden="true">▾</span></th>
+                          <th><span class="bi-col-icon" aria-hidden="true">A</span>QUARTER<span class="bi-col-sort" aria-hidden="true">▾</span></th>
+                          <th><span class="bi-col-icon" aria-hidden="true">#</span>YEAR<span class="bi-col-sort" aria-hidden="true">▾</span></th>
+                          <th><span class="bi-col-icon" aria-hidden="true">#</span>SERVICE_MONTH<span class="bi-col-sort" aria-hidden="true">▾</span></th>
+                          <th><span class="bi-col-icon" aria-hidden="true">#</span>TOTAL_COST<span class="bi-col-sort" aria-hidden="true">▾</span></th>
+                          <th><span class="bi-col-icon" aria-hidden="true">#</span>ACTUAL_COST<span class="bi-col-sort" aria-hidden="true">▾</span></th>
+                          <th><span class="bi-col-icon" aria-hidden="true">#</span>ESTIMATED_COST<span class="bi-col-sort" aria-hidden="true">▾</span></th>
+                          <th><span class="bi-col-icon" aria-hidden="true">#</span>UNIT_COST<span class="bi-col-sort" aria-hidden="true">▾</span></th>
+                          <th><span class="bi-col-icon" aria-hidden="true">A</span>COST_UOM<span class="bi-col-sort" aria-hidden="true">▾</span></th>
+                          <th><span class="bi-col-icon" aria-hidden="true">#</span>TOTAL_USAGE<span class="bi-col-sort" aria-hidden="true">▾</span></th>
+                          <th><span class="bi-col-icon" aria-hidden="true">#</span>ACTUAL_USAGE<span class="bi-col-sort" aria-hidden="true">▾</span></th>
+                          <th><span class="bi-col-icon" aria-hidden="true">#</span>ESTIMATED_USAGE<span class="bi-col-sort" aria-hidden="true">▾</span></th>
+                          <th><span class="bi-col-icon" aria-hidden="true">#</span>BILLED_VOLUME<span class="bi-col-sort" aria-hidden="true">▾</span></th>
+                          <th><span class="bi-col-icon" aria-hidden="true">A</span>USAGE_UOM<span class="bi-col-sort" aria-hidden="true">▾</span></th>
+                          <th><span class="bi-col-icon" aria-hidden="true">#</span>USAGE_UOM_ID<span class="bi-col-sort" aria-hidden="true">▾</span></th>
+                          <th><span class="bi-col-icon" aria-hidden="true">#</span>DEMAND<span class="bi-col-sort" aria-hidden="true">▾</span></th>
+                          <th><span class="bi-col-icon" aria-hidden="true">A</span>DEMAND_UOM<span class="bi-col-sort" aria-hidden="true">▾</span></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr><td>Site</td><td>541982</td><td>The North Face (TNF)</td><td>The North Face (TNF)</td><td>TNF - REHOBOTH EA…</td><td>Active</td><td>NF321-524613</td><td>123 Main St</td><td>Rehoboth</td><td>DE</td><td>USA</td><td>19971</td><td>ENG-001</td><td>Electric</td><td>1</td><td>Q1</td><td>2025</td><td>202501</td><td>12500.00</td><td>12000.00</td><td>500.00</td><td>0.85</td><td>USD</td><td>14520</td><td>14200</td><td>320</td><td>14520</td><td>kWh</td><td>1</td><td>1200</td><td>kWh</td></tr>
+                        <tr><td>Site</td><td>298719</td><td>Vans</td><td>Vans</td><td>OLY-V London Camden…</td><td>Active</td><td>301811-542V11</td><td>45 High St</td><td>London</td><td>—</td><td>UK</td><td>NW1 2AB</td><td>GAS-002</td><td>Natural gas</td><td>1</td><td>Q1</td><td>2025</td><td>202501</td><td>8200.00</td><td>8000.00</td><td>200.00</td><td>0.42</td><td>USD</td><td>18500</td><td>18200</td><td>300</td><td>18500</td><td>kWh</td><td>1</td><td>950</td><td>kWh</td></tr>
+                        <tr><td>Site</td><td>285520</td><td>Vans</td><td>Vans</td><td>OLY-V London Camden…</td><td>Active</td><td>301811-285520</td><td>45 High St</td><td>London</td><td>—</td><td>UK</td><td>NW1 2AB</td><td>ENG-001</td><td>Electric</td><td>2</td><td>Q1</td><td>2025</td><td>202502</td><td>13200.00</td><td>13000.00</td><td>200.00</td><td>0.88</td><td>USD</td><td>15000</td><td>14800</td><td>200</td><td>15000</td><td>kWh</td><td>1</td><td>1100</td><td>kWh</td></tr>
+                        <tr><td>Site</td><td>543707</td><td>Shared</td><td>Shared</td><td>Shared - Sao Paulo…</td><td>Closed</td><td>VFSA17</td><td>Av. Paulista 1000</td><td>São Paulo</td><td>SP</td><td>Brazil</td><td>01310-100</td><td>ENG-001</td><td>Electric</td><td>1</td><td>Q1</td><td>2025</td><td>202501</td><td>9800.00</td><td>9500.00</td><td>300.00</td><td>0.65</td><td>USD</td><td>15100</td><td>15000</td><td>100</td><td>15100</td><td>kWh</td><td>1</td><td>980</td><td>kWh</td></tr>
+                        <tr><td>Site</td><td>526101</td><td>Shared</td><td>Shared</td><td>Shared - Shanghai…</td><td>Active</td><td>526101-SH</td><td>Nanjing Rd 88</td><td>Shanghai</td><td>—</td><td>China</td><td>200001</td><td>ENG-001</td><td>Electric</td><td>3</td><td>Q1</td><td>2025</td><td>202503</td><td>15800.00</td><td>15500.00</td><td>300.00</td><td>0.92</td><td>USD</td><td>17200</td><td>17000</td><td>200</td><td>17200</td><td>kWh</td><td>1</td><td>1350</td><td>kWh</td></tr>
+                        <tr><td>Site</td><td>512340</td><td>The North Face (TNF)</td><td>The North Face (TNF)</td><td>TNF - Denver Flagship…</td><td>Active</td><td>NF321-512340</td><td>1600 Broadway</td><td>Denver</td><td>CO</td><td>USA</td><td>80202</td><td>ENG-001</td><td>Electric</td><td>1</td><td>Q1</td><td>2025</td><td>202501</td><td>22100.00</td><td>21800.00</td><td>300.00</td><td>0.78</td><td>USD</td><td>28300</td><td>28000</td><td>300</td><td>28300</td><td>kWh</td><td>1</td><td>2100</td><td>kWh</td></tr>
+                        <tr><td>Site</td><td>298720</td><td>Vans</td><td>Vans</td><td>Shared - Sukabumi…</td><td>Active</td><td>VFSA-SUK-01</td><td>Jl. Siliwangi 50</td><td>Sukabumi</td><td>West Java</td><td>Indonesia</td><td>43122</td><td>GAS-002</td><td>Natural gas</td><td>2</td><td>Q1</td><td>2025</td><td>202502</td><td>4100.00</td><td>4000.00</td><td>100.00</td><td>0.38</td><td>USD</td><td>10800</td><td>10600</td><td>200</td><td>10800</td><td>kWh</td><td>1</td><td>620</td><td>kWh</td></tr>
+                        <tr><td>Site</td><td>541983</td><td>Shared</td><td>Shared</td><td>Shared - Singapore Hub…</td><td>Active</td><td>541983-SG</td><td>Orchard Rd 200</td><td>Singapore</td><td>—</td><td>Singapore</td><td>238861</td><td>ENG-001</td><td>Electric</td><td>1</td><td>Q1</td><td>2025</td><td>202501</td><td>18900.00</td><td>18500.00</td><td>400.00</td><td>0.95</td><td>USD</td><td>19900</td><td>19600</td><td>300</td><td>19900</td><td>kWh</td><td>1</td><td>1550</td><td>kWh</td></tr>
+                        <tr><td>Site</td><td>285521</td><td>The North Face (TNF)</td><td>The North Face (TNF)</td><td>TNF - Boston Store…</td><td>Active</td><td>NF321-285521-BO</td><td>300 Boylston St</td><td>Boston</td><td>MA</td><td>USA</td><td>02116</td><td>ENG-001</td><td>Electric</td><td>2</td><td>Q1</td><td>2025</td><td>202502</td><td>14200.00</td><td>13900.00</td><td>300.00</td><td>0.82</td><td>USD</td><td>17300</td><td>17000</td><td>300</td><td>17300</td><td>kWh</td><td>1</td><td>1280</td><td>kWh</td></tr>
+                        <tr><td>Site</td><td>543708</td><td>Shared</td><td>Shared</td><td>Shared - Mexico City…</td><td>Active</td><td>VFSA18-MX</td><td>Av. Reforma 222</td><td>Mexico City</td><td>CDMX</td><td>Mexico</td><td>06600</td><td>ENG-001</td><td>Electric</td><td>1</td><td>Q1</td><td>2025</td><td>202501</td><td>11200.00</td><td>11000.00</td><td>200.00</td><td>0.72</td><td>USD</td><td>15500</td><td>15300</td><td>200</td><td>15500</td><td>kWh</td><td>1</td><td>1050</td><td>kWh</td></tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="add-intensity-dataset-preview-footer">
+                    <div class="records-select">
+                      <select id="add-intensity-preview-records-per-page" aria-label="Records per page" onchange="updateIntensityPreviewRecordsLabel()">
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                        <option value="50" selected>50</option>
+                        <option value="100">100</option>
+                      </select>
+                      <span>records</span>
+                    </div>
+                    <span class="previewing-text" id="add-intensity-previewing-text">Previewing top 50 records of 422,365</span>
+                  </div>
+                </div>
             </div>
             <div class="modal-footer add-intensity-model-wizard-footer">
               <button type="button" class="btn btn-secondary" onclick="closeAddIntensityModelWizard()">Cancel</button>
@@ -14249,6 +14581,15 @@
             </div>
           </div>
           <div class="content-container">
+            <div class="activity-log-product-row">
+              <label for="activity-log-product-v3" class="activity-log-product-label">Product</label>
+              <select class="form-select" id="activity-log-product-v3" aria-label="Product filter" onchange="activityLogProductChangeV3()" style="width: 200px;">
+                <option value="Carbon Performance" selected>Carbon Performance</option>
+                <option value="Climate Risk">Climate Risk</option>
+                <option value="Reporting and Compliance">Reporting and Compliance</option>
+                <option value="all">All products</option>
+              </select>
+            </div>
             <div class="activity-log-toolbar">
               <div class="activity-log-v2-search-wrapper" style="width: 420px;">
                 <div class="search-input-wrapper" style="width: 100%;">
@@ -14309,6 +14650,19 @@
                       <div class="activity-log-filter-multi-options" id="activity-log-filter-page-options-v3"></div>
                     </div>
                   </div>
+                  <div class="activity-log-filter-accordion-item" id="activity-log-filter-accordion-product-v3" data-accordion="product" style="display: none;">
+                    <button type="button" class="activity-log-filter-accordion-header" onclick="toggleActivityLogFilterAccordionV3('product')">
+                      <span>Product</span>
+                      <i class="fa-light fa-chevron-right activity-log-filter-accordion-chevron"></i>
+                    </button>
+                    <div class="activity-log-filter-accordion-body">
+                      <div class="activity-log-filter-multi-options" id="activity-log-filter-product-options-v3">
+                        <label><input type="checkbox" value="Carbon Performance" onchange="activityLogApplyFiltersV3(); updateActivityLogFilterBadgeV3(); renderActivityLogFilterPillsV3();"> Carbon Performance</label>
+                        <label><input type="checkbox" value="Climate Risk" onchange="activityLogApplyFiltersV3(); updateActivityLogFilterBadgeV3(); renderActivityLogFilterPillsV3();"> Climate Risk</label>
+                        <label><input type="checkbox" value="Reporting and Compliance" onchange="activityLogApplyFiltersV3(); updateActivityLogFilterBadgeV3(); renderActivityLogFilterPillsV3();"> Reporting and Compliance</label>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
               <select class="form-select" id="activity-log-timeframe-v3" aria-label="Timeframe" onchange="activityLogTimeframeChangeV3()" style="width: 160px;">
@@ -14339,14 +14693,14 @@
                   <table class="data-table activity-log-table activity-log-table-v3" id="activity-log-table-v3" aria-label="User activity log V3">
                     <thead>
                       <tr>
-                        <th>Timestamp</th>
-                        <th>User</th>
-                        <th>Action</th>
+                        <th class="activity-log-ts-col">Timestamp</th>
+                        <th id="activity-log-th-product-v3" class="activity-log-product-col" style="display: none;">Product</th>
+                        <th class="activity-log-user-col">User</th>
+                        <th class="activity-log-action-col">Action</th>
                         <th class="activity-log-where-col">Page</th>
                         <th class="activity-log-affected-col">Affected item</th>
-                        <th class="activity-log-value-before-col">Value before change</th>
-                        <th class="activity-log-value-after-col">Value after change</th>
-                        <th>Agent Assisted <i class="fa-light fa-circle-info activity-log-th-tooltip" title="The AI agent assisted in this activity" aria-label="The AI agent assisted in this activity"></i></th>
+                        <th class="activity-log-details-col">Details</th>
+                        <th class="activity-log-agent-col">Agent Assisted <i class="fa-light fa-circle-info activity-log-th-tooltip" title="The AI agent assisted in this activity" aria-label="The AI agent assisted in this activity"></i></th>
                       </tr>
                     </thead>
                     <tbody id="activity-log-tbody-v3">
@@ -25508,37 +25862,37 @@ Thank you.</div>
     // User activity log (Settings)
     // ============================================
     var ACTIVITY_LOG_DATA = [
-      { id: 13, timestamp: '2025-02-20 13:00:00', user: 'Jane Admin', email: 'jane.admin@company.com', action: 'updated', where: 'Inventory', objectType: 'Activity record', objectId: 'Chicago HQ / Stationary combustion — Natural gas', recordId: 100001, valueAtTime: 'Quantity: 125.4 MWh, Data source: Energy_Meters_Jan2025.csv, Period: Jan 2025', valueBefore: 'Quantity: 118.2 MWh, Data source: Energy_Meters_Jan2025.csv, Period: Jan 2025', valueAfter: 'Quantity: 125.4 MWh, Data source: Energy_Meters_Jan2025.csv, Period: Jan 2025', agentAssisted: true },
-      { id: 14, timestamp: '2025-02-20 10:30:00', user: 'James Park', email: 'james.park@company.com', action: 'updated', where: 'Inventory', objectType: 'Activity record', objectId: 'Chicago HQ / Stationary combustion — Natural gas', recordId: 100001, valueAtTime: 'Quantity: 118.2 MWh, Data source: Energy_Meters_Jan2025.csv, Period: Jan 2025', valueBefore: 'Quantity: 110.0 MWh, Data source: Energy_Meters_Jan2025.csv, Period: Jan 2025', valueAfter: 'Quantity: 118.2 MWh, Data source: Energy_Meters_Jan2025.csv, Period: Jan 2025', agentAssisted: false },
-      { id: 15, timestamp: '2025-02-18 14:00:00', user: 'Jane Admin', email: 'jane.admin@company.com', action: 'created', where: 'Inventory', objectType: 'Activity record', objectId: 'Chicago HQ / Stationary combustion — Natural gas', recordId: 100001, valueAtTime: 'Quantity: 110.0 MWh, Data source: Energy_Meters_Jan2025.csv, Period: Jan 2025', valueAfter: 'Quantity: 110.0 MWh, Data source: Energy_Meters_Jan2025.csv, Period: Jan 2025', agentAssisted: true },
-      { id: 30, timestamp: '2025-02-16 11:00:00', user: 'James Park', email: 'james.park@company.com', action: 'viewed', where: 'Inventory', objectType: 'Activity record', objectId: 'Chicago HQ / Stationary combustion — Natural gas', recordId: 100001, valueAtTime: 'Quantity: 105.0 MWh, Data source: Energy_Meters_Jan2025.csv, Period: Jan 2025', valueAfter: 'Quantity: 105.0 MWh, Data source: Energy_Meters_Jan2025.csv, Period: Jan 2025' },
-      { id: 16, timestamp: '2025-02-20 11:20:00', user: 'Sarah Chen', email: 'sarah.chen@company.com', action: 'updated', where: 'Inventory', objectType: 'Activity record', objectId: 'London Office / Mobile combustion — Fleet', recordId: 100002, valueAtTime: 'Quantity: 2,840 L diesel, Data source: Fleet_Data_Q1.xlsx, Period: Q1 2025', valueBefore: 'Quantity: 2,400 L diesel, Data source: Fleet_Data_Q1.xlsx, Period: Q1 2025', valueAfter: 'Quantity: 2,840 L diesel, Data source: Fleet_Data_Q1.xlsx, Period: Q1 2025' },
-      { id: 17, timestamp: '2025-02-19 15:00:00', user: 'Marcus Webb', email: 'marcus.webb@company.com', action: 'updated', where: 'Inventory', objectType: 'Activity record', objectId: 'London Office / Mobile combustion — Fleet', recordId: 100002, valueAtTime: 'Quantity: 2,650 L diesel, Data source: Fleet_Data_Q1.xlsx, Period: Q1 2025', valueBefore: 'Quantity: 2,400 L diesel, Data source: Fleet_Data_Q1.xlsx, Period: Q1 2025', valueAfter: 'Quantity: 2,650 L diesel, Data source: Fleet_Data_Q1.xlsx, Period: Q1 2025' },
-      { id: 18, timestamp: '2025-02-19 09:00:00', user: 'Sarah Chen', email: 'sarah.chen@company.com', action: 'created', where: 'Inventory', objectType: 'Activity record', objectId: 'London Office / Mobile combustion — Fleet', recordId: 100002, valueAtTime: 'Quantity: 2,400 L diesel, Data source: Fleet_Data_Q1.xlsx, Period: Q1 2025', valueAfter: 'Quantity: 2,400 L diesel, Data source: Fleet_Data_Q1.xlsx, Period: Q1 2025' },
-      { id: 31, timestamp: '2025-02-17 16:30:00', user: 'Anna Lindqvist', email: 'anna.lindqvist@company.com', action: 'viewed', where: 'Inventory', objectType: 'Activity record', objectId: 'London Office / Mobile combustion — Fleet', recordId: 100002, valueAtTime: 'Quantity: 2,200 L diesel, Data source: Fleet_Data_Q1.xlsx, Period: Q1 2025', valueAfter: 'Quantity: 2,200 L diesel, Data source: Fleet_Data_Q1.xlsx, Period: Q1 2025' },
-      { id: 19, timestamp: '2025-02-19 16:45:00', user: 'James Park', email: 'james.park@company.com', action: 'created', where: 'Inventory', objectType: 'Activity record', objectId: 'Tokyo Office / Business travel — Air', recordId: 100003, valueAtTime: 'Quantity: 12,500 km, Data source: Travel_Expenses_Feb.xlsx, Period: Feb 2025', valueAfter: 'Quantity: 12,500 km, Data source: Travel_Expenses_Feb.xlsx, Period: Feb 2025' },
-      { id: 20, timestamp: '2025-02-19 11:00:00', user: 'Anna Lindqvist', email: 'anna.lindqvist@company.com', action: 'updated', where: 'Inventory', objectType: 'Activity record', objectId: 'London Office / Waste — General', recordId: 100004, valueAtTime: 'Quantity: 2.1 tonnes, Data source: Waste_Weights_Q1.xlsx, Period: Jan 2025', valueBefore: 'Quantity: 1.8 tonnes, Data source: Waste_Weights_Q1.xlsx, Period: Jan 2025', valueAfter: 'Quantity: 2.1 tonnes, Data source: Waste_Weights_Q1.xlsx, Period: Jan 2025' },
-      { id: 21, timestamp: '2025-02-18 16:30:00', user: 'Marcus Webb', email: 'marcus.webb@company.com', action: 'updated', where: 'Inventory', objectType: 'Activity record', objectId: 'London Office / Waste — General', recordId: 100004, valueAtTime: 'Quantity: 1.8 tonnes, Data source: Waste_Weights_Q1.xlsx, Period: Jan 2025', valueBefore: 'Quantity: 1.5 tonnes, Data source: Waste_Weights_Q1.xlsx, Period: Jan 2025', valueAfter: 'Quantity: 1.8 tonnes, Data source: Waste_Weights_Q1.xlsx, Period: Jan 2025' },
-      { id: 22, timestamp: '2025-02-17 10:15:00', user: 'Anna Lindqvist', email: 'anna.lindqvist@company.com', action: 'created', where: 'Inventory', objectType: 'Activity record', objectId: 'London Office / Waste — General', recordId: 100004, valueAtTime: 'Quantity: 1.5 tonnes, Data source: Waste_Weights_Q1.xlsx, Period: Jan 2025', valueAfter: 'Quantity: 1.5 tonnes, Data source: Waste_Weights_Q1.xlsx, Period: Jan 2025' },
-      { id: 1, timestamp: '2025-02-20 14:32:00', user: 'Jane Admin', email: 'jane.admin@company.com', action: 'updated', where: 'Data Owner Directory', objectType: 'Ownership rule', objectId: 'Chicago HQ / Energy', valueAtTime: 'Primary: James Park, Secondary: Sarah Chen', valueBefore: 'Primary: Jane Admin, Secondary: Sarah Chen', valueAfter: 'Primary: James Park, Secondary: Sarah Chen', agentAssisted: false },
-      { id: 2, timestamp: '2025-02-20 14:28:15', user: 'Jane Admin', email: 'jane.admin@company.com', action: 'created', where: 'Data Campaigns', objectType: 'Campaign', objectId: 'Q1 2025 Sustainability Data', valueAtTime: 'Period: Jan–Mar 2025, Modules: Energy, Fuel, Travel', valueAfter: 'Period: Jan–Mar 2025, Modules: Energy, Fuel, Travel', agentAssisted: true },
-      { id: 3, timestamp: '2025-02-20 13:45:00', user: 'Marcus Webb', email: 'marcus.webb@company.com', action: 'viewed', where: 'Data Owner Directory', objectType: 'Ownership rule', objectId: 'London Office / Waste', valueAtTime: 'Primary: Marcus Webb, Secondary: Anna Lindqvist', valueAfter: 'Primary: Marcus Webb, Secondary: Anna Lindqvist' },
-      { id: 4, timestamp: '2025-02-20 12:10:22', user: 'Sarah Chen', email: 'sarah.chen@company.com', action: 'updated', where: 'Unit of measurement conversions', objectType: 'UoM group', objectId: 'Energy', valueAtTime: 'Units: kWh, GJ, MWh (default: kWh)', valueBefore: 'Units: kWh, MWh (default: kWh)', valueAfter: 'Units: kWh, GJ, MWh (default: kWh)', agentAssisted: true },
-      { id: 5, timestamp: '2025-02-20 11:55:00', user: 'Jane Admin', email: 'jane.admin@company.com', action: 'deleted', where: 'Data Owner Directory', objectType: 'Ownership rule', objectId: 'Phoenix Site / Travel', valueAtTime: '(removed)', valueBefore: 'Primary: Alex Rivera, Secondary: (none)', agentAssisted: false },
-      { id: 6, timestamp: '2025-02-20 11:30:00', user: 'Jane Admin', email: 'jane.admin@company.com', action: 'updated', where: 'Data Owner Directory', objectType: 'Ownership rule', objectId: 'Chicago HQ / Energy', valueAtTime: 'Primary: James Park, Secondary: Sarah Chen; Team: Operations', valueBefore: 'Primary: James Park, Secondary: Sarah Chen', valueAfter: 'Primary: James Park, Secondary: Sarah Chen; Team: Operations' },
-      { id: 7, timestamp: '2025-02-19 16:00:00', user: 'Anna Lindqvist', email: 'anna.lindqvist@company.com', action: 'viewed', where: 'Data Campaigns', objectType: 'Campaign', objectId: 'Q1 2025 Sustainability Data', valueAtTime: 'Status: Draft', valueAfter: 'Status: Draft' },
-      { id: 8, timestamp: '2025-02-19 15:22:00', user: 'Jane Admin', email: 'jane.admin@company.com', action: 'created', where: 'Data Owner Directory', objectType: 'Ownership rule', objectId: 'Tokyo Office / Fuel', valueAtTime: 'Primary: Yuki Tanaka, Secondary: Priya Sharma', valueAfter: 'Primary: Yuki Tanaka, Secondary: Priya Sharma' },
-      { id: 9, timestamp: '2025-02-20 10:15:00', user: 'Sarah Chen', email: 'sarah.chen@company.com', action: 'created', where: 'Imports', objectType: 'Import', objectId: 'Fleet_Data_Q1.xlsx', valueAtTime: 'Campaign: Q1 2025, 1,240 records imported, status: Completed', valueAfter: 'Campaign: Q1 2025, 1,240 records imported, status: Completed' },
-      { id: 10, timestamp: '2025-02-20 09:42:33', user: 'James Park', email: 'james.park@company.com', action: 'created', where: 'Imports', objectType: 'Import', objectId: 'Energy_Meters_Jan2025.csv', valueAtTime: 'Campaign: Q1 2025, 89 records imported, status: Completed', valueAfter: 'Campaign: Q1 2025, 89 records imported, status: Completed' },
-      { id: 11, timestamp: '2025-02-19 17:20:00', user: 'Anna Lindqvist', email: 'anna.lindqvist@company.com', action: 'created', where: 'Imports', objectType: 'Import', objectId: 'Travel_Expenses_Feb.xlsx', valueAtTime: 'Campaign: Q1 2025, 312 records imported, status: Completed', valueAfter: 'Campaign: Q1 2025, 312 records imported, status: Completed' },
-      { id: 12, timestamp: '2025-02-19 14:05:00', user: 'Marcus Webb', email: 'marcus.webb@company.com', action: 'viewed', where: 'Imports', objectType: 'Import', objectId: 'Waste_Weights_Q1.xlsx', valueAtTime: 'Campaign: Q1 2025, 56 records, status: Completed', valueAfter: 'Campaign: Q1 2025, 56 records, status: Completed' },
-      { id: 23, timestamp: '2025-02-20 15:20:00', user: 'Sarah Chen', email: 'sarah.chen@company.com', action: 'created', where: 'Strategy', objectType: 'Target', objectId: 'Net-zero by 2040 (Scope 1 & 2)', valueAtTime: 'Baseline: FY 2024, Target year: 2040, Reduction: 100%', valueAfter: 'Baseline: FY 2024, Target year: 2040, Reduction: 100%' },
-      { id: 24, timestamp: '2025-02-20 14:55:00', user: 'Jane Admin', email: 'jane.admin@company.com', action: 'created', where: 'Strategy', objectType: 'Initiative', objectId: 'Fleet electrification program', valueAtTime: 'Status: Planning, Owner: James Park, Start: Q2 2025', valueAfter: 'Status: Planning, Owner: James Park, Start: Q2 2025' },
-      { id: 25, timestamp: '2025-02-19 11:30:00', user: 'James Park', email: 'james.park@company.com', action: 'updated', where: 'Strategy', objectType: 'Target', objectId: 'Net-zero by 2040 (Scope 1 & 2)', valueAtTime: 'Baseline: FY 2024, Target year: 2040, Reduction: 100%, Approved by leadership', valueBefore: 'Baseline: FY 2024, Target year: 2040, Reduction: 100%', valueAfter: 'Baseline: FY 2024, Target year: 2040, Reduction: 100%, Approved by leadership' },
-      { id: 26, timestamp: '2025-02-18 09:00:00', user: 'Jane Admin', email: 'jane.admin@company.com', action: 'updated', where: 'Data Owner Directory', objectType: 'Ownership rule', objectId: 'Chicago HQ / Energy', valueAtTime: 'Primary: Jane Admin, Secondary: Sarah Chen', valueBefore: 'Primary: James Park, Secondary: Sarah Chen', valueAfter: 'Primary: Jane Admin, Secondary: Sarah Chen' },
-      { id: 27, timestamp: '2025-02-15 14:20:00', user: 'James Park', email: 'james.park@company.com', action: 'created', where: 'Data Owner Directory', objectType: 'Ownership rule', objectId: 'Chicago HQ / Energy', valueAtTime: 'Primary: James Park, Secondary: Sarah Chen', valueAfter: 'Primary: James Park, Secondary: Sarah Chen' },
-      { id: 28, timestamp: '2025-02-17 11:00:00', user: 'Jane Admin', email: 'jane.admin@company.com', action: 'updated', where: 'Data Campaigns', objectType: 'Campaign', objectId: 'Q1 2025 Sustainability Data', valueAtTime: 'Period: Jan–Mar 2025, Modules: Energy, Fuel, Travel, Status: Draft', valueBefore: 'Period: Jan–Mar 2025, Modules: Energy, Fuel, Travel', valueAfter: 'Period: Jan–Mar 2025, Modules: Energy, Fuel, Travel, Status: Draft' },
-      { id: 29, timestamp: '2025-02-17 10:00:00', user: 'Sarah Chen', email: 'sarah.chen@company.com', action: 'created', where: 'Strategy', objectType: 'Target', objectId: 'Net-zero by 2040 (Scope 1 & 2)', valueAtTime: 'Baseline: FY 2024, Target year: 2040, Reduction: 100%', valueAfter: 'Baseline: FY 2024, Target year: 2040, Reduction: 100%' },
+      { id: 13, product: 'Carbon Performance', timestamp: '2025-02-20 13:00:00', user: 'Jane Admin', email: 'jane.admin@company.com', action: 'updated', where: 'Inventory', objectType: 'Activity record', objectId: 'Chicago HQ / Stationary combustion — Natural gas', recordId: 100001, valueAtTime: 'Quantity: 125.4 MWh, Data source: Energy_Meters_Jan2025.csv, Period: Jan 2025', valueBefore: 'Quantity: 118.2 MWh, Data source: Energy_Meters_Jan2025.csv, Period: Jan 2025', valueAfter: 'Quantity: 125.4 MWh, Data source: Energy_Meters_Jan2025.csv, Period: Jan 2025', agentAssisted: true },
+      { id: 14, product: 'Carbon Performance', timestamp: '2025-02-20 10:30:00', user: 'James Park', email: 'james.park@company.com', action: 'updated', where: 'Inventory', objectType: 'Activity record', objectId: 'Chicago HQ / Stationary combustion — Natural gas', recordId: 100001, valueAtTime: 'Quantity: 118.2 MWh, Data source: Energy_Meters_Jan2025.csv, Period: Jan 2025', valueBefore: 'Quantity: 110.0 MWh, Data source: Energy_Meters_Jan2025.csv, Period: Jan 2025', valueAfter: 'Quantity: 118.2 MWh, Data source: Energy_Meters_Jan2025.csv, Period: Jan 2025', agentAssisted: false },
+      { id: 15, product: 'Carbon Performance', timestamp: '2025-02-18 14:00:00', user: 'Jane Admin', email: 'jane.admin@company.com', action: 'created', where: 'Inventory', objectType: 'Activity record', objectId: 'Chicago HQ / Stationary combustion — Natural gas', recordId: 100001, valueAtTime: 'Quantity: 110.0 MWh, Data source: Energy_Meters_Jan2025.csv, Period: Jan 2025', valueAfter: 'Quantity: 110.0 MWh, Data source: Energy_Meters_Jan2025.csv, Period: Jan 2025', agentAssisted: true },
+      { id: 30, product: 'Carbon Performance', timestamp: '2025-02-16 11:00:00', user: 'James Park', email: 'james.park@company.com', action: 'viewed', where: 'Inventory', objectType: 'Activity record', objectId: 'Chicago HQ / Stationary combustion — Natural gas', recordId: 100001, valueAtTime: 'Quantity: 105.0 MWh, Data source: Energy_Meters_Jan2025.csv, Period: Jan 2025', valueAfter: 'Quantity: 105.0 MWh, Data source: Energy_Meters_Jan2025.csv, Period: Jan 2025' },
+      { id: 16, product: 'Carbon Performance', timestamp: '2025-02-20 11:20:00', user: 'Sarah Chen', email: 'sarah.chen@company.com', action: 'updated', where: 'Inventory', objectType: 'Activity record', objectId: 'London Office / Mobile combustion — Fleet', recordId: 100002, valueAtTime: 'Quantity: 2,840 L diesel, Data source: Fleet_Data_Q1.xlsx, Period: Q1 2025', valueBefore: 'Quantity: 2,400 L diesel, Data source: Fleet_Data_Q1.xlsx, Period: Q1 2025', valueAfter: 'Quantity: 2,840 L diesel, Data source: Fleet_Data_Q1.xlsx, Period: Q1 2025' },
+      { id: 17, product: 'Carbon Performance', timestamp: '2025-02-19 15:00:00', user: 'Marcus Webb', email: 'marcus.webb@company.com', action: 'updated', where: 'Inventory', objectType: 'Activity record', objectId: 'London Office / Mobile combustion — Fleet', recordId: 100002, valueAtTime: 'Quantity: 2,650 L diesel, Data source: Fleet_Data_Q1.xlsx, Period: Q1 2025', valueBefore: 'Quantity: 2,400 L diesel, Data source: Fleet_Data_Q1.xlsx, Period: Q1 2025', valueAfter: 'Quantity: 2,650 L diesel, Data source: Fleet_Data_Q1.xlsx, Period: Q1 2025' },
+      { id: 18, product: 'Carbon Performance', timestamp: '2025-02-19 09:00:00', user: 'Sarah Chen', email: 'sarah.chen@company.com', action: 'created', where: 'Inventory', objectType: 'Activity record', objectId: 'London Office / Mobile combustion — Fleet', recordId: 100002, valueAtTime: 'Quantity: 2,400 L diesel, Data source: Fleet_Data_Q1.xlsx, Period: Q1 2025', valueAfter: 'Quantity: 2,400 L diesel, Data source: Fleet_Data_Q1.xlsx, Period: Q1 2025' },
+      { id: 31, product: 'Carbon Performance', timestamp: '2025-02-17 16:30:00', user: 'Anna Lindqvist', email: 'anna.lindqvist@company.com', action: 'viewed', where: 'Inventory', objectType: 'Activity record', objectId: 'London Office / Mobile combustion — Fleet', recordId: 100002, valueAtTime: 'Quantity: 2,200 L diesel, Data source: Fleet_Data_Q1.xlsx, Period: Q1 2025', valueAfter: 'Quantity: 2,200 L diesel, Data source: Fleet_Data_Q1.xlsx, Period: Q1 2025' },
+      { id: 19, product: 'Carbon Performance', timestamp: '2025-02-19 16:45:00', user: 'James Park', email: 'james.park@company.com', action: 'created', where: 'Inventory', objectType: 'Activity record', objectId: 'Tokyo Office / Business travel — Air', recordId: 100003, valueAtTime: 'Quantity: 12,500 km, Data source: Travel_Expenses_Feb.xlsx, Period: Feb 2025', valueAfter: 'Quantity: 12,500 km, Data source: Travel_Expenses_Feb.xlsx, Period: Feb 2025' },
+      { id: 20, product: 'Carbon Performance', timestamp: '2025-02-19 11:00:00', user: 'Anna Lindqvist', email: 'anna.lindqvist@company.com', action: 'updated', where: 'Inventory', objectType: 'Activity record', objectId: 'London Office / Waste — General', recordId: 100004, valueAtTime: 'Quantity: 2.1 tonnes, Data source: Waste_Weights_Q1.xlsx, Period: Jan 2025', valueBefore: 'Quantity: 1.8 tonnes, Data source: Waste_Weights_Q1.xlsx, Period: Jan 2025', valueAfter: 'Quantity: 2.1 tonnes, Data source: Waste_Weights_Q1.xlsx, Period: Jan 2025' },
+      { id: 21, product: 'Carbon Performance', timestamp: '2025-02-18 16:30:00', user: 'Marcus Webb', email: 'marcus.webb@company.com', action: 'updated', where: 'Inventory', objectType: 'Activity record', objectId: 'London Office / Waste — General', recordId: 100004, valueAtTime: 'Quantity: 1.8 tonnes, Data source: Waste_Weights_Q1.xlsx, Period: Jan 2025', valueBefore: 'Quantity: 1.5 tonnes, Data source: Waste_Weights_Q1.xlsx, Period: Jan 2025', valueAfter: 'Quantity: 1.8 tonnes, Data source: Waste_Weights_Q1.xlsx, Period: Jan 2025' },
+      { id: 22, product: 'Carbon Performance', timestamp: '2025-02-17 10:15:00', user: 'Anna Lindqvist', email: 'anna.lindqvist@company.com', action: 'created', where: 'Inventory', objectType: 'Activity record', objectId: 'London Office / Waste — General', recordId: 100004, valueAtTime: 'Quantity: 1.5 tonnes, Data source: Waste_Weights_Q1.xlsx, Period: Jan 2025', valueAfter: 'Quantity: 1.5 tonnes, Data source: Waste_Weights_Q1.xlsx, Period: Jan 2025' },
+      { id: 1, product: 'Reporting and Compliance', timestamp: '2025-02-20 14:32:00', user: 'Jane Admin', email: 'jane.admin@company.com', action: 'updated', where: 'Data Owner Directory', objectType: 'Ownership rule', objectId: 'Chicago HQ / Energy', valueAtTime: 'Primary: James Park, Secondary: Sarah Chen', valueBefore: 'Primary: Jane Admin, Secondary: Sarah Chen', valueAfter: 'Primary: James Park, Secondary: Sarah Chen', agentAssisted: false },
+      { id: 2, product: 'Reporting and Compliance', timestamp: '2025-02-20 14:28:15', user: 'Jane Admin', email: 'jane.admin@company.com', action: 'created', where: 'Data Campaigns', objectType: 'Campaign', objectId: 'Q1 2025 Sustainability Data', valueAtTime: 'Period: Jan–Mar 2025, Modules: Energy, Fuel, Travel', valueAfter: 'Period: Jan–Mar 2025, Modules: Energy, Fuel, Travel', agentAssisted: true },
+      { id: 3, product: 'Reporting and Compliance', timestamp: '2025-02-20 13:45:00', user: 'Marcus Webb', email: 'marcus.webb@company.com', action: 'viewed', where: 'Data Owner Directory', objectType: 'Ownership rule', objectId: 'London Office / Waste', valueAtTime: 'Primary: Marcus Webb, Secondary: Anna Lindqvist', valueAfter: 'Primary: Marcus Webb, Secondary: Anna Lindqvist' },
+      { id: 4, product: 'Reporting and Compliance', timestamp: '2025-02-20 12:10:22', user: 'Sarah Chen', email: 'sarah.chen@company.com', action: 'updated', where: 'Unit of measurement conversions', objectType: 'UoM group', objectId: 'Energy', valueAtTime: 'Units: kWh, GJ, MWh (default: kWh)', valueBefore: 'Units: kWh, MWh (default: kWh)', valueAfter: 'Units: kWh, GJ, MWh (default: kWh)', agentAssisted: true },
+      { id: 5, product: 'Reporting and Compliance', timestamp: '2025-02-20 11:55:00', user: 'Jane Admin', email: 'jane.admin@company.com', action: 'deleted', where: 'Data Owner Directory', objectType: 'Ownership rule', objectId: 'Phoenix Site / Travel', valueAtTime: '(removed)', valueBefore: 'Primary: Alex Rivera, Secondary: (none)', agentAssisted: false },
+      { id: 6, product: 'Reporting and Compliance', timestamp: '2025-02-20 11:30:00', user: 'Jane Admin', email: 'jane.admin@company.com', action: 'updated', where: 'Data Owner Directory', objectType: 'Ownership rule', objectId: 'Chicago HQ / Energy', valueAtTime: 'Primary: James Park, Secondary: Sarah Chen; Team: Operations', valueBefore: 'Primary: James Park, Secondary: Sarah Chen', valueAfter: 'Primary: James Park, Secondary: Sarah Chen; Team: Operations' },
+      { id: 7, product: 'Reporting and Compliance', timestamp: '2025-02-19 16:00:00', user: 'Anna Lindqvist', email: 'anna.lindqvist@company.com', action: 'viewed', where: 'Data Campaigns', objectType: 'Campaign', objectId: 'Q1 2025 Sustainability Data', valueAtTime: 'Status: Draft', valueAfter: 'Status: Draft' },
+      { id: 8, product: 'Reporting and Compliance', timestamp: '2025-02-19 15:22:00', user: 'Jane Admin', email: 'jane.admin@company.com', action: 'created', where: 'Data Owner Directory', objectType: 'Ownership rule', objectId: 'Tokyo Office / Fuel', valueAtTime: 'Primary: Yuki Tanaka, Secondary: Priya Sharma', valueAfter: 'Primary: Yuki Tanaka, Secondary: Priya Sharma' },
+      { id: 9, product: 'Reporting and Compliance', timestamp: '2025-02-20 10:15:00', user: 'Sarah Chen', email: 'sarah.chen@company.com', action: 'created', where: 'Imports', objectType: 'Import', objectId: 'Fleet_Data_Q1.xlsx', valueAtTime: 'Campaign: Q1 2025, 1,240 records imported, status: Completed', valueAfter: 'Campaign: Q1 2025, 1,240 records imported, status: Completed' },
+      { id: 10, product: 'Reporting and Compliance', timestamp: '2025-02-20 09:42:33', user: 'James Park', email: 'james.park@company.com', action: 'created', where: 'Imports', objectType: 'Import', objectId: 'Energy_Meters_Jan2025.csv', valueAtTime: 'Campaign: Q1 2025, 89 records imported, status: Completed', valueAfter: 'Campaign: Q1 2025, 89 records imported, status: Completed' },
+      { id: 11, product: 'Reporting and Compliance', timestamp: '2025-02-19 17:20:00', user: 'Anna Lindqvist', email: 'anna.lindqvist@company.com', action: 'created', where: 'Imports', objectType: 'Import', objectId: 'Travel_Expenses_Feb.xlsx', valueAtTime: 'Campaign: Q1 2025, 312 records imported, status: Completed', valueAfter: 'Campaign: Q1 2025, 312 records imported, status: Completed' },
+      { id: 12, product: 'Reporting and Compliance', timestamp: '2025-02-19 14:05:00', user: 'Marcus Webb', email: 'marcus.webb@company.com', action: 'viewed', where: 'Imports', objectType: 'Import', objectId: 'Waste_Weights_Q1.xlsx', valueAtTime: 'Campaign: Q1 2025, 56 records, status: Completed', valueAfter: 'Campaign: Q1 2025, 56 records, status: Completed' },
+      { id: 23, product: 'Climate Risk', timestamp: '2025-02-20 15:20:00', user: 'Sarah Chen', email: 'sarah.chen@company.com', action: 'created', where: 'Strategy', objectType: 'Target', objectId: 'Net-zero by 2040 (Scope 1 & 2)', valueAtTime: 'Baseline: FY 2024, Target year: 2040, Reduction: 100%', valueAfter: 'Baseline: FY 2024, Target year: 2040, Reduction: 100%' },
+      { id: 24, product: 'Climate Risk', timestamp: '2025-02-20 14:55:00', user: 'Jane Admin', email: 'jane.admin@company.com', action: 'created', where: 'Strategy', objectType: 'Initiative', objectId: 'Fleet electrification program', valueAtTime: 'Status: Planning, Owner: James Park, Start: Q2 2025', valueAfter: 'Status: Planning, Owner: James Park, Start: Q2 2025' },
+      { id: 25, product: 'Climate Risk', timestamp: '2025-02-19 11:30:00', user: 'James Park', email: 'james.park@company.com', action: 'updated', where: 'Strategy', objectType: 'Target', objectId: 'Net-zero by 2040 (Scope 1 & 2)', valueAtTime: 'Baseline: FY 2024, Target year: 2040, Reduction: 100%, Approved by leadership', valueBefore: 'Baseline: FY 2024, Target year: 2040, Reduction: 100%', valueAfter: 'Baseline: FY 2024, Target year: 2040, Reduction: 100%, Approved by leadership' },
+      { id: 26, product: 'Reporting and Compliance', timestamp: '2025-02-18 09:00:00', user: 'Jane Admin', email: 'jane.admin@company.com', action: 'updated', where: 'Data Owner Directory', objectType: 'Ownership rule', objectId: 'Chicago HQ / Energy', valueAtTime: 'Primary: Jane Admin, Secondary: Sarah Chen', valueBefore: 'Primary: James Park, Secondary: Sarah Chen', valueAfter: 'Primary: Jane Admin, Secondary: Sarah Chen' },
+      { id: 27, product: 'Reporting and Compliance', timestamp: '2025-02-15 14:20:00', user: 'James Park', email: 'james.park@company.com', action: 'created', where: 'Data Owner Directory', objectType: 'Ownership rule', objectId: 'Chicago HQ / Energy', valueAtTime: 'Primary: James Park, Secondary: Sarah Chen', valueAfter: 'Primary: James Park, Secondary: Sarah Chen' },
+      { id: 28, product: 'Reporting and Compliance', timestamp: '2025-02-17 11:00:00', user: 'Jane Admin', email: 'jane.admin@company.com', action: 'updated', where: 'Data Campaigns', objectType: 'Campaign', objectId: 'Q1 2025 Sustainability Data', valueAtTime: 'Period: Jan–Mar 2025, Modules: Energy, Fuel, Travel, Status: Draft', valueBefore: 'Period: Jan–Mar 2025, Modules: Energy, Fuel, Travel', valueAfter: 'Period: Jan–Mar 2025, Modules: Energy, Fuel, Travel, Status: Draft' },
+      { id: 29, product: 'Reporting and Compliance', timestamp: '2025-02-17 10:00:00', user: 'Sarah Chen', email: 'sarah.chen@company.com', action: 'created', where: 'Strategy', objectType: 'Target', objectId: 'Net-zero by 2040 (Scope 1 & 2)', valueAtTime: 'Baseline: FY 2024, Target year: 2040, Reduction: 100%', valueAfter: 'Baseline: FY 2024, Target year: 2040, Reduction: 100%' },
     ];
     function activityLogEscape(s) {
       if (s == null || s === undefined) return '';
@@ -26299,7 +26653,7 @@ Thank you.</div>
       document.body.style.overflow = '';
     }
     var addIntensityModelWizardStep = 1;
-    var addIntensityModelWizardTotalSteps = 8;
+    var addIntensityModelWizardTotalSteps = 6;
     function openAddIntensityModelWizard() {
       addIntensityModelWizardStep = 1;
       setAddIntensityModelWizardStep(1);
@@ -26316,8 +26670,47 @@ Thank you.</div>
       if (modal) modal.classList.remove('open');
       document.body.style.overflow = '';
     }
+    var addIntensityUomConfig = {
+      'Electric power': { label: 'Electric Power', options: [{ v: 'kWh', t: 'kWh' }, { v: 'MWh', t: 'MWh' }, { v: 'GJ', t: 'GJ' }], default: 'kWh' },
+      'Natural gas': { label: 'Natural gas (therms, kWh, m³)', options: [{ v: 'therms', t: 'therms' }, { v: 'kWh', t: 'kWh' }, { v: 'm3', t: 'm³' }, { v: 'cf', t: 'cf' }], default: 'therms' },
+      'District heating / cooling': { label: 'District heating / cooling', options: [{ v: 'kWh', t: 'kWh' }, { v: 'GJ', t: 'GJ' }, { v: 'MMBtu', t: 'MMBtu' }], default: 'kWh' },
+      'Fuel oil': { label: 'Fuel oil (gallons, liters)', options: [{ v: 'gallons', t: 'gallons' }, { v: 'liters', t: 'liters' }], default: 'gallons' },
+      'Fleet / Diesel': { label: 'Diesel (gallons, liters)', options: [{ v: 'gallons', t: 'gallons' }, { v: 'liters', t: 'liters' }], default: 'gallons' },
+      'Fleet / Gasoline': { label: 'Gasoline (gallons, liters)', options: [{ v: 'gallons', t: 'gallons' }, { v: 'liters', t: 'liters' }], default: 'gallons' },
+      'Refrigerants': { label: 'Refrigerants', options: [{ v: 'kg', t: 'kg' }, { v: 'lbs', t: 'lbs' }, { v: 'MT', t: 'MT' }], default: 'kg' },
+      'Business travel': { label: 'Business travel', options: [{ v: 'km', t: 'km' }, { v: 'miles', t: 'miles' }], default: 'miles' },
+      'Employee commuting': { label: 'Employee commuting', options: [{ v: 'km', t: 'km' }, { v: 'miles', t: 'miles' }], default: 'miles' },
+      'Waste': { label: 'Waste', options: [{ v: 'kg', t: 'kg' }, { v: 'tons', t: 'tons' }, { v: 'MT', t: 'MT' }], default: 'kg' }
+    };
+    function buildAddIntensityUomList() {
+      var panel = document.getElementById('add-intensity-data-types-panel');
+      var listEl = document.getElementById('add-intensity-uom-list');
+      if (!panel || !listEl) return;
+      var selected = [];
+      panel.querySelectorAll('input[type="checkbox"]:checked').forEach(function(cb) { selected.push(cb.value); });
+      var html = '';
+      selected.forEach(function(dataType) {
+        var cfg = addIntensityUomConfig[dataType];
+        if (!cfg) cfg = { label: dataType, options: [{ v: '—', t: '—' }], default: '—' };
+        var opts = cfg.options.map(function(o) { return '<option value="' + o.v + '"' + (o.v === cfg.default ? ' selected' : '') + '>' + o.t + '</option>'; }).join('');
+        html += '<div class="add-intensity-uom-row" data-dtype="' + dataType.replace(/"/g, '&quot;') + '" data-label="' + (cfg.label || dataType).toLowerCase() + '"><span class="add-intensity-uom-row-label">' + (cfg.label || dataType) + '</span><select class="form-select add-intensity-uom-select" aria-label="Unit for ' + (cfg.label || dataType) + '">' + opts + '</select></div>';
+      });
+      listEl.innerHTML = html || '<p class="add-intensity-uom-empty" style="color: var(--ghg-text-muted); font-size: 14px; margin: 0;">Select data types on the Intensity step to see unit options here.</p>';
+      filterAddIntensityUomBySearch();
+    }
+    function filterAddIntensityUomBySearch() {
+      var q = (document.getElementById('add-intensity-uom-search') && document.getElementById('add-intensity-uom-search').value || '').toLowerCase();
+      var listEl = document.getElementById('add-intensity-uom-list');
+      if (!listEl) return;
+      listEl.querySelectorAll('.add-intensity-uom-row').forEach(function(row) {
+        var label = (row.getAttribute('data-label') || '').toLowerCase();
+        var show = !q || label.indexOf(q) !== -1 || (row.querySelector('select') && row.querySelector('select').selectedOptions[0] && row.querySelector('select').selectedOptions[0].text.toLowerCase().indexOf(q) !== -1);
+        row.style.display = show ? '' : 'none';
+      });
+    }
     function setAddIntensityModelWizardStep(step) {
       addIntensityModelWizardStep = step;
+      if (step === 6) buildAddIntensityUomList();
       var stepper = document.getElementById('add-intensity-model-wizard-stepper');
       if (stepper) {
         stepper.querySelectorAll('.wizard-step').forEach(function(el) {
@@ -26339,6 +26732,127 @@ Thank you.</div>
       if (backBtn) backBtn.style.display = step === 1 ? 'none' : 'inline-flex';
       if (nextBtn) nextBtn.style.display = step === addIntensityModelWizardTotalSteps ? 'none' : 'inline-flex';
       if (createBtn) createBtn.style.display = step === addIntensityModelWizardTotalSteps ? 'inline-flex' : 'none';
+      var previewEl = document.getElementById('add-intensity-dataset-preview-persistent');
+      if (previewEl) previewEl.style.display = (step >= 3 && step <= 6) ? 'block' : 'none';
+      if (step < 3 || step > 6) closeIntensityColumnsPanel();
+    }
+    function handleIntensityColumnDragstart(ev) {
+      var row = ev.target.closest('.add-intensity-columns-row');
+      if (!row) return;
+      row.classList.add('dragging');
+      var list = document.getElementById('add-intensity-columns-list');
+      if (!list) return;
+      var idx = Array.prototype.indexOf.call(list.children, row);
+      ev.dataTransfer.setData('text/plain', String(idx));
+      ev.dataTransfer.effectAllowed = 'move';
+    }
+    function handleIntensityColumnDragover(ev) {
+      ev.preventDefault();
+      ev.dataTransfer.dropEffect = 'move';
+    }
+    function handleIntensityColumnDrop(ev) {
+      ev.preventDefault();
+      var list = document.getElementById('add-intensity-columns-list');
+      if (!list) return;
+      var fromIdx = parseInt(ev.dataTransfer.getData('text/plain'), 10);
+      var toRow = ev.target.closest('.add-intensity-columns-row');
+      if (!toRow || toRow.parentNode !== list) return;
+      var fromRow = list.children[fromIdx];
+      if (!fromRow || fromRow === toRow) return;
+      list.insertBefore(fromRow, toRow);
+    }
+    function handleIntensityColumnDragend(ev) {
+      var row = ev.target.closest('.add-intensity-columns-row');
+      if (row) row.classList.remove('dragging');
+    }
+    function closeIntensityColumnsPanel() {
+      var dd = document.getElementById('add-intensity-columns-dropdown');
+      if (!dd) return;
+      dd.classList.remove('open');
+      var btn = dd.querySelector('.add-intensity-columns-btn');
+      if (btn) btn.setAttribute('aria-expanded', 'false');
+      document.removeEventListener('click', closeIntensityColumnsPanelOnClick);
+    }
+    function closeIntensityColumnsPanelOnClick(ev) {
+      var dd = document.getElementById('add-intensity-columns-dropdown');
+      if (dd && !dd.contains(ev.target)) closeIntensityColumnsPanel();
+    }
+    function toggleIntensityColumnsPanel(ev) {
+      ev.preventDefault();
+      ev.stopPropagation();
+      var dd = document.getElementById('add-intensity-columns-dropdown');
+      var btn = dd && dd.querySelector('.add-intensity-columns-btn');
+      if (!dd || !btn) return;
+      var isOpen = dd.classList.contains('open');
+      if (isOpen) {
+        closeIntensityColumnsPanel();
+      } else {
+        dd.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+        setTimeout(function() { document.addEventListener('click', closeIntensityColumnsPanelOnClick); }, 0);
+      }
+    }
+    function applyIntensityDatasetColumns() {
+      var list = document.getElementById('add-intensity-columns-list');
+      if (!list) return;
+      var rows = list.querySelectorAll('.add-intensity-columns-row');
+      var order = [];
+      var visibility = [];
+      for (var r = 0; r < rows.length; r++) {
+        var cb = rows[r].querySelector('input[type="checkbox"][data-col-index]');
+        if (cb) {
+          order.push(parseInt(cb.getAttribute('data-col-index'), 10));
+          visibility.push(cb.checked);
+        }
+      }
+      var tables = document.querySelectorAll('#add-intensity-dataset-preview-persistent .add-intensity-dataset-preview-table');
+      tables.forEach(function(table) {
+        var headerRow = table.querySelector('thead tr');
+        var bodyRows = table.querySelectorAll('tbody tr');
+        var ths = headerRow ? Array.prototype.slice.call(headerRow.querySelectorAll('th')) : [];
+        if (ths.length && !ths[0].getAttribute('data-col-index')) {
+          ths.forEach(function(th, i) { th.setAttribute('data-col-index', String(i)); });
+          bodyRows.forEach(function(tr) {
+            var tds = tr.querySelectorAll('td');
+            for (var k = 0; k < tds.length; k++) tds[k].setAttribute('data-col-index', String(k));
+          });
+        }
+        var thsByIdx = {};
+        ths.forEach(function(th) { thsByIdx[parseInt(th.getAttribute('data-col-index'), 10)] = th; });
+        if (headerRow && ths.length === 31) {
+          while (headerRow.firstChild) headerRow.removeChild(headerRow.firstChild);
+          for (var i = 0; i < order.length; i++) {
+            var th = thsByIdx[order[i]];
+            if (th) { headerRow.appendChild(th); th.style.display = visibility[i] ? '' : 'none'; }
+          }
+        }
+        bodyRows.forEach(function(tr) {
+          var tds = tr.querySelectorAll('td');
+          var tdsByIdx = {};
+          for (var t = 0; t < tds.length; t++) tdsByIdx[parseInt(tds[t].getAttribute('data-col-index'), 10)] = tds[t];
+          if (tds.length === 31) {
+            while (tr.firstChild) tr.removeChild(tr.firstChild);
+            for (var j = 0; j < order.length; j++) {
+              var td = tdsByIdx[order[j]];
+              if (td) { tr.appendChild(td); td.style.display = visibility[j] ? '' : 'none'; }
+            }
+          }
+        });
+      });
+      closeIntensityColumnsPanel();
+    }
+    function resetIntensityDatasetColumns() {
+      var list = document.getElementById('add-intensity-columns-list');
+      if (!list) return;
+      var rows = Array.prototype.slice.call(list.querySelectorAll('.add-intensity-columns-row'));
+      rows.sort(function(a, b) {
+        var ai = parseInt(a.querySelector('input[data-col-index]').getAttribute('data-col-index'), 10);
+        var bi = parseInt(b.querySelector('input[data-col-index]').getAttribute('data-col-index'), 10);
+        return ai - bi;
+      });
+      rows.forEach(function(row) { list.appendChild(row); });
+      list.querySelectorAll('input[type="checkbox"][data-col-index]').forEach(function(cb) { cb.checked = true; });
+      applyIntensityDatasetColumns();
     }
     function addIntensityModelWizardNext() {
       if (addIntensityModelWizardStep < addIntensityModelWizardTotalSteps) {
@@ -26349,6 +26863,11 @@ Thank you.</div>
       if (addIntensityModelWizardStep > 1) {
         setAddIntensityModelWizardStep(addIntensityModelWizardStep - 1);
       }
+    }
+    function updateIntensityPreviewRecordsLabel() {
+      var sel = document.getElementById('add-intensity-preview-records-per-page');
+      var label = document.getElementById('add-intensity-previewing-text');
+      if (sel && label) label.textContent = 'Previewing top ' + sel.value + ' records of 422,365';
     }
     function toggleDataTypesDropdown(ev) {
       ev.preventDefault();
@@ -27700,12 +28219,21 @@ Thank you.</div>
       activityLogRenderV3();
     }
     function handleActivityRowClickV3(ev) {
-      if (ev.target.closest('button')) return;
+      if (ev.target.closest('button') || ev.target.closest('.activity-log-view-details')) return;
       var tr = ev.currentTarget;
       var id = tr.getAttribute('data-activity-id');
       if (id) openActivityRowDetailDrawerV2(parseInt(id, 10));
     }
     function activityLogApplyFiltersV3() { activityLogRenderV3(); }
+    function activityLogProductChangeV3() {
+      var productEl = document.getElementById('activity-log-product-v3');
+      var productValue = productEl ? productEl.value : 'Carbon Performance';
+      var thProduct = document.getElementById('activity-log-th-product-v3');
+      var accordionProduct = document.getElementById('activity-log-filter-accordion-product-v3');
+      if (thProduct) thProduct.style.display = productValue === 'all' ? '' : 'none';
+      if (accordionProduct) accordionProduct.style.display = productValue === 'all' ? '' : 'none';
+      activityLogRenderV3();
+    }
     function activityLogTimeframeChangeV3() {
       var timeframeEl = document.getElementById('activity-log-timeframe-v3');
       var customRow = document.getElementById('activity-log-custom-dates-v3');
@@ -27722,7 +28250,8 @@ Thank you.</div>
         users: getChecked('activity-log-filter-user-options-v3'),
         actions: getChecked('activity-log-filter-action-options-v3'),
         objectTypes: getChecked('activity-log-filter-object-options-v3'),
-        pages: getChecked('activity-log-filter-page-options-v3')
+        pages: getChecked('activity-log-filter-page-options-v3'),
+        products: getChecked('activity-log-filter-product-options-v3')
       };
     }
     function activityLogPopulateFiltersV3() {
@@ -27761,11 +28290,14 @@ Thank you.</div>
       var wrap = document.getElementById('activity-log-filter-pills-v3');
       if (!wrap) return;
       var f = getActivityLogSelectedFiltersV3();
+      var productEl = document.getElementById('activity-log-product-v3');
+      var showProductFilter = productEl && productEl.value === 'all';
       var pills = [];
       f.users.forEach(function(v) { pills.push({ type: 'user', value: v, label: 'User: ' + v }); });
       f.actions.forEach(function(v) { pills.push({ type: 'action', value: v, label: 'Action: ' + v }); });
       f.objectTypes.forEach(function(v) { pills.push({ type: 'objectType', value: v, label: 'Object type: ' + v }); });
       f.pages.forEach(function(v) { pills.push({ type: 'page', value: v, label: 'Page: ' + v }); });
+      if (showProductFilter) f.products.forEach(function(v) { pills.push({ type: 'product', value: v, label: 'Product: ' + v }); });
       wrap.innerHTML = pills.map(function(p) {
         return '<span class="activity-log-filter-pill" data-filter-type="' + p.type + '" data-filter-value="' + activityLogEscape(p.value) + '">' + activityLogEscape(p.label) + '<button type="button" class="activity-log-filter-pill-remove" onclick="event.stopPropagation(); var pill=this.closest(\'.activity-log-filter-pill\'); if(pill) removeActivityLogFilterPillV3(pill.getAttribute(\'data-filter-type\'), pill.getAttribute(\'data-filter-value\'));" aria-label="Remove filter">&times;</button></span>';
       }).join('');
@@ -27773,7 +28305,7 @@ Thank you.</div>
       if (clearAllBtn) clearAllBtn.style.display = pills.length > 0 ? 'inline-block' : 'none';
     }
     function removeActivityLogFilterPillV3(filterType, value) {
-      var containerId = filterType === 'user' ? 'activity-log-filter-user-options-v3' : filterType === 'action' ? 'activity-log-filter-action-options-v3' : filterType === 'objectType' ? 'activity-log-filter-object-options-v3' : 'activity-log-filter-page-options-v3';
+      var containerId = filterType === 'user' ? 'activity-log-filter-user-options-v3' : filterType === 'action' ? 'activity-log-filter-action-options-v3' : filterType === 'objectType' ? 'activity-log-filter-object-options-v3' : filterType === 'page' ? 'activity-log-filter-page-options-v3' : 'activity-log-filter-product-options-v3';
       var el = document.getElementById(containerId);
       if (!el) return;
       var inputs = el.querySelectorAll('input[type="checkbox"]');
@@ -27785,6 +28317,8 @@ Thank you.</div>
     function getFilteredActivityLogRowsForV3() {
       var searchInput = document.getElementById('activity-log-search-v3');
       var search = (searchInput && !searchInput.readOnly) ? (searchInput.value || '') : '';
+      var productEl = document.getElementById('activity-log-product-v3');
+      var productValue = (productEl && productEl.value) ? productEl.value : 'Carbon Performance';
       var f = getActivityLogSelectedFiltersV3();
       var timeframeEl = document.getElementById('activity-log-timeframe-v3');
       var timeframe = (timeframeEl && timeframeEl.value) || '';
@@ -27808,6 +28342,8 @@ Thank you.</div>
       }
       var q = search.toLowerCase().trim();
       return ACTIVITY_LOG_DATA.filter(function(r) {
+        if (productValue !== 'all' && (r.product || 'Carbon Performance') !== productValue) return false;
+        if (productValue === 'all' && f.products.length && f.products.indexOf(r.product || '') === -1) return false;
         if (f.users.length && f.users.indexOf(r.user) === -1) return false;
         if (f.actions.length && f.actions.indexOf(r.action) === -1) return false;
         if (f.objectTypes.length && f.objectTypes.indexOf(r.objectType) === -1) return false;
@@ -27825,11 +28361,18 @@ Thank you.</div>
     }
     function exportActivityLogV3() {
       var rows = getFilteredActivityLogRowsForV3();
-      var header = 'Timestamp,User,Action,Page,Affected item,Value before change,Value after change,Agent Assisted';
+      var productEl = document.getElementById('activity-log-product-v3');
+      var showProductColumn = productEl && productEl.value === 'all';
+      var header = showProductColumn ? 'Timestamp,User,Action,Page,Product,Affected item,Details,Agent Assisted' : 'Timestamp,User,Action,Page,Affected item,Details,Agent Assisted';
       var lines = [header].concat(rows.map(function(r) {
         var obj = getAffectedItemLabel(r);
         var agentAssisted = r.agentAssisted === true ? 'Yes' : 'No';
-        return activityLogCsvEscape(r.timestamp) + ',' + activityLogCsvEscape(r.user) + ',' + activityLogCsvEscape(r.action) + ',' + activityLogCsvEscape(r.where) + ',' + activityLogCsvEscape(obj) + ',' + activityLogCsvEscape(r.valueBefore || '') + ',' + activityLogCsvEscape(r.valueAfter || '') + ',' + activityLogCsvEscape(agentAssisted);
+        var details = (r.valueAtTime || '').trim();
+        var product = (r.product || '').trim();
+        if (showProductColumn) {
+          return activityLogCsvEscape(r.timestamp) + ',' + activityLogCsvEscape(r.user) + ',' + activityLogCsvEscape(r.action) + ',' + activityLogCsvEscape(r.where) + ',' + activityLogCsvEscape(product) + ',' + activityLogCsvEscape(obj) + ',' + activityLogCsvEscape(details) + ',' + activityLogCsvEscape(agentAssisted);
+        }
+        return activityLogCsvEscape(r.timestamp) + ',' + activityLogCsvEscape(r.user) + ',' + activityLogCsvEscape(r.action) + ',' + activityLogCsvEscape(r.where) + ',' + activityLogCsvEscape(obj) + ',' + activityLogCsvEscape(details) + ',' + activityLogCsvEscape(agentAssisted);
       }));
       var csv = lines.join('\r\n');
       var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
@@ -27842,8 +28385,15 @@ Thank you.</div>
     function activityLogRenderV3() {
       var tbody = document.getElementById('activity-log-tbody-v3');
       if (!tbody) return;
+      var productEl = document.getElementById('activity-log-product-v3');
+      var productValue = (productEl && productEl.value) ? productEl.value : 'Carbon Performance';
+      var showProductColumn = productValue === 'all';
+      var thProduct = document.getElementById('activity-log-th-product-v3');
+      var accordionProduct = document.getElementById('activity-log-filter-accordion-product-v3');
+      if (thProduct) thProduct.style.display = showProductColumn ? '' : 'none';
+      if (accordionProduct) accordionProduct.style.display = showProductColumn ? '' : 'none';
       var rows = getFilteredActivityLogRowsForV3();
-      var objTypeEsc, objIdEsc, ts, who, emailEsc, act, where, objHtml, valBefore, valAfter, agentAssisted;
+      var objTypeEsc, objIdEsc, ts, who, emailEsc, act, where, productEsc, objHtml, detailsPreview, agentAssisted;
       tbody.innerHTML = rows.map(function(r) {
         objTypeEsc = activityLogEscape(r.objectType).replace(/'/g, "\\'");
         objIdEsc = activityLogEscape(r.objectId).replace(/'/g, "\\'");
@@ -27852,19 +28402,22 @@ Thank you.</div>
         emailEsc = activityLogEscape(r.email || '');
         act = activityLogEscape(r.action);
         where = activityLogEscape(r.where);
+        productEsc = activityLogEscape(r.product || '');
         objHtml = getAffectedItemHtml(r);
-        valBefore = activityLogEscape(formatValueChangeForTable(r.valueBefore));
-        valAfter = activityLogEscape(formatValueChangeForTable(r.valueAfter));
+        detailsPreview = (r.valueAtTime || '').trim();
+        if (detailsPreview.length > 80) detailsPreview = detailsPreview.slice(0, 77) + '…';
+        detailsPreview = detailsPreview ? activityLogEscape(detailsPreview) : '';
         agentAssisted = r.agentAssisted === true ? 'Yes' : 'No';
+        var productTd = showProductColumn ? '<td class="activity-log-product-cell">' + productEsc + '</td>' : '';
         return '<tr data-activity-id="' + r.id + '" data-object-type="' + activityLogEscape(r.objectType) + '" data-object-id="' + activityLogEscape(r.objectId) + '" onclick="handleActivityRowClickV3(event)">' +
-          '<td><span class="activity-log-v2-line-clamp">' + ts + '</span></td>' +
+          '<td class="activity-log-ts-cell"><span class="activity-log-v2-line-clamp">' + ts + '</span></td>' +
+          productTd +
           '<td class="activity-log-user-cell"><span class="activity-log-v2-line-clamp">' + who + '</span>' + (emailEsc ? '<span class="activity-log-user-email">' + emailEsc + '</span>' : '') + '</td>' +
-          '<td><span class="activity-log-v2-line-clamp">' + act + '</span></td>' +
+          '<td class="activity-log-action-cell"><span class="activity-log-v2-line-clamp">' + act + '</span></td>' +
           '<td class="activity-log-where-cell"><span class="activity-log-v2-line-clamp">' + where + '</span></td>' +
           '<td class="activity-log-affected-cell">' + objHtml + '</td>' +
-          '<td class="activity-log-value-cell">' + (valBefore ? '<span class="activity-log-v2-line-clamp">' + valBefore + '</span>' : '<span class="activity-log-empty-cell">—</span>') + '</td>' +
-          '<td class="activity-log-value-cell">' + (valAfter ? '<span class="activity-log-v2-line-clamp">' + valAfter + '</span>' : '<span class="activity-log-empty-cell">—</span>') + '</td>' +
-          '<td>' + agentAssisted + '</td></tr>';
+          '<td class="activity-log-details-cell">' + (detailsPreview ? '<span class="activity-log-v2-line-clamp" title="' + activityLogEscape(r.valueAtTime || '') + '">' + detailsPreview + '</span>' : '<span class="activity-log-empty-cell">—</span>') + '<button type="button" class="activity-log-view-details" onclick="event.stopPropagation(); openActivityLogFullDetails(' + r.id + ')" aria-label="View full details">View</button></td>' +
+          '<td class="activity-log-agent-cell">' + agentAssisted + '</td></tr>';
       }).join('');
       renderActivityLogFilterPillsV3();
       var input = document.getElementById('activity-log-search-v3');
@@ -27910,7 +28463,7 @@ Thank you.</div>
       item.classList.toggle('expanded');
     }
     function clearAllActivityLogFiltersV3() {
-      ['activity-log-filter-user-options-v3', 'activity-log-filter-action-options-v3', 'activity-log-filter-object-options-v3', 'activity-log-filter-page-options-v3'].forEach(function(id) {
+      ['activity-log-filter-user-options-v3', 'activity-log-filter-action-options-v3', 'activity-log-filter-object-options-v3', 'activity-log-filter-page-options-v3', 'activity-log-filter-product-options-v3'].forEach(function(id) {
         var el = document.getElementById(id);
         if (el) { el.querySelectorAll('input[type="checkbox"]').forEach(function(cb) { cb.checked = false; }); }
       });
@@ -27920,7 +28473,9 @@ Thank you.</div>
     }
     function updateActivityLogFilterBadgeV3() {
       var f = getActivityLogSelectedFiltersV3();
-      var n = f.users.length + f.actions.length + f.objectTypes.length + f.pages.length;
+      var productEl = document.getElementById('activity-log-product-v3');
+      var showProductFilter = productEl && productEl.value === 'all';
+      var n = f.users.length + f.actions.length + f.objectTypes.length + f.pages.length + (showProductFilter ? f.products.length : 0);
       var badge = document.getElementById('activity-log-filter-badge-v3');
       if (!badge) return;
       badge.textContent = n;
