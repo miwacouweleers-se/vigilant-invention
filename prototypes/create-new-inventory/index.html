@@ -13611,13 +13611,13 @@
                   <div class="step-connector"></div>
                   <div class="wizard-step" data-step="2" role="tab"><span class="step-circle">2</span><span class="step-label">Intensity</span></div>
                   <div class="step-connector"></div>
-                  <div class="wizard-step" data-step="3" role="tab"><span class="step-circle">3</span><span class="step-label">Aggregation</span></div>
+                  <div class="wizard-step" data-step="3" role="tab"><span class="step-circle">3</span><span class="step-label">UoM</span></div>
                   <div class="step-connector"></div>
                   <div class="wizard-step" data-step="4" role="tab"><span class="step-circle">4</span><span class="step-label">Inclusions</span></div>
                   <div class="step-connector"></div>
                   <div class="wizard-step" data-step="5" role="tab"><span class="step-circle">5</span><span class="step-label">Thresholds</span></div>
                   <div class="step-connector"></div>
-                  <div class="wizard-step" data-step="6" role="tab"><span class="step-circle">6</span><span class="step-label">UoM</span></div>
+                  <div class="wizard-step" data-step="6" role="tab"><span class="step-circle">6</span><span class="step-label">Aggregation</span></div>
                 </div>
               </div>
               <div class="add-intensity-model-wizard-content-wrap">
@@ -13690,6 +13690,15 @@
                   </div>
                 </div>
                 <div class="wizard-step-content" data-step="3" id="add-intensity-model-step-3">
+                  <h3 class="add-intensity-model-step-title">Units of measure</h3>
+                  <p class="add-intensity-model-step-desc">Select units of measure for each data type. The data types shown depend on the data types selected on the Intensity step.</p>
+                  <div class="add-intensity-uom-search-wrap">
+                    <i class="fa-light fa-search add-intensity-uom-search-icon" aria-hidden="true"></i>
+                    <input type="text" class="form-input add-intensity-uom-search" id="add-intensity-uom-search" placeholder="Search all UOMs..." aria-label="Search all UOMs" oninput="filterAddIntensityUomBySearch()">
+                  </div>
+                  <div class="add-intensity-uom-list" id="add-intensity-uom-list"></div>
+                </div>
+                <div class="wizard-step-content" data-step="6" id="add-intensity-model-step-6">
                   <h3 class="add-intensity-model-step-title">Aggregation</h3>
                   <p class="add-intensity-model-step-desc">Define how location and building dimensions combine. Each row and column label is a dropdown—select the level of granularity for that position.</p>
                   <p class="add-intensity-aggregation-granularity-note">The <strong>bottom-most row</strong> and <strong>right-most column</strong> represent the most granular levels. The cell at their intersection (bottom-right) yields the <strong>most granular intensity value</strong>. Rows above and columns to the left are less granular; the gradient indicates increasing granularity toward that corner.</p>
@@ -13823,15 +13832,6 @@
                       <input type="number" class="form-input" id="add-intensity-min-site-count" value="5" min="1" aria-label="Minimum site count" style="width: 80px;">
                     </div>
                   </div>
-                </div>
-                <div class="wizard-step-content" data-step="6" id="add-intensity-model-step-6">
-                  <h3 class="add-intensity-model-step-title">Units of measure</h3>
-                  <p class="add-intensity-model-step-desc">Select units of measure for each data type. The data types shown depend on the data types selected on the Intensity step.</p>
-                  <div class="add-intensity-uom-search-wrap">
-                    <i class="fa-light fa-search add-intensity-uom-search-icon" aria-hidden="true"></i>
-                    <input type="text" class="form-input add-intensity-uom-search" id="add-intensity-uom-search" placeholder="Search all UOMs..." aria-label="Search all UOMs" oninput="filterAddIntensityUomBySearch()">
-                  </div>
-                  <div class="add-intensity-uom-list" id="add-intensity-uom-list"></div>
                 </div>
               </div>
               <div class="add-intensity-dataset-preview add-intensity-dataset-preview-persistent" id="add-intensity-dataset-preview-persistent" style="display: none;">
@@ -26710,7 +26710,7 @@ Thank you.</div>
     }
     function setAddIntensityModelWizardStep(step) {
       addIntensityModelWizardStep = step;
-      if (step === 6) buildAddIntensityUomList();
+      if (step === 3) buildAddIntensityUomList();
       var stepper = document.getElementById('add-intensity-model-wizard-stepper');
       if (stepper) {
         stepper.querySelectorAll('.wizard-step').forEach(function(el) {
@@ -26733,8 +26733,8 @@ Thank you.</div>
       if (nextBtn) nextBtn.style.display = step === addIntensityModelWizardTotalSteps ? 'none' : 'inline-flex';
       if (createBtn) createBtn.style.display = step === addIntensityModelWizardTotalSteps ? 'inline-flex' : 'none';
       var previewEl = document.getElementById('add-intensity-dataset-preview-persistent');
-      if (previewEl) previewEl.style.display = (step >= 3 && step <= 6) ? 'block' : 'none';
-      if (step < 3 || step > 6) closeIntensityColumnsPanel();
+      if (previewEl) previewEl.style.display = (step >= 4 && step <= 6) ? 'block' : 'none';
+      if (step < 4 || step > 6) closeIntensityColumnsPanel();
     }
     function handleIntensityColumnDragstart(ev) {
       var row = ev.target.closest('.add-intensity-columns-row');
