@@ -2115,6 +2115,54 @@
     .create-routine-segmented button.active { background: var(--ghg-primary-light); color: var(--ghg-primary-dark); font-weight: 500; }
     .create-routine-modal .modal-footer { display: flex; justify-content: flex-end; gap: 10px; flex-wrap: wrap; border-top: 1px solid var(--ghg-border); }
     .create-routine-modal .modal-footer .btn-primary { order: 1; }
+    /* Add intensity model wizard modal (full page) */
+    #add-intensity-model-wizard-backdrop .modal { max-width: none; width: 100%; height: 100%; max-height: none; border-radius: 0; display: flex; flex-direction: column; }
+    #add-intensity-model-wizard-backdrop .modal-body { flex: 1; min-height: 0; display: flex; flex-direction: column; overflow: hidden; }
+    .add-intensity-model-wizard-stepper-wrap { flex-shrink: 0; overflow-x: auto; margin-bottom: 12px; padding: 20px 0 6px; -webkit-overflow-scrolling: touch; }
+    .add-intensity-model-wizard-stepper { flex-wrap: nowrap; justify-content: flex-start; min-width: max-content; margin-bottom: 0; padding: 0 16px; }
+    .add-intensity-model-wizard-stepper .wizard-step { gap: 6px; }
+    .add-intensity-model-wizard-stepper .step-circle { width: 28px; height: 28px; font-size: 12px; }
+    .add-intensity-model-wizard-stepper .step-label { white-space: nowrap; font-size: 11px; }
+    .add-intensity-model-wizard-stepper .step-connector { width: 24px; margin: 0 6px; flex-shrink: 0; }
+    .add-intensity-model-wizard-content-wrap { flex: 1; min-height: 0; overflow-y: auto; }
+    .add-intensity-model-step-title { font-size: 14px; font-weight: 600; margin: 0 0 4px 0; color: var(--ghg-text); }
+    .add-intensity-model-step-desc { font-size: 13px; color: var(--ghg-text-secondary); margin: 0; line-height: 1.4; }
+    .add-intensity-model-wizard-footer { flex-shrink: 0; display: flex; justify-content: flex-end; align-items: center; gap: 10px; flex-wrap: wrap; padding: 12px 24px; }
+    #add-intensity-model-wizard-backdrop .modal-header { padding: 16px 24px; flex-shrink: 0; }
+    #add-intensity-model-wizard-backdrop .modal-body { padding: 0 24px 16px; }
+    #add-intensity-model-wizard-backdrop .modal-title { font-size: 18px; }
+    #add-intensity-model-wizard-backdrop .modal-subtitle { font-size: 13px; margin-top: 4px; }
+    .add-intensity-model-wizard-content-wrap .wizard-step-content { padding: 12px 0 0; }
+    /* Step 2: Usage intensity preferences */
+    .add-intensity-model-step-2-intro { font-size: 13px; color: var(--ghg-text-secondary); line-height: 1.5; margin: 0 0 16px 0; }
+    .add-intensity-model-radio-group { margin-bottom: 20px; }
+    .add-intensity-model-radio-options { display: flex; flex-direction: column; gap: 10px; }
+    .add-intensity-model-radio-options label { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; font-size: 14px; font-weight: 600; color: var(--ghg-text); }
+    .add-intensity-model-radio-options input[type="radio"] { margin: 0; width: 18px; height: 18px; accent-color: var(--ghg-success); cursor: pointer; }
+    .add-intensity-model-setup-heading { font-size: 15px; font-weight: 600; color: var(--ghg-success); margin: 20px 0 12px 0; }
+    .add-intensity-model-date-range-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .add-intensity-model-date-range-row .form-input { flex: 1; min-width: 140px; }
+    .add-intensity-model-date-range-row .date-arrow { color: var(--ghg-text-muted); font-size: 14px; flex-shrink: 0; }
+    .add-intensity-model-date-wrap { position: relative; flex: 1; min-width: 140px; }
+    .add-intensity-model-date-wrap .form-input { padding-right: 36px; }
+    .add-intensity-model-date-wrap .fa-calendar { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: var(--ghg-text-muted); font-size: 14px; pointer-events: none; }
+    #add-intensity-model-step-2 .form-input[readonly] { background: var(--ghg-surface-elevated); color: var(--ghg-text); }
+    /* Data types dropdown (multi-select with tags) */
+    .add-intensity-data-types-dropdown { position: relative; }
+    .add-intensity-data-types-trigger { position: relative; width: 100%; text-align: left; display: flex; align-items: center; flex-wrap: wrap; gap: 6px; padding: 8px 36px 8px 14px; min-height: 42px; cursor: pointer; }
+    .add-intensity-data-types-trigger .add-intensity-data-types-chevron { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); font-size: 12px; color: var(--ghg-text-muted); pointer-events: none; }
+    .add-intensity-data-types-trigger[aria-expanded="true"] .add-intensity-data-types-chevron { transform: translateY(-50%) rotate(180deg); }
+    .add-intensity-data-types-tags { display: inline-flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+    .add-intensity-data-types-tags:not(:empty) + .add-intensity-data-types-placeholder { display: none; }
+    .add-intensity-data-types-placeholder { color: var(--ghg-text-muted); font-size: 14px; }
+    .add-intensity-data-types-tag { display: inline-flex; align-items: center; gap: 4px; padding: 4px 8px; font-size: 12px; background: var(--ghg-primary-light); color: var(--ghg-primary-dark); border-radius: 6px; }
+    .add-intensity-data-types-tag-remove { padding: 0; border: none; background: none; color: inherit; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; border-radius: 2px; font-size: 14px; line-height: 1; }
+    .add-intensity-data-types-tag-remove:hover { background: rgba(0,0,0,0.1); }
+    .add-intensity-data-types-panel { position: absolute; left: 0; right: 0; top: 100%; margin-top: 4px; background: var(--ghg-surface); border: 1px solid var(--ghg-border); border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.15); padding: 8px; max-height: 240px; overflow-y: auto; z-index: 100; display: none; }
+    .add-intensity-data-types-panel[aria-hidden="false"] { display: block; }
+    .add-intensity-data-types-option { display: flex; align-items: center; gap: 10px; padding: 8px 10px; font-size: 14px; color: var(--ghg-text); cursor: pointer; border-radius: 6px; }
+    .add-intensity-data-types-option:hover { background: var(--ghg-surface-hover); }
+    .add-intensity-data-types-option input[type="checkbox"] { margin: 0; width: 18px; height: 18px; accent-color: var(--ghg-success); flex-shrink: 0; cursor: pointer; }
     .create-routine-status-dot { font-size: 12px; }
     .create-routine-status-dot.multiple { color: var(--ghg-text-secondary); }
     .create-routine-status-dot.active { color: var(--ghg-success); }
@@ -2150,14 +2198,53 @@
     /* Report detail modal */
     .report-detail-modal .modal { max-width: 720px; width: 95%; max-height: 90vh; display: flex; flex-direction: column; }
     .report-detail-modal .modal-body { overflow-y: auto; flex: 1; }
+    /* Gap report full-page modal */
+    #gap-report-detail-backdrop.report-detail-modal .modal { max-width: none; width: 100%; height: 100%; max-height: none; border-radius: 0; }
+    #gap-report-detail-backdrop.report-detail-modal .modal-body { flex: 1; min-height: 0; }
+    #intensity-report-detail-backdrop.report-detail-modal .modal { max-width: none; width: 100%; height: 100%; max-height: none; border-radius: 0; }
+    #intensity-report-detail-backdrop.report-detail-modal .modal-body { flex: 1; min-height: 0; }
+    .gap-report-view-toggle,
+    .intensity-report-view-toggle { display: flex; gap: 0; border: 1px solid var(--ghg-border); border-radius: 8px; overflow: hidden; margin-bottom: 16px; }
+    .gap-report-view-toggle button,
+    .intensity-report-view-toggle button { padding: 8px 16px; font-size: 13px; font-weight: 500; background: var(--ghg-surface-elevated); color: var(--ghg-text-secondary); border: none; cursor: pointer; }
+    .gap-report-view-toggle button.active,
+    .intensity-report-view-toggle button.active { background: var(--ghg-surface); color: var(--ghg-text); }
+    .gap-report-view-toggle button:not(:first-child),
+    .intensity-report-view-toggle button:not(:first-child) { border-left: 1px solid var(--ghg-border); }
+    .gap-report-timeseries-wrap,
+    .intensity-report-timeseries-wrap { display: none; overflow-x: auto; }
+    .gap-report-timeseries-wrap.active,
+    .intensity-report-timeseries-wrap.active { display: block; }
+    .gap-report-list-wrap,
+    .intensity-report-list-wrap { display: block; }
+    .gap-report-list-wrap.hidden,
+    .intensity-report-list-wrap.hidden { display: none; }
+    .report-gap-table.report-timeseries-table { min-width: max-content; }
+    .report-gap-table.report-timeseries-table tbody td.numeric { cursor: pointer; }
+    .report-gap-table.report-timeseries-table tbody td.numeric:hover { background: var(--ghg-surface-hover); }
+    .report-gap-table.report-timeseries-table tbody td.cell-filled { background: var(--ghg-success-light); }
+    .report-gap-table.report-timeseries-table tbody td.cell-unfilled { background: #FEE2E2; }
+    .report-gap-table.report-timeseries-table td.numeric .report-cell-content { display: inline-flex; align-items: center; gap: 6px; }
+    .report-gap-table.report-timeseries-table .report-cell-icon { flex-shrink: 0; font-size: 12px; }
+    .report-gap-table.report-timeseries-table .report-cell-icon-filled { color: var(--ghg-success); }
+    .report-gap-table.report-timeseries-table .report-cell-icon-unfilled { color: #DC2626; }
+    .report-cell-popover { position: fixed; z-index: 3500; background: var(--ghg-surface-elevated); border: 1px solid var(--ghg-border); border-radius: 10px; padding: 12px 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.15); font-size: 13px; max-width: 320px; display: none; }
+    .report-cell-popover.open { display: block; }
+    .report-cell-popover-title { font-weight: 600; color: var(--ghg-text); margin-bottom: 6px; }
+    .report-cell-popover-method { color: var(--ghg-text); margin-top: 4px; }
+    .report-cell-popover-reason { color: var(--ghg-text); margin-top: 4px; }
+    .report-cell-popover-factor { color: var(--ghg-text); margin-top: 4px; }
+    .report-cell-popover-source { color: var(--ghg-text-secondary); margin-top: 4px; }
     .report-detail-section { margin-bottom: 24px; }
     .report-detail-section:last-child { margin-bottom: 0; }
     .report-detail-section-title { font-size: 15px; font-weight: 600; color: var(--ghg-text); margin: 0 0 12px 0; }
     .report-gap-table { width: 100%; border-collapse: collapse; font-size: 13px; }
     .report-gap-table th { text-align: left; padding: 10px 12px; background: var(--ghg-surface-elevated); font-weight: 600; border-bottom: 1px solid var(--ghg-border); }
     .report-gap-table td { padding: 10px 12px; border-bottom: 1px solid var(--ghg-border); }
-    .report-gap-table .method-used { color: var(--ghg-success); }
-    .report-gap-table .method-failed { color: var(--ghg-text-muted); font-size: 12px; }
+    .report-gap-table .method-used { color: var(--ghg-text); }
+    .report-gap-table .method-failed { color: var(--ghg-text); font-size: 12px; }
+    .report-gap-table tbody tr[data-entity] { cursor: pointer; }
+    .report-gap-table tbody tr[data-entity]:hover { background: var(--ghg-surface-hover); }
     .report-intensity-summary { padding: 14px; background: var(--ghg-surface-elevated); border-radius: 8px; font-size: 14px; line-height: 1.5; }
     .report-intensity-factor { font-weight: 600; color: var(--ghg-text); margin-bottom: 8px; }
     .report-intensity-source { color: var(--ghg-text-secondary); }
@@ -11109,6 +11196,7 @@
           <a href="#" class="submenu-item">Organization</a>
           <a href="#" class="submenu-item">Users</a>
           <a href="#" class="submenu-item" data-view="estimation-settings" onclick="event.preventDefault(); if(typeof switchView==='function'){switchView('estimation-settings');}">Estimation settings</a>
+          <a href="#" class="submenu-item" data-view="intensity-estimation-models" onclick="event.preventDefault(); if(typeof switchView==='function'){switchView('intensity-estimation-models');}">Intensity estimation models</a>
           <a href="#" class="submenu-item" data-view="user-activity-log" onclick="event.preventDefault(); if(typeof switchView==='function'){switchView('user-activity-log');}">User activity log</a>
           <a href="#" class="submenu-item" data-view="user-activity-log-v2" onclick="event.preventDefault(); if(typeof switchView==='function'){switchView('user-activity-log-v2');}">User activity log (V2)</a>
           <a href="#" class="submenu-item" data-view="user-activity-log-v3" onclick="event.preventDefault(); if(typeof switchView==='function'){switchView('user-activity-log-v3');}">User activity log V3</a>
@@ -13370,7 +13458,135 @@
           </div>
         </div>
 
-        <!-- Gap filling report detail modal -->
+        <!-- Add intensity model wizard modal -->
+        <div class="modal-backdrop create-routine-backdrop" id="add-intensity-model-wizard-backdrop" onclick="if(event.target===this) closeAddIntensityModelWizard()">
+          <div class="modal create-routine-modal add-intensity-model-wizard-modal" id="add-intensity-model-wizard-modal" onclick="event.stopPropagation()">
+            <div class="modal-header">
+              <div>
+                <h2 class="modal-title">Add intensity estimation model</h2>
+                <p class="modal-subtitle">Configure a new intensity model in a few steps.</p>
+              </div>
+              <button type="button" class="modal-close" onclick="closeAddIntensityModelWizard()" aria-label="Close"><i class="fa-light fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+              <div class="add-intensity-model-wizard-stepper-wrap">
+                <div class="wizard-stepper add-intensity-model-wizard-stepper" id="add-intensity-model-wizard-stepper" role="tablist">
+                  <div class="wizard-step active" data-step="1" role="tab"><span class="step-circle">1</span><span class="step-label">Model</span></div>
+                  <div class="step-connector"></div>
+                  <div class="wizard-step" data-step="2" role="tab"><span class="step-circle">2</span><span class="step-label">Intensity</span></div>
+                  <div class="step-connector"></div>
+                  <div class="wizard-step" data-step="3" role="tab"><span class="step-circle">3</span><span class="step-label">Aggregation</span></div>
+                  <div class="step-connector"></div>
+                  <div class="wizard-step" data-step="4" role="tab"><span class="step-circle">4</span><span class="step-label">Inclusions</span></div>
+                  <div class="step-connector"></div>
+                  <div class="wizard-step" data-step="5" role="tab"><span class="step-circle">5</span><span class="step-label">Thresholds</span></div>
+                  <div class="step-connector"></div>
+                  <div class="wizard-step" data-step="6" role="tab"><span class="step-circle">6</span><span class="step-label">Columns</span></div>
+                  <div class="step-connector"></div>
+                  <div class="wizard-step" data-step="7" role="tab"><span class="step-circle">7</span><span class="step-label">UoM</span></div>
+                  <div class="step-connector"></div>
+                  <div class="wizard-step" data-step="8" role="tab"><span class="step-circle">8</span><span class="step-label">Permissions</span></div>
+                </div>
+              </div>
+              <div class="add-intensity-model-wizard-content-wrap">
+                <div class="wizard-step-content active" data-step="1" id="add-intensity-model-step-1">
+                  <h3 class="add-intensity-model-step-title">Model details</h3>
+                  <p class="add-intensity-model-step-desc">Define the model name, description, and basic settings for this intensity model.</p>
+                  <div class="form-group" style="margin-top: 12px;"><label class="form-label" for="add-intensity-model-name">Model name</label><input type="text" class="form-input" id="add-intensity-model-name" placeholder="e.g. Electric power intensity"></div>
+                  <div class="form-group" style="margin-top: 12px;"><label class="form-label" for="add-intensity-model-description">Description</label><textarea class="form-input" id="add-intensity-model-description" placeholder="Optional description of this intensity model" rows="3" style="resize: vertical; min-height: 72px;"></textarea></div>
+                  <div class="form-group" style="margin-top: 12px;"><label class="form-label" for="add-intensity-model-data-update">Data update procedure</label><select class="form-select" id="add-intensity-model-data-update" aria-label="Data update procedure"><option value="Auto" selected>Auto</option><option value="Manual">Manual</option></select></div>
+                </div>
+                <div class="wizard-step-content" data-step="2" id="add-intensity-model-step-2">
+                  <h3 class="add-intensity-model-step-title">Usage intensity preferences</h3>
+                  <p class="add-intensity-model-step-2-intro">Usage Intensity estimates should only be calculated after running any other configured gap filling and estimation methods. The results should be used to fill in site-level data estimates for sites that do not have any actual data through the matrix upload report for the underlying site group and date range.</p>
+                  <div class="add-intensity-model-radio-group">
+                    <div class="add-intensity-model-radio-options">
+                      <label><input type="radio" name="add-intensity-source" value="inventory" checked> Use intensities based on our inventory</label>
+                      <label><input type="radio" name="add-intensity-source" value="standard"> Use a standard intensity set</label>
+                    </div>
+                  </div>
+                  <h4 class="add-intensity-model-setup-heading">Intensity Calculation Setup</h4>
+                  <div class="form-group">
+                    <label class="form-label" for="add-intensity-date-from">Date Range</label>
+                    <div class="add-intensity-model-date-range-row">
+                      <div class="add-intensity-model-date-wrap">
+                        <input type="text" class="form-input" id="add-intensity-date-from" placeholder="mm/dd/yyyy" aria-label="From date">
+                        <i class="fa-light fa-calendar" aria-hidden="true"></i>
+                      </div>
+                      <span class="date-arrow" aria-hidden="true">→</span>
+                      <div class="add-intensity-model-date-wrap">
+                        <input type="text" class="form-input" id="add-intensity-date-to" placeholder="mm/dd/yyyy" aria-label="To date">
+                        <i class="fa-light fa-calendar" aria-hidden="true"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="add-intensity-data-types-trigger">Data types</label>
+                    <div class="add-intensity-data-types-dropdown" id="add-intensity-data-types-dropdown">
+                      <button type="button" class="add-intensity-data-types-trigger form-input" id="add-intensity-data-types-trigger" onclick="toggleDataTypesDropdown(event)" aria-expanded="false" aria-haspopup="listbox" aria-label="Data types">
+                        <span class="add-intensity-data-types-tags" id="add-intensity-data-types-tags"></span>
+                        <span class="add-intensity-data-types-placeholder" id="add-intensity-data-types-placeholder">Select data types...</span>
+                        <i class="fa-light fa-chevron-down add-intensity-data-types-chevron" aria-hidden="true"></i>
+                      </button>
+                      <div class="add-intensity-data-types-panel" id="add-intensity-data-types-panel" role="listbox" aria-hidden="true">
+                        <label class="add-intensity-data-types-option"><input type="checkbox" value="Electric power" onchange="updateDataTypesTags()"> Electric power</label>
+                        <label class="add-intensity-data-types-option"><input type="checkbox" value="Natural gas" onchange="updateDataTypesTags()"> Natural gas</label>
+                        <label class="add-intensity-data-types-option"><input type="checkbox" value="District heating / cooling" onchange="updateDataTypesTags()"> District heating / cooling</label>
+                        <label class="add-intensity-data-types-option"><input type="checkbox" value="Fuel oil" onchange="updateDataTypesTags()"> Fuel oil</label>
+                        <label class="add-intensity-data-types-option"><input type="checkbox" value="Fleet / Diesel" onchange="updateDataTypesTags()"> Fleet / Diesel</label>
+                        <label class="add-intensity-data-types-option"><input type="checkbox" value="Fleet / Gasoline" onchange="updateDataTypesTags()"> Fleet / Gasoline</label>
+                        <label class="add-intensity-data-types-option"><input type="checkbox" value="Refrigerants" onchange="updateDataTypesTags()"> Refrigerants</label>
+                        <label class="add-intensity-data-types-option"><input type="checkbox" value="Business travel" onchange="updateDataTypesTags()"> Business travel</label>
+                        <label class="add-intensity-data-types-option"><input type="checkbox" value="Employee commuting" onchange="updateDataTypesTags()"> Employee commuting</label>
+                        <label class="add-intensity-data-types-option"><input type="checkbox" value="Waste" onchange="updateDataTypesTags()"> Waste</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="add-intensity-site-group">Intensity Site Group</label>
+                    <input type="text" class="form-input" id="add-intensity-site-group" value="All Divisions" readonly aria-label="Intensity site group">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="add-intensity-size-indicator">Size Indicator</label>
+                    <input type="text" class="form-input" id="add-intensity-size-indicator" value="CDP Square Footage" readonly aria-label="Size indicator">
+                  </div>
+                </div>
+                <div class="wizard-step-content" data-step="3" id="add-intensity-model-step-3">
+                  <h3 class="add-intensity-model-step-title">Aggregation dimensions</h3>
+                  <p class="add-intensity-model-step-desc">Choose which dimensions to aggregate by (e.g. site, entity, period).</p>
+                </div>
+                <div class="wizard-step-content" data-step="4" id="add-intensity-model-step-4">
+                  <h3 class="add-intensity-model-step-title">Inclusions</h3>
+                  <p class="add-intensity-model-step-desc">Specify which sites, entities, or categories to include in this model.</p>
+                </div>
+                <div class="wizard-step-content" data-step="5" id="add-intensity-model-step-5">
+                  <h3 class="add-intensity-model-step-title">Thresholds</h3>
+                  <p class="add-intensity-model-step-desc">Set minimum or maximum thresholds for data quality or applicability.</p>
+                </div>
+                <div class="wizard-step-content" data-step="6" id="add-intensity-model-step-6">
+                  <h3 class="add-intensity-model-step-title">Columns</h3>
+                  <p class="add-intensity-model-step-desc">Define which columns (metrics or attributes) are used in the model.</p>
+                </div>
+                <div class="wizard-step-content" data-step="7" id="add-intensity-model-step-7">
+                  <h3 class="add-intensity-model-step-title">Units of measure</h3>
+                  <p class="add-intensity-model-step-desc">Select or configure units of measure for inputs and outputs (e.g. kWh, sq ft).</p>
+                </div>
+                <div class="wizard-step-content" data-step="8" id="add-intensity-model-step-8">
+                  <h3 class="add-intensity-model-step-title">Permissions</h3>
+                  <p class="add-intensity-model-step-desc">Set who can view, edit, or run this intensity model.</p>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer add-intensity-model-wizard-footer">
+              <button type="button" class="btn btn-secondary" onclick="closeAddIntensityModelWizard()">Cancel</button>
+              <button type="button" class="btn btn-secondary" id="add-intensity-model-wizard-back-btn" onclick="addIntensityModelWizardPrev()" style="display: none;">Back</button>
+              <button type="button" class="btn btn-primary" id="add-intensity-model-wizard-next-btn" onclick="addIntensityModelWizardNext()">Next</button>
+              <button type="button" class="btn btn-primary" id="add-intensity-model-wizard-create-btn" onclick="closeAddIntensityModelWizard()" style="display: none;">Create model</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gap filling report detail modal (full page) -->
         <div class="modal-backdrop report-detail-modal" id="gap-report-detail-backdrop" onclick="if(event.target===this) closeGapFillingReportDetail()">
           <div class="modal" id="gap-report-detail-modal" onclick="event.stopPropagation()">
             <div class="modal-header">
@@ -13384,57 +13600,95 @@
               </div>
               <div class="report-detail-section">
                 <h3 class="report-detail-section-title">Gaps filled and methods used</h3>
-                <p style="margin: 0 0 12px 0; font-size: 13px; color: var(--ghg-text-secondary);">For each gap, the method that was used is shown. If higher-priority methods were tried first, the reason they did not apply is listed.</p>
-                <div style="overflow-x: auto;">
-                  <table class="report-gap-table" id="gap-report-detail-table">
-                    <thead>
-                      <tr>
-                        <th>Entity</th>
-                        <th>Period</th>
-                        <th>Method used</th>
-                        <th>Higher-priority attempts (if any)</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>Alaska Regional Hospital</td>
-                        <td>Jan 24</td>
-                        <td class="method-used">Average value of surrounding months (+/- 2 months)</td>
-                        <td class="method-failed">—</td>
-                      </tr>
-                      <tr>
-                        <td>West Hills Hospital &amp; Medical Center</td>
-                        <td>Jun 24</td>
-                        <td class="method-used">Average value from past 6 months</td>
-                        <td class="method-failed">Method 1: Insufficient surrounding data</td>
-                      </tr>
-                      <tr>
-                        <td>North Suburban Medical Center</td>
-                        <td>Nov 24</td>
-                        <td class="method-used">Last known value within prior 4 months</td>
-                        <td class="method-failed">Method 1–2: No data in range</td>
-                      </tr>
-                      <tr>
-                        <td>Rose Medical Center</td>
-                        <td>Sep 24</td>
-                        <td class="method-used">Value from same month of prior year</td>
-                        <td class="method-failed">Methods 1–3: Not applicable</td>
-                      </tr>
-                      <tr>
-                        <td>Sky Ridge Medical Center</td>
-                        <td>Dec 24</td>
-                        <td>—</td>
-                        <td class="method-failed">Unable to fill: No prior data available (all methods tried)</td>
-                      </tr>
-                    </tbody>
-                  </table>
+                <p style="margin: 0 0 12px 0; font-size: 13px; color: var(--ghg-text-secondary);">Toggle to view as a time series table (entity × period). Click a filled or unfilled cell to see which method was used or why it could not be filled.</p>
+                <div class="gap-report-view-toggle">
+                  <button type="button" class="active" data-view="list" onclick="switchGapReportView('list')">List</button>
+                  <button type="button" data-view="timeseries" onclick="switchGapReportView('timeseries')">Time series table</button>
+                </div>
+                <div class="gap-report-list-wrap" id="gap-report-list-wrap">
+                  <div style="overflow-x: auto;">
+                    <table class="report-gap-table" id="gap-report-detail-table" onclick="handleGapReportListCellClick(event)">
+                      <thead>
+                        <tr>
+                          <th>Entity</th>
+                          <th>Period</th>
+                          <th>Method used</th>
+                          <th>Higher-priority attempts (if any)</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr data-entity="Alaska Regional Hospital" data-period="Jan 24" data-value="512.4" data-method-used="Average value of surrounding months (+/- 2 months)" data-method-failed="—" data-filled="true">
+                          <td>Alaska Regional Hospital</td>
+                          <td>Jan 24</td>
+                          <td class="method-used">Average value of surrounding months (+/- 2 months)</td>
+                          <td class="method-failed">—</td>
+                        </tr>
+                        <tr data-entity="West Hills Hospital &amp; Medical Center" data-period="Jun 24" data-value="289.4" data-method-used="Average value from past 6 months" data-method-failed="Method 1: Insufficient surrounding data" data-filled="true">
+                          <td>West Hills Hospital &amp; Medical Center</td>
+                          <td>Jun 24</td>
+                          <td class="method-used">Average value from past 6 months</td>
+                          <td class="method-failed">Method 1: Insufficient surrounding data</td>
+                        </tr>
+                        <tr data-entity="North Suburban Medical Center" data-period="Nov 24" data-value="188.6" data-method-used="Last known value within prior 4 months" data-method-failed="Method 1–2: No data in range" data-filled="true">
+                          <td>North Suburban Medical Center</td>
+                          <td>Nov 24</td>
+                          <td class="method-used">Last known value within prior 4 months</td>
+                          <td class="method-failed">Method 1–2: No data in range</td>
+                        </tr>
+                        <tr data-entity="Rose Medical Center" data-period="Sep 24" data-value="471.5" data-method-used="Value from same month of prior year" data-method-failed="Methods 1–3: Not applicable" data-filled="true">
+                          <td>Rose Medical Center</td>
+                          <td>Sep 24</td>
+                          <td class="method-used">Value from same month of prior year</td>
+                          <td class="method-failed">Methods 1–3: Not applicable</td>
+                        </tr>
+                        <tr data-entity="Sky Ridge Medical Center" data-period="Dec 24" data-value="" data-method-used="" data-method-failed="Unable to fill: No prior data available (all methods tried)" data-filled="false">
+                          <td>Sky Ridge Medical Center</td>
+                          <td>Dec 24</td>
+                          <td>—</td>
+                          <td class="method-failed">Unable to fill: No prior data available (all methods tried)</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="gap-report-timeseries-wrap" id="gap-report-timeseries-wrap">
+                  <div style="overflow-x: auto;">
+                    <table class="report-gap-table report-timeseries-table" id="gap-report-timeseries-table" onclick="handleGapReportTimeseriesCellClick(event)">
+                      <thead>
+                        <tr id="gap-report-timeseries-thead">
+                          <th>Business entity</th>
+                          <th>Unit of measure</th>
+                          <th class="numeric">Jul 24</th>
+                          <th class="numeric">Aug 24</th>
+                          <th class="numeric">Sep 24</th>
+                          <th class="numeric">Oct 24</th>
+                          <th class="numeric">Nov 24</th>
+                          <th class="numeric">Dec 24</th>
+                          <th class="numeric">Jan 24</th>
+                          <th class="numeric">Feb 24</th>
+                          <th class="numeric">Mar 24</th>
+                          <th class="numeric">Apr 24</th>
+                          <th class="numeric">May 24</th>
+                          <th class="numeric">Jun 24</th>
+                        </tr>
+                      </thead>
+                      <tbody id="gap-report-timeseries-tbody"></tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+        <div class="report-cell-popover" id="report-cell-popover" role="tooltip">
+          <div class="report-cell-popover-title" id="report-cell-popover-title"></div>
+          <div class="report-cell-popover-method" id="report-cell-popover-method"></div>
+          <div class="report-cell-popover-reason" id="report-cell-popover-reason"></div>
+          <div class="report-cell-popover-factor" id="report-cell-popover-factor" style="display: none;"></div>
+          <div class="report-cell-popover-source" id="report-cell-popover-source" style="display: none;"></div>
+        </div>
 
-        <!-- Intensity report detail modal -->
+        <!-- Intensity report detail modal (full page, list + time series) -->
         <div class="modal-backdrop report-detail-modal" id="intensity-report-detail-backdrop" onclick="if(event.target===this) closeIntensityReportDetail()">
           <div class="modal" id="intensity-report-detail-modal" onclick="event.stopPropagation()">
             <div class="modal-header">
@@ -13445,14 +13699,89 @@
               <div class="report-detail-section">
                 <h3 class="report-detail-section-title">Run summary</h3>
                 <p id="intensity-report-summary" style="margin: 0; font-size: 14px; color: var(--ghg-text-secondary);">Electric power intensity — Mar 4, 2025, 10:15 AM.</p>
-              </div>
-              <div class="report-detail-section">
-                <h3 class="report-detail-section-title">Intensity factor and source</h3>
-                <div class="report-intensity-summary" id="intensity-report-factor-block">
+                <div class="report-intensity-summary" id="intensity-report-factor-block" style="margin-top: 12px;">
                   <div class="report-intensity-factor">Intensity factor used: <strong id="intensity-report-factor-value">0.28</strong> kWh per sq ft</div>
                   <div class="report-intensity-source" id="intensity-report-source">Calculated from intensity of <strong>12 sites</strong> with sufficient data (min 6 months). Weighted average of site-level intensities.</div>
                 </div>
-                <p style="margin: 12px 0 0 0; font-size: 13px; color: var(--ghg-text-secondary);">When the system cannot compute a factor from your sites (e.g. insufficient months of data or no eligible sites), it uses the <strong>CBECS fallback</strong> value. The report above indicates whether the factor came from site data or CBECS.</p>
+              </div>
+              <div class="report-detail-section">
+                <h3 class="report-detail-section-title">Gaps filled (intensity applied)</h3>
+                <p style="margin: 0 0 12px 0; font-size: 13px; color: var(--ghg-text-secondary);">Toggle to view as a time series table. Click a filled cell to see the intensity factor and source used.</p>
+                <div class="intensity-report-view-toggle">
+                  <button type="button" class="active" data-view="list" onclick="switchIntensityReportView('list')">List</button>
+                  <button type="button" data-view="timeseries" onclick="switchIntensityReportView('timeseries')">Time series table</button>
+                </div>
+                <div class="intensity-report-list-wrap" id="intensity-report-list-wrap">
+                  <div style="overflow-x: auto;">
+                    <table class="report-gap-table" id="intensity-report-detail-table" onclick="handleIntensityReportListCellClick(event)">
+                      <thead>
+                        <tr>
+                          <th>Entity</th>
+                          <th>Period</th>
+                          <th>Value (kWh)</th>
+                          <th>Source</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr data-entity="Alaska Regional Hospital" data-period="Jan 24" data-value="512.4" data-factor="0.28" data-source="Site data">
+                          <td>Alaska Regional Hospital</td>
+                          <td>Jan 24</td>
+                          <td>512.4</td>
+                          <td>Site data</td>
+                        </tr>
+                        <tr data-entity="West Hills Hospital &amp; Medical Center" data-period="Jun 24" data-value="289.4" data-factor="0.28" data-source="Site data">
+                          <td>West Hills Hospital &amp; Medical Center</td>
+                          <td>Jun 24</td>
+                          <td>289.4</td>
+                          <td>Site data</td>
+                        </tr>
+                        <tr data-entity="North Suburban Medical Center" data-period="Nov 24" data-value="188.6" data-factor="0.28" data-source="Site data">
+                          <td>North Suburban Medical Center</td>
+                          <td>Nov 24</td>
+                          <td>188.6</td>
+                          <td>Site data</td>
+                        </tr>
+                        <tr data-entity="Rose Medical Center" data-period="Sep 24" data-value="471.5" data-factor="0.28" data-source="Site data">
+                          <td>Rose Medical Center</td>
+                          <td>Sep 24</td>
+                          <td>471.5</td>
+                          <td>Site data</td>
+                        </tr>
+                        <tr data-entity="Sky Ridge Medical Center" data-period="Dec 24" data-value="268.2" data-factor="0.28" data-source="Site data">
+                          <td>Sky Ridge Medical Center</td>
+                          <td>Dec 24</td>
+                          <td>268.2</td>
+                          <td>Site data</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="intensity-report-timeseries-wrap" id="intensity-report-timeseries-wrap">
+                  <div style="overflow-x: auto;">
+                    <table class="report-gap-table report-timeseries-table" id="intensity-report-timeseries-table" onclick="handleIntensityReportTimeseriesCellClick(event)">
+                      <thead>
+                        <tr>
+                          <th>Business entity</th>
+                          <th>Unit of measure</th>
+                          <th class="numeric">Jul 24</th>
+                          <th class="numeric">Aug 24</th>
+                          <th class="numeric">Sep 24</th>
+                          <th class="numeric">Oct 24</th>
+                          <th class="numeric">Nov 24</th>
+                          <th class="numeric">Dec 24</th>
+                          <th class="numeric">Jan 24</th>
+                          <th class="numeric">Feb 24</th>
+                          <th class="numeric">Mar 24</th>
+                          <th class="numeric">Apr 24</th>
+                          <th class="numeric">May 24</th>
+                          <th class="numeric">Jun 24</th>
+                        </tr>
+                      </thead>
+                      <tbody id="intensity-report-timeseries-tbody"></tbody>
+                    </table>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -13614,6 +13943,64 @@
                     </tbody>
                   </table>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- VIEW: INTENSITY ESTIMATION MODELS (Settings)    -->
+        <!-- ============================================== -->
+        <div id="view-intensity-estimation-models" class="view">
+          <div class="page-header">
+            <div class="page-header-left">
+              <div class="page-breadcrumb">
+                <a href="#">Settings</a>
+                <i class="fa-light fa-chevron-right"></i>
+                <span>Intensity estimation models</span>
+              </div>
+              <h1 class="page-title">Intensity estimation models</h1>
+              <p class="page-subtitle">Manage intensity estimation models used to estimate consumption from floor area or other drivers when meter data is missing.</p>
+            </div>
+          </div>
+          <div class="content-container">
+            <div class="estimation-settings-section">
+              <div class="estimation-settings-section-header">
+                <h2 class="estimation-settings-section-title">Models</h2>
+                <button type="button" class="btn btn-primary" onclick="openAddIntensityModelWizard()"><i class="fa-light fa-plus" aria-hidden="true"></i> Add model</button>
+              </div>
+              <p class="estimation-settings-section-desc">Intensity models (e.g. kWh per sq ft) can be derived from your site data or use CBECS fallback values. Configure and review models by activity type.</p>
+              <div class="estimation-settings-table-wrap">
+                <table class="estimation-settings-table" id="intensity-models-table">
+                  <thead>
+                    <tr>
+                      <th>Activity type</th>
+                      <th>Source</th>
+                      <th>Default factor</th>
+                      <th>Last updated</th>
+                      <th>Updated by</th>
+                      <th class="col-actions"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Electric power</td>
+                      <td>Site data (12 sites)</td>
+                      <td>0.28 kWh / sq ft</td>
+                      <td>Mar 4, 2025</td>
+                      <td>Sarah Chen</td>
+                      <td class="col-actions"><button type="button" class="btn btn-ghost btn-sm" disabled>Edit</button></td>
+                    </tr>
+                    <tr>
+                      <td>Natural gas</td>
+                      <td>CBECS fallback</td>
+                      <td>0.15 therms / sq ft</td>
+                      <td>—</td>
+                      <td>—</td>
+                      <td class="col-actions"><button type="button" class="btn btn-ghost btn-sm" disabled>Edit</button></td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
@@ -25845,6 +26232,106 @@ Thank you.</div>
       if (modal) modal.classList.remove('open');
       document.body.style.overflow = '';
     }
+    var addIntensityModelWizardStep = 1;
+    var addIntensityModelWizardTotalSteps = 8;
+    function openAddIntensityModelWizard() {
+      addIntensityModelWizardStep = 1;
+      setAddIntensityModelWizardStep(1);
+      var backdrop = document.getElementById('add-intensity-model-wizard-backdrop');
+      var modal = document.getElementById('add-intensity-model-wizard-modal');
+      if (backdrop) backdrop.classList.add('open');
+      if (modal) modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeAddIntensityModelWizard() {
+      var backdrop = document.getElementById('add-intensity-model-wizard-backdrop');
+      var modal = document.getElementById('add-intensity-model-wizard-modal');
+      if (backdrop) backdrop.classList.remove('open');
+      if (modal) modal.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    function setAddIntensityModelWizardStep(step) {
+      addIntensityModelWizardStep = step;
+      var stepper = document.getElementById('add-intensity-model-wizard-stepper');
+      if (stepper) {
+        stepper.querySelectorAll('.wizard-step').forEach(function(el) {
+          var n = parseInt(el.getAttribute('data-step'), 10);
+          el.classList.remove('active', 'completed');
+          if (n === step) el.classList.add('active');
+          else if (n < step) el.classList.add('completed');
+        });
+        stepper.querySelectorAll('.step-connector').forEach(function(conn, i) {
+          conn.classList.toggle('completed', i < step - 1);
+        });
+      }
+      document.querySelectorAll('#add-intensity-model-wizard-modal .wizard-step-content').forEach(function(el) {
+        el.classList.toggle('active', parseInt(el.getAttribute('data-step'), 10) === step);
+      });
+      var backBtn = document.getElementById('add-intensity-model-wizard-back-btn');
+      var nextBtn = document.getElementById('add-intensity-model-wizard-next-btn');
+      var createBtn = document.getElementById('add-intensity-model-wizard-create-btn');
+      if (backBtn) backBtn.style.display = step === 1 ? 'none' : 'inline-flex';
+      if (nextBtn) nextBtn.style.display = step === addIntensityModelWizardTotalSteps ? 'none' : 'inline-flex';
+      if (createBtn) createBtn.style.display = step === addIntensityModelWizardTotalSteps ? 'inline-flex' : 'none';
+    }
+    function addIntensityModelWizardNext() {
+      if (addIntensityModelWizardStep < addIntensityModelWizardTotalSteps) {
+        setAddIntensityModelWizardStep(addIntensityModelWizardStep + 1);
+      }
+    }
+    function addIntensityModelWizardPrev() {
+      if (addIntensityModelWizardStep > 1) {
+        setAddIntensityModelWizardStep(addIntensityModelWizardStep - 1);
+      }
+    }
+    function toggleDataTypesDropdown(ev) {
+      ev.preventDefault();
+      ev.stopPropagation();
+      var trigger = document.getElementById('add-intensity-data-types-trigger');
+      var panel = document.getElementById('add-intensity-data-types-panel');
+      if (!trigger || !panel) return;
+      var isOpen = trigger.getAttribute('aria-expanded') === 'true';
+      if (isOpen) {
+        trigger.setAttribute('aria-expanded', 'false');
+        panel.setAttribute('aria-hidden', 'true');
+        document.removeEventListener('click', closeDataTypesDropdownOnClick);
+      } else {
+        trigger.setAttribute('aria-expanded', 'true');
+        panel.setAttribute('aria-hidden', 'false');
+        setTimeout(function() { document.addEventListener('click', closeDataTypesDropdownOnClick); }, 0);
+      }
+    }
+    function closeDataTypesDropdownOnClick(ev) {
+      var wrap = document.getElementById('add-intensity-data-types-dropdown');
+      if (wrap && !wrap.contains(ev.target)) {
+        var trigger = document.getElementById('add-intensity-data-types-trigger');
+        var panel = document.getElementById('add-intensity-data-types-panel');
+        if (trigger) trigger.setAttribute('aria-expanded', 'false');
+        if (panel) panel.setAttribute('aria-hidden', 'true');
+        document.removeEventListener('click', closeDataTypesDropdownOnClick);
+      }
+    }
+    function updateDataTypesTags() {
+      var panel = document.getElementById('add-intensity-data-types-panel');
+      var tagsEl = document.getElementById('add-intensity-data-types-tags');
+      if (!panel || !tagsEl) return;
+      var checked = panel.querySelectorAll('input[type="checkbox"]:checked');
+      var html = '';
+      for (var i = 0; i < checked.length; i++) {
+        var val = checked[i].value;
+        var esc = (val || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+        html += '<span class="add-intensity-data-types-tag" data-value="' + esc + '">' + esc + '<button type="button" class="add-intensity-data-types-tag-remove" onclick="var t=this.closest(\'.add-intensity-data-types-tag\'); if(t) removeDataTypesTag(t.getAttribute(\'data-value\')); event.stopPropagation();" aria-label="Remove">&times;</button></span>';
+      }
+      tagsEl.innerHTML = html;
+    }
+    function removeDataTypesTag(value) {
+      var panel = document.getElementById('add-intensity-data-types-panel');
+      if (!panel) return;
+      var inputs = panel.querySelectorAll('input[type="checkbox"]');
+      for (var i = 0; i < inputs.length; i++) {
+        if (inputs[i].value === value) { inputs[i].checked = false; updateDataTypesTags(); return; }
+      }
+    }
     function switchEstimationSettingsTab(tabName) {
       var tabs = document.querySelectorAll('.estimation-settings-tab');
       var panels = document.querySelectorAll('.estimation-settings-panel');
@@ -25874,6 +26361,8 @@ Thank you.</div>
       if (backdrop) backdrop.classList.add('open');
       if (modal) modal.classList.add('open');
       document.body.style.overflow = 'hidden';
+      buildGapReportTimeseriesTable();
+      switchGapReportView('list');
     }
     function closeGapFillingReportDetail() {
       var backdrop = document.getElementById('gap-report-detail-backdrop');
@@ -25881,7 +26370,168 @@ Thank you.</div>
       if (backdrop) backdrop.classList.remove('open');
       if (modal) modal.classList.remove('open');
       document.body.style.overflow = '';
+      closeReportCellPopover();
     }
+    var gapReportViewMode = 'list';
+    function switchGapReportView(view) {
+      gapReportViewMode = view;
+      var listWrap = document.getElementById('gap-report-list-wrap');
+      var tsWrap = document.getElementById('gap-report-timeseries-wrap');
+      document.querySelectorAll('.gap-report-view-toggle button').forEach(function(btn) {
+        btn.classList.toggle('active', btn.getAttribute('data-view') === view);
+      });
+      if (listWrap) listWrap.classList.toggle('hidden', view !== 'list');
+      if (tsWrap) tsWrap.classList.toggle('active', view === 'timeseries');
+    }
+    var GAP_REPORT_GRID = {
+      'Alaska Regional Hospital': [412.8, 387.2, 456.1, 398.5, 521.3, 489.0, 512.4, 498.6, 534.7, 502.4, 490.2, 478.9],
+      'West Hills Hospital & Medical Center': [298.3, 312.6, 276.4, 334.8, 289.1, 305.2, 301.5, 267.9, 318.2, 295.8, 289.4, 289.4],
+      'North Suburban Medical Center': [156.7, 178.4, 192.3, 165.2, 188.6, 203.8, 187.5, 214.6, 198.2, 176.9, 193.5, 209.1],
+      'Rose Medical Center': [445.2, 428.6, 471.5, 462.3, 491.8, 438.5, 507.2, 473.9, 456.1, 472.8, 262.8, 269.1],
+      'Sky Ridge Medical Center': [234.6, 258.3, 241.7, 251.3, 264.8, 259.2, 272.4, 265.8, 248.9, 256.5, 262.8, 269.1]
+    };
+    function buildGapReportTimeseriesTable() {
+      var tbody = document.getElementById('gap-report-timeseries-tbody');
+      if (!tbody) return;
+      var listTable = document.getElementById('gap-report-detail-table');
+      if (!listTable) return;
+      var rows = listTable.querySelectorAll('tbody tr');
+      var reportCells = {};
+      for (var i = 0; i < rows.length; i++) {
+        var r = rows[i];
+        var entity = (r.getAttribute('data-entity') || '').replace(/&amp;/g, '&');
+        var period = r.getAttribute('data-period') || '';
+        var methodUsed = r.getAttribute('data-method-used') || '';
+        var methodFailed = r.getAttribute('data-method-failed') || '';
+        var filled = r.getAttribute('data-filled') === 'true';
+        var value = r.getAttribute('data-value') || '';
+        reportCells[entity + '|' + period] = { methodUsed: methodUsed, methodFailed: methodFailed, filled: filled, value: value };
+      }
+      var months = ['Jul 24','Aug 24','Sep 24','Oct 24','Nov 24','Dec 24','Jan 24','Feb 24','Mar 24','Apr 24','May 24','Jun 24'];
+      var entities = [];
+      for (var k in reportCells) { var e = k.split('|')[0]; if (entities.indexOf(e) === -1) entities.push(e); }
+      entities.sort();
+      tbody.innerHTML = '';
+      entities.forEach(function(entity) {
+        var gridRow = GAP_REPORT_GRID[entity];
+        var tr = document.createElement('tr');
+        tr.innerHTML = '<td>' + (entity.replace(/&/g, '&amp;')) + '</td><td>kWh</td>';
+        for (var m = 0; m < months.length; m++) {
+          var period = months[m];
+          var key = entity + '|' + period;
+          var cell = reportCells[key];
+          var td = document.createElement('td');
+          td.className = 'numeric';
+          var displayVal = (gridRow && gridRow[m] != null) ? String(gridRow[m]) : '—';
+          if (cell) {
+            td.setAttribute('data-entity', entity);
+            td.setAttribute('data-period', period);
+            td.setAttribute('data-method-used', cell.methodUsed);
+            td.setAttribute('data-method-failed', cell.methodFailed);
+            td.setAttribute('data-filled', cell.filled ? 'true' : 'false');
+            if (cell.filled && cell.value) {
+              displayVal = cell.value;
+              td.classList.add('cell-filled');
+              var span = document.createElement('span');
+              span.className = 'report-cell-content';
+              span.innerHTML = '<i class="fa-solid fa-circle-check report-cell-icon report-cell-icon-filled" aria-hidden="true"></i>';
+              span.appendChild(document.createTextNode(displayVal));
+              td.appendChild(span);
+            } else {
+              td.classList.add('cell-unfilled');
+              var span = document.createElement('span');
+              span.className = 'report-cell-content';
+              span.innerHTML = '<i class="fa-solid fa-circle-xmark report-cell-icon report-cell-icon-unfilled" aria-hidden="true"></i>';
+              span.appendChild(document.createTextNode('No data'));
+              td.appendChild(span);
+            }
+          } else {
+            if (gridRow && gridRow[m] != null) displayVal = String(gridRow[m]);
+            td.textContent = displayVal;
+          }
+          tr.appendChild(td);
+        }
+        tbody.appendChild(tr);
+      });
+    }
+    function handleGapReportListCellClick(ev) {
+      var tr = ev.target.closest('tbody tr');
+      if (!tr) return;
+      var entity = (tr.getAttribute('data-entity') || '').replace(/&amp;/g, '&');
+      var period = tr.getAttribute('data-period') || '';
+      var methodUsed = tr.getAttribute('data-method-used') || '';
+      var methodFailed = tr.getAttribute('data-method-failed') || '';
+      var filled = tr.getAttribute('data-filled') === 'true';
+      showReportCellPopover(ev.target, entity, period, methodUsed, methodFailed, filled);
+    }
+    function handleGapReportTimeseriesCellClick(ev) {
+      var td = ev.target.closest('td.numeric');
+      if (!td || !td.hasAttribute('data-entity')) return;
+      var entity = td.getAttribute('data-entity') || '';
+      var period = td.getAttribute('data-period') || '';
+      var methodUsed = td.getAttribute('data-method-used') || '';
+      var methodFailed = td.getAttribute('data-method-failed') || '';
+      var filled = td.getAttribute('data-filled') === 'true';
+      showReportCellPopover(td, entity, period, methodUsed, methodFailed, filled);
+    }
+    function showReportCellPopover(anchor, entity, period, methodUsed, methodFailed, filled, opts) {
+      var pop = document.getElementById('report-cell-popover');
+      var titleEl = document.getElementById('report-cell-popover-title');
+      var methodEl = document.getElementById('report-cell-popover-method');
+      var reasonEl = document.getElementById('report-cell-popover-reason');
+      var factorEl = document.getElementById('report-cell-popover-factor');
+      var sourceEl = document.getElementById('report-cell-popover-source');
+      if (!pop || !titleEl) return;
+      closeReportCellPopover();
+      opts = opts || {};
+      titleEl.textContent = entity + ' · ' + period;
+      if (opts.type === 'intensity') {
+        if (methodEl) methodEl.style.display = 'none';
+        if (reasonEl) reasonEl.style.display = 'none';
+        if (factorEl) { factorEl.textContent = 'Intensity factor: ' + (opts.factor || '—') + ' kWh per sq ft'; factorEl.style.display = ''; }
+        if (sourceEl) { sourceEl.textContent = 'Source: ' + (opts.source || '—'); sourceEl.style.display = ''; }
+      } else {
+        if (factorEl) factorEl.style.display = 'none';
+        if (sourceEl) sourceEl.style.display = 'none';
+        if (methodEl && reasonEl) {
+          if (filled && methodUsed) {
+            methodEl.textContent = 'Method used: ' + methodUsed;
+            methodEl.style.display = '';
+            reasonEl.style.display = (methodFailed && methodFailed !== '—') ? '' : 'none';
+            reasonEl.textContent = (methodFailed && methodFailed !== '—') ? 'Higher-priority attempts: ' + methodFailed : '';
+          } else {
+            methodEl.style.display = 'none';
+            reasonEl.style.display = '';
+            reasonEl.textContent = methodFailed || 'Unable to fill.';
+          }
+        }
+      }
+      pop.classList.add('open');
+      var rect = anchor.getBoundingClientRect();
+      var popWidth = 320;
+      var left = rect.left + rect.width / 2 - popWidth / 2;
+      if (left < 8) left = 8;
+      if (left + popWidth > window.innerWidth - 8) left = window.innerWidth - popWidth - 8;
+      var top = rect.bottom + 8;
+      if (top + 120 > window.innerHeight - 8) top = rect.top - 120 - 8;
+      pop.style.left = left + 'px';
+      pop.style.top = top + 'px';
+      setTimeout(function() { document.addEventListener('click', closeReportCellPopoverOnClick, true); }, 100);
+    }
+    function closeReportCellPopoverOnClick(ev) {
+      var pop = document.getElementById('report-cell-popover');
+      if (pop && pop.classList.contains('open') && ev.target !== pop && !pop.contains(ev.target)) {
+        closeReportCellPopover();
+        document.removeEventListener('click', closeReportCellPopoverOnClick, true);
+      }
+    }
+    function closeReportCellPopover() {
+      var pop = document.getElementById('report-cell-popover');
+      if (pop) pop.classList.remove('open');
+      document.removeEventListener('click', closeReportCellPopoverOnClick, true);
+    }
+    var intensityReportFactor = '0.28';
+    var intensityReportSource = 'Site data';
     function openIntensityReportDetail(reportId) {
       var backdrop = document.getElementById('intensity-report-detail-backdrop');
       var modal = document.getElementById('intensity-report-detail-modal');
@@ -25890,12 +26540,27 @@ Thank you.</div>
       if (backdrop) backdrop.classList.add('open');
       if (modal) modal.classList.add('open');
       if (reportId === 'r-int-2') {
+        intensityReportFactor = '0.35';
+        intensityReportSource = 'CBECS fallback';
         if (factorEl) factorEl.textContent = '0.35';
         if (sourceEl) { sourceEl.textContent = 'CBECS fallback — insufficient site data to compute intensity (fewer than minimum months or no eligible sites).'; sourceEl.classList.add('cbecs'); }
       } else {
+        intensityReportFactor = '0.28';
+        intensityReportSource = 'Site data';
         if (factorEl) factorEl.textContent = '0.28';
         if (sourceEl) { sourceEl.textContent = 'Calculated from intensity of 12 sites with sufficient data (min 6 months). Weighted average of site-level intensities.'; sourceEl.classList.remove('cbecs'); }
       }
+      var listTable = document.getElementById('intensity-report-detail-table');
+      if (listTable) {
+        listTable.querySelectorAll('tbody tr').forEach(function(tr) {
+          tr.setAttribute('data-factor', intensityReportFactor);
+          tr.setAttribute('data-source', intensityReportSource);
+          var srcTd = tr.children[3];
+          if (srcTd) srcTd.textContent = intensityReportSource;
+        });
+      }
+      buildIntensityReportTimeseriesTable();
+      switchIntensityReportView('list');
       document.body.style.overflow = 'hidden';
     }
     function closeIntensityReportDetail() {
@@ -25904,6 +26569,94 @@ Thank you.</div>
       if (backdrop) backdrop.classList.remove('open');
       if (modal) modal.classList.remove('open');
       document.body.style.overflow = '';
+      closeReportCellPopover();
+    }
+    function switchIntensityReportView(view) {
+      var listWrap = document.getElementById('intensity-report-list-wrap');
+      var tsWrap = document.getElementById('intensity-report-timeseries-wrap');
+      document.querySelectorAll('.intensity-report-view-toggle button').forEach(function(btn) {
+        btn.classList.toggle('active', btn.getAttribute('data-view') === view);
+      });
+      if (listWrap) listWrap.classList.toggle('hidden', view !== 'list');
+      if (tsWrap) tsWrap.classList.toggle('active', view === 'timeseries');
+    }
+    var INTENSITY_REPORT_GRID = {
+      'Alaska Regional Hospital': [412.8, 387.2, 456.1, 398.5, 521.3, 489.0, 512.4, 498.6, 534.7, 502.4, 490.2, 478.9],
+      'West Hills Hospital & Medical Center': [298.3, 312.6, 276.4, 334.8, 289.1, 305.2, 301.5, 267.9, 318.2, 295.8, 289.4, 289.4],
+      'North Suburban Medical Center': [156.7, 178.4, 192.3, 165.2, 188.6, 203.8, 187.5, 214.6, 198.2, 176.9, 193.5, 209.1],
+      'Rose Medical Center': [445.2, 428.6, 471.5, 462.3, 491.8, 438.5, 507.2, 473.9, 456.1, 472.8, 262.8, 269.1],
+      'Sky Ridge Medical Center': [234.6, 258.3, 241.7, 251.3, 264.8, 259.2, 272.4, 265.8, 248.9, 256.5, 262.8, 269.1]
+    };
+    function buildIntensityReportTimeseriesTable() {
+      var tbody = document.getElementById('intensity-report-timeseries-tbody');
+      if (!tbody) return;
+      var listTable = document.getElementById('intensity-report-detail-table');
+      if (!listTable) return;
+      var rows = listTable.querySelectorAll('tbody tr');
+      var reportCells = {};
+      for (var i = 0; i < rows.length; i++) {
+        var r = rows[i];
+        var entity = (r.getAttribute('data-entity') || '').replace(/&amp;/g, '&');
+        var period = r.getAttribute('data-period') || '';
+        var value = r.getAttribute('data-value') || '';
+        var factor = r.getAttribute('data-factor') || intensityReportFactor;
+        var source = r.getAttribute('data-source') || intensityReportSource;
+        reportCells[entity + '|' + period] = { value: value, factor: factor, source: source };
+      }
+      var months = ['Jul 24','Aug 24','Sep 24','Oct 24','Nov 24','Dec 24','Jan 24','Feb 24','Mar 24','Apr 24','May 24','Jun 24'];
+      var entities = [];
+      for (var k in reportCells) { var e = k.split('|')[0]; if (entities.indexOf(e) === -1) entities.push(e); }
+      entities.sort();
+      tbody.innerHTML = '';
+      entities.forEach(function(entity) {
+        var gridRow = INTENSITY_REPORT_GRID[entity];
+        var tr = document.createElement('tr');
+        tr.innerHTML = '<td>' + (entity.replace(/&/g, '&amp;')) + '</td><td>kWh</td>';
+        for (var m = 0; m < months.length; m++) {
+          var period = months[m];
+          var key = entity + '|' + period;
+          var cell = reportCells[key];
+          var td = document.createElement('td');
+          td.className = 'numeric';
+          var displayVal = (gridRow && gridRow[m] != null) ? String(gridRow[m]) : '—';
+          if (cell) {
+            td.setAttribute('data-entity', entity);
+            td.setAttribute('data-period', period);
+            td.setAttribute('data-factor', cell.factor);
+            td.setAttribute('data-source', cell.source);
+            displayVal = cell.value || displayVal;
+            td.classList.add('cell-filled');
+            var span = document.createElement('span');
+            span.className = 'report-cell-content';
+            span.innerHTML = '<i class="fa-solid fa-circle-check report-cell-icon report-cell-icon-filled" aria-hidden="true"></i>';
+            span.appendChild(document.createTextNode(displayVal));
+            td.appendChild(span);
+          } else {
+            if (gridRow && gridRow[m] != null) displayVal = String(gridRow[m]);
+            td.textContent = displayVal;
+          }
+          tr.appendChild(td);
+        }
+        tbody.appendChild(tr);
+      });
+    }
+    function handleIntensityReportListCellClick(ev) {
+      var tr = ev.target.closest('tbody tr');
+      if (!tr) return;
+      var entity = (tr.getAttribute('data-entity') || '').replace(/&amp;/g, '&');
+      var period = tr.getAttribute('data-period') || '';
+      var factor = tr.getAttribute('data-factor') || intensityReportFactor;
+      var source = tr.getAttribute('data-source') || intensityReportSource;
+      showReportCellPopover(ev.target, entity, period, null, null, true, { type: 'intensity', factor: factor, source: source });
+    }
+    function handleIntensityReportTimeseriesCellClick(ev) {
+      var td = ev.target.closest('td.numeric');
+      if (!td || !td.hasAttribute('data-entity')) return;
+      var entity = td.getAttribute('data-entity') || '';
+      var period = td.getAttribute('data-period') || '';
+      var factor = td.getAttribute('data-factor') || '';
+      var source = td.getAttribute('data-source') || '';
+      showReportCellPopover(td, entity, period, null, null, true, { type: 'intensity', factor: factor, source: source });
     }
     var estimationsCellDetailsTargetCell = null;
     var estimationsCellDetailsCloseListener = null;
