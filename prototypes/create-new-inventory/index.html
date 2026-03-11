@@ -2122,12 +2122,13 @@
     .add-intensity-model-wizard-stepper-wrap > .add-intensity-model-wizard-stepper { flex-shrink: 0; }
     .add-intensity-model-wizard-content-wrap { flex: 1; min-height: 0; overflow-y: auto; -webkit-overflow-scrolling: touch; }
     .add-intensity-model-wizard-stepper { flex-wrap: nowrap; justify-content: flex-start; min-width: max-content; margin-bottom: 0; padding: 0 14px; display: flex; align-items: center; }
-    .add-intensity-model-wizard-stepper .wizard-step { gap: 5px; }
+    .add-intensity-model-wizard-stepper .wizard-step { gap: 5px; cursor: pointer; }
     .add-intensity-model-wizard-stepper .step-circle { width: 26px; height: 26px; font-size: 12px; }
     .add-intensity-model-wizard-stepper .step-label { white-space: nowrap; font-size: 11px; }
     .add-intensity-model-wizard-stepper .step-connector { width: 22px; margin: 0 5px; flex-shrink: 0; }
     .add-intensity-model-step-title { font-size: 14px; font-weight: 600; margin: 0 0 4px 0; color: var(--ghg-text); }
     .add-intensity-model-step-desc { font-size: 13px; color: var(--ghg-text-secondary); margin: 0; line-height: 1.4; }
+    #add-intensity-model-step-7 .add-intensity-model-step-desc { margin-bottom: 24px; }
     .add-intensity-model-wizard-footer { flex-shrink: 0; display: flex; justify-content: flex-end; align-items: center; gap: 10px; flex-wrap: wrap; padding: 12px 24px; }
     #add-intensity-model-wizard-backdrop .modal-header { padding: 16px 24px; flex-shrink: 0; }
     #add-intensity-model-wizard-backdrop .modal-body { padding: 0 24px 16px; }
@@ -2161,12 +2162,36 @@
     .add-intensity-threshold-inline .threshold-unit { font-size: 14px; color: var(--ghg-text-secondary); }
     /* Step 3: Aggregation matrix */
     .add-intensity-aggregation-granularity-note { font-size: 13px; color: var(--ghg-text-secondary); line-height: 1.5; margin: 0 0 20px 0; padding: 12px 14px; background: var(--ghg-surface-elevated); border-radius: 8px; border-left: 3px solid var(--ghg-primary); }
-    .add-intensity-aggregation-matrix-wrap { display: inline-block; border: 1px solid var(--ghg-border); border-radius: 8px; overflow: hidden; margin-top: 8px; }
+    .add-intensity-aggregation-matrix-with-legend { display: flex; align-items: flex-start; gap: 20px; margin-top: 8px; margin-bottom: 300px; flex-wrap: wrap; }
+    .add-intensity-aggregation-matrix-wrap { display: inline-block; border: 1px solid var(--ghg-border); border-radius: 8px; overflow: hidden; flex-shrink: 0; }
+    .add-intensity-aggregation-matrix-outer { display: flex; align-items: stretch; gap: 0; }
+    .add-intensity-aggregation-axis-left { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.02em; color: var(--ghg-text-muted); writing-mode: vertical-rl; transform: rotate(180deg); display: flex; align-items: center; justify-content: center; min-width: 28px; padding: 8px; background: var(--ghg-surface-elevated); border-right: 1px solid var(--ghg-border); border-radius: 8px 0 0 0; }
+    .add-intensity-aggregation-matrix-inner { display: flex; flex-direction: column; flex: 1; min-width: 0; }
+    .add-intensity-aggregation-matrix-toolbar { display: flex; justify-content: flex-end; padding: 6px 16px 6px 0; min-height: 36px; align-items: center; background: var(--ghg-surface-elevated); border-bottom: 1px solid var(--ghg-border); }
+    .add-intensity-aggregation-matrix-toolbar .btn { font-size: 13px; }
+    .add-intensity-aggregation-matrix-toolbar .sera-toolbar-initial,
+    .add-intensity-aggregation-matrix-toolbar .sera-toolbar-thinking,
+    .add-intensity-aggregation-matrix-toolbar .sera-toolbar-actions { display: flex; align-items: center; gap: 10px; }
+    .add-intensity-aggregation-matrix-toolbar .sera-toolbar-thinking.hidden,
+    .add-intensity-aggregation-matrix-toolbar .sera-toolbar-actions.hidden { display: none; }
+    .add-intensity-aggregation-matrix-toolbar .sera-thinking-spinner { width: 18px; height: 18px; border: 2px solid var(--ghg-border); border-top-color: var(--ghg-primary, #2563eb); border-radius: 50%; animation: sera-spin 0.8s linear infinite; }
+    @keyframes sera-spin { to { transform: rotate(360deg); } }
+    .add-intensity-aggregation-matrix-toolbar .sera-thinking-text { font-size: 13px; color: var(--ghg-text-secondary); }
+    .add-intensity-aggregation-matrix-toolbar .sera-toolbar-actions { position: relative; }
+    .sera-explain-popover { position: fixed; min-width: 320px; max-width: 420px; padding: 14px 16px; padding-top: 18px; background: var(--ghg-surface-elevated); border: 1px solid var(--ghg-border); border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.12); z-index: 1100; }
+    .sera-explain-popover.hidden { display: none; }
+    .sera-explain-popover-caret { position: absolute; top: -7px; width: 0; height: 0; border-left: 7px solid transparent; border-right: 7px solid transparent; border-bottom: 7px solid var(--ghg-border); }
+    .sera-explain-popover-caret::after { content: ''; position: absolute; top: 1px; left: -6px; width: 0; height: 0; border-left: 6px solid transparent; border-right: 6px solid transparent; border-bottom: 6px solid var(--ghg-surface-elevated); }
+    .sera-explain-popover-title { font-size: 14px; font-weight: 600; color: var(--ghg-text); margin: 0 0 10px 0; }
+    .sera-explain-popover-body { max-height: 280px; overflow-y: auto; }
+    .sera-explain-popover-list { display: flex; flex-direction: column; gap: 8px; }
+    .sera-explain-popover-section-title { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; color: var(--ghg-text-muted); margin: 12px 0 6px 0; }
+    .sera-explain-popover-section-title:first-child { margin-top: 0; }
+    .sera-explain-popover-list .add-intensity-attribute-explanation-item { font-size: 13px; color: var(--ghg-text-secondary); line-height: 1.45; }
+    .sera-explain-popover-list .add-intensity-attribute-explanation-item strong { color: var(--ghg-text); }
+    .add-intensity-aggregation-axis-top { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.02em; color: var(--ghg-text-muted); padding: 8px 10px; background: var(--ghg-surface-elevated); border-bottom: 1px solid var(--ghg-border); text-align: center; }
     .add-intensity-aggregation-matrix { display: grid; grid-template-columns: 200px repeat(3, minmax(100px, 1fr)); grid-template-rows: auto repeat(3, 44px); font-size: 13px; min-width: 400px; }
-    .add-intensity-aggregation-matrix .matrix-corner { background: var(--ghg-surface-elevated); border-right: 1px solid var(--ghg-border); border-bottom: 1px solid var(--ghg-border); min-width: 200px; min-height: 40px; display: flex; flex-direction: column; justify-content: center; padding: 8px 10px; }
-    .add-intensity-aggregation-matrix .matrix-axis-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.02em; color: var(--ghg-text-muted); }
-    .add-intensity-aggregation-matrix .matrix-axis-label-y { margin-bottom: 2px; }
-    .add-intensity-aggregation-matrix .matrix-axis-label-x { }
+    .add-intensity-aggregation-matrix .matrix-corner { background: var(--ghg-surface-elevated); border-right: 1px solid var(--ghg-border); border-bottom: 1px solid var(--ghg-border); min-width: 200px; min-height: 40px; }
     .add-intensity-aggregation-matrix .matrix-granularity-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.02em; }
     .add-intensity-aggregation-matrix .matrix-granularity-least { color: var(--ghg-text-muted); }
     .add-intensity-aggregation-matrix .matrix-granularity-most { color: rgba(255,255,255,0.95); }
@@ -2181,15 +2206,26 @@
     .add-intensity-aggregation-matrix .matrix-cell:last-child { border-right: none; }
     .add-intensity-aggregation-matrix .matrix-cell:nth-last-child(-n+3) { border-bottom: none; }
     .add-intensity-aggregation-matrix .matrix-row-header:nth-child(13) { border-bottom: none; }
-    .add-intensity-aggregation-matrix .matrix-cell.granularity-0-0 { background: #e3f2fd; display: flex; align-items: center; justify-content: center; padding: 8px; }
-    .add-intensity-aggregation-matrix .matrix-cell.granularity-0-1 { background: #bbdefb; }
-    .add-intensity-aggregation-matrix .matrix-cell.granularity-0-2 { background: #90caf9; }
-    .add-intensity-aggregation-matrix .matrix-cell.granularity-1-0 { background: #bbdefb; }
-    .add-intensity-aggregation-matrix .matrix-cell.granularity-1-1 { background: #90caf9; }
-    .add-intensity-aggregation-matrix .matrix-cell.granularity-1-2 { background: #64b5f6; }
-    .add-intensity-aggregation-matrix .matrix-cell.granularity-2-0 { background: #90caf9; }
-    .add-intensity-aggregation-matrix .matrix-cell.granularity-2-1 { background: #64b5f6; }
-    .add-intensity-aggregation-matrix .matrix-cell.granularity-2-2 { background: #42a5f5; }
+    .add-intensity-aggregation-matrix .matrix-cell.matrix-cell-unfilled { background: var(--ghg-surface-elevated); }
+    .add-intensity-aggregation-matrix .matrix-cell.matrix-cell-quality-0 { background: #e3f2fd; }
+    .add-intensity-aggregation-matrix .matrix-cell.matrix-cell-quality-1 { background: #bbdefb; }
+    .add-intensity-aggregation-matrix .matrix-cell.matrix-cell-quality-2 { background: #90caf9; }
+    .add-intensity-aggregation-matrix .matrix-cell.matrix-cell-quality-3 { background: #64b5f6; }
+    .add-intensity-aggregation-matrix .matrix-cell.matrix-cell-quality-4 { background: #42a5f5; }
+    .add-intensity-aggregation-matrix-legend { display: flex; flex-direction: column; gap: 8px; font-size: 12px; color: var(--ghg-text-secondary); flex-shrink: 0; }
+    .add-intensity-aggregation-matrix-legend .legend-label { font-weight: 600; }
+    .add-intensity-aggregation-matrix-legend .legend-desc { max-width: 180px; line-height: 1.4; }
+    .add-intensity-aggregation-matrix-legend .legend-scale { display: flex; align-items: center; gap: 0; }
+    .add-intensity-aggregation-matrix-legend .legend-scale span { width: 24px; height: 16px; display: block; }
+    .add-intensity-aggregation-min-entities-inline { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
+    .add-intensity-aggregation-min-entities-inline .form-label { margin: 0; font-size: 14px; font-weight: 600; color: var(--ghg-text); }
+    .add-intensity-aggregation-min-entities-inline .form-input { width: 64px; }
+    .add-intensity-review-table-wrap { border: 1px solid var(--ghg-border); border-radius: 10px; overflow: hidden; }
+    .add-intensity-review-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    .add-intensity-review-table th { text-align: left; padding: 12px 16px; background: var(--ghg-surface-elevated); font-weight: 600; color: var(--ghg-text); border-bottom: 1px solid var(--ghg-border); }
+    .add-intensity-review-table td { padding: 12px 16px; border-bottom: 1px solid var(--ghg-border); color: var(--ghg-text); }
+    .add-intensity-review-table tbody tr:last-child td { border-bottom: none; }
+    .add-intensity-review-table tbody tr:hover { background: var(--ghg-surface-hover); }
     .add-intensity-aggregation-min-entities { margin-top: 20px; padding: 16px; background: var(--ghg-surface-elevated); border: 1px solid var(--ghg-border); border-radius: 8px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
     .add-intensity-aggregation-min-entities .form-label { margin: 0; font-size: 14px; font-weight: 600; color: var(--ghg-text); }
     .add-intensity-aggregation-min-entities .form-input { width: 80px; }
@@ -13517,17 +13553,19 @@
             <div class="modal-body">
               <div class="add-intensity-model-wizard-stepper-wrap">
                 <div class="wizard-stepper add-intensity-model-wizard-stepper" id="add-intensity-model-wizard-stepper" role="tablist">
-                  <div class="wizard-step active" data-step="1" role="tab"><span class="step-circle">1</span><span class="step-label">Model</span></div>
+                  <div class="wizard-step active" data-step="1" role="tab" onclick="var s=parseInt(this.getAttribute('data-step'),10);if(!isNaN(s)) setAddIntensityModelWizardStep(s);"><span class="step-circle">1</span><span class="step-label">Model</span></div>
                   <div class="step-connector"></div>
-                  <div class="wizard-step" data-step="2" role="tab"><span class="step-circle">2</span><span class="step-label">Intensity</span></div>
+                  <div class="wizard-step" data-step="2" role="tab" onclick="var s=parseInt(this.getAttribute('data-step'),10);if(!isNaN(s)) setAddIntensityModelWizardStep(s);"><span class="step-circle">2</span><span class="step-label">Intensity</span></div>
                   <div class="step-connector"></div>
-                  <div class="wizard-step" data-step="3" role="tab"><span class="step-circle">3</span><span class="step-label">UoM</span></div>
+                  <div class="wizard-step" data-step="3" role="tab" onclick="var s=parseInt(this.getAttribute('data-step'),10);if(!isNaN(s)) setAddIntensityModelWizardStep(s);"><span class="step-circle">3</span><span class="step-label">UoM</span></div>
                   <div class="step-connector"></div>
-                  <div class="wizard-step" data-step="4" role="tab"><span class="step-circle">4</span><span class="step-label">Inclusions</span></div>
+                  <div class="wizard-step" data-step="4" role="tab" onclick="var s=parseInt(this.getAttribute('data-step'),10);if(!isNaN(s)) setAddIntensityModelWizardStep(s);"><span class="step-circle">4</span><span class="step-label">Inclusions</span></div>
                   <div class="step-connector"></div>
-                  <div class="wizard-step" data-step="5" role="tab"><span class="step-circle">5</span><span class="step-label">Thresholds</span></div>
+                  <div class="wizard-step" data-step="5" role="tab" onclick="var s=parseInt(this.getAttribute('data-step'),10);if(!isNaN(s)) setAddIntensityModelWizardStep(s);"><span class="step-circle">5</span><span class="step-label">Thresholds</span></div>
                   <div class="step-connector"></div>
-                  <div class="wizard-step" data-step="6" role="tab"><span class="step-circle">6</span><span class="step-label">Aggregation</span></div>
+                  <div class="wizard-step" data-step="6" role="tab" onclick="var s=parseInt(this.getAttribute('data-step'),10);if(!isNaN(s)) setAddIntensityModelWizardStep(s);"><span class="step-circle">6</span><span class="step-label">Aggregation</span></div>
+                  <div class="step-connector"></div>
+                  <div class="wizard-step" data-step="7" role="tab" onclick="var s=parseInt(this.getAttribute('data-step'),10);if(!isNaN(s)) setAddIntensityModelWizardStep(s);"><span class="step-circle">7</span><span class="step-label">Review</span></div>
                 </div>
               </div>
               <div class="add-intensity-model-wizard-content-wrap">
@@ -13609,13 +13647,31 @@
                 <div class="wizard-step-content" data-step="6" id="add-intensity-model-step-6">
                   <h3 class="add-intensity-model-step-title">Aggregation groups</h3>
                   <p class="add-intensity-model-step-desc">An <strong>aggregation group</strong> is a combination of one primary attribute (row) and one secondary attribute (column). Each cell in the matrix below is one aggregation group. Select primary and secondary attributes from the dropdowns to define the groups; the intensity value for that group is used when enough entities fall into it.</p>
-                  <p class="add-intensity-aggregation-granularity-note">The <strong>bottom-most row</strong> and <strong>right-most column</strong> represent the most granular levels. The cell at their intersection (bottom-right) yields the <strong>most granular intensity value</strong>. Rows above and columns to the left are less granular; the gradient indicates increasing granularity toward that corner.</p>
+                  <div class="add-intensity-aggregation-min-entities-inline">
+                    <label class="form-label" for="add-intensity-min-entities-per-group">Minimum entities in aggregation group to use its intensity value</label>
+                    <input type="number" class="form-input" id="add-intensity-min-entities-per-group" value="5" min="1" aria-label="Minimum entities per aggregation group">
+                  </div>
+                  <div class="add-intensity-aggregation-matrix-with-legend">
                   <div class="add-intensity-aggregation-matrix-wrap">
+                    <div class="add-intensity-aggregation-matrix-outer">
+                      <div class="add-intensity-aggregation-axis-left">Primary attributes</div>
+                      <div class="add-intensity-aggregation-matrix-inner">
+                        <div class="add-intensity-aggregation-matrix-toolbar" id="add-intensity-sera-toolbar">
+                          <div class="sera-toolbar-initial">
+                            <button type="button" class="btn btn-secondary btn-sm" id="add-intensity-sera-fill-btn" onclick="fillAggregationWithSera()"><i class="fa-light fa-wand-magic-sparkles" aria-hidden="true"></i> Fill with Sera</button>
+                          </div>
+                          <div class="sera-toolbar-thinking hidden" id="add-intensity-sera-thinking">
+                            <span class="sera-thinking-spinner" aria-hidden="true"></span>
+                            <span class="sera-thinking-text">Sera is choosing attributes…</span>
+                          </div>
+                          <div class="sera-toolbar-actions hidden" id="add-intensity-sera-actions">
+                            <button type="button" class="btn btn-secondary btn-sm" onclick="tryAgainSera()">Try again</button>
+                            <button type="button" class="btn btn-outline-secondary btn-sm" id="add-intensity-sera-explain-btn" onclick="toggleSeraExplainPopover(event)">Explain choices</button>
+                          </div>
+                        </div>
+                        <div class="add-intensity-aggregation-axis-top">Secondary attributes</div>
                     <div class="add-intensity-aggregation-matrix" id="add-intensity-aggregation-matrix" role="grid" aria-label="Aggregation matrix">
-                      <div class="matrix-corner" role="presentation">
-                        <span class="matrix-axis-label matrix-axis-label-y">Primary attributes</span>
-                        <span class="matrix-axis-label matrix-axis-label-x">Secondary attributes</span>
-                      </div>
+                      <div class="matrix-corner" role="presentation"></div>
                       <div class="matrix-col-header" role="columnheader">
                         <select class="form-select" id="add-intensity-matrix-col-0" aria-label="Column 1 dimension" onchange="updateAggregationMatrixCounts()">
                           <option value="" disabled selected>Select secondary attribute</option>
@@ -13658,41 +13714,83 @@
                       <div class="matrix-row-header" role="rowheader">
                         <select class="form-select" id="add-intensity-matrix-row-0" aria-label="Row 1 dimension" onchange="updateAggregationMatrixCounts()">
                           <option value="" disabled selected>Select primary attribute</option>
-                          <option value="country">Country</option>
-                          <option value="region">Region</option>
                           <option value="global">Global</option>
+                          <option value="region">Region</option>
+                          <option value="country">Country</option>
+                          <option value="state">State</option>
                         </select>
                       </div>
-                      <div class="matrix-cell granularity-0-0" role="gridcell" data-row="0" data-col="0"><span class="matrix-granularity-label matrix-granularity-least">Least granular</span><span class="matrix-cell-entity-count empty" id="agg-cell-0-0">— entities</span></div>
-                      <div class="matrix-cell granularity-0-1" role="gridcell" data-row="0" data-col="1"><span class="matrix-cell-entity-count empty" id="agg-cell-0-1">— entities</span></div>
-                      <div class="matrix-cell granularity-0-2" role="gridcell" data-row="0" data-col="2"><span class="matrix-cell-entity-count empty" id="agg-cell-0-2">— entities</span></div>
+                      <div class="matrix-cell matrix-cell-unfilled" role="gridcell" data-row="0" data-col="0"><span class="matrix-cell-entity-count empty" id="agg-cell-0-0">— entities</span></div>
+                      <div class="matrix-cell matrix-cell-unfilled" role="gridcell" data-row="0" data-col="1"><span class="matrix-cell-entity-count empty" id="agg-cell-0-1">— entities</span></div>
+                      <div class="matrix-cell matrix-cell-unfilled" role="gridcell" data-row="0" data-col="2"><span class="matrix-cell-entity-count empty" id="agg-cell-0-2">— entities</span></div>
                       <div class="matrix-row-header" role="rowheader">
                         <select class="form-select" id="add-intensity-matrix-row-1" aria-label="Row 2 dimension" onchange="updateAggregationMatrixCounts()">
                           <option value="" disabled selected>Select primary attribute</option>
-                          <option value="country">Country</option>
-                          <option value="region">Region</option>
                           <option value="global">Global</option>
+                          <option value="region">Region</option>
+                          <option value="country">Country</option>
+                          <option value="state">State</option>
                         </select>
                       </div>
-                      <div class="matrix-cell granularity-1-0" role="gridcell" data-row="1" data-col="0"><span class="matrix-cell-entity-count empty" id="agg-cell-1-0">— entities</span></div>
-                      <div class="matrix-cell granularity-1-1" role="gridcell" data-row="1" data-col="1"><span class="matrix-cell-entity-count empty" id="agg-cell-1-1">— entities</span></div>
-                      <div class="matrix-cell granularity-1-2" role="gridcell" data-row="1" data-col="2"><span class="matrix-cell-entity-count empty" id="agg-cell-1-2">— entities</span></div>
+                      <div class="matrix-cell matrix-cell-unfilled" role="gridcell" data-row="1" data-col="0"><span class="matrix-cell-entity-count empty" id="agg-cell-1-0">— entities</span></div>
+                      <div class="matrix-cell matrix-cell-unfilled" role="gridcell" data-row="1" data-col="1"><span class="matrix-cell-entity-count empty" id="agg-cell-1-1">— entities</span></div>
+                      <div class="matrix-cell matrix-cell-unfilled" role="gridcell" data-row="1" data-col="2"><span class="matrix-cell-entity-count empty" id="agg-cell-1-2">— entities</span></div>
                       <div class="matrix-row-header" role="rowheader">
                         <select class="form-select" id="add-intensity-matrix-row-2" aria-label="Row 3 dimension" onchange="updateAggregationMatrixCounts()">
                           <option value="" disabled selected>Select primary attribute</option>
-                          <option value="country">Country</option>
-                          <option value="region">Region</option>
                           <option value="global">Global</option>
+                          <option value="region">Region</option>
+                          <option value="country">Country</option>
+                          <option value="state">State</option>
                         </select>
                       </div>
-                      <div class="matrix-cell granularity-2-0" role="gridcell" data-row="2" data-col="0"><span class="matrix-cell-entity-count empty" id="agg-cell-2-0">— entities</span></div>
-                      <div class="matrix-cell granularity-2-1" role="gridcell" data-row="2" data-col="1"><span class="matrix-cell-entity-count empty" id="agg-cell-2-1">— entities</span></div>
-                      <div class="matrix-cell granularity-2-2" role="gridcell" data-row="2" data-col="2"><span class="matrix-granularity-label matrix-granularity-most">Most granular</span><span class="matrix-cell-entity-count empty" id="agg-cell-2-2">— entities</span></div>
+                      <div class="matrix-cell matrix-cell-unfilled" role="gridcell" data-row="2" data-col="0"><span class="matrix-cell-entity-count empty" id="agg-cell-2-0">— entities</span></div>
+                      <div class="matrix-cell matrix-cell-unfilled" role="gridcell" data-row="2" data-col="1"><span class="matrix-cell-entity-count empty" id="agg-cell-2-1">— entities</span></div>
+                      <div class="matrix-cell matrix-cell-unfilled" role="gridcell" data-row="2" data-col="2"><span class="matrix-cell-entity-count empty" id="agg-cell-2-2">— entities</span></div>
+                    </div>
+                      </div>
                     </div>
                   </div>
-                  <div class="add-intensity-aggregation-min-entities">
-                    <label class="form-label" for="add-intensity-min-entities-per-group">Minimum entities in aggregation group to use its intensity value</label>
-                    <input type="number" class="form-input" id="add-intensity-min-entities-per-group" value="5" min="1" aria-label="Minimum entities per aggregation group" style="width: 80px;">
+                  <div class="add-intensity-aggregation-matrix-legend">
+                    <span class="legend-label">Color density</span>
+                    <span class="legend-desc">More granular (higher quality) aggregation groups appear darker.</span>
+                    <div class="legend-scale">
+                      <span style="background: #e3f2fd;" title="Least granular"></span>
+                      <span style="background: #bbdefb;"></span>
+                      <span style="background: #90caf9;"></span>
+                      <span style="background: #64b5f6;"></span>
+                      <span style="background: #42a5f5;" title="Most granular"></span>
+                    </div>
+                  </div>
+                  </div>
+                  <div class="sera-explain-popover hidden" id="add-intensity-sera-explain-popover">
+                    <div class="sera-explain-popover-caret" id="add-intensity-sera-explain-popover-caret" aria-hidden="true"></div>
+                    <h4 class="sera-explain-popover-title">Why these attributes?</h4>
+                    <div class="sera-explain-popover-body">
+                      <div class="sera-explain-popover-list" id="add-intensity-sera-explain-popover-list"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="wizard-step-content" data-step="7" id="add-intensity-model-step-7">
+                  <h3 class="add-intensity-model-step-title">Review</h3>
+                  <p class="add-intensity-model-step-desc">Review your configuration below. Go back to any step to edit, or create the model when ready. Intensity values estimate for entities by matching aggregation groups (most granular match is used).</p>
+                  <div class="estimation-settings-section">
+                    <h2 class="estimation-settings-section-title">Final intensity values by aggregation group</h2>
+                    <p class="estimation-settings-section-desc">Each row is one aggregation group defined by your primary and secondary attribute choices on the Aggregation step.</p>
+                    <div class="add-intensity-review-table-wrap">
+                      <table class="add-intensity-review-table" aria-label="Aggregation groups summary">
+                        <thead>
+                          <tr>
+                            <th>Primary attribute</th>
+                            <th>Secondary attribute</th>
+                            <th>Entities</th>
+                            <th>Intensity value</th>
+                          </tr>
+                        </thead>
+                        <tbody id="add-intensity-review-aggregation-tbody">
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
                 </div>
                 <div class="wizard-step-content" data-step="4" id="add-intensity-model-step-4">
@@ -13765,10 +13863,6 @@
                         <input type="number" class="form-input" id="add-intensity-outlier-threshold" value="3.00" step="0.01" min="0" aria-label="Outlier threshold multiplier">
                         <span class="threshold-unit">x fallback value</span>
                       </div>
-                    </div>
-                    <div class="form-group" style="margin-top: 12px;">
-                      <label class="form-label" for="add-intensity-min-site-count">Minimum entity count in aggregation group</label>
-                      <input type="number" class="form-input" id="add-intensity-min-site-count" value="5" min="1" aria-label="Minimum entity count" style="width: 80px;">
                     </div>
                   </div>
                 </div>
@@ -26728,7 +26822,7 @@ Thank you.</div>
       document.body.style.overflow = '';
     }
     var addIntensityModelWizardStep = 1;
-    var addIntensityModelWizardTotalSteps = 6;
+    var addIntensityModelWizardTotalSteps = 7;
     function openAddIntensityModelWizard() {
       addIntensityModelWizardStep = 1;
       setAddIntensityModelWizardStep(1);
@@ -26808,11 +26902,171 @@ Thank you.</div>
       if (nextBtn) nextBtn.style.display = step === addIntensityModelWizardTotalSteps ? 'none' : 'inline-flex';
       if (createBtn) createBtn.style.display = step === addIntensityModelWizardTotalSteps ? 'inline-flex' : 'none';
       var previewEl = document.getElementById('add-intensity-dataset-preview-persistent');
-      if (previewEl) previewEl.style.display = (step >= 3 && step <= 6) ? 'block' : 'none';
-      if (step < 3 || step > 6) closeIntensityColumnsPanel();
+      if (previewEl) previewEl.style.display = (step >= 3 && step <= 7) ? 'block' : 'none';
+      if (step < 3 || step > 7) closeIntensityColumnsPanel();
       if (step === 6) updateAggregationMatrixCounts();
+      if (step === 7) buildReviewStepAggregationSummary();
+    }
+    function buildReviewStepAggregationSummary() {
+      var tbody = document.getElementById('add-intensity-review-aggregation-tbody');
+      if (!tbody) return;
+      var rows = [];
+      for (var ri = 0; ri < 3; ri++) {
+        var rowSel = document.getElementById('add-intensity-matrix-row-' + ri);
+        var primaryVal = rowSel && rowSel.value ? rowSel.value : '';
+        var primaryLabel = primaryVal && rowSel.selectedOptions[0] ? rowSel.selectedOptions[0].text : '';
+        for (var ci = 0; ci < 3; ci++) {
+          var colSel = document.getElementById('add-intensity-matrix-col-' + ci);
+          var secondaryVal = colSel && colSel.value ? colSel.value : '';
+          var secondaryLabel = secondaryVal && colSel.selectedOptions[0] ? colSel.selectedOptions[0].text : '';
+          if (!primaryVal || !secondaryVal) continue;
+          var countEl = document.getElementById('agg-cell-' + ri + '-' + ci);
+          var countText = countEl ? countEl.textContent : '— entities';
+          var seed = (primaryVal + '-' + secondaryVal + '-' + ri + '-' + ci).split('').reduce(function(a, b) { return ((a << 5) - a) + b.charCodeAt(0); }, 0);
+          var intensityNum = (Math.abs(seed % 100) / 100 + 0.15).toFixed(2);
+          rows.push({ primary: primaryLabel, secondary: secondaryLabel, entities: countText, intensity: intensityNum + ' kWh/sq ft' });
+        }
+      }
+      var html = '';
+      if (rows.length === 0) {
+        html = '<tr><td colspan="4" style="color: var(--ghg-text-muted);">Go to the Aggregation step and select primary and secondary attributes for each row and column to see intensity values by group.</td></tr>';
+      } else {
+        rows.forEach(function(r) {
+          html += '<tr><td>' + (r.primary || '—').replace(/</g, '&lt;') + '</td><td>' + (r.secondary || '—').replace(/</g, '&lt;') + '</td><td>' + (r.entities || '—').replace(/</g, '&lt;') + '</td><td>' + (r.intensity || '—').replace(/</g, '&lt;') + '</td></tr>';
+        });
+      }
+      tbody.innerHTML = html;
+    }
+    function applySeraChoicesAndExplanations() {
+      var primaryLabels = { global: 'Global', region: 'Region', country: 'Country', state: 'State' };
+      var secondaryLabels = { storage: 'Storage', warehouse: 'Warehouse', office: 'Office', retail: 'Retail', outlet: 'Outlet', distribution: 'Distribution', showroom: 'Showroom', 'data-center': 'Data center' };
+      var seraPrimary = ['country', 'region', 'global'];
+      var seraSecondary = ['office', 'retail', 'warehouse'];
+      var primaryReasons = {
+        country: 'Most granular geographic level in your data; improves estimate accuracy for location-specific intensity.',
+        region: 'Good balance between granularity and sample size for regional patterns.',
+        global: 'Fallback when fewer entities are available; ensures coverage for all groups.'
+      };
+      var secondaryReasons = {
+        office: 'Strong representation in your inventory; reliable intensity estimates.',
+        retail: 'Common facility type with consistent reporting; good for aggregation.',
+        warehouse: 'High coverage in the dataset; suitable as a secondary dimension.'
+      };
+      var r, c, val;
+      for (r = 0; r < 3; r++) {
+        var rowSel = document.getElementById('add-intensity-matrix-row-' + r);
+        if (rowSel) {
+          rowSel.value = seraPrimary[r];
+          rowSel.title = primaryReasons[seraPrimary[r]] || '';
+        }
+      }
+      for (c = 0; c < 3; c++) {
+        var colSel = document.getElementById('add-intensity-matrix-col-' + c);
+        if (colSel) {
+          colSel.value = seraSecondary[c];
+          colSel.title = secondaryReasons[seraSecondary[c]] || '';
+        }
+      }
+      updateAggregationMatrixCounts();
+      var listEl = document.getElementById('add-intensity-sera-explain-popover-list');
+      if (listEl) {
+        var html = '';
+        html += '<div class="sera-explain-popover-section-title">Primary attributes</div>';
+        for (r = 0; r < 3; r++) {
+          val = seraPrimary[r];
+          html += '<div class="add-intensity-attribute-explanation-item"><strong>Primary ' + (r + 1) + ': ' + (primaryLabels[val] || val) + '</strong> — ' + (primaryReasons[val] || 'Recommended for this aggregation level.') + '</div>';
+        }
+        html += '<div class="sera-explain-popover-section-title">Secondary attributes</div>';
+        for (c = 0; c < 3; c++) {
+          val = seraSecondary[c];
+          html += '<div class="add-intensity-attribute-explanation-item"><strong>Secondary ' + (c + 1) + ': ' + (secondaryLabels[val] || val) + '</strong> — ' + (secondaryReasons[val] || 'Recommended for this dimension.') + '</div>';
+        }
+        listEl.innerHTML = html;
+      }
+    }
+    function fillAggregationWithSera() {
+      var initial = document.querySelector('#add-intensity-sera-toolbar .sera-toolbar-initial');
+      var thinking = document.getElementById('add-intensity-sera-thinking');
+      var actions = document.getElementById('add-intensity-sera-actions');
+      if (initial) initial.classList.add('hidden');
+      if (thinking) thinking.classList.remove('hidden');
+      if (actions) actions.classList.add('hidden');
+      window.setTimeout(function() {
+        applySeraChoicesAndExplanations();
+        if (thinking) thinking.classList.add('hidden');
+        if (actions) actions.classList.remove('hidden');
+      }, 1500);
+    }
+    function tryAgainSera() {
+      var thinking = document.getElementById('add-intensity-sera-thinking');
+      var actions = document.getElementById('add-intensity-sera-actions');
+      if (actions) actions.classList.add('hidden');
+      if (thinking) thinking.classList.remove('hidden');
+      var popover = document.getElementById('add-intensity-sera-explain-popover');
+      if (popover) popover.classList.add('hidden');
+      window.setTimeout(function() {
+        applySeraChoicesAndExplanations();
+        if (thinking) thinking.classList.add('hidden');
+        if (actions) actions.classList.remove('hidden');
+      }, 1500);
+    }
+    function positionSeraExplainPopover() {
+      var popover = document.getElementById('add-intensity-sera-explain-popover');
+      var btn = document.getElementById('add-intensity-sera-explain-btn');
+      var caret = document.getElementById('add-intensity-sera-explain-popover-caret');
+      if (!popover || !btn || popover.classList.contains('hidden')) return;
+      var rect = btn.getBoundingClientRect();
+      var popoverWidth = 360;
+      var popoverLeft = rect.right - popoverWidth;
+      var popoverTop = rect.bottom + 6;
+      popover.style.top = popoverTop + 'px';
+      popover.style.left = popoverLeft + 'px';
+      if (caret) {
+        var caretCenter = rect.left + rect.width / 2 - popoverLeft;
+        caret.style.left = (caretCenter - 7) + 'px';
+        caret.style.marginLeft = '0';
+      }
+    }
+    function toggleSeraExplainPopover(ev) {
+      ev.preventDefault();
+      ev.stopPropagation();
+      var popover = document.getElementById('add-intensity-sera-explain-popover');
+      var btn = document.getElementById('add-intensity-sera-explain-btn');
+      var scrollEl = document.querySelector('.add-intensity-model-wizard-content-wrap');
+      if (!popover) return;
+      var isOpen = !popover.classList.contains('hidden');
+      if (isOpen) {
+        popover.classList.add('hidden');
+        popover.style.top = '';
+        popover.style.left = '';
+        var caret = document.getElementById('add-intensity-sera-explain-popover-caret');
+        if (caret) { caret.style.left = ''; caret.style.marginLeft = ''; }
+        document.removeEventListener('click', closeSeraExplainPopover);
+        if (scrollEl) scrollEl.removeEventListener('scroll', positionSeraExplainPopover);
+      } else {
+        positionSeraExplainPopover();
+        popover.classList.remove('hidden');
+        document.addEventListener('click', closeSeraExplainPopover);
+        if (scrollEl) scrollEl.addEventListener('scroll', positionSeraExplainPopover);
+      }
+    }
+    function closeSeraExplainPopover(ev) {
+      var popover = document.getElementById('add-intensity-sera-explain-popover');
+      var btn = document.getElementById('add-intensity-sera-explain-btn');
+      var scrollEl = document.querySelector('.add-intensity-model-wizard-content-wrap');
+      if (popover && !popover.contains(ev.target) && btn && !btn.contains(ev.target)) {
+        popover.classList.add('hidden');
+        popover.style.top = '';
+        popover.style.left = '';
+        var caret = document.getElementById('add-intensity-sera-explain-popover-caret');
+        if (caret) { caret.style.left = ''; caret.style.marginLeft = ''; }
+        document.removeEventListener('click', closeSeraExplainPopover);
+        if (scrollEl) scrollEl.removeEventListener('scroll', positionSeraExplainPopover);
+      }
     }
     function updateAggregationMatrixCounts() {
+      var primaryGranularity = { global: 0, region: 1, country: 2, state: 3 };
+      var secondaryGranularity = { storage: 0, warehouse: 1, office: 2, retail: 3, outlet: 4, distribution: 5, showroom: 6, 'data-center': 7 };
       var rowVals = [];
       var colVals = [];
       for (var r = 0; r < 3; r++) {
@@ -26826,17 +27080,30 @@ Thank you.</div>
       var anySelected = rowVals.some(function(v) { return v; }) && colVals.some(function(v) { return v; });
       for (var ri = 0; ri < 3; ri++) {
         for (var ci = 0; ci < 3; ci++) {
-          var el = document.getElementById('agg-cell-' + ri + '-' + ci);
-          if (!el) continue;
+          var spanEl = document.getElementById('agg-cell-' + ri + '-' + ci);
+          if (!spanEl) continue;
+          var cellDiv = spanEl.closest('.matrix-cell');
+          if (cellDiv) {
+            cellDiv.classList.remove('matrix-cell-unfilled', 'matrix-cell-quality-0', 'matrix-cell-quality-1', 'matrix-cell-quality-2', 'matrix-cell-quality-3', 'matrix-cell-quality-4');
+            if (!anySelected || !rowVals[ri] || !colVals[ci]) {
+              cellDiv.classList.add('matrix-cell-unfilled');
+            } else {
+              var pScore = primaryGranularity[rowVals[ri]] !== undefined ? primaryGranularity[rowVals[ri]] : 0;
+              var sScore = secondaryGranularity[colVals[ci]] !== undefined ? secondaryGranularity[colVals[ci]] : 0;
+              var total = pScore + sScore;
+              var quality = Math.min(4, Math.floor(total * 5 / 11));
+              cellDiv.classList.add('matrix-cell-quality-' + quality);
+            }
+          }
           if (!anySelected || !rowVals[ri] || !colVals[ci]) {
-            el.textContent = '— entities';
-            el.classList.add('empty');
+            spanEl.textContent = '— entities';
+            spanEl.classList.add('empty');
             continue;
           }
           var seed = (rowVals[ri] + '-' + colVals[ci] + '-' + ri + '-' + ci).split('').reduce(function(a, b) { return ((a << 5) - a) + b.charCodeAt(0); }, 0);
           var count = Math.abs(seed % 480) + 12;
-          el.textContent = count + ' entities';
-          el.classList.remove('empty');
+          spanEl.textContent = count + ' entities';
+          spanEl.classList.remove('empty');
         }
       }
     }
