@@ -2162,17 +2162,22 @@
     /* Step 3: Aggregation matrix */
     .add-intensity-aggregation-granularity-note { font-size: 13px; color: var(--ghg-text-secondary); line-height: 1.5; margin: 0 0 20px 0; padding: 12px 14px; background: var(--ghg-surface-elevated); border-radius: 8px; border-left: 3px solid var(--ghg-primary); }
     .add-intensity-aggregation-matrix-wrap { display: inline-block; border: 1px solid var(--ghg-border); border-radius: 8px; overflow: hidden; margin-top: 8px; }
-    .add-intensity-aggregation-matrix { display: grid; grid-template-columns: 120px repeat(3, minmax(100px, 1fr)); grid-template-rows: auto repeat(3, 44px); font-size: 13px; min-width: 400px; }
-    .add-intensity-aggregation-matrix .matrix-corner { background: var(--ghg-surface-elevated); border-right: 1px solid var(--ghg-border); border-bottom: 1px solid var(--ghg-border); min-width: 120px; min-height: 40px; }
+    .add-intensity-aggregation-matrix { display: grid; grid-template-columns: 200px repeat(3, minmax(100px, 1fr)); grid-template-rows: auto repeat(3, 44px); font-size: 13px; min-width: 400px; }
+    .add-intensity-aggregation-matrix .matrix-corner { background: var(--ghg-surface-elevated); border-right: 1px solid var(--ghg-border); border-bottom: 1px solid var(--ghg-border); min-width: 200px; min-height: 40px; display: flex; flex-direction: column; justify-content: center; padding: 8px 10px; }
+    .add-intensity-aggregation-matrix .matrix-axis-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.02em; color: var(--ghg-text-muted); }
+    .add-intensity-aggregation-matrix .matrix-axis-label-y { margin-bottom: 2px; }
+    .add-intensity-aggregation-matrix .matrix-axis-label-x { }
     .add-intensity-aggregation-matrix .matrix-granularity-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.02em; }
     .add-intensity-aggregation-matrix .matrix-granularity-least { color: var(--ghg-text-muted); }
     .add-intensity-aggregation-matrix .matrix-granularity-most { color: rgba(255,255,255,0.95); }
     .add-intensity-aggregation-matrix .matrix-col-header { padding: 8px 10px; background: var(--ghg-surface-elevated); border-right: 1px solid var(--ghg-border); border-bottom: 1px solid var(--ghg-border); display: flex; align-items: center; justify-content: center; min-height: 40px; }
     .add-intensity-aggregation-matrix .matrix-col-header:last-child { border-right: none; }
     .add-intensity-aggregation-matrix .matrix-col-header .form-select { width: 100%; min-width: 110px; font-size: 13px; padding: 6px 28px 6px 10px; }
-    .add-intensity-aggregation-matrix .matrix-row-header { padding: 8px 10px; background: var(--ghg-surface-elevated); border-right: 1px solid var(--ghg-border); border-bottom: 1px solid var(--ghg-border); display: flex; align-items: center; min-width: 120px; min-height: 44px; }
-    .add-intensity-aggregation-matrix .matrix-row-header .form-select { width: 100%; min-width: 110px; font-size: 13px; padding: 6px 28px 6px 10px; }
-    .add-intensity-aggregation-matrix .matrix-cell { border-right: 1px solid var(--ghg-border); border-bottom: 1px solid var(--ghg-border); min-width: 80px; min-height: 44px; }
+    .add-intensity-aggregation-matrix .matrix-row-header { padding: 8px 10px; background: var(--ghg-surface-elevated); border-right: 1px solid var(--ghg-border); border-bottom: 1px solid var(--ghg-border); display: flex; align-items: center; min-width: 200px; min-height: 44px; }
+    .add-intensity-aggregation-matrix .matrix-row-header .form-select { width: 100%; min-width: 180px; font-size: 13px; padding: 6px 28px 6px 10px; }
+    .add-intensity-aggregation-matrix .matrix-cell { border-right: 1px solid var(--ghg-border); border-bottom: 1px solid var(--ghg-border); min-width: 80px; min-height: 44px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; padding: 6px; text-align: center; }
+    .add-intensity-aggregation-matrix .matrix-cell-entity-count { font-size: 12px; font-weight: 600; color: var(--ghg-text); }
+    .add-intensity-aggregation-matrix .matrix-cell-entity-count.empty { color: var(--ghg-text-muted); font-weight: 500; }
     .add-intensity-aggregation-matrix .matrix-cell:last-child { border-right: none; }
     .add-intensity-aggregation-matrix .matrix-cell:nth-last-child(-n+3) { border-bottom: none; }
     .add-intensity-aggregation-matrix .matrix-row-header:nth-child(13) { border-bottom: none; }
@@ -2184,7 +2189,10 @@
     .add-intensity-aggregation-matrix .matrix-cell.granularity-1-2 { background: #64b5f6; }
     .add-intensity-aggregation-matrix .matrix-cell.granularity-2-0 { background: #90caf9; }
     .add-intensity-aggregation-matrix .matrix-cell.granularity-2-1 { background: #64b5f6; }
-    .add-intensity-aggregation-matrix .matrix-cell.granularity-2-2 { background: #42a5f5; display: flex; align-items: center; justify-content: center; padding: 8px; }
+    .add-intensity-aggregation-matrix .matrix-cell.granularity-2-2 { background: #42a5f5; }
+    .add-intensity-aggregation-min-entities { margin-top: 20px; padding: 16px; background: var(--ghg-surface-elevated); border: 1px solid var(--ghg-border); border-radius: 8px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .add-intensity-aggregation-min-entities .form-label { margin: 0; font-size: 14px; font-weight: 600; color: var(--ghg-text); }
+    .add-intensity-aggregation-min-entities .form-input { width: 80px; }
     /* Dataset Preview (BI-style) from aggregation step onward */
     .add-intensity-dataset-preview { margin-top: 24px; }
     .add-intensity-dataset-preview-persistent { flex-shrink: 0; margin-top: 0; padding-top: 10px; border-top: 1px solid var(--ghg-border); background: var(--ghg-surface); margin-left: -24px; margin-right: -24px; margin-bottom: -16px; padding-left: 24px; padding-right: 24px; padding-bottom: 10px; }
@@ -2207,6 +2215,12 @@
     .add-intensity-dataset-preview-footer .previewing-text { font-size: 13px; font-weight: 500; color: var(--ghg-success); }
     .add-intensity-dataset-preview-header { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 8px; flex-wrap: wrap; }
     .add-intensity-dataset-preview-header .add-intensity-dataset-preview-title { margin: 0; }
+    .add-intensity-dataset-preview-desc { font-size: 13px; color: var(--ghg-text-secondary); line-height: 1.5; margin: 0 0 8px 0; }
+    .add-intensity-dataset-preview-table-block { display: flex; flex-direction: column; gap: 0; }
+    .add-intensity-dataset-preview-axis-above { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.02em; color: var(--ghg-text-muted); margin-bottom: 6px; }
+    .add-intensity-dataset-preview-table-row { display: flex; align-items: stretch; gap: 12px; }
+    .add-intensity-dataset-preview-table-row .add-intensity-dataset-preview-table-wrap { flex: 1; min-width: 0; }
+    .add-intensity-dataset-preview-axis-right { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.02em; color: var(--ghg-text-muted); writing-mode: vertical-rl; transform: rotate(180deg); align-self: center; white-space: nowrap; padding-left: 8px; }
     .add-intensity-columns-dropdown { position: relative; }
     .add-intensity-columns-btn { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; font-size: 13px; font-weight: 500; color: var(--ghg-text); background: var(--ghg-surface-elevated); border: 1px solid var(--ghg-border); border-radius: 6px; cursor: pointer; }
     .add-intensity-columns-btn:hover { background: var(--ghg-surface-hover); }
@@ -2238,7 +2252,7 @@
     .add-intensity-uom-row-label { font-size: 14px; font-weight: 500; color: var(--ghg-text); }
     .add-intensity-uom-row select.add-intensity-uom-select { width: 100%; max-width: 320px; padding: 8px 32px 8px 12px; font-size: 14px; border: 1px solid var(--ghg-border); border-radius: 6px; background: var(--ghg-surface); color: var(--ghg-text); }
     .add-intensity-uom-row select.add-intensity-uom-select:focus { outline: none; border-color: var(--ghg-success); box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.2); }
-    /* Data types dropdown (multi-select with tags) */
+    /* Activity types dropdown (multi-select with tags) */
     .add-intensity-data-types-dropdown { position: relative; }
     .add-intensity-data-types-trigger { position: relative; width: 100%; text-align: left; display: flex; align-items: center; flex-wrap: wrap; gap: 6px; padding: 8px 36px 8px 14px; min-height: 42px; cursor: pointer; }
     .add-intensity-data-types-trigger .add-intensity-data-types-chevron { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); font-size: 12px; color: var(--ghg-text-muted); pointer-events: none; }
@@ -2282,6 +2296,8 @@
     .estimation-settings-table tbody tr:last-child td { border-bottom: none; }
     .estimation-settings-table tbody tr:hover { background: var(--ghg-surface-hover); }
     .estimation-settings-table .col-actions { width: 100px; text-align: right; }
+    .entity-type-settings-table .entity-type-pills { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+    .entity-type-settings-table .entity-type-pill { display: inline-block; padding: 4px 10px; font-size: 12px; font-weight: 500; border-radius: 999px; background: var(--ghg-surface-elevated); color: var(--ghg-text-secondary); }
     .estimation-reports-table .col-date { width: 140px; }
     .estimation-reports-table .col-type { width: 140px; }
     .estimation-reports-table .col-routine { min-width: 180px; }
@@ -11332,6 +11348,7 @@
           <a href="#" class="submenu-item">Organization</a>
           <a href="#" class="submenu-item">Users</a>
           <a href="#" class="submenu-item" data-view="estimation-settings" onclick="event.preventDefault(); if(typeof switchView==='function'){switchView('estimation-settings');}">Estimation settings</a>
+          <a href="#" class="submenu-item" data-view="entity-type-settings" onclick="event.preventDefault(); if(typeof switchView==='function'){switchView('entity-type-settings');}">Entity type settings</a>
           <a href="#" class="submenu-item" data-view="intensity-estimation-models" onclick="event.preventDefault(); if(typeof switchView==='function'){switchView('intensity-estimation-models');}">Intensity estimation models</a>
           <a href="#" class="submenu-item" data-view="user-activity-log" onclick="event.preventDefault(); if(typeof switchView==='function'){switchView('user-activity-log');}">User activity log</a>
           <a href="#" class="submenu-item" data-view="user-activity-log-v2" onclick="event.preventDefault(); if(typeof switchView==='function'){switchView('user-activity-log-v2');}">User activity log (V2)</a>
@@ -11529,7 +11546,7 @@
                 <span>Data Owner Directory</span>
               </div>
               <h1 class="page-title">Data Owner Directory</h1>
-              <p class="page-subtitle">Map ownership of data collection by site or business unit and category. Powers campaign auto-assignment and coverage.</p>
+              <p class="page-subtitle">Map ownership of data collection by entity or business unit and category. Powers campaign auto-assignment and coverage.</p>
             </div>
             <div class="page-header-actions">
               <div class="dropdown-inline">
@@ -11579,7 +11596,7 @@
             <div id="ownership-empty-state" class="ownership-empty-state" style="display: none;">
               <i class="fa-light fa-folder-open" aria-hidden="true"></i>
               <p><strong>No ownership rules yet</strong></p>
-              <p>Add rules to map who owns data collection by site or business unit and category. This powers campaign auto-assignment and helps spot coverage gaps.</p>
+              <p>Add rules to map who owns data collection by entity or business unit and category. This powers campaign auto-assignment and helps spot coverage gaps.</p>
               <button type="button" class="btn btn-primary" onclick="openOwnershipRuleModal()">Add data owner</button>
             </div>
             <div id="ownership-no-results" class="ownership-empty-state" style="display: none;">
@@ -12956,7 +12973,7 @@
             <div class="activity-row-detail-row"><span class="activity-row-detail-label" id="estimations-detail-value-label">Value</span><span class="activity-row-detail-value" id="estimations-detail-value"></span></div>
             <div class="activity-row-detail-row estimations-detail-date-range-wrap" id="estimations-detail-date-range-wrap" style="display: none;"><span class="activity-row-detail-label">Date range of data</span><span class="activity-row-detail-value" id="estimations-detail-date-range"></span></div>
             <div class="activity-row-detail-row estimations-gap-reason-row" id="estimations-detail-gap-reason-row" style="display: none;"><span class="activity-row-detail-label" id="estimations-detail-gap-reason-label">Reason for gap alert</span><span class="activity-row-detail-value" id="estimations-detail-gap-reason"></span></div>
-            <div class="activity-row-detail-row"><span class="activity-row-detail-label">Data type</span><span class="activity-row-detail-value" id="estimations-detail-data-type"></span></div>
+            <div class="activity-row-detail-row"><span class="activity-row-detail-label">Activity type</span><span class="activity-row-detail-value" id="estimations-detail-data-type"></span></div>
             <div class="activity-row-detail-row estimations-detail-entries-wrap" id="estimations-detail-entries-wrap" style="display: none;"><span class="activity-row-detail-label" id="estimations-detail-entries-label">Entries</span><div class="activity-row-detail-entries-list" id="estimations-detail-entries"></div></div>
             <div class="estimations-cell-fill-gap" id="estimations-cell-fill-gap" style="display: none;">
               <div class="estimations-cell-fill-gap-divider"></div>
@@ -13119,7 +13136,7 @@
                   <div class="run-estimation-card-body">
                     <div class="run-estimation-summary-line">Activity type: <strong>Electric Power</strong></div>
                     <div class="run-estimation-summary-line">Gaps to be filled: <strong>500</strong></div>
-                    <div class="run-estimation-summary-line">Sites affected: <strong>480</strong></div>
+                    <div class="run-estimation-summary-line">Entities affected: <strong>480</strong></div>
                   </div>
                 </div>
                 <div class="run-estimation-card collapsed" id="run-estimation-card-methods">
@@ -13212,7 +13229,7 @@
             <div class="modal-header">
               <div>
                 <h2 class="modal-title">Create new routine</h2>
-                <p class="modal-subtitle">Routines are manually triggered and fill cost/usage gaps for selected sites and months.</p>
+                <p class="modal-subtitle">Routines are manually triggered and fill cost/usage gaps for selected entities and months.</p>
               </div>
               <button type="button" class="modal-close" onclick="closeCreateRoutineModal()" aria-label="Close"><i class="fa-light fa-times"></i></button>
             </div>
@@ -13242,113 +13259,6 @@
                       <option value="District heating / cooling">District heating / cooling</option>
                       <option value="Fuel oil">Fuel oil</option>
                     </select>
-                  </div>
-                </div>
-              </div>
-
-              <div class="create-routine-section">
-                <h3 class="create-routine-section-title">Sites</h3>
-                <p class="create-routine-section-desc">What's shown is a list of the sites that use the selected activity type. Gap filling will only happen with an entity's active period defined by the entity's Open date and Close date.</p>
-                <div class="create-routine-sites-empty" id="create-routine-sites-empty">
-                  <i class="fa-light fa-folder"></i>
-                  The list of sites that use the activity type you select will show here.
-                </div>
-                <div id="create-routine-sites-content" style="display: none;">
-                  <div class="create-routine-sites-toolbar">
-                    <span class="create-routine-sites-count" id="create-routine-sites-count">Showing 500 records</span>
-                    <div class="search-input-wrapper create-routine-sites-search">
-                      <i class="fa-light fa-search"></i>
-                      <input type="text" class="form-input" id="create-routine-sites-search" placeholder="Search for sites" aria-label="Search for sites">
-                    </div>
-                    <button type="button" class="btn btn-secondary" aria-label="Filter sites"><i class="fa-light fa-filter"></i></button>
-                  </div>
-                  <div class="create-routine-sites-table-wrap">
-                    <table class="create-routine-sites-table" id="create-routine-sites-table">
-                      <thead>
-                        <tr>
-                          <th class="col-checkbox"><input type="checkbox" id="create-routine-sites-select-all" onclick="toggleCreateRoutineSitesSelectAll()" aria-label="Select all"></th>
-                          <th class="col-expand"></th>
-                          <th>Sites</th>
-                          <th class="col-entities"># of entities within</th>
-                          <th class="col-status">Status</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td class="col-checkbox"><input type="checkbox" class="create-routine-site-cb"></td>
-                          <td class="col-expand"><button type="button" class="create-routine-site-expand" onclick="toggleCreateRoutineSiteRow(this)" aria-expanded="false"><i class="fa-light fa-chevron-right"></i></button></td>
-                          <td class="create-routine-site-name">1234 Elm St, Springfield, IL 62704</td>
-                          <td>2</td>
-                          <td><span class="create-routine-status-dot multiple">Multiple</span></td>
-                        </tr>
-                        <tr class="create-routine-site-subrow" style="display: none;">
-                          <td></td>
-                          <td></td>
-                          <td class="create-routine-site-name">4th floor</td>
-                          <td>—</td>
-                          <td>—</td>
-                        </tr>
-                        <tr>
-                          <td class="col-checkbox"><input type="checkbox" class="create-routine-site-cb"></td>
-                          <td class="col-expand"><button type="button" class="create-routine-site-expand" onclick="toggleCreateRoutineSiteRow(this)" aria-expanded="false"><i class="fa-light fa-chevron-right"></i></button></td>
-                          <td class="create-routine-site-name">5678 Oak Ave, Metropolis, IL 62960</td>
-                          <td>5</td>
-                          <td><span class="create-routine-status-dot active">Active</span></td>
-                        </tr>
-                        <tr>
-                          <td class="col-checkbox"><input type="checkbox" class="create-routine-site-cb"></td>
-                          <td class="col-expand"><button type="button" class="create-routine-site-expand" onclick="toggleCreateRoutineSiteRow(this)" aria-expanded="false"><i class="fa-light fa-chevron-right"></i></button></td>
-                          <td class="create-routine-site-name">4444 Cedar Ct, Lakeview, FL 32123</td>
-                          <td>4</td>
-                          <td><span class="create-routine-status-dot multiple">Multiple</span></td>
-                        </tr>
-                        <tr class="create-routine-site-subrow" style="display: none;">
-                          <td></td><td></td>
-                          <td class="create-routine-site-name">4th floor</td>
-                          <td>—</td><td>—</td>
-                        </tr>
-                        <tr class="create-routine-site-subrow" style="display: none;">
-                          <td></td><td></td>
-                          <td class="create-routine-site-name">Tenant 1</td>
-                          <td>—</td><td>—</td>
-                        </tr>
-                        <tr class="create-routine-site-subrow" style="display: none;">
-                          <td></td><td></td>
-                          <td class="create-routine-site-name">Tenant 2</td>
-                          <td>—</td><td>—</td>
-                        </tr>
-                        <tr class="create-routine-site-subrow" style="display: none;">
-                          <td></td><td></td>
-                          <td class="create-routine-site-name">Common area</td>
-                          <td>—</td><td>—</td>
-                        </tr>
-                        <tr>
-                          <td class="col-checkbox"><input type="checkbox" class="create-routine-site-cb"></td>
-                          <td class="col-expand"><button type="button" class="create-routine-site-expand" onclick="toggleCreateRoutineSiteRow(this)" aria-expanded="false"><i class="fa-light fa-chevron-right"></i></button></td>
-                          <td class="create-routine-site-name">9012 Pine Rd, Denver, CO 80202</td>
-                          <td>3</td>
-                          <td><span class="create-routine-status-dot inactive">All Inactive</span></td>
-                        </tr>
-                        <tr>
-                          <td class="col-checkbox"><input type="checkbox" class="create-routine-site-cb"></td>
-                          <td class="col-expand"><button type="button" class="create-routine-site-expand" onclick="toggleCreateRoutineSiteRow(this)" aria-expanded="false"><i class="fa-light fa-chevron-right"></i></button></td>
-                          <td class="create-routine-site-name">3456 Maple Dr, Seattle, WA 98101</td>
-                          <td>2</td>
-                          <td><span class="create-routine-status-dot closed">Closed</span></td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                  <div class="estimations-pagination" style="margin-top: 12px;">
-                    <span class="estimations-pagination-count">Showing 1–10 of 500 records</span>
-                    <div class="estimations-pagination-controls">
-                      <button type="button" class="btn btn-ghost btn-icon" aria-label="Previous"><i class="fa-light fa-chevron-left"></i></button>
-                      <button type="button" class="btn btn-ghost btn-sm estimations-page-btn active">1</button>
-                      <button type="button" class="btn btn-ghost btn-sm estimations-page-btn">2</button>
-                      <span class="estimations-pagination-ellipsis">…</span>
-                      <button type="button" class="btn btn-ghost btn-sm estimations-page-btn">50</button>
-                      <button type="button" class="btn btn-ghost btn-icon" aria-label="Next"><i class="fa-light fa-chevron-right"></i></button>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -13405,8 +13315,8 @@
                   </div>
                 </div>
                 <div class="create-routine-pref-row">
-                  <span class="create-routine-pref-label">Data type to fill gap for <i class="fa-solid fa-circle-info info-icon" title="Data type"></i></span>
-                  <div class="create-routine-pref-control create-routine-segmented" role="group" aria-label="Data type">
+                  <span class="create-routine-pref-label">Activity type to fill gap for <i class="fa-solid fa-circle-info info-icon" title="Activity type"></i></span>
+                  <div class="create-routine-pref-control create-routine-segmented" role="group" aria-label="Activity type">
                     <button type="button" class="active" onclick="createRoutineSegmented(this, 'usage')">Usage</button>
                     <button type="button" onclick="createRoutineSegmented(this, 'spend')">Spend</button>
                     <button type="button" onclick="createRoutineSegmented(this, 'fuel')">Fuel</button>
@@ -13448,7 +13358,7 @@
             <div class="modal-header">
               <div>
                 <h2 class="modal-title">Create new routine</h2>
-                <p class="modal-subtitle">Routines are manually triggered and run intensity estimation for selected sites.</p>
+                <p class="modal-subtitle">Routines are manually triggered and run intensity estimation for selected entities.</p>
               </div>
               <button type="button" class="modal-close" onclick="closeCreateIntensityRoutineModal()" aria-label="Close"><i class="fa-light fa-times"></i></button>
             </div>
@@ -13485,7 +13395,7 @@
               <div class="create-routine-section">
                 <h3 class="create-routine-section-title">Intensity calculation preference</h3>
                 <div class="create-intensity-pref-row">
-                  <span class="create-intensity-pref-label">Minimum how many months of data exists for the site <i class="fa-solid fa-circle-info info-icon" title="Minimum months of data"></i></span>
+                  <span class="create-intensity-pref-label">Minimum how many months of data exists for the entity <i class="fa-solid fa-circle-info info-icon" title="Minimum months of data"></i></span>
                   <select class="form-select" id="create-intensity-min-months" style="min-width: 140px;">
                     <option value="1">1 month</option>
                     <option value="3">3 months</option>
@@ -13508,27 +13418,27 @@
 
               <div class="create-routine-section">
                 <h3 class="create-routine-section-title">Include for estimation</h3>
-                <p class="create-routine-section-desc">Sites that use the selected activity type. Estimation will apply to entities' active period (Open date and Close date).</p>
+                <p class="create-routine-section-desc">Entities that use the selected activity type. Estimation will apply to entities' active period (Open date and Close date).</p>
                 <div class="create-routine-sites-empty" id="create-intensity-sites-empty">
                   <i class="fa-light fa-folder"></i>
-                  The list of sites that use the activity type you select will show here.
+                  The list of entities that use the activity type you select will show here.
                 </div>
                 <div id="create-intensity-sites-content" style="display: none;">
                   <div class="create-routine-sites-toolbar">
                     <span class="create-routine-sites-count">Showing 500 records</span>
                     <div class="search-input-wrapper create-routine-sites-search">
                       <i class="fa-light fa-search"></i>
-                      <input type="text" class="form-input" placeholder="Search for sites" aria-label="Search for sites">
+                      <input type="text" class="form-input" placeholder="Search for entities" aria-label="Search for entities">
                     </div>
-                    <button type="button" class="btn btn-secondary" aria-label="Filter sites"><i class="fa-light fa-filter"></i></button>
+                    <button type="button" class="btn btn-secondary" aria-label="Filter entities"><i class="fa-light fa-filter"></i></button>
                   </div>
                   <div class="create-routine-sites-table-wrap">
                     <table class="create-routine-sites-table" id="create-intensity-sites-table">
                       <thead>
                         <tr>
-                          <th class="col-checkbox"><input type="checkbox" id="create-intensity-sites-select-all" onclick="toggleCreateIntensitySitesSelectAll()" aria-label="Select all"></th>
+                          <th class="col-checkbox"><input type="checkbox" id="create-intensity-sites-select-all" onclick="toggleCreateIntensityEntitiesSelectAll()" aria-label="Select all"></th>
                           <th class="col-expand"></th>
-                          <th>Sites</th>
+                          <th>Entities</th>
                           <th class="col-entities"># of entities within</th>
                           <th class="col-status">Status</th>
                         </tr>
@@ -13536,35 +13446,35 @@
                       <tbody>
                         <tr>
                           <td class="col-checkbox"><input type="checkbox" class="create-intensity-site-cb"></td>
-                          <td class="col-expand"><button type="button" class="create-routine-site-expand" onclick="toggleCreateRoutineSiteRow(this)" aria-expanded="false"><i class="fa-light fa-chevron-right"></i></button></td>
+                          <td class="col-expand"><button type="button" class="create-routine-site-expand" onclick="toggleCreateRoutineEntityRow(this)" aria-expanded="false"><i class="fa-light fa-chevron-right"></i></button></td>
                           <td class="create-routine-site-name">1234 Elm St, Springfield, IL 62704</td>
                           <td>2</td>
                           <td><span class="create-routine-status-dot multiple">Multiple</span></td>
                         </tr>
                         <tr>
                           <td class="col-checkbox"><input type="checkbox" class="create-intensity-site-cb"></td>
-                          <td class="col-expand"><button type="button" class="create-routine-site-expand" onclick="toggleCreateRoutineSiteRow(this)" aria-expanded="false"><i class="fa-light fa-chevron-right"></i></button></td>
+                          <td class="col-expand"><button type="button" class="create-routine-site-expand" onclick="toggleCreateRoutineEntityRow(this)" aria-expanded="false"><i class="fa-light fa-chevron-right"></i></button></td>
                           <td class="create-routine-site-name">5678 Oak Ave, Metropolis, IL 62960</td>
                           <td>5</td>
                           <td><span class="create-routine-status-dot active">Active</span></td>
                         </tr>
                         <tr>
                           <td class="col-checkbox"><input type="checkbox" class="create-intensity-site-cb"></td>
-                          <td class="col-expand"><button type="button" class="create-routine-site-expand" onclick="toggleCreateRoutineSiteRow(this)" aria-expanded="false"><i class="fa-light fa-chevron-right"></i></button></td>
+                          <td class="col-expand"><button type="button" class="create-routine-site-expand" onclick="toggleCreateRoutineEntityRow(this)" aria-expanded="false"><i class="fa-light fa-chevron-right"></i></button></td>
                           <td class="create-routine-site-name">4444 Cedar Ct, Lakeview, FL 32123</td>
                           <td>4</td>
                           <td><span class="create-routine-status-dot multiple">Multiple</span></td>
                         </tr>
                         <tr>
                           <td class="col-checkbox"><input type="checkbox" class="create-intensity-site-cb"></td>
-                          <td class="col-expand"><button type="button" class="create-routine-site-expand" onclick="toggleCreateRoutineSiteRow(this)" aria-expanded="false"><i class="fa-light fa-chevron-right"></i></button></td>
+                          <td class="col-expand"><button type="button" class="create-routine-site-expand" onclick="toggleCreateRoutineEntityRow(this)" aria-expanded="false"><i class="fa-light fa-chevron-right"></i></button></td>
                           <td class="create-routine-site-name">9012 Pine Rd, Denver, CO 80202</td>
                           <td>3</td>
                           <td><span class="create-routine-status-dot inactive">All Inactive</span></td>
                         </tr>
                         <tr>
                           <td class="col-checkbox"><input type="checkbox" class="create-intensity-site-cb"></td>
-                          <td class="col-expand"><button type="button" class="create-routine-site-expand" onclick="toggleCreateRoutineSiteRow(this)" aria-expanded="false"><i class="fa-light fa-chevron-right"></i></button></td>
+                          <td class="col-expand"><button type="button" class="create-routine-site-expand" onclick="toggleCreateRoutineEntityRow(this)" aria-expanded="false"><i class="fa-light fa-chevron-right"></i></button></td>
                           <td class="create-routine-site-name">3456 Maple Dr, Seattle, WA 98101</td>
                           <td>2</td>
                           <td><span class="create-routine-status-dot closed">Closed</span></td>
@@ -13626,16 +13536,14 @@
                   <p class="add-intensity-model-step-desc">Define the model name, description, and basic settings for this intensity model.</p>
                   <div class="form-group" style="margin-top: 12px;"><label class="form-label" for="add-intensity-model-name">Model name</label><input type="text" class="form-input" id="add-intensity-model-name" placeholder="e.g. Electric power intensity"></div>
                   <div class="form-group" style="margin-top: 12px;"><label class="form-label" for="add-intensity-model-description">Description</label><textarea class="form-input" id="add-intensity-model-description" placeholder="Optional description of this intensity model" rows="3" style="resize: vertical; min-height: 72px;"></textarea></div>
-                  <div class="form-group" style="margin-top: 12px;"><label class="form-label" for="add-intensity-model-data-update">Data update procedure</label><select class="form-select" id="add-intensity-model-data-update" aria-label="Data update procedure"><option value="Auto" selected>Auto</option><option value="Manual">Manual</option></select></div>
                 </div>
                 <div class="wizard-step-content" data-step="2" id="add-intensity-model-step-2">
                   <h3 class="add-intensity-model-step-title">Usage intensity preferences</h3>
-                  <p class="add-intensity-model-step-2-intro">Usage Intensity estimates should only be calculated after running any other configured gap filling and estimation methods. The results should be used to fill in site-level data estimates for sites that do not have any actual data through the matrix upload report for the underlying site group and date range.</p>
+                  <p class="add-intensity-model-step-2-intro">Usage Intensity estimates should only be calculated after running any other configured gap filling and estimation methods. The results should be used to fill in entity-level data estimates for entities that do not have any actual data through the matrix upload report for the underlying entity group and date range.</p>
                   <div class="add-intensity-model-radio-group">
                     <div class="add-intensity-model-radio-options">
                       <label><input type="radio" name="add-intensity-source" value="inventory" checked> Use intensities based on our inventory</label>
                       <label><input type="radio" name="add-intensity-source" value="standard"> Use a standard intensity set</label>
-                      <label><input type="radio" name="add-intensity-source" value="manual"> Use manually entered intensities</label>
                     </div>
                   </div>
                   <h4 class="add-intensity-model-setup-heading">Intensity Calculation Setup</h4>
@@ -13654,9 +13562,9 @@
                     </div>
                   </div>
                   <div class="form-group">
-                    <label class="form-label" for="add-intensity-data-types-trigger">Data types</label>
+                    <label class="form-label" for="add-intensity-data-types-trigger">Activity types</label>
                     <div class="add-intensity-data-types-dropdown" id="add-intensity-data-types-dropdown">
-                      <button type="button" class="add-intensity-data-types-trigger form-input" id="add-intensity-data-types-trigger" onclick="toggleDataTypesDropdown(event)" aria-expanded="false" aria-haspopup="listbox" aria-label="Data types">
+                      <button type="button" class="add-intensity-data-types-trigger form-input" id="add-intensity-data-types-trigger" onclick="toggleDataTypesDropdown(event)" aria-expanded="false" aria-haspopup="listbox" aria-label="Activity types">
                         <span class="add-intensity-data-types-tags" id="add-intensity-data-types-tags"></span>
                         <span class="add-intensity-data-types-placeholder" id="add-intensity-data-types-placeholder">Select data types...</span>
                         <i class="fa-light fa-chevron-down add-intensity-data-types-chevron" aria-hidden="true"></i>
@@ -13676,8 +13584,8 @@
                     </div>
                   </div>
                   <div class="form-group">
-                    <label class="form-label" for="add-intensity-site-group">Intensity Site Group</label>
-                    <input type="text" class="form-input" id="add-intensity-site-group" value="All Divisions" readonly aria-label="Intensity site group">
+                    <label class="form-label" for="add-intensity-site-group">Intensity Entity Group</label>
+                    <input type="text" class="form-input" id="add-intensity-site-group" value="All Divisions" readonly aria-label="Intensity entity group">
                   </div>
                   <div class="form-group">
                     <label class="form-label" for="add-intensity-size-indicator">Size Indicator</label>
@@ -13699,64 +13607,92 @@
                   <div class="add-intensity-uom-list" id="add-intensity-uom-list"></div>
                 </div>
                 <div class="wizard-step-content" data-step="6" id="add-intensity-model-step-6">
-                  <h3 class="add-intensity-model-step-title">Aggregation</h3>
-                  <p class="add-intensity-model-step-desc">Define how location and building dimensions combine. Each row and column label is a dropdown—select the level of granularity for that position.</p>
+                  <h3 class="add-intensity-model-step-title">Aggregation groups</h3>
+                  <p class="add-intensity-model-step-desc">An <strong>aggregation group</strong> is a combination of one primary attribute (row) and one secondary attribute (column). Each cell in the matrix below is one aggregation group. Select primary and secondary attributes from the dropdowns to define the groups; the intensity value for that group is used when enough entities fall into it.</p>
                   <p class="add-intensity-aggregation-granularity-note">The <strong>bottom-most row</strong> and <strong>right-most column</strong> represent the most granular levels. The cell at their intersection (bottom-right) yields the <strong>most granular intensity value</strong>. Rows above and columns to the left are less granular; the gradient indicates increasing granularity toward that corner.</p>
                   <div class="add-intensity-aggregation-matrix-wrap">
                     <div class="add-intensity-aggregation-matrix" id="add-intensity-aggregation-matrix" role="grid" aria-label="Aggregation matrix">
-                      <div class="matrix-corner" role="presentation"></div>
+                      <div class="matrix-corner" role="presentation">
+                        <span class="matrix-axis-label matrix-axis-label-y">Primary attributes</span>
+                        <span class="matrix-axis-label matrix-axis-label-x">Secondary attributes</span>
+                      </div>
                       <div class="matrix-col-header" role="columnheader">
-                        <select class="form-select" id="add-intensity-matrix-col-0" aria-label="Column 1 dimension">
-                          <option value="building-type-1">Building Type 1</option>
-                          <option value="building-type-2">Building Type 2</option>
-                          <option value="building-type-3">Building Type 3</option>
+                        <select class="form-select" id="add-intensity-matrix-col-0" aria-label="Column 1 dimension" onchange="updateAggregationMatrixCounts()">
+                          <option value="" disabled selected>Select secondary attribute</option>
+                          <option value="storage">Storage</option>
+                          <option value="warehouse">Warehouse</option>
+                          <option value="office">Office</option>
+                          <option value="retail">Retail</option>
+                          <option value="outlet">Outlet</option>
+                          <option value="distribution">Distribution</option>
+                          <option value="showroom">Showroom</option>
+                          <option value="data-center">Data center</option>
                         </select>
                       </div>
                       <div class="matrix-col-header" role="columnheader">
-                        <select class="form-select" id="add-intensity-matrix-col-1" aria-label="Column 2 dimension">
-                          <option value="building-type-1">Building Type 1</option>
-                          <option value="building-type-2" selected>Building Type 2</option>
-                          <option value="building-type-3">Building Type 3</option>
+                        <select class="form-select" id="add-intensity-matrix-col-1" aria-label="Column 2 dimension" onchange="updateAggregationMatrixCounts()">
+                          <option value="" disabled selected>Select secondary attribute</option>
+                          <option value="storage">Storage</option>
+                          <option value="warehouse">Warehouse</option>
+                          <option value="office">Office</option>
+                          <option value="retail">Retail</option>
+                          <option value="outlet">Outlet</option>
+                          <option value="distribution">Distribution</option>
+                          <option value="showroom">Showroom</option>
+                          <option value="data-center">Data center</option>
                         </select>
                       </div>
                       <div class="matrix-col-header" role="columnheader">
-                        <select class="form-select" id="add-intensity-matrix-col-2" aria-label="Column 3 dimension">
-                          <option value="building-type-1">Building Type 1</option>
-                          <option value="building-type-2">Building Type 2</option>
-                          <option value="building-type-3" selected>Building Type 3</option>
+                        <select class="form-select" id="add-intensity-matrix-col-2" aria-label="Column 3 dimension" onchange="updateAggregationMatrixCounts()">
+                          <option value="" disabled selected>Select secondary attribute</option>
+                          <option value="storage">Storage</option>
+                          <option value="warehouse">Warehouse</option>
+                          <option value="office">Office</option>
+                          <option value="retail">Retail</option>
+                          <option value="outlet">Outlet</option>
+                          <option value="distribution">Distribution</option>
+                          <option value="showroom">Showroom</option>
+                          <option value="data-center">Data center</option>
                         </select>
                       </div>
                       <div class="matrix-row-header" role="rowheader">
-                        <select class="form-select" id="add-intensity-matrix-row-0" aria-label="Row 1 dimension">
-                          <option value="location-type-1" selected>Location Type 1</option>
-                          <option value="location-type-2">Location Type 2</option>
-                          <option value="location-type-3">Location Type 3</option>
+                        <select class="form-select" id="add-intensity-matrix-row-0" aria-label="Row 1 dimension" onchange="updateAggregationMatrixCounts()">
+                          <option value="" disabled selected>Select primary attribute</option>
+                          <option value="country">Country</option>
+                          <option value="region">Region</option>
+                          <option value="global">Global</option>
                         </select>
                       </div>
-                      <div class="matrix-cell granularity-0-0" role="gridcell"><span class="matrix-granularity-label matrix-granularity-least">Least granular</span></div>
-                      <div class="matrix-cell granularity-0-1" role="gridcell"></div>
-                      <div class="matrix-cell granularity-0-2" role="gridcell"></div>
+                      <div class="matrix-cell granularity-0-0" role="gridcell" data-row="0" data-col="0"><span class="matrix-granularity-label matrix-granularity-least">Least granular</span><span class="matrix-cell-entity-count empty" id="agg-cell-0-0">— entities</span></div>
+                      <div class="matrix-cell granularity-0-1" role="gridcell" data-row="0" data-col="1"><span class="matrix-cell-entity-count empty" id="agg-cell-0-1">— entities</span></div>
+                      <div class="matrix-cell granularity-0-2" role="gridcell" data-row="0" data-col="2"><span class="matrix-cell-entity-count empty" id="agg-cell-0-2">— entities</span></div>
                       <div class="matrix-row-header" role="rowheader">
-                        <select class="form-select" id="add-intensity-matrix-row-1" aria-label="Row 2 dimension">
-                          <option value="location-type-1">Location Type 1</option>
-                          <option value="location-type-2" selected>Location Type 2</option>
-                          <option value="location-type-3">Location Type 3</option>
+                        <select class="form-select" id="add-intensity-matrix-row-1" aria-label="Row 2 dimension" onchange="updateAggregationMatrixCounts()">
+                          <option value="" disabled selected>Select primary attribute</option>
+                          <option value="country">Country</option>
+                          <option value="region">Region</option>
+                          <option value="global">Global</option>
                         </select>
                       </div>
-                      <div class="matrix-cell granularity-1-0" role="gridcell"></div>
-                      <div class="matrix-cell granularity-1-1" role="gridcell"></div>
-                      <div class="matrix-cell granularity-1-2" role="gridcell"></div>
+                      <div class="matrix-cell granularity-1-0" role="gridcell" data-row="1" data-col="0"><span class="matrix-cell-entity-count empty" id="agg-cell-1-0">— entities</span></div>
+                      <div class="matrix-cell granularity-1-1" role="gridcell" data-row="1" data-col="1"><span class="matrix-cell-entity-count empty" id="agg-cell-1-1">— entities</span></div>
+                      <div class="matrix-cell granularity-1-2" role="gridcell" data-row="1" data-col="2"><span class="matrix-cell-entity-count empty" id="agg-cell-1-2">— entities</span></div>
                       <div class="matrix-row-header" role="rowheader">
-                        <select class="form-select" id="add-intensity-matrix-row-2" aria-label="Row 3 dimension">
-                          <option value="location-type-1">Location Type 1</option>
-                          <option value="location-type-2">Location Type 2</option>
-                          <option value="location-type-3" selected>Location Type 3</option>
+                        <select class="form-select" id="add-intensity-matrix-row-2" aria-label="Row 3 dimension" onchange="updateAggregationMatrixCounts()">
+                          <option value="" disabled selected>Select primary attribute</option>
+                          <option value="country">Country</option>
+                          <option value="region">Region</option>
+                          <option value="global">Global</option>
                         </select>
                       </div>
-                      <div class="matrix-cell granularity-2-0" role="gridcell"></div>
-                      <div class="matrix-cell granularity-2-1" role="gridcell"></div>
-                      <div class="matrix-cell granularity-2-2" role="gridcell"><span class="matrix-granularity-label matrix-granularity-most">Most granular</span></div>
+                      <div class="matrix-cell granularity-2-0" role="gridcell" data-row="2" data-col="0"><span class="matrix-cell-entity-count empty" id="agg-cell-2-0">— entities</span></div>
+                      <div class="matrix-cell granularity-2-1" role="gridcell" data-row="2" data-col="1"><span class="matrix-cell-entity-count empty" id="agg-cell-2-1">— entities</span></div>
+                      <div class="matrix-cell granularity-2-2" role="gridcell" data-row="2" data-col="2"><span class="matrix-granularity-label matrix-granularity-most">Most granular</span><span class="matrix-cell-entity-count empty" id="agg-cell-2-2">— entities</span></div>
                     </div>
+                  </div>
+                  <div class="add-intensity-aggregation-min-entities">
+                    <label class="form-label" for="add-intensity-min-entities-per-group">Minimum entities in aggregation group to use its intensity value</label>
+                    <input type="number" class="form-input" id="add-intensity-min-entities-per-group" value="5" min="1" aria-label="Minimum entities per aggregation group" style="width: 80px;">
                   </div>
                 </div>
                 <div class="wizard-step-content" data-step="4" id="add-intensity-model-step-4">
@@ -13765,11 +13701,11 @@
                   <div class="add-intensity-model-radio-group" style="margin-top: 16px;">
                     <div class="add-intensity-model-radio-options">
                       <label>
-                        <input type="radio" name="add-intensity-sites-pref" value="all" checked> All Sites
+                        <input type="radio" name="add-intensity-sites-pref" value="all" checked> All Entities
                       </label>
                       <div class="add-intensity-sites-pref-option">
                         <label>
-                          <input type="radio" name="add-intensity-sites-pref" value="actual"> Sites with at least
+                          <input type="radio" name="add-intensity-sites-pref" value="actual"> Entities with at least
                         </label>
                         <select class="form-select" id="add-intensity-sites-actual-duration" aria-label="Minimum duration for actual data">
                           <option value="3">3 months</option>
@@ -13780,14 +13716,14 @@
                       </div>
                       <div class="add-intensity-sites-pref-option">
                         <label>
-                          <input type="radio" name="add-intensity-sites-pref" value="any"> Sites with at least
+                          <input type="radio" name="add-intensity-sites-pref" value="any"> Entities with at least
                         </label>
-                        <select class="form-select" id="add-intensity-sites-any-duration" aria-label="Minimum duration for any data">
+                        <select class="form-select" id="add-intensity-sites-any-duration" aria-label="Minimum duration for actual and estimated data">
                           <option value="3">3 months</option>
                           <option value="6" selected>6 months</option>
                           <option value="12">12 months</option>
                         </select>
-                        <span>any data</span>
+                        <span>actual and estimated data</span>
                       </div>
                     </div>
                   </div>
@@ -13797,14 +13733,17 @@
                   <p class="add-intensity-model-step-desc">Set minimum or maximum thresholds for data quality or applicability.</p>
                   <div class="add-intensity-thresholds-section" style="margin-top: 20px;">
                     <h4 class="add-intensity-model-setup-heading">Fallback Intensity</h4>
-                    <div class="add-intensity-model-radio-group">
-                      <div class="add-intensity-model-radio-options">
-                        <label><input type="checkbox" id="add-intensity-cbecs-fallback" checked> Use CBECS as a fallback intensity</label>
-                      </div>
+                    <div class="form-group" style="margin-top: 8px;">
+                      <label class="form-label" for="add-intensity-fallback-set">Fallback intensity set</label>
+                      <select class="form-select" id="add-intensity-fallback-set" aria-label="Fallback intensity set">
+                        <option value="cbecs" selected>CBECS</option>
+                        <option value="ashrae">ASHRAE</option>
+                        <option value="custom">Custom set</option>
+                      </select>
                     </div>
                     <div class="form-group" style="margin-top: 12px;">
-                      <label class="form-label" for="add-intensity-cbecs-attribute">Site Attribute Comparison</label>
-                      <select class="form-select" id="add-intensity-cbecs-attribute" aria-label="Site attribute comparison">
+                      <label class="form-label" for="add-intensity-cbecs-attribute">Entity Attribute Comparison</label>
+                      <select class="form-select" id="add-intensity-cbecs-attribute" aria-label="Entity attribute comparison">
                         <option value="CBECS Property Type" selected>CBECS Property Type</option>
                         <option value="Building Type">Building Type</option>
                         <option value="Sector">Sector</option>
@@ -13816,7 +13755,7 @@
                     <h4 class="add-intensity-model-setup-heading">Outlier Threshold</h4>
                     <div class="add-intensity-model-radio-group">
                       <div class="add-intensity-model-radio-options">
-                        <label><input type="radio" name="add-intensity-outlier" value="max"> Set Maximum Site Outlier Threshold</label>
+                        <label><input type="radio" name="add-intensity-outlier" value="max"> Set Maximum Entity Outlier Threshold</label>
                         <label><input type="radio" name="add-intensity-outlier" value="fallback" checked> Set Threshold Based on Fallback Intensity</label>
                       </div>
                     </div>
@@ -13828,15 +13767,18 @@
                       </div>
                     </div>
                     <div class="form-group" style="margin-top: 12px;">
-                      <label class="form-label" for="add-intensity-min-site-count">Minimum site count in aggregation group</label>
-                      <input type="number" class="form-input" id="add-intensity-min-site-count" value="5" min="1" aria-label="Minimum site count" style="width: 80px;">
+                      <label class="form-label" for="add-intensity-min-site-count">Minimum entity count in aggregation group</label>
+                      <input type="number" class="form-input" id="add-intensity-min-site-count" value="5" min="1" aria-label="Minimum entity count" style="width: 80px;">
                     </div>
                   </div>
                 </div>
               </div>
               <div class="add-intensity-dataset-preview add-intensity-dataset-preview-persistent" id="add-intensity-dataset-preview-persistent" style="display: none;">
                   <div class="add-intensity-dataset-preview-header">
-                    <h4 class="add-intensity-dataset-preview-title">Dataset Preview</h4>
+                    <div>
+                      <h4 class="add-intensity-dataset-preview-title">Dataset Preview</h4>
+                      <p class="add-intensity-dataset-preview-desc">This preview shows which entities are included in the intensity estimation model. The number of entities is filtered down at each step of the wizard (UoM, Inclusions, Thresholds, Aggregation) so you can see the impact of your choices.</p>
+                    </div>
                     <div class="add-intensity-columns-dropdown" id="add-intensity-columns-dropdown">
                       <button type="button" class="add-intensity-columns-btn" onclick="toggleIntensityColumnsPanel(event)" aria-expanded="false" aria-haspopup="true">
                         <i class="fa-light fa-table-columns" aria-hidden="true"></i> Columns <i class="fa-light fa-chevron-down" aria-hidden="true"></i>
@@ -13882,7 +13824,8 @@
                       </div>
                     </div>
                   </div>
-                  <div class="add-intensity-dataset-preview-table-wrap">
+                  <div class="add-intensity-dataset-preview-table-block">
+                    <div class="add-intensity-dataset-preview-table-wrap">
                     <table class="add-intensity-dataset-preview-table" aria-label="Dataset preview">
                       <thead>
                         <tr>
@@ -13920,18 +13863,19 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr><td>Site</td><td>541982</td><td>The North Face (TNF)</td><td>The North Face (TNF)</td><td>TNF - REHOBOTH EA…</td><td>Active</td><td>NF321-524613</td><td>123 Main St</td><td>Rehoboth</td><td>DE</td><td>USA</td><td>19971</td><td>ENG-001</td><td>Electric</td><td>1</td><td>Q1</td><td>2025</td><td>202501</td><td>12500.00</td><td>12000.00</td><td>500.00</td><td>0.85</td><td>USD</td><td>14520</td><td>14200</td><td>320</td><td>14520</td><td>kWh</td><td>1</td><td>1200</td><td>kWh</td></tr>
-                        <tr><td>Site</td><td>298719</td><td>Vans</td><td>Vans</td><td>OLY-V London Camden…</td><td>Active</td><td>301811-542V11</td><td>45 High St</td><td>London</td><td>—</td><td>UK</td><td>NW1 2AB</td><td>GAS-002</td><td>Natural gas</td><td>1</td><td>Q1</td><td>2025</td><td>202501</td><td>8200.00</td><td>8000.00</td><td>200.00</td><td>0.42</td><td>USD</td><td>18500</td><td>18200</td><td>300</td><td>18500</td><td>kWh</td><td>1</td><td>950</td><td>kWh</td></tr>
-                        <tr><td>Site</td><td>285520</td><td>Vans</td><td>Vans</td><td>OLY-V London Camden…</td><td>Active</td><td>301811-285520</td><td>45 High St</td><td>London</td><td>—</td><td>UK</td><td>NW1 2AB</td><td>ENG-001</td><td>Electric</td><td>2</td><td>Q1</td><td>2025</td><td>202502</td><td>13200.00</td><td>13000.00</td><td>200.00</td><td>0.88</td><td>USD</td><td>15000</td><td>14800</td><td>200</td><td>15000</td><td>kWh</td><td>1</td><td>1100</td><td>kWh</td></tr>
-                        <tr><td>Site</td><td>543707</td><td>Shared</td><td>Shared</td><td>Shared - Sao Paulo…</td><td>Closed</td><td>VFSA17</td><td>Av. Paulista 1000</td><td>São Paulo</td><td>SP</td><td>Brazil</td><td>01310-100</td><td>ENG-001</td><td>Electric</td><td>1</td><td>Q1</td><td>2025</td><td>202501</td><td>9800.00</td><td>9500.00</td><td>300.00</td><td>0.65</td><td>USD</td><td>15100</td><td>15000</td><td>100</td><td>15100</td><td>kWh</td><td>1</td><td>980</td><td>kWh</td></tr>
-                        <tr><td>Site</td><td>526101</td><td>Shared</td><td>Shared</td><td>Shared - Shanghai…</td><td>Active</td><td>526101-SH</td><td>Nanjing Rd 88</td><td>Shanghai</td><td>—</td><td>China</td><td>200001</td><td>ENG-001</td><td>Electric</td><td>3</td><td>Q1</td><td>2025</td><td>202503</td><td>15800.00</td><td>15500.00</td><td>300.00</td><td>0.92</td><td>USD</td><td>17200</td><td>17000</td><td>200</td><td>17200</td><td>kWh</td><td>1</td><td>1350</td><td>kWh</td></tr>
-                        <tr><td>Site</td><td>512340</td><td>The North Face (TNF)</td><td>The North Face (TNF)</td><td>TNF - Denver Flagship…</td><td>Active</td><td>NF321-512340</td><td>1600 Broadway</td><td>Denver</td><td>CO</td><td>USA</td><td>80202</td><td>ENG-001</td><td>Electric</td><td>1</td><td>Q1</td><td>2025</td><td>202501</td><td>22100.00</td><td>21800.00</td><td>300.00</td><td>0.78</td><td>USD</td><td>28300</td><td>28000</td><td>300</td><td>28300</td><td>kWh</td><td>1</td><td>2100</td><td>kWh</td></tr>
-                        <tr><td>Site</td><td>298720</td><td>Vans</td><td>Vans</td><td>Shared - Sukabumi…</td><td>Active</td><td>VFSA-SUK-01</td><td>Jl. Siliwangi 50</td><td>Sukabumi</td><td>West Java</td><td>Indonesia</td><td>43122</td><td>GAS-002</td><td>Natural gas</td><td>2</td><td>Q1</td><td>2025</td><td>202502</td><td>4100.00</td><td>4000.00</td><td>100.00</td><td>0.38</td><td>USD</td><td>10800</td><td>10600</td><td>200</td><td>10800</td><td>kWh</td><td>1</td><td>620</td><td>kWh</td></tr>
-                        <tr><td>Site</td><td>541983</td><td>Shared</td><td>Shared</td><td>Shared - Singapore Hub…</td><td>Active</td><td>541983-SG</td><td>Orchard Rd 200</td><td>Singapore</td><td>—</td><td>Singapore</td><td>238861</td><td>ENG-001</td><td>Electric</td><td>1</td><td>Q1</td><td>2025</td><td>202501</td><td>18900.00</td><td>18500.00</td><td>400.00</td><td>0.95</td><td>USD</td><td>19900</td><td>19600</td><td>300</td><td>19900</td><td>kWh</td><td>1</td><td>1550</td><td>kWh</td></tr>
-                        <tr><td>Site</td><td>285521</td><td>The North Face (TNF)</td><td>The North Face (TNF)</td><td>TNF - Boston Store…</td><td>Active</td><td>NF321-285521-BO</td><td>300 Boylston St</td><td>Boston</td><td>MA</td><td>USA</td><td>02116</td><td>ENG-001</td><td>Electric</td><td>2</td><td>Q1</td><td>2025</td><td>202502</td><td>14200.00</td><td>13900.00</td><td>300.00</td><td>0.82</td><td>USD</td><td>17300</td><td>17000</td><td>300</td><td>17300</td><td>kWh</td><td>1</td><td>1280</td><td>kWh</td></tr>
-                        <tr><td>Site</td><td>543708</td><td>Shared</td><td>Shared</td><td>Shared - Mexico City…</td><td>Active</td><td>VFSA18-MX</td><td>Av. Reforma 222</td><td>Mexico City</td><td>CDMX</td><td>Mexico</td><td>06600</td><td>ENG-001</td><td>Electric</td><td>1</td><td>Q1</td><td>2025</td><td>202501</td><td>11200.00</td><td>11000.00</td><td>200.00</td><td>0.72</td><td>USD</td><td>15500</td><td>15300</td><td>200</td><td>15500</td><td>kWh</td><td>1</td><td>1050</td><td>kWh</td></tr>
+                        <tr><td>Entity</td><td>541982</td><td>The North Face (TNF)</td><td>The North Face (TNF)</td><td>TNF - REHOBOTH EA…</td><td>Active</td><td>NF321-524613</td><td>123 Main St</td><td>Rehoboth</td><td>DE</td><td>USA</td><td>19971</td><td>ENG-001</td><td>Electric</td><td>1</td><td>Q1</td><td>2025</td><td>202501</td><td>12500.00</td><td>12000.00</td><td>500.00</td><td>0.85</td><td>USD</td><td>14520</td><td>14200</td><td>320</td><td>14520</td><td>kWh</td><td>1</td><td>1200</td><td>kWh</td></tr>
+                        <tr><td>Entity</td><td>298719</td><td>Vans</td><td>Vans</td><td>OLY-V London Camden…</td><td>Active</td><td>301811-542V11</td><td>45 High St</td><td>London</td><td>—</td><td>UK</td><td>NW1 2AB</td><td>GAS-002</td><td>Natural gas</td><td>1</td><td>Q1</td><td>2025</td><td>202501</td><td>8200.00</td><td>8000.00</td><td>200.00</td><td>0.42</td><td>USD</td><td>18500</td><td>18200</td><td>300</td><td>18500</td><td>kWh</td><td>1</td><td>950</td><td>kWh</td></tr>
+                        <tr><td>Entity</td><td>285520</td><td>Vans</td><td>Vans</td><td>OLY-V London Camden…</td><td>Active</td><td>301811-285520</td><td>45 High St</td><td>London</td><td>—</td><td>UK</td><td>NW1 2AB</td><td>ENG-001</td><td>Electric</td><td>2</td><td>Q1</td><td>2025</td><td>202502</td><td>13200.00</td><td>13000.00</td><td>200.00</td><td>0.88</td><td>USD</td><td>15000</td><td>14800</td><td>200</td><td>15000</td><td>kWh</td><td>1</td><td>1100</td><td>kWh</td></tr>
+                        <tr><td>Entity</td><td>543707</td><td>Shared</td><td>Shared</td><td>Shared - Sao Paulo…</td><td>Closed</td><td>VFSA17</td><td>Av. Paulista 1000</td><td>São Paulo</td><td>SP</td><td>Brazil</td><td>01310-100</td><td>ENG-001</td><td>Electric</td><td>1</td><td>Q1</td><td>2025</td><td>202501</td><td>9800.00</td><td>9500.00</td><td>300.00</td><td>0.65</td><td>USD</td><td>15100</td><td>15000</td><td>100</td><td>15100</td><td>kWh</td><td>1</td><td>980</td><td>kWh</td></tr>
+                        <tr><td>Entity</td><td>526101</td><td>Shared</td><td>Shared</td><td>Shared - Shanghai…</td><td>Active</td><td>526101-SH</td><td>Nanjing Rd 88</td><td>Shanghai</td><td>—</td><td>China</td><td>200001</td><td>ENG-001</td><td>Electric</td><td>3</td><td>Q1</td><td>2025</td><td>202503</td><td>15800.00</td><td>15500.00</td><td>300.00</td><td>0.92</td><td>USD</td><td>17200</td><td>17000</td><td>200</td><td>17200</td><td>kWh</td><td>1</td><td>1350</td><td>kWh</td></tr>
+                        <tr><td>Entity</td><td>512340</td><td>The North Face (TNF)</td><td>The North Face (TNF)</td><td>TNF - Denver Flagship…</td><td>Active</td><td>NF321-512340</td><td>1600 Broadway</td><td>Denver</td><td>CO</td><td>USA</td><td>80202</td><td>ENG-001</td><td>Electric</td><td>1</td><td>Q1</td><td>2025</td><td>202501</td><td>22100.00</td><td>21800.00</td><td>300.00</td><td>0.78</td><td>USD</td><td>28300</td><td>28000</td><td>300</td><td>28300</td><td>kWh</td><td>1</td><td>2100</td><td>kWh</td></tr>
+                        <tr><td>Entity</td><td>298720</td><td>Vans</td><td>Vans</td><td>Shared - Sukabumi…</td><td>Active</td><td>VFSA-SUK-01</td><td>Jl. Siliwangi 50</td><td>Sukabumi</td><td>West Java</td><td>Indonesia</td><td>43122</td><td>GAS-002</td><td>Natural gas</td><td>2</td><td>Q1</td><td>2025</td><td>202502</td><td>4100.00</td><td>4000.00</td><td>100.00</td><td>0.38</td><td>USD</td><td>10800</td><td>10600</td><td>200</td><td>10800</td><td>kWh</td><td>1</td><td>620</td><td>kWh</td></tr>
+                        <tr><td>Entity</td><td>541983</td><td>Shared</td><td>Shared</td><td>Shared - Singapore Hub…</td><td>Active</td><td>541983-SG</td><td>Orchard Rd 200</td><td>Singapore</td><td>—</td><td>Singapore</td><td>238861</td><td>ENG-001</td><td>Electric</td><td>1</td><td>Q1</td><td>2025</td><td>202501</td><td>18900.00</td><td>18500.00</td><td>400.00</td><td>0.95</td><td>USD</td><td>19900</td><td>19600</td><td>300</td><td>19900</td><td>kWh</td><td>1</td><td>1550</td><td>kWh</td></tr>
+                        <tr><td>Entity</td><td>285521</td><td>The North Face (TNF)</td><td>The North Face (TNF)</td><td>TNF - Boston Store…</td><td>Active</td><td>NF321-285521-BO</td><td>300 Boylston St</td><td>Boston</td><td>MA</td><td>USA</td><td>02116</td><td>ENG-001</td><td>Electric</td><td>2</td><td>Q1</td><td>2025</td><td>202502</td><td>14200.00</td><td>13900.00</td><td>300.00</td><td>0.82</td><td>USD</td><td>17300</td><td>17000</td><td>300</td><td>17300</td><td>kWh</td><td>1</td><td>1280</td><td>kWh</td></tr>
+                        <tr><td>Entity</td><td>543708</td><td>Shared</td><td>Shared</td><td>Shared - Mexico City…</td><td>Active</td><td>VFSA18-MX</td><td>Av. Reforma 222</td><td>Mexico City</td><td>CDMX</td><td>Mexico</td><td>06600</td><td>ENG-001</td><td>Electric</td><td>1</td><td>Q1</td><td>2025</td><td>202501</td><td>11200.00</td><td>11000.00</td><td>200.00</td><td>0.72</td><td>USD</td><td>15500</td><td>15300</td><td>200</td><td>15500</td><td>kWh</td><td>1</td><td>1050</td><td>kWh</td></tr>
                       </tbody>
                     </table>
+                    </div>
                   </div>
                   <div class="add-intensity-dataset-preview-footer">
                     <div class="records-select">
@@ -14071,7 +14015,7 @@
                 <p id="intensity-report-summary" style="margin: 0; font-size: 14px; color: var(--ghg-text-secondary);">Electric power intensity — Mar 4, 2025, 10:15 AM.</p>
                 <div class="report-intensity-summary" id="intensity-report-factor-block" style="margin-top: 12px;">
                   <div class="report-intensity-factor">Intensity factor used: <strong id="intensity-report-factor-value">0.28</strong> kWh per sq ft</div>
-                  <div class="report-intensity-source" id="intensity-report-source">Calculated from intensity of <strong>12 sites</strong> with sufficient data (min 6 months). Weighted average of site-level intensities.</div>
+                  <div class="report-intensity-source" id="intensity-report-source">Calculated from intensity of <strong>12 entities</strong> with sufficient data (min 6 months). Weighted average of entity-level intensities.</div>
                 </div>
               </div>
               <div class="report-detail-section">
@@ -14093,35 +14037,35 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr data-entity="Alaska Regional Hospital" data-period="Jan 24" data-value="512.4" data-factor="0.28" data-source="Site data">
+                        <tr data-entity="Alaska Regional Hospital" data-period="Jan 24" data-value="512.4" data-factor="0.28" data-source="Entity data">
                           <td>Alaska Regional Hospital</td>
                           <td>Jan 24</td>
                           <td>512.4</td>
-                          <td>Site data</td>
+                          <td>Entity data</td>
                         </tr>
-                        <tr data-entity="West Hills Hospital &amp; Medical Center" data-period="Jun 24" data-value="289.4" data-factor="0.28" data-source="Site data">
+                        <tr data-entity="West Hills Hospital &amp; Medical Center" data-period="Jun 24" data-value="289.4" data-factor="0.28" data-source="Entity data">
                           <td>West Hills Hospital &amp; Medical Center</td>
                           <td>Jun 24</td>
                           <td>289.4</td>
-                          <td>Site data</td>
+                          <td>Entity data</td>
                         </tr>
-                        <tr data-entity="North Suburban Medical Center" data-period="Nov 24" data-value="188.6" data-factor="0.28" data-source="Site data">
+                        <tr data-entity="North Suburban Medical Center" data-period="Nov 24" data-value="188.6" data-factor="0.28" data-source="Entity data">
                           <td>North Suburban Medical Center</td>
                           <td>Nov 24</td>
                           <td>188.6</td>
-                          <td>Site data</td>
+                          <td>Entity data</td>
                         </tr>
-                        <tr data-entity="Rose Medical Center" data-period="Sep 24" data-value="471.5" data-factor="0.28" data-source="Site data">
+                        <tr data-entity="Rose Medical Center" data-period="Sep 24" data-value="471.5" data-factor="0.28" data-source="Entity data">
                           <td>Rose Medical Center</td>
                           <td>Sep 24</td>
                           <td>471.5</td>
-                          <td>Site data</td>
+                          <td>Entity data</td>
                         </tr>
-                        <tr data-entity="Sky Ridge Medical Center" data-period="Dec 24" data-value="268.2" data-factor="0.28" data-source="Site data">
+                        <tr data-entity="Sky Ridge Medical Center" data-period="Dec 24" data-value="268.2" data-factor="0.28" data-source="Entity data">
                           <td>Sky Ridge Medical Center</td>
                           <td>Dec 24</td>
                           <td>268.2</td>
-                          <td>Site data</td>
+                          <td>Entity data</td>
                         </tr>
                       </tbody>
                     </table>
@@ -14187,7 +14131,7 @@
                   <h2 class="estimation-settings-section-title">Gap filling routines</h2>
                   <button type="button" class="btn btn-primary" onclick="openCreateRoutineModal();"><i class="fa-light fa-plus" aria-hidden="true"></i> Create routine</button>
                 </div>
-                <p class="estimation-settings-section-desc">View and edit your gap filling routines. Each routine defines activity type, sites, methods (in priority order), and preferences.</p>
+                <p class="estimation-settings-section-desc">View and edit your gap filling routines. Each routine defines activity type, entities, methods (in priority order), and preferences.</p>
                 <div class="estimation-settings-table-wrap">
                   <table class="estimation-settings-table" id="estimation-gap-routines-table">
                     <thead>
@@ -14230,7 +14174,7 @@
                   <h2 class="estimation-settings-section-title">Intensity estimation routines</h2>
                   <button type="button" class="btn btn-primary" onclick="openCreateIntensityRoutineModal();"><i class="fa-light fa-plus" aria-hidden="true"></i> Create routine</button>
                 </div>
-                <p class="estimation-settings-section-desc">View and edit intensity estimation routines. Configure minimum months of data, maximum intensity before fallback (CBECS), and which sites to include.</p>
+                <p class="estimation-settings-section-desc">View and edit intensity estimation routines. Configure minimum months of data, maximum intensity before fallback (CBECS), and which entities to include.</p>
                 <div class="estimation-settings-table-wrap">
                   <table class="estimation-settings-table" id="estimation-intensity-routines-table">
                     <thead>
@@ -14269,7 +14213,7 @@
             <div id="estimation-settings-panel-reports" class="estimation-settings-panel">
               <div class="estimation-settings-section">
                 <h2 class="estimation-settings-section-title">Past routine reports</h2>
-                <p class="estimation-settings-section-desc">View reports from past gap filling and intensity estimation runs. Gap filling reports show which gaps were filled and which methods were used (or why higher-priority methods did not apply). Intensity reports show the factor used and whether it came from site data or CBECS fallback.</p>
+                <p class="estimation-settings-section-desc">View reports from past gap filling and intensity estimation runs. Gap filling reports show which gaps were filled and which methods were used (or why higher-priority methods did not apply). Intensity reports show the factor used and whether it came from entity data or CBECS fallback.</p>
                 <div class="estimation-settings-table-wrap">
                   <table class="estimation-settings-table estimation-reports-table" id="estimation-past-reports-table">
                     <thead>
@@ -14293,7 +14237,7 @@
                         <td>Mar 4, 2025, 10:15 AM</td>
                         <td>Intensity estimation</td>
                         <td>Electric power intensity</td>
-                        <td>Factor 0.28 from site data (12 sites)</td>
+                        <td>Factor 0.28 from entity data (12 entities)</td>
                         <td class="col-actions"><button type="button" class="btn btn-ghost btn-sm" onclick="openIntensityReportDetail('r-int-1')">View report</button></td>
                       </tr>
                       <tr data-report-id="r-int-2">
@@ -14313,6 +14257,137 @@
                     </tbody>
                   </table>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- VIEW: ENTITY TYPE SETTINGS (Settings)           -->
+        <!-- ============================================== -->
+        <div id="view-entity-type-settings" class="view">
+          <div class="page-header">
+            <div class="page-header-left">
+              <div class="page-breadcrumb">
+                <a href="#">Settings</a>
+                <i class="fa-light fa-chevron-right"></i>
+                <span>Entity type settings</span>
+              </div>
+              <h1 class="page-title">Entity type settings</h1>
+              <p class="page-subtitle">Configure entity types and their settings for your organization.</p>
+            </div>
+          </div>
+          <div class="content-container">
+            <div class="estimation-settings-section">
+              <h2 class="estimation-settings-section-title">Entity types</h2>
+              <p class="estimation-settings-section-desc">Manage entity types and their associated data assets across your inventory and reporting.</p>
+              <div class="estimation-settings-table-wrap">
+                <table class="estimation-settings-table entity-type-settings-table" id="entity-type-settings-table">
+                  <thead>
+                    <tr>
+                      <th>Entity type</th>
+                      <th>Associated data assets</th>
+                      <th class="col-actions"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Account</td>
+                      <td><div class="entity-type-pills"><span class="entity-type-pill">Billing Information</span><span class="entity-type-pill">Finance</span></div></td>
+                      <td class="col-actions"><button type="button" class="btn btn-ghost btn-sm" onclick="openEntityTypeEdit('account')">Edit</button></td>
+                    </tr>
+                    <tr>
+                      <td>Brand</td>
+                      <td><div class="entity-type-pills"><span class="entity-type-pill">Account</span><span class="entity-type-pill">General</span></div></td>
+                      <td class="col-actions"><button type="button" class="btn btn-ghost btn-sm" onclick="openEntityTypeEdit('brand')">Edit</button></td>
+                    </tr>
+                    <tr>
+                      <td>Country</td>
+                      <td><div class="entity-type-pills"><span class="entity-type-pill">Region</span><span class="entity-type-pill">Climate Risk</span></div></td>
+                      <td class="col-actions"><button type="button" class="btn btn-ghost btn-sm" onclick="openEntityTypeEdit('country')">Edit</button></td>
+                    </tr>
+                    <tr>
+                      <td>Distribution Center</td>
+                      <td><div class="entity-type-pills"><span class="entity-type-pill">Diesel</span><span class="entity-type-pill">Vehicle</span><span class="entity-type-pill">Electric Power</span></div></td>
+                      <td class="col-actions"><button type="button" class="btn btn-ghost btn-sm" onclick="openEntityTypeEdit('distribution-center')">Edit</button></td>
+                    </tr>
+                    <tr>
+                      <td>Franchisee Program</td>
+                      <td><div class="entity-type-pills"><span class="entity-type-pill">Account</span><span class="entity-type-pill">General Unit</span></div></td>
+                      <td class="col-actions"><button type="button" class="btn btn-ghost btn-sm" onclick="openEntityTypeEdit('franchisee-program')">Edit</button></td>
+                    </tr>
+                    <tr>
+                      <td>General</td>
+                      <td><div class="entity-type-pills"><span class="entity-type-pill">General Unit</span><span class="entity-type-pill">Calculated Emissions</span></div></td>
+                      <td class="col-actions"><button type="button" class="btn btn-ghost btn-sm" onclick="openEntityTypeEdit('general')">Edit</button></td>
+                    </tr>
+                    <tr>
+                      <td>General Unit</td>
+                      <td><div class="entity-type-pills"><span class="entity-type-pill">Electric Power</span><span class="entity-type-pill">Meter</span><span class="entity-type-pill">District Heating</span></div></td>
+                      <td class="col-actions"><button type="button" class="btn btn-ghost btn-sm" onclick="openEntityTypeEdit('general-unit')">Edit</button></td>
+                    </tr>
+                    <tr>
+                      <td>Hotel</td>
+                      <td><div class="entity-type-pills"><span class="entity-type-pill">Lodging</span><span class="entity-type-pill">Chilled Water</span><span class="entity-type-pill">District Cooling</span></div></td>
+                      <td class="col-actions"><button type="button" class="btn btn-ghost btn-sm" onclick="openEntityTypeEdit('hotel')">Edit</button></td>
+                    </tr>
+                    <tr>
+                      <td>Legal Entity</td>
+                      <td><div class="entity-type-pills"><span class="entity-type-pill">Account</span><span class="entity-type-pill">Finance</span><span class="entity-type-pill">Billing Information</span></div></td>
+                      <td class="col-actions"><button type="button" class="btn btn-ghost btn-sm" onclick="openEntityTypeEdit('legal-entity')">Edit</button></td>
+                    </tr>
+                    <tr>
+                      <td>Location</td>
+                      <td><div class="entity-type-pills"><span class="entity-type-pill">Entity</span><span class="entity-type-pill">Region</span><span class="entity-type-pill">Country</span></div></td>
+                      <td class="col-actions"><button type="button" class="btn btn-ghost btn-sm" onclick="openEntityTypeEdit('location')">Edit</button></td>
+                    </tr>
+                    <tr>
+                      <td>Lodging</td>
+                      <td><div class="entity-type-pills"><span class="entity-type-pill">Hotel</span><span class="entity-type-pill">Chilled Water</span><span class="entity-type-pill">District Heating</span></div></td>
+                      <td class="col-actions"><button type="button" class="btn btn-ghost btn-sm" onclick="openEntityTypeEdit('lodging')">Edit</button></td>
+                    </tr>
+                    <tr>
+                      <td>Manufacturing</td>
+                      <td><div class="entity-type-pills"><span class="entity-type-pill">Electric Power</span><span class="entity-type-pill">Diesel</span><span class="entity-type-pill">Compressed Natural Gas</span><span class="entity-type-pill">District Heating</span></div></td>
+                      <td class="col-actions"><button type="button" class="btn btn-ghost btn-sm" onclick="openEntityTypeEdit('manufacturing')">Edit</button></td>
+                    </tr>
+                    <tr>
+                      <td>Meter</td>
+                      <td><div class="entity-type-pills"><span class="entity-type-pill">Electric Power</span><span class="entity-type-pill">Chilled Water</span><span class="entity-type-pill">District Heating</span><span class="entity-type-pill">District Cooling</span></div></td>
+                      <td class="col-actions"><button type="button" class="btn btn-ghost btn-sm" onclick="openEntityTypeEdit('meter')">Edit</button></td>
+                    </tr>
+                    <tr>
+                      <td>Office</td>
+                      <td><div class="entity-type-pills"><span class="entity-type-pill">Electric Power</span><span class="entity-type-pill">District Heating</span><span class="entity-type-pill">District Cooling</span></div></td>
+                      <td class="col-actions"><button type="button" class="btn btn-ghost btn-sm" onclick="openEntityTypeEdit('office')">Edit</button></td>
+                    </tr>
+                    <tr>
+                      <td>Portfolio</td>
+                      <td><div class="entity-type-pills"><span class="entity-type-pill">Finance</span><span class="entity-type-pill">Climate Risk</span></div></td>
+                      <td class="col-actions"><button type="button" class="btn btn-ghost btn-sm" onclick="openEntityTypeEdit('portfolio')">Edit</button></td>
+                    </tr>
+                    <tr>
+                      <td>Region</td>
+                      <td><div class="entity-type-pills"><span class="entity-type-pill">Country</span><span class="entity-type-pill">Climate Risk</span><span class="entity-type-pill">Location</span></div></td>
+                      <td class="col-actions"><button type="button" class="btn btn-ghost btn-sm" onclick="openEntityTypeEdit('region')">Edit</button></td>
+                    </tr>
+                    <tr>
+                      <td>Entity</td>
+                      <td><div class="entity-type-pills"><span class="entity-type-pill">Location</span><span class="entity-type-pill">Meter</span><span class="entity-type-pill">Electric Power</span></div></td>
+                      <td class="col-actions"><button type="button" class="btn btn-ghost btn-sm" onclick="openEntityTypeEdit('site')">Edit</button></td>
+                    </tr>
+                    <tr>
+                      <td>Vehicle</td>
+                      <td><div class="entity-type-pills"><span class="entity-type-pill">Diesel</span><span class="entity-type-pill">Automobile Travel</span><span class="entity-type-pill">Bus Travel</span><span class="entity-type-pill">Air Travel</span></div></td>
+                      <td class="col-actions"><button type="button" class="btn btn-ghost btn-sm" onclick="openEntityTypeEdit('vehicle')">Edit</button></td>
+                    </tr>
+                    <tr>
+                      <td>Warehouse</td>
+                      <td><div class="entity-type-pills"><span class="entity-type-pill">Distribution Center</span><span class="entity-type-pill">Electric Power</span><span class="entity-type-pill">Heating Oil</span></div></td>
+                      <td class="col-actions"><button type="button" class="btn btn-ghost btn-sm" onclick="openEntityTypeEdit('warehouse')">Edit</button></td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
@@ -14339,7 +14414,7 @@
                 <h2 class="estimation-settings-section-title">Models</h2>
                 <button type="button" class="btn btn-primary" onclick="openAddIntensityModelWizard()"><i class="fa-light fa-plus" aria-hidden="true"></i> Add model</button>
               </div>
-              <p class="estimation-settings-section-desc">Intensity models (e.g. kWh per sq ft) can be derived from your site data or use CBECS fallback values. Configure and review models by activity type.</p>
+              <p class="estimation-settings-section-desc">Intensity models (e.g. kWh per sq ft) can be derived from your entity data or use CBECS fallback values. Configure and review models by activity type.</p>
               <div class="estimation-settings-table-wrap">
                 <table class="estimation-settings-table" id="intensity-models-table">
                   <thead>
@@ -14355,7 +14430,7 @@
                   <tbody>
                     <tr>
                       <td>Electric power</td>
-                      <td>Site data (12 sites)</td>
+                      <td>Entity data (12 entities)</td>
                       <td>0.28 kWh / sq ft</td>
                       <td>Mar 4, 2025</td>
                       <td>Sarah Chen</td>
@@ -20253,7 +20328,7 @@
     </div>
   </div>
 
-  <!-- Create Data Campaign Modal (wizard: Basics → Data modules → Sites → Deadlines → Email preview → Review) -->
+  <!-- Create Data Campaign Modal (wizard: Basics → Data modules → Entities → Deadlines → Email preview → Review) -->
   <div class="modal-backdrop" id="create-campaign-modal">
     <div class="modal modal-xl create-campaign-modal-wrap" role="dialog" aria-labelledby="create-campaign-modal-title" aria-modal="true" onclick="event.stopPropagation()">
       <div class="modal-header">
@@ -20417,7 +20492,7 @@
             <div class="form-group" style="margin-bottom: 12px;">
               <div class="search-input-wrapper" style="max-width: 320px;">
                 <i class="fa-light fa-search"></i>
-                <input type="text" class="form-input" id="campaign-sites-search" placeholder="Search selected entities..." aria-label="Search selected entities" oninput="campaignSitesSearchFilter()">
+                <input type="text" class="form-input" id="campaign-sites-search" placeholder="Search selected entities..." aria-label="Search selected entities" oninput="campaignEntitiesSearchFilter()">
               </div>
             </div>
             <div class="contact-entity-layout">
@@ -20440,11 +20515,11 @@
                                 <li class="entity-hierarchy-item leaf"><span class="entity-hierarchy-placeholder"></span><label class="entity-hierarchy-label"><input type="checkbox" class="campaign-entity-checkbox" checked onchange="campaignEntitiesUpdateFromHierarchy()"> Chicago HQ</label><span class="entity-hierarchy-stats"><span class="entity-hierarchy-stat">1</span><span class="entity-hierarchy-stat">364</span></span></li>
                                 <li class="entity-hierarchy-item leaf"><span class="entity-hierarchy-placeholder"></span><label class="entity-hierarchy-label"><input type="checkbox" class="campaign-entity-checkbox" checked onchange="campaignEntitiesUpdateFromHierarchy()"> Boston Office</label><span class="entity-hierarchy-stats"><span class="entity-hierarchy-stat">—</span><span class="entity-hierarchy-stat">—</span></span></li>
                                 <li class="entity-hierarchy-item leaf"><span class="entity-hierarchy-placeholder"></span><label class="entity-hierarchy-label"><input type="checkbox" class="campaign-entity-checkbox" checked onchange="campaignEntitiesUpdateFromHierarchy()"> NYC Office</label><span class="entity-hierarchy-stats"><span class="entity-hierarchy-stat">—</span><span class="entity-hierarchy-stat">—</span></span></li>
-                                <li class="entity-hierarchy-item leaf"><span class="entity-hierarchy-placeholder"></span><label class="entity-hierarchy-label"><input type="checkbox" class="campaign-entity-checkbox" checked onchange="campaignEntitiesUpdateFromHierarchy()"> Denver Site</label><span class="entity-hierarchy-stats"><span class="entity-hierarchy-stat">—</span><span class="entity-hierarchy-stat">—</span></span></li>
+                                <li class="entity-hierarchy-item leaf"><span class="entity-hierarchy-placeholder"></span><label class="entity-hierarchy-label"><input type="checkbox" class="campaign-entity-checkbox" checked onchange="campaignEntitiesUpdateFromHierarchy()"> Denver Entity</label><span class="entity-hierarchy-stats"><span class="entity-hierarchy-stat">—</span><span class="entity-hierarchy-stat">—</span></span></li>
                                 <li class="entity-hierarchy-item leaf"><span class="entity-hierarchy-placeholder"></span><label class="entity-hierarchy-label"><input type="checkbox" class="campaign-entity-checkbox" checked onchange="campaignEntitiesUpdateFromHierarchy()"> Atlanta Office</label><span class="entity-hierarchy-stats"><span class="entity-hierarchy-stat">—</span><span class="entity-hierarchy-stat">—</span></span></li>
                                 <li class="entity-hierarchy-item leaf"><span class="entity-hierarchy-placeholder"></span><label class="entity-hierarchy-label"><input type="checkbox" class="campaign-entity-checkbox" checked onchange="campaignEntitiesUpdateFromHierarchy()"> Dallas Office</label><span class="entity-hierarchy-stats"><span class="entity-hierarchy-stat">—</span><span class="entity-hierarchy-stat">—</span></span></li>
                                 <li class="entity-hierarchy-item leaf"><span class="entity-hierarchy-placeholder"></span><label class="entity-hierarchy-label"><input type="checkbox" class="campaign-entity-checkbox" checked onchange="campaignEntitiesUpdateFromHierarchy()"> Seattle Office</label><span class="entity-hierarchy-stats"><span class="entity-hierarchy-stat">—</span><span class="entity-hierarchy-stat">—</span></span></li>
-                                <li class="entity-hierarchy-item leaf"><span class="entity-hierarchy-placeholder"></span><label class="entity-hierarchy-label"><input type="checkbox" class="campaign-entity-checkbox" checked onchange="campaignEntitiesUpdateFromHierarchy()"> Phoenix Site</label><span class="entity-hierarchy-stats"><span class="entity-hierarchy-stat">—</span><span class="entity-hierarchy-stat">—</span></span></li>
+                                <li class="entity-hierarchy-item leaf"><span class="entity-hierarchy-placeholder"></span><label class="entity-hierarchy-label"><input type="checkbox" class="campaign-entity-checkbox" checked onchange="campaignEntitiesUpdateFromHierarchy()"> Phoenix Entity</label><span class="entity-hierarchy-stats"><span class="entity-hierarchy-stat">—</span><span class="entity-hierarchy-stat">—</span></span></li>
                               </ul>
                             </li>
                             <li class="entity-hierarchy-item collapsed">
@@ -20469,7 +20544,7 @@
                               <ul class="entity-hierarchy-children">
                                 <li class="entity-hierarchy-item leaf"><span class="entity-hierarchy-placeholder"></span><label class="entity-hierarchy-label"><input type="checkbox" class="campaign-entity-checkbox" checked onchange="campaignEntitiesUpdateFromHierarchy()"> Mexico City Plant</label><span class="entity-hierarchy-stats"><span class="entity-hierarchy-stat">—</span><span class="entity-hierarchy-stat">—</span></span></li>
                                 <li class="entity-hierarchy-item leaf"><span class="entity-hierarchy-placeholder"></span><label class="entity-hierarchy-label"><input type="checkbox" class="campaign-entity-checkbox" checked onchange="campaignEntitiesUpdateFromHierarchy()"> Guadalajara Office</label><span class="entity-hierarchy-stats"><span class="entity-hierarchy-stat">—</span><span class="entity-hierarchy-stat">—</span></span></li>
-                                <li class="entity-hierarchy-item leaf"><span class="entity-hierarchy-placeholder"></span><label class="entity-hierarchy-label"><input type="checkbox" class="campaign-entity-checkbox" checked onchange="campaignEntitiesUpdateFromHierarchy()"> Monterrey Site</label><span class="entity-hierarchy-stats"><span class="entity-hierarchy-stat">—</span><span class="entity-hierarchy-stat">—</span></span></li>
+                                <li class="entity-hierarchy-item leaf"><span class="entity-hierarchy-placeholder"></span><label class="entity-hierarchy-label"><input type="checkbox" class="campaign-entity-checkbox" checked onchange="campaignEntitiesUpdateFromHierarchy()"> Monterrey Entity</label><span class="entity-hierarchy-stats"><span class="entity-hierarchy-stat">—</span><span class="entity-hierarchy-stat">—</span></span></li>
                               </ul>
                             </li>
                             <li class="entity-hierarchy-item collapsed">
@@ -20478,7 +20553,7 @@
                               <ul class="entity-hierarchy-children">
                                 <li class="entity-hierarchy-item leaf"><span class="entity-hierarchy-placeholder"></span><label class="entity-hierarchy-label"><input type="checkbox" class="campaign-entity-checkbox" checked onchange="campaignEntitiesUpdateFromHierarchy()"> São Paulo Office</label><span class="entity-hierarchy-stats"><span class="entity-hierarchy-stat">—</span><span class="entity-hierarchy-stat">—</span></span></li>
                                 <li class="entity-hierarchy-item leaf"><span class="entity-hierarchy-placeholder"></span><label class="entity-hierarchy-label"><input type="checkbox" class="campaign-entity-checkbox" checked onchange="campaignEntitiesUpdateFromHierarchy()"> Rio Office</label><span class="entity-hierarchy-stats"><span class="entity-hierarchy-stat">—</span><span class="entity-hierarchy-stat">—</span></span></li>
-                                <li class="entity-hierarchy-item leaf"><span class="entity-hierarchy-placeholder"></span><label class="entity-hierarchy-label"><input type="checkbox" class="campaign-entity-checkbox" checked onchange="campaignEntitiesUpdateFromHierarchy()"> Belo Horizonte Site</label><span class="entity-hierarchy-stats"><span class="entity-hierarchy-stat">—</span><span class="entity-hierarchy-stat">—</span></span></li>
+                                <li class="entity-hierarchy-item leaf"><span class="entity-hierarchy-placeholder"></span><label class="entity-hierarchy-label"><input type="checkbox" class="campaign-entity-checkbox" checked onchange="campaignEntitiesUpdateFromHierarchy()"> Belo Horizonte Entity</label><span class="entity-hierarchy-stats"><span class="entity-hierarchy-stat">—</span><span class="entity-hierarchy-stat">—</span></span></li>
                               </ul>
                             </li>
                             <li class="entity-hierarchy-item collapsed">
@@ -20506,7 +20581,7 @@
                               <ul class="entity-hierarchy-children">
                                 <li class="entity-hierarchy-item leaf"><span class="entity-hierarchy-placeholder"></span><label class="entity-hierarchy-label"><input type="checkbox" class="campaign-entity-checkbox" checked onchange="campaignEntitiesUpdateFromHierarchy()"> London Office</label><span class="entity-hierarchy-stats"><span class="entity-hierarchy-stat">—</span><span class="entity-hierarchy-stat">—</span></span></li>
                                 <li class="entity-hierarchy-item leaf"><span class="entity-hierarchy-placeholder"></span><label class="entity-hierarchy-label"><input type="checkbox" class="campaign-entity-checkbox" checked onchange="campaignEntitiesUpdateFromHierarchy()"> Manchester Office</label><span class="entity-hierarchy-stats"><span class="entity-hierarchy-stat">—</span><span class="entity-hierarchy-stat">—</span></span></li>
-                                <li class="entity-hierarchy-item leaf"><span class="entity-hierarchy-placeholder"></span><label class="entity-hierarchy-label"><input type="checkbox" class="campaign-entity-checkbox" checked onchange="campaignEntitiesUpdateFromHierarchy()"> Birmingham Site</label><span class="entity-hierarchy-stats"><span class="entity-hierarchy-stat">—</span><span class="entity-hierarchy-stat">—</span></span></li>
+                                <li class="entity-hierarchy-item leaf"><span class="entity-hierarchy-placeholder"></span><label class="entity-hierarchy-label"><input type="checkbox" class="campaign-entity-checkbox" checked onchange="campaignEntitiesUpdateFromHierarchy()"> Birmingham Entity</label><span class="entity-hierarchy-stats"><span class="entity-hierarchy-stat">—</span><span class="entity-hierarchy-stat">—</span></span></li>
                                 <li class="entity-hierarchy-item leaf"><span class="entity-hierarchy-placeholder"></span><label class="entity-hierarchy-label"><input type="checkbox" class="campaign-entity-checkbox" checked onchange="campaignEntitiesUpdateFromHierarchy()"> Edinburgh Office</label><span class="entity-hierarchy-stats"><span class="entity-hierarchy-stat">—</span><span class="entity-hierarchy-stat">—</span></span></li>
                               </ul>
                             </li>
@@ -20518,7 +20593,7 @@
                                 <li class="entity-hierarchy-item leaf"><span class="entity-hierarchy-placeholder"></span><label class="entity-hierarchy-label"><input type="checkbox" class="campaign-entity-checkbox" checked onchange="campaignEntitiesUpdateFromHierarchy()"> Munich Office</label><span class="entity-hierarchy-stats"><span class="entity-hierarchy-stat">—</span><span class="entity-hierarchy-stat">—</span></span></li>
                                 <li class="entity-hierarchy-item leaf"><span class="entity-hierarchy-placeholder"></span><label class="entity-hierarchy-label"><input type="checkbox" class="campaign-entity-checkbox" checked onchange="campaignEntitiesUpdateFromHierarchy()"> Frankfurt Office</label><span class="entity-hierarchy-stats"><span class="entity-hierarchy-stat">—</span><span class="entity-hierarchy-stat">—</span></span></li>
                                 <li class="entity-hierarchy-item leaf"><span class="entity-hierarchy-placeholder"></span><label class="entity-hierarchy-label"><input type="checkbox" class="campaign-entity-checkbox" checked onchange="campaignEntitiesUpdateFromHierarchy()"> Hamburg Office</label><span class="entity-hierarchy-stats"><span class="entity-hierarchy-stat">—</span><span class="entity-hierarchy-stat">—</span></span></li>
-                                <li class="entity-hierarchy-item leaf"><span class="entity-hierarchy-placeholder"></span><label class="entity-hierarchy-label"><input type="checkbox" class="campaign-entity-checkbox" checked onchange="campaignEntitiesUpdateFromHierarchy()"> Düsseldorf Site</label><span class="entity-hierarchy-stats"><span class="entity-hierarchy-stat">—</span><span class="entity-hierarchy-stat">—</span></span></li>
+                                <li class="entity-hierarchy-item leaf"><span class="entity-hierarchy-placeholder"></span><label class="entity-hierarchy-label"><input type="checkbox" class="campaign-entity-checkbox" checked onchange="campaignEntitiesUpdateFromHierarchy()"> Düsseldorf Entity</label><span class="entity-hierarchy-stats"><span class="entity-hierarchy-stat">—</span><span class="entity-hierarchy-stat">—</span></span></li>
                               </ul>
                             </li>
                             <li class="entity-hierarchy-item collapsed">
@@ -20527,7 +20602,7 @@
                               <ul class="entity-hierarchy-children">
                                 <li class="entity-hierarchy-item leaf"><span class="entity-hierarchy-placeholder"></span><label class="entity-hierarchy-label"><input type="checkbox" class="campaign-entity-checkbox" checked onchange="campaignEntitiesUpdateFromHierarchy()"> Paris Office</label><span class="entity-hierarchy-stats"><span class="entity-hierarchy-stat">—</span><span class="entity-hierarchy-stat">—</span></span></li>
                                 <li class="entity-hierarchy-item leaf"><span class="entity-hierarchy-placeholder"></span><label class="entity-hierarchy-label"><input type="checkbox" class="campaign-entity-checkbox" checked onchange="campaignEntitiesUpdateFromHierarchy()"> Lyon Office</label><span class="entity-hierarchy-stats"><span class="entity-hierarchy-stat">—</span><span class="entity-hierarchy-stat">—</span></span></li>
-                                <li class="entity-hierarchy-item leaf"><span class="entity-hierarchy-placeholder"></span><label class="entity-hierarchy-label"><input type="checkbox" class="campaign-entity-checkbox" checked onchange="campaignEntitiesUpdateFromHierarchy()"> Marseille Site</label><span class="entity-hierarchy-stats"><span class="entity-hierarchy-stat">—</span><span class="entity-hierarchy-stat">—</span></span></li>
+                                <li class="entity-hierarchy-item leaf"><span class="entity-hierarchy-placeholder"></span><label class="entity-hierarchy-label"><input type="checkbox" class="campaign-entity-checkbox" checked onchange="campaignEntitiesUpdateFromHierarchy()"> Marseille Entity</label><span class="entity-hierarchy-stats"><span class="entity-hierarchy-stat">—</span><span class="entity-hierarchy-stat">—</span></span></li>
                               </ul>
                             </li>
                             <li class="entity-hierarchy-item collapsed">
@@ -20550,7 +20625,7 @@
                               <ul class="entity-hierarchy-children">
                                 <li class="entity-hierarchy-item leaf"><span class="entity-hierarchy-placeholder"></span><label class="entity-hierarchy-label"><input type="checkbox" class="campaign-entity-checkbox" checked onchange="campaignEntitiesUpdateFromHierarchy()"> Stockholm Office</label><span class="entity-hierarchy-stats"><span class="entity-hierarchy-stat">—</span><span class="entity-hierarchy-stat">—</span></span></li>
                                 <li class="entity-hierarchy-item leaf"><span class="entity-hierarchy-placeholder"></span><label class="entity-hierarchy-label"><input type="checkbox" class="campaign-entity-checkbox" checked onchange="campaignEntitiesUpdateFromHierarchy()"> Gothenburg Office</label><span class="entity-hierarchy-stats"><span class="entity-hierarchy-stat">—</span><span class="entity-hierarchy-stat">—</span></span></li>
-                                <li class="entity-hierarchy-item leaf"><span class="entity-hierarchy-placeholder"></span><label class="entity-hierarchy-label"><input type="checkbox" class="campaign-entity-checkbox" checked onchange="campaignEntitiesUpdateFromHierarchy()"> Malmö Site</label><span class="entity-hierarchy-stats"><span class="entity-hierarchy-stat">—</span><span class="entity-hierarchy-stat">—</span></span></li>
+                                <li class="entity-hierarchy-item leaf"><span class="entity-hierarchy-placeholder"></span><label class="entity-hierarchy-label"><input type="checkbox" class="campaign-entity-checkbox" checked onchange="campaignEntitiesUpdateFromHierarchy()"> Malmö Entity</label><span class="entity-hierarchy-stats"><span class="entity-hierarchy-stat">—</span><span class="entity-hierarchy-stat">—</span></span></li>
                               </ul>
                             </li>
                             <li class="entity-hierarchy-item collapsed">
@@ -20566,7 +20641,7 @@
                               <label class="entity-hierarchy-label"><input type="checkbox" class="campaign-entity-checkbox" checked onchange="campaignEntitiesUpdateFromHierarchy()"> Poland<span class="entity-hierarchy-count">(0/12)</span></label><span class="entity-hierarchy-stats"><span class="entity-hierarchy-stat">2</span><span class="entity-hierarchy-stat">168</span></span>
                               <ul class="entity-hierarchy-children">
                                 <li class="entity-hierarchy-item leaf"><span class="entity-hierarchy-placeholder"></span><label class="entity-hierarchy-label"><input type="checkbox" class="campaign-entity-checkbox" checked onchange="campaignEntitiesUpdateFromHierarchy()"> Warsaw Office</label><span class="entity-hierarchy-stats"><span class="entity-hierarchy-stat">—</span><span class="entity-hierarchy-stat">—</span></span></li>
-                                <li class="entity-hierarchy-item leaf"><span class="entity-hierarchy-placeholder"></span><label class="entity-hierarchy-label"><input type="checkbox" class="campaign-entity-checkbox" checked onchange="campaignEntitiesUpdateFromHierarchy()"> Kraków Site</label><span class="entity-hierarchy-stats"><span class="entity-hierarchy-stat">—</span><span class="entity-hierarchy-stat">—</span></span></li>
+                                <li class="entity-hierarchy-item leaf"><span class="entity-hierarchy-placeholder"></span><label class="entity-hierarchy-label"><input type="checkbox" class="campaign-entity-checkbox" checked onchange="campaignEntitiesUpdateFromHierarchy()"> Kraków Entity</label><span class="entity-hierarchy-stats"><span class="entity-hierarchy-stat">—</span><span class="entity-hierarchy-stat">—</span></span></li>
                               </ul>
                             </li>
                           </ul>
@@ -20609,7 +20684,7 @@
                               <ul class="entity-hierarchy-children">
                                 <li class="entity-hierarchy-item leaf"><span class="entity-hierarchy-placeholder"></span><label class="entity-hierarchy-label"><input type="checkbox" class="campaign-entity-checkbox" checked onchange="campaignEntitiesUpdateFromHierarchy()"> Tokyo Office</label><span class="entity-hierarchy-stats"><span class="entity-hierarchy-stat">—</span><span class="entity-hierarchy-stat">—</span></span></li>
                                 <li class="entity-hierarchy-item leaf"><span class="entity-hierarchy-placeholder"></span><label class="entity-hierarchy-label"><input type="checkbox" class="campaign-entity-checkbox" checked onchange="campaignEntitiesUpdateFromHierarchy()"> Osaka Office</label><span class="entity-hierarchy-stats"><span class="entity-hierarchy-stat">—</span><span class="entity-hierarchy-stat">—</span></span></li>
-                                <li class="entity-hierarchy-item leaf"><span class="entity-hierarchy-placeholder"></span><label class="entity-hierarchy-label"><input type="checkbox" class="campaign-entity-checkbox" checked onchange="campaignEntitiesUpdateFromHierarchy()"> Nagoya Site</label><span class="entity-hierarchy-stats"><span class="entity-hierarchy-stat">—</span><span class="entity-hierarchy-stat">—</span></span></li>
+                                <li class="entity-hierarchy-item leaf"><span class="entity-hierarchy-placeholder"></span><label class="entity-hierarchy-label"><input type="checkbox" class="campaign-entity-checkbox" checked onchange="campaignEntitiesUpdateFromHierarchy()"> Nagoya Entity</label><span class="entity-hierarchy-stats"><span class="entity-hierarchy-stat">—</span><span class="entity-hierarchy-stat">—</span></span></li>
                                 <li class="entity-hierarchy-item leaf"><span class="entity-hierarchy-placeholder"></span><label class="entity-hierarchy-label"><input type="checkbox" class="campaign-entity-checkbox" checked onchange="campaignEntitiesUpdateFromHierarchy()"> Fukuoka Office</label><span class="entity-hierarchy-stats"><span class="entity-hierarchy-stat">—</span><span class="entity-hierarchy-stat">—</span></span></li>
                               </ul>
                             </li>
@@ -20620,7 +20695,7 @@
                                 <li class="entity-hierarchy-item leaf"><span class="entity-hierarchy-placeholder"></span><label class="entity-hierarchy-label"><input type="checkbox" class="campaign-entity-checkbox" checked onchange="campaignEntitiesUpdateFromHierarchy()"> Shanghai Office</label><span class="entity-hierarchy-stats"><span class="entity-hierarchy-stat">—</span><span class="entity-hierarchy-stat">—</span></span></li>
                                 <li class="entity-hierarchy-item leaf"><span class="entity-hierarchy-placeholder"></span><label class="entity-hierarchy-label"><input type="checkbox" class="campaign-entity-checkbox" checked onchange="campaignEntitiesUpdateFromHierarchy()"> Beijing Office</label><span class="entity-hierarchy-stats"><span class="entity-hierarchy-stat">—</span><span class="entity-hierarchy-stat">—</span></span></li>
                                 <li class="entity-hierarchy-item leaf"><span class="entity-hierarchy-placeholder"></span><label class="entity-hierarchy-label"><input type="checkbox" class="campaign-entity-checkbox" checked onchange="campaignEntitiesUpdateFromHierarchy()"> Guangzhou Office</label><span class="entity-hierarchy-stats"><span class="entity-hierarchy-stat">—</span><span class="entity-hierarchy-stat">—</span></span></li>
-                                <li class="entity-hierarchy-item leaf"><span class="entity-hierarchy-placeholder"></span><label class="entity-hierarchy-label"><input type="checkbox" class="campaign-entity-checkbox" checked onchange="campaignEntitiesUpdateFromHierarchy()"> Shenzhen Site</label><span class="entity-hierarchy-stats"><span class="entity-hierarchy-stat">—</span><span class="entity-hierarchy-stat">—</span></span></li>
+                                <li class="entity-hierarchy-item leaf"><span class="entity-hierarchy-placeholder"></span><label class="entity-hierarchy-label"><input type="checkbox" class="campaign-entity-checkbox" checked onchange="campaignEntitiesUpdateFromHierarchy()"> Shenzhen Entity</label><span class="entity-hierarchy-stats"><span class="entity-hierarchy-stat">—</span><span class="entity-hierarchy-stat">—</span></span></li>
                               </ul>
                             </li>
                             <li class="entity-hierarchy-item collapsed">
@@ -20644,7 +20719,7 @@
                                 <li class="entity-hierarchy-item leaf"><span class="entity-hierarchy-placeholder"></span><label class="entity-hierarchy-label"><input type="checkbox" class="campaign-entity-checkbox" checked onchange="campaignEntitiesUpdateFromHierarchy()"> Mumbai Office</label><span class="entity-hierarchy-stats"><span class="entity-hierarchy-stat">—</span><span class="entity-hierarchy-stat">—</span></span></li>
                                 <li class="entity-hierarchy-item leaf"><span class="entity-hierarchy-placeholder"></span><label class="entity-hierarchy-label"><input type="checkbox" class="campaign-entity-checkbox" checked onchange="campaignEntitiesUpdateFromHierarchy()"> Delhi Office</label><span class="entity-hierarchy-stats"><span class="entity-hierarchy-stat">—</span><span class="entity-hierarchy-stat">—</span></span></li>
                                 <li class="entity-hierarchy-item leaf"><span class="entity-hierarchy-placeholder"></span><label class="entity-hierarchy-label"><input type="checkbox" class="campaign-entity-checkbox" checked onchange="campaignEntitiesUpdateFromHierarchy()"> Bangalore Office</label><span class="entity-hierarchy-stats"><span class="entity-hierarchy-stat">—</span><span class="entity-hierarchy-stat">—</span></span></li>
-                                <li class="entity-hierarchy-item leaf"><span class="entity-hierarchy-placeholder"></span><label class="entity-hierarchy-label"><input type="checkbox" class="campaign-entity-checkbox" checked onchange="campaignEntitiesUpdateFromHierarchy()"> Chennai Site</label><span class="entity-hierarchy-stats"><span class="entity-hierarchy-stat">—</span><span class="entity-hierarchy-stat">—</span></span></li>
+                                <li class="entity-hierarchy-item leaf"><span class="entity-hierarchy-placeholder"></span><label class="entity-hierarchy-label"><input type="checkbox" class="campaign-entity-checkbox" checked onchange="campaignEntitiesUpdateFromHierarchy()"> Chennai Entity</label><span class="entity-hierarchy-stats"><span class="entity-hierarchy-stat">—</span><span class="entity-hierarchy-stat">—</span></span></li>
                                 <li class="entity-hierarchy-item leaf"><span class="entity-hierarchy-placeholder"></span><label class="entity-hierarchy-label"><input type="checkbox" class="campaign-entity-checkbox" checked onchange="campaignEntitiesUpdateFromHierarchy()"> Hyderabad Office</label><span class="entity-hierarchy-stats"><span class="entity-hierarchy-stat">—</span><span class="entity-hierarchy-stat">—</span></span></li>
                               </ul>
                             </li>
@@ -20655,7 +20730,7 @@
                                 <li class="entity-hierarchy-item leaf"><span class="entity-hierarchy-placeholder"></span><label class="entity-hierarchy-label"><input type="checkbox" class="campaign-entity-checkbox" checked onchange="campaignEntitiesUpdateFromHierarchy()"> Sydney Office</label><span class="entity-hierarchy-stats"><span class="entity-hierarchy-stat">—</span><span class="entity-hierarchy-stat">—</span></span></li>
                                 <li class="entity-hierarchy-item leaf"><span class="entity-hierarchy-placeholder"></span><label class="entity-hierarchy-label"><input type="checkbox" class="campaign-entity-checkbox" checked onchange="campaignEntitiesUpdateFromHierarchy()"> Melbourne Office</label><span class="entity-hierarchy-stats"><span class="entity-hierarchy-stat">—</span><span class="entity-hierarchy-stat">—</span></span></li>
                                 <li class="entity-hierarchy-item leaf"><span class="entity-hierarchy-placeholder"></span><label class="entity-hierarchy-label"><input type="checkbox" class="campaign-entity-checkbox" checked onchange="campaignEntitiesUpdateFromHierarchy()"> Brisbane Office</label><span class="entity-hierarchy-stats"><span class="entity-hierarchy-stat">—</span><span class="entity-hierarchy-stat">—</span></span></li>
-                                <li class="entity-hierarchy-item leaf"><span class="entity-hierarchy-placeholder"></span><label class="entity-hierarchy-label"><input type="checkbox" class="campaign-entity-checkbox" checked onchange="campaignEntitiesUpdateFromHierarchy()"> Perth Site</label><span class="entity-hierarchy-stats"><span class="entity-hierarchy-stat">—</span><span class="entity-hierarchy-stat">—</span></span></li>
+                                <li class="entity-hierarchy-item leaf"><span class="entity-hierarchy-placeholder"></span><label class="entity-hierarchy-label"><input type="checkbox" class="campaign-entity-checkbox" checked onchange="campaignEntitiesUpdateFromHierarchy()"> Perth Entity</label><span class="entity-hierarchy-stats"><span class="entity-hierarchy-stat">—</span><span class="entity-hierarchy-stat">—</span></span></li>
                               </ul>
                             </li>
                             <li class="entity-hierarchy-item collapsed">
@@ -20676,14 +20751,14 @@
                 <div class="card-header"><span class="card-title">Selected entities (<span id="campaign-sites-count">6</span>)</span></div>
                 <div class="card-body">
                   <table class="data-table" id="campaign-sites-table">
-                    <thead><tr><th style="width: 44px;"><label class="campaign-sites-select-all"><input type="checkbox" id="campaign-sites-select-all" checked aria-label="Select all" onchange="campaignSitesToggleSelectAll()"></label></th><th>Business entity</th><th>Primary contact</th><th>Secondary contact</th><th>Data modules</th></tr></thead>
+                    <thead><tr><th style="width: 44px;"><label class="campaign-sites-select-all"><input type="checkbox" id="campaign-sites-select-all" checked aria-label="Select all" onchange="campaignEntitiesToggleSelectAll()"></label></th><th>Business entity</th><th>Primary contact</th><th>Secondary contact</th><th>Data modules</th></tr></thead>
                     <tbody id="campaign-sites-tbody">
-                      <tr data-site-search="Chicago HQ Chicago Operations"><td><label><input type="checkbox" class="campaign-site-checkbox" checked onchange="campaignSitesUpdateCount()"></label></td><td>Chicago HQ</td><td>James Park</td><td>Sarah Chen</td><td><span class="campaign-site-module-chips"><span class="badge badge-neutral">Energy</span> <span class="badge badge-neutral">Fuel</span> <span class="badge badge-neutral">Water</span></span></td></tr>
-                      <tr data-site-search="London Office London EMEA"><td><label><input type="checkbox" class="campaign-site-checkbox" checked onchange="campaignSitesUpdateCount()"></label></td><td>London Office</td><td>Marcus Webb</td><td>Anna Lindqvist</td><td><span class="campaign-site-module-chips"><span class="badge badge-neutral">Energy</span> <span class="badge badge-neutral">Waste</span> <span class="badge badge-neutral">Travel</span></span></td></tr>
-                      <tr data-site-search="Tokyo Office Tokyo APAC"><td><label><input type="checkbox" class="campaign-site-checkbox" checked onchange="campaignSitesUpdateCount()"></label></td><td>Tokyo Office</td><td>Yuki Tanaka</td><td>Priya Sharma</td><td><span class="campaign-site-module-chips"><span class="badge badge-neutral">Energy</span> <span class="badge badge-neutral">Fuel</span></span></td></tr>
-                      <tr data-site-search="Mexico City Plant Mexico City Operations"><td><label><input type="checkbox" class="campaign-site-checkbox" checked onchange="campaignSitesUpdateCount()"></label></td><td>Mexico City Plant</td><td>Elena Rodriguez</td><td>Sarah Chen</td><td><span class="campaign-site-module-chips"><span class="badge badge-neutral">Energy</span> <span class="badge badge-neutral">Fuel</span> <span class="badge badge-neutral">Water</span></span></td></tr>
-                      <tr data-site-search="Stockholm Office Stockholm EMEA"><td><label><input type="checkbox" class="campaign-site-checkbox" checked onchange="campaignSitesUpdateCount()"></label></td><td>Stockholm Office</td><td>Anna Lindqvist</td><td>Marcus Webb</td><td><span class="campaign-site-module-chips"><span class="badge badge-neutral">Energy</span> <span class="badge badge-neutral">Travel</span></span></td></tr>
-                      <tr data-site-search="Mumbai Office Mumbai APAC"><td><label><input type="checkbox" class="campaign-site-checkbox" checked onchange="campaignSitesUpdateCount()"></label></td><td>Mumbai Office</td><td>Priya Sharma</td><td>Yuki Tanaka</td><td><span class="campaign-site-module-chips"><span class="badge badge-neutral">Energy</span> <span class="badge badge-neutral">Waste</span> <span class="badge badge-neutral">Travel</span></span></td></tr>
+                      <tr data-site-search="Chicago HQ Chicago Operations"><td><label><input type="checkbox" class="campaign-site-checkbox" checked onchange="campaignEntitiesUpdateCount()"></label></td><td>Chicago HQ</td><td>James Park</td><td>Sarah Chen</td><td><span class="campaign-site-module-chips"><span class="badge badge-neutral">Energy</span> <span class="badge badge-neutral">Fuel</span> <span class="badge badge-neutral">Water</span></span></td></tr>
+                      <tr data-site-search="London Office London EMEA"><td><label><input type="checkbox" class="campaign-site-checkbox" checked onchange="campaignEntitiesUpdateCount()"></label></td><td>London Office</td><td>Marcus Webb</td><td>Anna Lindqvist</td><td><span class="campaign-site-module-chips"><span class="badge badge-neutral">Energy</span> <span class="badge badge-neutral">Waste</span> <span class="badge badge-neutral">Travel</span></span></td></tr>
+                      <tr data-site-search="Tokyo Office Tokyo APAC"><td><label><input type="checkbox" class="campaign-site-checkbox" checked onchange="campaignEntitiesUpdateCount()"></label></td><td>Tokyo Office</td><td>Yuki Tanaka</td><td>Priya Sharma</td><td><span class="campaign-site-module-chips"><span class="badge badge-neutral">Energy</span> <span class="badge badge-neutral">Fuel</span></span></td></tr>
+                      <tr data-site-search="Mexico City Plant Mexico City Operations"><td><label><input type="checkbox" class="campaign-site-checkbox" checked onchange="campaignEntitiesUpdateCount()"></label></td><td>Mexico City Plant</td><td>Elena Rodriguez</td><td>Sarah Chen</td><td><span class="campaign-site-module-chips"><span class="badge badge-neutral">Energy</span> <span class="badge badge-neutral">Fuel</span> <span class="badge badge-neutral">Water</span></span></td></tr>
+                      <tr data-site-search="Stockholm Office Stockholm EMEA"><td><label><input type="checkbox" class="campaign-site-checkbox" checked onchange="campaignEntitiesUpdateCount()"></label></td><td>Stockholm Office</td><td>Anna Lindqvist</td><td>Marcus Webb</td><td><span class="campaign-site-module-chips"><span class="badge badge-neutral">Energy</span> <span class="badge badge-neutral">Travel</span></span></td></tr>
+                      <tr data-site-search="Mumbai Office Mumbai APAC"><td><label><input type="checkbox" class="campaign-site-checkbox" checked onchange="campaignEntitiesUpdateCount()"></label></td><td>Mumbai Office</td><td>Priya Sharma</td><td>Yuki Tanaka</td><td><span class="campaign-site-module-chips"><span class="badge badge-neutral">Energy</span> <span class="badge badge-neutral">Waste</span> <span class="badge badge-neutral">Travel</span></span></td></tr>
                     </tbody>
                   </table>
                 </div>
@@ -20712,7 +20787,7 @@
                     <tr data-people-search="Yuki Tanaka Tokyo Office"><td><label><input type="checkbox" class="campaign-people-checkbox" checked onchange="campaignPeopleUpdateCount()"></label></td><td>Yuki Tanaka</td><td>Tokyo Office</td><td><span class="badge badge-neutral">Energy</span> <span class="badge badge-neutral">Fuel</span></td><td><span class="last-year-summary">Energy, Fuel · Q1 2024</span> <button type="button" class="btn btn-ghost btn-sm link-style" onclick="event.stopPropagation(); openLastYearDetailsModal('Yuki Tanaka', 'Tokyo Office', { period: 'Q1 2024', submitted: 'Apr 1, 2024', modules: ['Energy', 'Fuel'], notes: 'Submitted with supporting docs.' })" aria-label="View last year details for Yuki Tanaka">View details</button></td></tr>
                     <tr data-people-search="Priya Sharma Mumbai Office"><td><label><input type="checkbox" class="campaign-people-checkbox" checked onchange="campaignPeopleUpdateCount()"></label></td><td>Priya Sharma</td><td>Mumbai Office</td><td><span class="badge badge-neutral">Energy</span> <span class="badge badge-neutral">Waste</span> <span class="badge badge-neutral">Travel</span></td><td><span class="last-year-summary">Energy, Waste · 2024</span> <button type="button" class="btn btn-ghost btn-sm link-style" onclick="event.stopPropagation(); openLastYearDetailsModal('Priya Sharma', 'Mumbai Office', { period: '2024', submitted: 'May 5, 2024', modules: ['Energy', 'Waste'], notes: 'Travel not reported last year.' })" aria-label="View last year details for Priya Sharma">View details</button></td></tr>
                     <tr data-people-search="Elena Rodriguez Mexico City Plant"><td><label><input type="checkbox" class="campaign-people-checkbox" checked onchange="campaignPeopleUpdateCount()"></label></td><td>Elena Rodriguez</td><td>Mexico City Plant</td><td><span class="badge badge-neutral">Energy</span> <span class="badge badge-neutral">Fuel</span> <span class="badge badge-neutral">Water</span></td><td><span class="last-year-summary">Energy, Fuel, Water · H1 2024</span> <button type="button" class="btn btn-ghost btn-sm link-style" onclick="event.stopPropagation(); openLastYearDetailsModal('Elena Rodriguez', 'Mexico City Plant', { period: 'H1 2024', submitted: 'Jul 15, 2024', modules: ['Energy', 'Fuel', 'Water'], notes: 'Half-year data only.' })" aria-label="View last year details for Elena Rodriguez">View details</button></td></tr>
-                    <tr data-people-search="Tom Bradley Denver Site"><td><label><input type="checkbox" class="campaign-people-checkbox" onchange="campaignPeopleUpdateCount()"></label></td><td>Tom Bradley</td><td>Denver Site</td><td><span class="badge badge-neutral">Energy</span> <span class="badge badge-neutral">Travel</span></td><td><span class="last-year-summary last-year-none">No data submitted</span></td></tr>
+                    <tr data-people-search="Tom Bradley Denver Entity"><td><label><input type="checkbox" class="campaign-people-checkbox" onchange="campaignPeopleUpdateCount()"></label></td><td>Tom Bradley</td><td>Denver Entity</td><td><span class="badge badge-neutral">Energy</span> <span class="badge badge-neutral">Travel</span></td><td><span class="last-year-summary last-year-none">No data submitted</span></td></tr>
                     <tr data-people-search="Lisa Wong Shanghai Office"><td><label><input type="checkbox" class="campaign-people-checkbox" onchange="campaignPeopleUpdateCount()"></label></td><td>Lisa Wong</td><td>Shanghai Office</td><td><span class="badge badge-neutral">Energy</span> <span class="badge badge-neutral">Waste</span></td><td><span class="last-year-summary last-year-none">No data submitted</span></td></tr>
                     <tr data-people-search="David Okonkwo Lagos Office"><td><label><input type="checkbox" class="campaign-people-checkbox" onchange="campaignPeopleUpdateCount()"></label></td><td>David Okonkwo</td><td>Lagos Office</td><td><span class="badge badge-neutral">Energy</span> <span class="badge badge-neutral">Fuel</span> <span class="badge badge-neutral">Water</span></td><td><span class="last-year-summary last-year-none">No data submitted</span></td></tr>
                   </tbody>
@@ -20837,7 +20912,7 @@ Thank you.</div>
           </div>
           <div style="padding: 16px; background: var(--ghg-primary-light); border-radius: 8px; display: flex; align-items: flex-start; gap: 12px;">
             <i class="fa-light fa-info-circle" style="color: var(--ghg-primary-dark); margin-top: 2px;"></i>
-            <div><strong style="color: var(--ghg-primary-dark);">Ready to launch</strong><br><span style="font-size: 13px; color: var(--ghg-text-secondary);">Primary and secondary contributors at the selected sites will receive an email with a link to submit data. You can track progress from the campaign detail page.</span></div>
+            <div><strong style="color: var(--ghg-primary-dark);">Ready to launch</strong><br><span style="font-size: 13px; color: var(--ghg-text-secondary);">Primary and secondary contributors at the selected entities will receive an email with a link to submit data. You can track progress from the campaign detail page.</span></div>
           </div>
         </div>
       </div>
@@ -20936,7 +21011,7 @@ Thank you.</div>
           <div class="card-body"><p id="last-year-detail-period" style="margin: 0; font-size: 14px;"></p></div>
         </div>
         <div class="card" style="margin-bottom: 16px;">
-          <div class="card-header"><span class="card-title">Data types provided</span></div>
+          <div class="card-header"><span class="card-title">Activity types provided</span></div>
           <div class="card-body"><p id="last-year-detail-modules" style="margin: 0; font-size: 14px;"></p></div>
         </div>
         <div class="card" style="margin-bottom: 16px;">
@@ -21086,14 +21161,14 @@ Thank you.</div>
           <label class="form-label" for="ownership-rule-scope">Scope <span style="color: var(--ghg-danger);">*</span></label>
           <select class="form-select" id="ownership-rule-scope" onchange="ownershipRuleScopeChange()" aria-required="true">
             <option value="">Select scope</option>
-            <option value="site">Site</option>
+            <option value="site">Entity</option>
             <option value="businessUnit">Business unit</option>
             <option value="global">Global</option>
           </select>
           <p class="form-hint">Choose one: site, business unit, or global (category only).</p>
         </div>
         <div class="form-group" id="ownership-rule-site-group" style="display: none;">
-          <label class="form-label" for="ownership-rule-site">Site</label>
+          <label class="form-label" for="ownership-rule-site">Entity</label>
           <select class="form-select" id="ownership-rule-site"><option value="">Select site</option></select>
         </div>
         <div class="form-group" id="ownership-rule-bu-group" style="display: none;">
@@ -21165,7 +21240,7 @@ Thank you.</div>
         <p class="form-hint" style="margin-bottom: 16px;">Select sites, business units, and data categories to check for gaps, overlaps, and contact issues.</p>
         <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
           <div class="form-group">
-            <label class="form-label" for="ownership-validate-sites">Sites (multi)</label>
+            <label class="form-label" for="ownership-validate-sites">Entities (multi)</label>
             <select class="form-select" id="ownership-validate-sites" multiple size="4"><option value="">—</option></select>
           </div>
           <div class="form-group">
@@ -23479,7 +23554,7 @@ Thank you.</div>
         }
       });
     }
-    function campaignSitesUpdateCount() {
+    function campaignEntitiesUpdateCount() {
       var container = getCampaignWizardContainer();
       if (!container) return;
       var tbody = container.querySelector('#campaign-sites-tbody');
@@ -23499,7 +23574,7 @@ Thank you.</div>
         selectAll.indeterminate = checked > 0 && checked < total;
       }
     }
-    function campaignSitesToggleSelectAll() {
+    function campaignEntitiesToggleSelectAll() {
       var container = getCampaignWizardContainer();
       if (!container) return;
       var selectAll = container.querySelector('#campaign-sites-select-all');
@@ -23509,7 +23584,7 @@ Thank you.</div>
       leafCheckboxes.forEach(function(cb) { cb.checked = selectAll.checked; });
       campaignEntitiesUpdateFromHierarchy();
     }
-    function campaignSitesSearchFilter() {
+    function campaignEntitiesSearchFilter() {
       var container = getCampaignWizardContainer();
       if (!container) return;
       var input = container.querySelector('#campaign-sites-search');
@@ -23522,7 +23597,7 @@ Thank you.</div>
         var show = !q || searchText.indexOf(q) !== -1;
         tr.style.display = show ? '' : 'none';
       });
-      campaignSitesUpdateCount();
+      campaignEntitiesUpdateCount();
     }
     function campaignContactModeChange(mode) {
       var container = getCampaignWizardContainer();
@@ -23579,7 +23654,7 @@ Thank you.</div>
       var rows = checkedLeaves.map(function(leaf) {
         var info = CAMPAIGN_ENTITY_CONTACTS[leaf.name] || defaultInfo;
         var searchText = leaf.name + ' ' + info.primary + ' ' + info.secondary;
-        return '<tr data-entity="' + leaf.name.replace(/"/g, '&quot;') + '" data-site-search="' + searchText.replace(/"/g, '&quot;') + '"><td><label><input type="checkbox" class="campaign-site-checkbox" checked onchange="campaignSiteRowChange(this)"></label></td><td>' + leaf.name.replace(/</g, '&lt;') + '</td><td>' + (info.primary || '—').replace(/</g, '&lt;') + '</td><td>' + (info.secondary || '—').replace(/</g, '&lt;') + '</td><td>' + info.modules + '</td></tr>';
+        return '<tr data-entity="' + leaf.name.replace(/"/g, '&quot;') + '" data-site-search="' + searchText.replace(/"/g, '&quot;') + '"><td><label><input type="checkbox" class="campaign-site-checkbox" checked onchange="campaignEntityRowChange(this)"></label></td><td>' + leaf.name.replace(/</g, '&lt;') + '</td><td>' + (info.primary || '—').replace(/</g, '&lt;') + '</td><td>' + (info.secondary || '—').replace(/</g, '&lt;') + '</td><td>' + info.modules + '</td></tr>';
       });
       tbody.innerHTML = rows.join('');
       if (countEl) countEl.textContent = String(checkedLeaves.length);
@@ -23589,7 +23664,7 @@ Thank you.</div>
       }
       syncCampaignWizardPreview();
     }
-    function campaignSiteRowChange(checkboxEl) {
+    function campaignEntityRowChange(checkboxEl) {
       if (checkboxEl.checked) return;
       var row = checkboxEl.closest('tr');
       var entityName = row && row.getAttribute('data-entity');
@@ -23760,7 +23835,7 @@ Thank you.</div>
         var el = container.querySelector('#' + reminderIds[i]);
         if (el) el.checked = !!checked;
       });
-      campaignSitesUpdateCount();
+      campaignEntitiesUpdateCount();
       updateCampaignWizardUI();
     }
 
@@ -23966,7 +24041,7 @@ Thank you.</div>
         return '<button type="button" class="ownership-user-chip ownership-user-chip-clickable' + cls + '" data-name="' + escapeAttr(name) + '" data-role="' + escapeAttr(role) + '" data-email="' + escapeAttr(email) + '" onclick="showOwnershipContactPopover(event)">' + escapeAttr(name) + (u.active ? '' : ' <span aria-label="Inactive">(inactive)</span>') + '</button>';
       }
       function scopeLabel(r) {
-        if (r.scope === 'site') return 'Site';
+        if (r.scope === 'site') return 'Entity';
         if (r.scope === 'businessUnit') return 'Business unit';
         return 'Global';
       }
@@ -24225,7 +24300,7 @@ Thank you.</div>
         for (var i = 0; i < list.length; i++) if (list[i].id === id) return list[i];
         return null;
       }
-      var headers = 'Scope,Business entity,Site Code,Business unit Code,Data module,Data module Code,Primary,Primary Email,Secondary,Approver,Team,Effective From,Effective To,Active,Notes\n';
+      var headers = 'Scope,Business entity,Entity Code,Business unit Code,Data module,Data module Code,Primary,Primary Email,Secondary,Approver,Team,Effective From,Effective To,Active,Notes\n';
       var rows = rules.map(function(r) {
         var s = byId(d.sites, r.siteId);
         var b = byId(d.businessUnits, r.businessUnitId);
@@ -24460,7 +24535,7 @@ Thank you.</div>
         var cat = byId(d.dataCategories, g.dataCategoryId);
         rows.push(['Contact issue', g.scope, site ? site.name : '', bu ? bu.name : '', cat ? cat.name : '', (g.messages || []).join('; ')]);
       });
-      var csv = 'Type,Scope,Site,Business unit,Data module,Detail\n' + rows.map(function(r) { return r.map(function(c) { return '"' + String(c).replace(/"/g, '""') + '"'; }).join(','); }).join('\n');
+      var csv = 'Type,Scope,Entity,Business unit,Data module,Detail\n' + rows.map(function(r) { return r.map(function(c) { return '"' + String(c).replace(/"/g, '""') + '"'; }).join(','); }).join('\n');
       var blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
       var a = document.createElement('a');
       a.href = URL.createObjectURL(blob);
@@ -25878,7 +25953,7 @@ Thank you.</div>
       { id: 2, product: 'Reporting and Compliance', timestamp: '2025-02-20 14:28:15', user: 'Jane Admin', email: 'jane.admin@company.com', action: 'created', where: 'Data Campaigns', objectType: 'Campaign', objectId: 'Q1 2025 Sustainability Data', valueAtTime: 'Period: Jan–Mar 2025, Modules: Energy, Fuel, Travel', valueAfter: 'Period: Jan–Mar 2025, Modules: Energy, Fuel, Travel', agentAssisted: true },
       { id: 3, product: 'Reporting and Compliance', timestamp: '2025-02-20 13:45:00', user: 'Marcus Webb', email: 'marcus.webb@company.com', action: 'viewed', where: 'Data Owner Directory', objectType: 'Ownership rule', objectId: 'London Office / Waste', valueAtTime: 'Primary: Marcus Webb, Secondary: Anna Lindqvist', valueAfter: 'Primary: Marcus Webb, Secondary: Anna Lindqvist' },
       { id: 4, product: 'Reporting and Compliance', timestamp: '2025-02-20 12:10:22', user: 'Sarah Chen', email: 'sarah.chen@company.com', action: 'updated', where: 'Unit of measurement conversions', objectType: 'UoM group', objectId: 'Energy', valueAtTime: 'Units: kWh, GJ, MWh (default: kWh)', valueBefore: 'Units: kWh, MWh (default: kWh)', valueAfter: 'Units: kWh, GJ, MWh (default: kWh)', agentAssisted: true },
-      { id: 5, product: 'Reporting and Compliance', timestamp: '2025-02-20 11:55:00', user: 'Jane Admin', email: 'jane.admin@company.com', action: 'deleted', where: 'Data Owner Directory', objectType: 'Ownership rule', objectId: 'Phoenix Site / Travel', valueAtTime: '(removed)', valueBefore: 'Primary: Alex Rivera, Secondary: (none)', agentAssisted: false },
+      { id: 5, product: 'Reporting and Compliance', timestamp: '2025-02-20 11:55:00', user: 'Jane Admin', email: 'jane.admin@company.com', action: 'deleted', where: 'Data Owner Directory', objectType: 'Ownership rule', objectId: 'Phoenix Entity / Travel', valueAtTime: '(removed)', valueBefore: 'Primary: Alex Rivera, Secondary: (none)', agentAssisted: false },
       { id: 6, product: 'Reporting and Compliance', timestamp: '2025-02-20 11:30:00', user: 'Jane Admin', email: 'jane.admin@company.com', action: 'updated', where: 'Data Owner Directory', objectType: 'Ownership rule', objectId: 'Chicago HQ / Energy', valueAtTime: 'Primary: James Park, Secondary: Sarah Chen; Team: Operations', valueBefore: 'Primary: James Park, Secondary: Sarah Chen', valueAfter: 'Primary: James Park, Secondary: Sarah Chen; Team: Operations' },
       { id: 7, product: 'Reporting and Compliance', timestamp: '2025-02-19 16:00:00', user: 'Anna Lindqvist', email: 'anna.lindqvist@company.com', action: 'viewed', where: 'Data Campaigns', objectType: 'Campaign', objectId: 'Q1 2025 Sustainability Data', valueAtTime: 'Status: Draft', valueAfter: 'Status: Draft' },
       { id: 8, product: 'Reporting and Compliance', timestamp: '2025-02-19 15:22:00', user: 'Jane Admin', email: 'jane.admin@company.com', action: 'created', where: 'Data Owner Directory', objectType: 'Ownership rule', objectId: 'Tokyo Office / Fuel', valueAtTime: 'Primary: Yuki Tanaka, Secondary: Priya Sharma', valueAfter: 'Primary: Yuki Tanaka, Secondary: Priya Sharma' },
@@ -26522,7 +26597,7 @@ Thank you.</div>
       if (empty) empty.style.display = hasSelection ? 'none' : 'block';
       if (content) content.style.display = hasSelection ? 'block' : 'none';
     }
-    function toggleCreateRoutineSiteRow(btn) {
+    function toggleCreateRoutineEntityRow(btn) {
       var tr = btn.closest('tr');
       if (!tr) return;
       var expanded = btn.getAttribute('aria-expanded') === 'true';
@@ -26534,7 +26609,7 @@ Thank you.</div>
       btn.classList.toggle('expanded', !expanded);
       btn.setAttribute('aria-expanded', !expanded);
     }
-    function toggleCreateRoutineSitesSelectAll() {
+    function toggleCreateRoutineEntitiesSelectAll() {
       var master = document.getElementById('create-routine-sites-select-all');
       var checkboxes = document.querySelectorAll('.create-routine-site-cb');
       if (!master) return;
@@ -26622,7 +26697,7 @@ Thank you.</div>
       if (empty) empty.style.display = hasSelection ? 'none' : 'block';
       if (content) content.style.display = hasSelection ? 'block' : 'none';
     }
-    function toggleCreateIntensitySitesSelectAll() {
+    function toggleCreateIntensityEntitiesSelectAll() {
       var master = document.getElementById('create-intensity-sites-select-all');
       var checkboxes = document.querySelectorAll('#create-intensity-routine-modal .create-intensity-site-cb');
       if (!master) return;
@@ -26733,8 +26808,37 @@ Thank you.</div>
       if (nextBtn) nextBtn.style.display = step === addIntensityModelWizardTotalSteps ? 'none' : 'inline-flex';
       if (createBtn) createBtn.style.display = step === addIntensityModelWizardTotalSteps ? 'inline-flex' : 'none';
       var previewEl = document.getElementById('add-intensity-dataset-preview-persistent');
-      if (previewEl) previewEl.style.display = (step >= 4 && step <= 6) ? 'block' : 'none';
-      if (step < 4 || step > 6) closeIntensityColumnsPanel();
+      if (previewEl) previewEl.style.display = (step >= 3 && step <= 6) ? 'block' : 'none';
+      if (step < 3 || step > 6) closeIntensityColumnsPanel();
+      if (step === 6) updateAggregationMatrixCounts();
+    }
+    function updateAggregationMatrixCounts() {
+      var rowVals = [];
+      var colVals = [];
+      for (var r = 0; r < 3; r++) {
+        var sel = document.getElementById('add-intensity-matrix-row-' + r);
+        rowVals[r] = sel && sel.value ? sel.value : '';
+      }
+      for (var c = 0; c < 3; c++) {
+        var sel = document.getElementById('add-intensity-matrix-col-' + c);
+        colVals[c] = sel && sel.value ? sel.value : '';
+      }
+      var anySelected = rowVals.some(function(v) { return v; }) && colVals.some(function(v) { return v; });
+      for (var ri = 0; ri < 3; ri++) {
+        for (var ci = 0; ci < 3; ci++) {
+          var el = document.getElementById('agg-cell-' + ri + '-' + ci);
+          if (!el) continue;
+          if (!anySelected || !rowVals[ri] || !colVals[ci]) {
+            el.textContent = '— entities';
+            el.classList.add('empty');
+            continue;
+          }
+          var seed = (rowVals[ri] + '-' + colVals[ci] + '-' + ri + '-' + ci).split('').reduce(function(a, b) { return ((a << 5) - a) + b.charCodeAt(0); }, 0);
+          var count = Math.abs(seed % 480) + 12;
+          el.textContent = count + ' entities';
+          el.classList.remove('empty');
+        }
+      }
     }
     function handleIntensityColumnDragstart(ev) {
       var row = ev.target.closest('.add-intensity-columns-row');
@@ -26940,6 +27044,10 @@ Thank you.</div>
       if (modalTitle) modalTitle.textContent = 'Edit intensity estimation routine';
       openCreateIntensityRoutineModal();
     }
+    function openEntityTypeEdit(entityTypeId) {
+      switchView('entity-type-settings');
+      // Placeholder: open edit entity type modal when implemented
+    }
     function openGapFillingReportDetail(reportId) {
       var backdrop = document.getElementById('gap-report-detail-backdrop');
       var modal = document.getElementById('gap-report-detail-modal');
@@ -27116,7 +27224,7 @@ Thank you.</div>
       document.removeEventListener('click', closeReportCellPopoverOnClick, true);
     }
     var intensityReportFactor = '0.28';
-    var intensityReportSource = 'Site data';
+    var intensityReportSource = 'Entity data';
     function openIntensityReportDetail(reportId) {
       var backdrop = document.getElementById('intensity-report-detail-backdrop');
       var modal = document.getElementById('intensity-report-detail-modal');
@@ -27128,12 +27236,12 @@ Thank you.</div>
         intensityReportFactor = '0.35';
         intensityReportSource = 'CBECS fallback';
         if (factorEl) factorEl.textContent = '0.35';
-        if (sourceEl) { sourceEl.textContent = 'CBECS fallback — insufficient site data to compute intensity (fewer than minimum months or no eligible sites).'; sourceEl.classList.add('cbecs'); }
+        if (sourceEl) { sourceEl.textContent = 'CBECS fallback — insufficient entity data to compute intensity (fewer than minimum months or no eligible entities).'; sourceEl.classList.add('cbecs'); }
       } else {
         intensityReportFactor = '0.28';
-        intensityReportSource = 'Site data';
+        intensityReportSource = 'Entity data';
         if (factorEl) factorEl.textContent = '0.28';
-        if (sourceEl) { sourceEl.textContent = 'Calculated from intensity of 12 sites with sufficient data (min 6 months). Weighted average of site-level intensities.'; sourceEl.classList.remove('cbecs'); }
+        if (sourceEl) { sourceEl.textContent = 'Calculated from intensity of 12 entities with sufficient data (min 6 months). Weighted average of entity-level intensities.'; sourceEl.classList.remove('cbecs'); }
       }
       var listTable = document.getElementById('intensity-report-detail-table');
       if (listTable) {
