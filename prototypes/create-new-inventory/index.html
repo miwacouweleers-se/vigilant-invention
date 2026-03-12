@@ -43,7 +43,8 @@
       
       /* Brand - Electric Cyan (Futuristic) */
       --ghg-primary: #06B6D4;
-      --ghg-primary-dark: #0891B2;
+      --ghg-primary-dark: #008029;
+      --ghg-link: #0891B2;
       --ghg-primary-light: #CFFAFE;
       --ghg-primary-glow: rgba(6, 182, 212, 0.15);
       
@@ -56,7 +57,7 @@
       --ghg-scope-3-light: #D1FAE5;
       
       /* Semantic */
-      --ghg-success: #22C55E;
+      --ghg-success: #005C1E;
       --ghg-success-light: #DCFCE7;
       --ghg-warning: #F97316;
       --ghg-warning-light: #FFEDD5;
@@ -116,7 +117,7 @@
     }
     
     .page-breadcrumb a:hover {
-      color: var(--ghg-primary-dark);
+      color: var(--ghg-link);
     }
     
     .page-title {
@@ -159,15 +160,15 @@
     }
     
     .btn-primary {
-      background: var(--ghg-primary);
+      background: var(--ghg-primary-dark);
       color: white;
-      box-shadow: 0 2px 8px var(--ghg-primary-glow);
+      box-shadow: 0 2px 8px rgba(0, 128, 41, 0.2);
     }
     
     .btn-primary:hover {
-      background: var(--ghg-primary-dark);
+      background: var(--ghg-success);
       transform: translateY(-1px);
-      box-shadow: 0 4px 12px var(--ghg-primary-glow);
+      box-shadow: 0 4px 12px rgba(0, 92, 30, 0.25);
     }
     
     .btn-secondary {
@@ -2094,7 +2095,7 @@
     .create-routine-method-drag { color: var(--ghg-text-muted); cursor: grab; padding: 0 4px; flex-shrink: 0; user-select: none; }
     .create-routine-method-drag:active { cursor: grabbing; }
     .create-routine-method-text { flex: 1; min-width: 0; font-size: 14px; color: var(--ghg-text); }
-    .create-routine-method-text a { color: var(--ghg-primary); }
+    .create-routine-method-text a { color: var(--ghg-link); }
     .create-routine-method-text a:hover { text-decoration: underline; }
     .create-routine-method-badge { font-size: 12px; padding: 2px 8px; border-radius: 10px; flex-shrink: 0; }
     .create-routine-method-badge.included { background: var(--ghg-success-light); color: #166534; }
@@ -2287,7 +2288,7 @@
     .add-intensity-uom-row { display: flex; flex-direction: column; gap: 6px; }
     .add-intensity-uom-row-label { font-size: 14px; font-weight: 500; color: var(--ghg-text); }
     .add-intensity-uom-row select.add-intensity-uom-select { width: 100%; max-width: 320px; padding: 8px 32px 8px 12px; font-size: 14px; border: 1px solid var(--ghg-border); border-radius: 6px; background: var(--ghg-surface); color: var(--ghg-text); }
-    .add-intensity-uom-row select.add-intensity-uom-select:focus { outline: none; border-color: var(--ghg-success); box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.2); }
+    .add-intensity-uom-row select.add-intensity-uom-select:focus { outline: none; border-color: var(--ghg-success); box-shadow: 0 0 0 2px rgba(0, 92, 30, 0.2); }
     /* Activity types dropdown (multi-select with tags) */
     .add-intensity-data-types-dropdown { position: relative; }
     .add-intensity-data-types-trigger { position: relative; width: 100%; text-align: left; display: flex; align-items: center; flex-wrap: wrap; gap: 6px; padding: 8px 36px 8px 14px; min-height: 42px; cursor: pointer; }
@@ -2579,7 +2580,7 @@
       text-align: right;
     }
     .material-drawer-detail-row .detail-value a {
-      color: var(--ghg-primary-dark);
+      color: var(--ghg-link);
       text-decoration: none;
     }
     .material-drawer-detail-row .detail-value a:hover {
@@ -2598,14 +2599,14 @@
       font-size: 14px;
     }
     .material-drawer-doc-list li a {
-      color: var(--ghg-primary-dark);
+      color: var(--ghg-link);
       text-decoration: none;
     }
     .material-drawer-doc-list li a:hover {
       text-decoration: underline;
     }
     .material-drawer-doc-list .show-more {
-      color: var(--ghg-primary-dark);
+      color: var(--ghg-link);
       cursor: pointer;
       font-size: 13px;
       margin-top: 4px;
@@ -3613,10 +3614,10 @@
     }
     
     .wizard-step.active .step-circle {
-      background: var(--ghg-primary);
-      border-color: var(--ghg-primary);
+      background: var(--ghg-primary-dark);
+      border-color: var(--ghg-primary-dark);
       color: white;
-      box-shadow: 0 0 0 4px var(--ghg-primary-light);
+      box-shadow: 0 0 0 4px var(--ghg-success-light);
     }
     
     .wizard-step.completed .step-circle {
@@ -11025,9 +11026,9 @@
     .activity-log-details-col { }
     .activity-log-audit-col { width: 100px; min-width: 100px; }
     .activity-log-value-cell { max-width: 100%; white-space: normal; word-wrap: break-word; overflow-wrap: break-word; word-break: break-word; color: var(--ghg-text-secondary); }
-    .activity-log-value-cell .activity-log-view-full { margin-left: 6px; color: var(--ghg-primary-dark); cursor: pointer; white-space: nowrap; }
+    .activity-log-value-cell .activity-log-view-full { margin-left: 6px; color: var(--ghg-link); cursor: pointer; white-space: nowrap; }
     .activity-log-value-cell .activity-log-view-full:hover { text-decoration: underline; }
-    .activity-log-audit-btn { color: var(--ghg-primary-dark) !important; }
+    .activity-log-audit-btn { color: var(--ghg-link) !important; }
     .activity-log-audit-btn:hover { color: var(--ghg-primary) !important; text-decoration: underline; }
     /* Original activity log: one-line rows, row click opens drawer */
     #view-user-activity-log .activity-log-table tbody tr { cursor: pointer; }
@@ -11041,7 +11042,7 @@
     .activity-log-affected-preview-trigger .activity-log-affected-record-link,
     .activity-log-affected-preview-trigger .activity-log-affected-item-link { cursor: pointer; }
     .activity-log-affected-record-link,
-    .activity-log-affected-item-link { color: var(--ghg-primary-dark); text-decoration: none; font-weight: 500; }
+    .activity-log-affected-item-link { color: var(--ghg-link); text-decoration: none; font-weight: 500; }
     .activity-log-affected-record-link:hover,
     .activity-log-affected-item-link:hover { text-decoration: underline; color: var(--ghg-primary); }
     .activity-record-preview-popover { position: fixed; z-index: 2100; max-width: min(320px, calc(100vw - 24px)); max-height: calc(100vh - 24px); overflow-y: auto; padding: 12px 14px; background: var(--ghg-surface-elevated); border: 1px solid var(--ghg-border); border-radius: 10px; box-shadow: 0 8px 24px rgba(0,0,0,0.12); font-size: 13px; line-height: 1.45; pointer-events: auto; }
@@ -11094,7 +11095,7 @@
     .activity-log-table-v3 .activity-log-details-cell { min-width: 180px; width: 25%; white-space: normal; overflow-wrap: break-word; word-break: break-word; }
     .activity-log-table-v3 .activity-log-agent-col { min-width: 90px; width: 1%; white-space: nowrap; }
     .activity-log-table-v3 .activity-log-details-cell { color: var(--ghg-text-secondary); }
-    .activity-log-table-v3 .activity-log-details-cell .activity-log-view-details { margin-left: 6px; color: var(--ghg-primary-dark); cursor: pointer; white-space: nowrap; font-size: 12px; }
+    .activity-log-table-v3 .activity-log-details-cell .activity-log-view-details { margin-left: 6px; color: var(--ghg-link); cursor: pointer; white-space: nowrap; font-size: 12px; }
     .activity-log-table-v3 .activity-log-details-cell .activity-log-view-details:hover { text-decoration: underline; }
     /* Activity log V3 filters drawer */
     .activity-log-filters-backdrop-v3 { position: fixed; inset: 0; z-index: 2099; background: rgba(0,0,0,0.25); opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 0.2s ease, visibility 0.2s ease; }
@@ -11422,8 +11423,8 @@
       
       <main class="content-area">
         <!-- PROTOTYPE BANNER -->
-        <div class="prototype-banner">
-          🎨 PROTOTYPE - Create New Inventory - Built with Cursor
+        <div class="prototype-banner" id="prototype-banner">
+          🎨 PROTOTYPE - <span id="prototype-banner-page-name">Create New Inventory</span> - Built with Cursor
         </div>
         
         <!-- ============================================== -->
@@ -13923,37 +13924,37 @@
                     <table class="add-intensity-dataset-preview-table" aria-label="Dataset preview">
                       <thead>
                         <tr>
-                          <th><span class="bi-col-icon" aria-hidden="true">A</span>PARTICIPANT_LEVEL<span class="bi-col-sort" aria-hidden="true">▾</span></th>
-                          <th><span class="bi-col-icon" aria-hidden="true">#</span>CLIENT_HIER_ID<span class="bi-col-sort" aria-hidden="true">▾</span></th>
-                          <th><span class="bi-col-icon" aria-hidden="true">A</span>SITEGROUP_NAME<span class="bi-col-sort" aria-hidden="true">▾</span></th>
-                          <th><span class="bi-col-icon" aria-hidden="true">A</span>DIVISION<span class="bi-col-sort" aria-hidden="true">▾</span></th>
-                          <th><span class="bi-col-icon" aria-hidden="true">A</span>PARTICIPANT_NAME<span class="bi-col-sort" aria-hidden="true">▾</span></th>
-                          <th><span class="bi-col-icon" aria-hidden="true">A</span>SITE_STATUS<span class="bi-col-sort" aria-hidden="true">▾</span></th>
-                          <th><span class="bi-col-icon" aria-hidden="true">#</span>SITE_REFERENCE_NUMBER<span class="bi-col-sort" aria-hidden="true">▾</span></th>
-                          <th><span class="bi-col-icon" aria-hidden="true">A</span>ADDRESS<span class="bi-col-sort" aria-hidden="true">▾</span></th>
-                          <th><span class="bi-col-icon" aria-hidden="true">A</span>CITY<span class="bi-col-sort" aria-hidden="true">▾</span></th>
-                          <th><span class="bi-col-icon" aria-hidden="true">A</span>STATE<span class="bi-col-sort" aria-hidden="true">▾</span></th>
-                          <th><span class="bi-col-icon" aria-hidden="true">A</span>COUNTRY<span class="bi-col-sort" aria-hidden="true">▾</span></th>
-                          <th><span class="bi-col-icon" aria-hidden="true">A</span>ZIPCODE<span class="bi-col-sort" aria-hidden="true">▾</span></th>
-                          <th><span class="bi-col-icon" aria-hidden="true">#</span>COMMODITY_ID<span class="bi-col-sort" aria-hidden="true">▾</span></th>
-                          <th><span class="bi-col-icon" aria-hidden="true">A</span>DATA_STREAM<span class="bi-col-sort" aria-hidden="true">▾</span></th>
-                          <th><span class="bi-col-icon" aria-hidden="true">#</span>MONTH<span class="bi-col-sort" aria-hidden="true">▾</span></th>
-                          <th><span class="bi-col-icon" aria-hidden="true">A</span>QUARTER<span class="bi-col-sort" aria-hidden="true">▾</span></th>
-                          <th><span class="bi-col-icon" aria-hidden="true">#</span>YEAR<span class="bi-col-sort" aria-hidden="true">▾</span></th>
-                          <th><span class="bi-col-icon" aria-hidden="true">#</span>SERVICE_MONTH<span class="bi-col-sort" aria-hidden="true">▾</span></th>
-                          <th><span class="bi-col-icon" aria-hidden="true">#</span>TOTAL_COST<span class="bi-col-sort" aria-hidden="true">▾</span></th>
-                          <th><span class="bi-col-icon" aria-hidden="true">#</span>ACTUAL_COST<span class="bi-col-sort" aria-hidden="true">▾</span></th>
-                          <th><span class="bi-col-icon" aria-hidden="true">#</span>ESTIMATED_COST<span class="bi-col-sort" aria-hidden="true">▾</span></th>
-                          <th><span class="bi-col-icon" aria-hidden="true">#</span>UNIT_COST<span class="bi-col-sort" aria-hidden="true">▾</span></th>
-                          <th><span class="bi-col-icon" aria-hidden="true">A</span>COST_UOM<span class="bi-col-sort" aria-hidden="true">▾</span></th>
-                          <th><span class="bi-col-icon" aria-hidden="true">#</span>TOTAL_USAGE<span class="bi-col-sort" aria-hidden="true">▾</span></th>
-                          <th><span class="bi-col-icon" aria-hidden="true">#</span>ACTUAL_USAGE<span class="bi-col-sort" aria-hidden="true">▾</span></th>
-                          <th><span class="bi-col-icon" aria-hidden="true">#</span>ESTIMATED_USAGE<span class="bi-col-sort" aria-hidden="true">▾</span></th>
-                          <th><span class="bi-col-icon" aria-hidden="true">#</span>BILLED_VOLUME<span class="bi-col-sort" aria-hidden="true">▾</span></th>
-                          <th><span class="bi-col-icon" aria-hidden="true">A</span>USAGE_UOM<span class="bi-col-sort" aria-hidden="true">▾</span></th>
-                          <th><span class="bi-col-icon" aria-hidden="true">#</span>USAGE_UOM_ID<span class="bi-col-sort" aria-hidden="true">▾</span></th>
-                          <th><span class="bi-col-icon" aria-hidden="true">#</span>DEMAND<span class="bi-col-sort" aria-hidden="true">▾</span></th>
-                          <th><span class="bi-col-icon" aria-hidden="true">A</span>DEMAND_UOM<span class="bi-col-sort" aria-hidden="true">▾</span></th>
+                          <th>Participant level</th>
+                          <th>Client hier id</th>
+                          <th>Sitegroup name</th>
+                          <th>Division</th>
+                          <th>Participant name</th>
+                          <th>Site status</th>
+                          <th>Site reference number</th>
+                          <th>Address</th>
+                          <th>City</th>
+                          <th>State</th>
+                          <th>Country</th>
+                          <th>Zipcode</th>
+                          <th>Commodity id</th>
+                          <th>Data stream</th>
+                          <th>Month</th>
+                          <th>Quarter</th>
+                          <th>Year</th>
+                          <th>Service month</th>
+                          <th>Total cost</th>
+                          <th>Actual cost</th>
+                          <th>Estimated cost</th>
+                          <th>Unit cost</th>
+                          <th>Cost uom</th>
+                          <th>Total usage</th>
+                          <th>Actual usage</th>
+                          <th>Estimated usage</th>
+                          <th>Billed volume</th>
+                          <th>Usage uom</th>
+                          <th>Usage uom id</th>
+                          <th>Demand</th>
+                          <th>Demand uom</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -22307,6 +22308,12 @@ Thank you.</div>
         targetView.scrollIntoView({ behavior: 'instant', block: 'start' });
       });
 
+      var pageTitleEl = targetView.querySelector('.page-title');
+      var bannerPageName = document.getElementById('prototype-banner-page-name');
+      if (bannerPageName) {
+        bannerPageName.textContent = pageTitleEl ? pageTitleEl.textContent.trim() : 'Create New Inventory';
+      }
+
       // When entering view-only: use V2 view with read-only mode (no DOM move)
       if (viewOnlyMode && v2View && panel) {
         v2View.classList.add('uom-view-only-mode');
@@ -24673,6 +24680,15 @@ Thank you.</div>
     }
     handleHashNavigation();
     window.addEventListener('hashchange', handleHashNavigation);
+
+    (function updatePrototypeBannerFromActiveView() {
+      var activeView = document.querySelector('.view.active');
+      var bannerPageName = document.getElementById('prototype-banner-page-name');
+      if (activeView && bannerPageName) {
+        var titleEl = activeView.querySelector('.page-title');
+        bannerPageName.textContent = titleEl ? titleEl.textContent.trim() : 'Create New Inventory';
+      }
+    })();
 
     (function moveCampaignViewsUp() {
       var overview = document.getElementById('view-campaigns-overview');
