@@ -1,0 +1,1734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Estimations & Estimation settings</title>
+  <link rel="stylesheet" href="export.css">
+  <script src="https://kit.fontawesome.com/e1f0748a31.js" crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-shell">
+    <aside class="icon-sidebar">
+      <div class="sidebar-top">
+        <button class="sidebar-item menu-toggle" title="Menu">
+          <i class="fa-light fa-arrow-right-to-line"></i>
+          <span class="sidebar-label">Menu</span>
+        </button>
+        <button class="sidebar-item active" data-section="monitor" title="Monitor">
+          <i class="fa-light fa-chart-line-up"></i>
+          <span class="sidebar-label">Monitor</span>
+        </button>
+        <button class="sidebar-item" data-section="settings" title="Settings">
+          <i class="fa-light fa-sliders"></i>
+          <span class="sidebar-label">Settings</span>
+        </button>
+      </div>
+      <div class="sidebar-bottom">
+        <div class="sidebar-logo">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="14" stroke="#06B6D4" stroke-width="2" fill="none"/>
+          <path d="M10 16 L14 20 L22 12" stroke="#06B6D4" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+        </div>
+      </div>
+    </aside>
+    <aside class="submenu-panel" id="submenuPanel">
+      <div class="submenu-content" data-section="monitor">
+        <h2 class="submenu-title">GHG Monitoring</h2>
+        <nav class="submenu-nav">
+          <a href="#" class="submenu-item active" data-view="estimations" onclick="event.preventDefault(); goEstimations();">Estimations</a>
+        </nav>
+      </div>
+      <div class="submenu-content hidden" data-section="settings">
+        <h2 class="submenu-title">Settings</h2>
+        <nav class="submenu-nav">
+          <a href="#" class="submenu-item" data-view="estimation-settings" onclick="event.preventDefault(); goEstimationSettings();">Estimation settings</a>
+        </nav>
+      </div>
+    </aside>
+    <div class="main-wrapper">
+      <header class="app-header">
+        <div class="header-left">
+          <i class="fa-light fa-leaf header-app-icon"></i>
+          <span class="header-app-name">Estimations prototype</span>
+        </div>
+        <div class="header-right">
+          <button class="header-icon-btn" title="Help"><i class="fa-light fa-circle-question"></i></button>
+          <button class="header-avatar" title="User"><img src="https://ui-avatars.com/api/?name=User&background=06B6D4&color=fff&size=32" alt=""></button>
+        </div>
+      </header>
+      <main class="content-area">
+        <div class="prototype-banner">Estimations · Estimation settings — export</div>
+
+        <div id="view-estimations" class="view">
+          <div class="page-header">
+            <div class="page-header-left">
+              <div class="page-breadcrumb">
+                <a href="#">Monitor</a>
+                <i class="fa-light fa-chevron-right"></i>
+                <span>Estimations</span>
+              </div>
+              <h1 class="page-title">Estimations</h1>
+              <p class="page-subtitle">Review estimated or missing data by business entity and period</p>
+            </div>
+          </div>
+          <div class="content-container">
+            <div class="estimations-data-type-row">
+              <div class="estimations-data-type-dropdown">
+                <button type="button" class="estimations-data-type-btn" id="estimations-data-type-btn" onclick="toggleEstimationsDataTypeMenu(event)" aria-haspopup="listbox" aria-expanded="false" aria-label="Select data type">
+                  <span class="estimations-data-type-label" id="estimations-data-type-label">Electric power</span>
+                  <i class="fa-light fa-chevron-down estimations-data-type-chevron" aria-hidden="true"></i>
+                </button>
+                <p class="estimations-data-type-summary" id="estimations-data-type-summary">12 gaps across 6 business entities</p>
+                <div class="dropdown-menu estimations-data-type-menu" id="estimations-data-type-menu" role="listbox" aria-hidden="true">
+                  <button type="button" class="dropdown-item" role="option" data-type="Electric power" data-gaps="12" data-entities="6" onclick="selectEstimationsDataType('Electric power')"><span>Electric power</span><span class="estimations-data-type-item-meta">12 gaps · 6 business entities</span></button>
+                  <button type="button" class="dropdown-item" role="option" data-type="Natural gas" data-gaps="8" data-entities="4" onclick="selectEstimationsDataType('Natural gas')"><span>Natural gas</span><span class="estimations-data-type-item-meta">8 gaps · 4 business entities</span></button>
+                  <button type="button" class="dropdown-item" role="option" data-type="District heating / cooling" data-gaps="3" data-entities="2" onclick="selectEstimationsDataType('District heating / cooling')"><span>District heating / cooling</span><span class="estimations-data-type-item-meta">3 gaps · 2 business entities</span></button>
+                  <button type="button" class="dropdown-item" role="option" data-type="Fuel oil" data-gaps="5" data-entities="3" onclick="selectEstimationsDataType('Fuel oil')"><span>Fuel oil</span><span class="estimations-data-type-item-meta">5 gaps · 3 business entities</span></button>
+                  <button type="button" class="dropdown-item" role="option" data-type="Fleet / Diesel" data-gaps="0" data-entities="0" onclick="selectEstimationsDataType('Fleet / Diesel')"><span>Fleet / Diesel</span><span class="estimations-data-type-item-meta">0 gaps · 0 business entities</span></button>
+                  <button type="button" class="dropdown-item" role="option" data-type="Fleet / Gasoline" data-gaps="2" data-entities="1" onclick="selectEstimationsDataType('Fleet / Gasoline')"><span>Fleet / Gasoline</span><span class="estimations-data-type-item-meta">2 gaps · 1 business entity</span></button>
+                  <button type="button" class="dropdown-item" role="option" data-type="Refrigerants" data-gaps="0" data-entities="0" onclick="selectEstimationsDataType('Refrigerants')"><span>Refrigerants</span><span class="estimations-data-type-item-meta">0 gaps · 0 business entities</span></button>
+                  <button type="button" class="dropdown-item" role="option" data-type="Business travel" data-gaps="18" data-entities="7" onclick="selectEstimationsDataType('Business travel')"><span>Business travel</span><span class="estimations-data-type-item-meta">18 gaps · 7 business entities</span></button>
+                  <button type="button" class="dropdown-item" role="option" data-type="Employee commuting" data-gaps="4" data-entities="3" onclick="selectEstimationsDataType('Employee commuting')"><span>Employee commuting</span><span class="estimations-data-type-item-meta">4 gaps · 3 business entities</span></button>
+                  <button type="button" class="dropdown-item" role="option" data-type="Waste" data-gaps="1" data-entities="1" onclick="selectEstimationsDataType('Waste')"><span>Waste</span><span class="estimations-data-type-item-meta">1 gap · 1 business entity</span></button>
+                  <button type="button" class="dropdown-item" role="option" data-type="Purchased goods and services" data-gaps="0" data-entities="0" onclick="selectEstimationsDataType('Purchased goods and services')"><span>Purchased goods and services</span><span class="estimations-data-type-item-meta">0 gaps · 0 business entities</span></button>
+                  <button type="button" class="dropdown-item" role="option" data-type="Capital goods" data-gaps="0" data-entities="0" onclick="selectEstimationsDataType('Capital goods')"><span>Capital goods</span><span class="estimations-data-type-item-meta">0 gaps · 0 business entities</span></button>
+                  <button type="button" class="dropdown-item" role="option" data-type="Upstream transportation" data-gaps="6" data-entities="3" onclick="selectEstimationsDataType('Upstream transportation')"><span>Upstream transportation</span><span class="estimations-data-type-item-meta">6 gaps · 3 business entities</span></button>
+                  <button type="button" class="dropdown-item" role="option" data-type="Downstream transportation" data-gaps="0" data-entities="0" onclick="selectEstimationsDataType('Downstream transportation')"><span>Downstream transportation</span><span class="estimations-data-type-item-meta">0 gaps · 0 business entities</span></button>
+                </div>
+              </div>
+              <div class="estimations-actions-row">
+                <div class="estimations-dropdown-btn-wrap">
+                  <button type="button" class="btn btn-secondary estimations-action-dropdown-btn" id="estimations-gap-filling-btn" onclick="toggleEstimationsGapFillingMenu(event)" aria-haspopup="true" aria-expanded="false">
+                    Run gap filling
+                    <i class="fa-light fa-chevron-down" style="margin-left: 6px; font-size: 10px;"></i>
+                  </button>
+                  <div class="dropdown-menu estimations-action-menu" id="estimations-gap-filling-menu" aria-hidden="true">
+                    <button type="button" class="dropdown-item" onclick="openRunElectricityEstimationModal(); closeEstimationsGapFillingMenu();">Run Electricity Routine</button>
+                    <button type="button" class="dropdown-item dropdown-item-create" onclick="openCreateEstimationsPreset('gap-filling'); closeEstimationsGapFillingMenu();"><i class="fa-light fa-plus"></i> Create New</button>
+                  </div>
+                </div>
+                <div class="estimations-dropdown-btn-wrap">
+                  <button type="button" class="btn btn-secondary estimations-action-dropdown-btn" id="estimations-intensity-btn" onclick="toggleEstimationsIntensityMenu(event)" aria-haspopup="true" aria-expanded="false">
+                    Run intensity estimations
+                    <i class="fa-light fa-chevron-down" style="margin-left: 6px; font-size: 10px;"></i>
+                  </button>
+                  <div class="dropdown-menu estimations-action-menu" id="estimations-intensity-menu" aria-hidden="true">
+                    <button type="button" class="dropdown-item" onclick="openRunElectricityEstimationModal(); closeEstimationsIntensityMenu();">Run electricity routine</button>
+                    <button type="button" class="dropdown-item dropdown-item-create" onclick="openCreateIntensityRoutineModal(); closeEstimationsIntensityMenu();"><i class="fa-light fa-plus"></i> Create New</button>
+                  </div>
+                </div>
+                <div class="estimations-routines-menu-wrap">
+                  <button type="button" class="btn btn-secondary btn-icon estimations-routines-menu-btn" id="estimations-routines-menu-btn" onclick="toggleEstimationsRoutinesMenu(event)" aria-haspopup="true" aria-expanded="false" aria-label="Routines options">
+                    <i class="fa-light fa-ellipsis" aria-hidden="true"></i>
+                  </button>
+                  <div class="dropdown-menu estimations-action-menu" id="estimations-routines-menu" aria-hidden="true">
+                    <button type="button" class="dropdown-item" onclick="estimationsRoutinesAction('edit-gap-filling'); closeEstimationsRoutinesMenu();">Edit gap filling routines</button>
+                    <button type="button" class="dropdown-item" onclick="estimationsRoutinesAction('edit-intensity'); closeEstimationsRoutinesMenu();">Edit intensity estimation routines</button>
+                    <button type="button" class="dropdown-item" onclick="estimationsRoutinesAction('add-entity-details-intensity'); closeEstimationsRoutinesMenu();">Add entity details for intensity</button>
+                    <button type="button" class="dropdown-item" onclick="estimationsRoutinesAction('past-reports'); closeEstimationsRoutinesMenu();">See past routines reports</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="search-bar">
+              <div class="search-input-wrapper estimations-search">
+                <i class="fa-light fa-search"></i>
+                <input type="text" class="form-input" id="estimations-search" placeholder="Search for Business entity" aria-label="Search for Business entity">
+              </div>
+              <button type="button" class="btn btn-secondary" id="estimations-filter-btn" aria-haspopup="true" aria-expanded="false">
+                <i class="fa-light fa-filter"></i>
+                Filter
+                <i class="fa-light fa-chevron-down" style="margin-left: 6px; font-size: 10px;"></i>
+              </button>
+            </div>
+            <div class="card">
+              <div class="card-body" style="padding: 0; overflow-x: auto;">
+                <div class="estimations-table-wrapper">
+                <table class="data-table estimations-table" id="estimations-table" onclick="handleEstimationsCellClick(event)">
+                  <thead>
+                    <tr>
+                      <th class="sortable" data-sort="entity">Business entity<span class="sort-icon"></span></th>
+                      <th class="sortable" data-sort="uom">Unit of measure<span class="sort-icon"></span></th>
+                      <th class="numeric">Jul 24</th>
+                      <th class="numeric">Aug 24</th>
+                      <th class="numeric">Sep 24</th>
+                      <th class="numeric">Oct 24</th>
+                      <th class="numeric">Nov 24</th>
+                      <th class="numeric">Dec 24</th>
+                      <th class="numeric">Jan 24</th>
+                      <th class="numeric">Feb 24</th>
+                      <th class="numeric">Mar 24</th>
+                      <th class="numeric">Apr 24</th>
+                      <th class="numeric">May 24</th>
+                      <th class="numeric">Jun 24</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Alaska Regional Hospital</td>
+                      <td>kWh</td>
+                      <td class="numeric">412.8</td>
+                      <td class="numeric">387.2</td>
+                      <td class="numeric">456.1</td>
+                      <td class="numeric">398.5</td>
+                      <td class="numeric">521.3</td>
+                      <td class="numeric">489.0</td>
+                      <td class="numeric">512.4</td>
+                      <td class="numeric">498.6</td>
+                      <td class="numeric">534.7</td>
+                      <td class="numeric">502.4</td>
+                      <td class="numeric">490.2</td>
+                      <td class="numeric">478.9</td>
+                    </tr>
+                    <tr>
+                      <td>West Hills Hospital &amp; Medical Center</td>
+                      <td>kWh</td>
+                      <td class="numeric">298.3</td>
+                      <td class="numeric">312.6</td>
+                      <td class="numeric">276.4</td>
+                      <td class="numeric estimations-cell-warning" data-gap-days="2" title="Estimated — gap of 2 days in this period"><span class="estimations-warning-icon" aria-hidden="true"><i class="fa-solid fa-triangle-exclamation"></i></span> 334.8</td>
+                      <td class="numeric">289.1</td>
+                      <td class="numeric">305.2</td>
+                      <td class="numeric">301.5</td>
+                      <td class="numeric">267.9</td>
+                      <td class="numeric">318.2</td>
+                      <td class="numeric">295.8</td>
+                      <td class="numeric estimations-cell-warning" data-gap-days="4" title="No data — entire month has no data"><span class="estimations-warning-icon" aria-hidden="true"><i class="fa-solid fa-triangle-exclamation"></i></span> No data</td>
+                      <td class="numeric estimations-cell-warning" data-gap-days="4" title="No data — entire month has no data"><span class="estimations-warning-icon" aria-hidden="true"><i class="fa-solid fa-triangle-exclamation"></i></span> No data</td>
+                    </tr>
+                    <tr>
+                      <td>North Suburban Medical Center</td>
+                      <td>kWh</td>
+                      <td class="numeric">156.7</td>
+                      <td class="numeric">178.4</td>
+                      <td class="numeric estimations-cell-warning" data-gap-days="2" title="Estimated — gap of 2 days in this period"><span class="estimations-warning-icon" aria-hidden="true"><i class="fa-solid fa-triangle-exclamation"></i></span> 192.3</td>
+                      <td class="numeric">165.2</td>
+                      <td class="numeric">188.6</td>
+                      <td class="numeric">203.8</td>
+                      <td class="numeric">187.5</td>
+                      <td class="numeric">214.6</td>
+                      <td class="numeric">198.2</td>
+                      <td class="numeric">176.9</td>
+                      <td class="numeric">193.5</td>
+                      <td class="numeric">209.1</td>
+                    </tr>
+                    <tr>
+                      <td>Presbyterian / St. Luke's Medical Center</td>
+                      <td>kWh</td>
+                      <td class="numeric estimations-cell-warning" data-gap-days="3" title="Estimated — gap of 3 days in this period"><span class="estimations-warning-icon" aria-hidden="true"><i class="fa-solid fa-triangle-exclamation"></i></span> 623.5</td>
+                      <td class="numeric estimations-cell-warning" data-gap-days="4" title="Estimated — gap of 4 days in this period"><span class="estimations-warning-icon" aria-hidden="true"><i class="fa-solid fa-triangle-exclamation"></i></span> 598.2</td>
+                      <td class="numeric">641.8</td>
+                      <td class="numeric">612.4</td>
+                      <td class="numeric">657.3</td>
+                      <td class="numeric">589.6</td>
+                      <td class="numeric">638.2</td>
+                      <td class="numeric">674.1</td>
+                      <td class="numeric">608.9</td>
+                      <td class="numeric">631.2</td>
+                      <td class="numeric">624.8</td>
+                      <td class="numeric estimations-cell-warning" data-gap-days="4" title="No data — entire month has no data"><span class="estimations-warning-icon" aria-hidden="true"><i class="fa-solid fa-triangle-exclamation"></i></span> No data</td>
+                    </tr>
+                    <tr>
+                      <td>Rose Medical Center</td>
+                      <td>kWh</td>
+                      <td class="numeric">445.2</td>
+                      <td class="numeric">428.6</td>
+                      <td class="numeric">471.5</td>
+                      <td class="numeric">462.3</td>
+                      <td class="numeric">491.8</td>
+                      <td class="numeric">438.5</td>
+                      <td class="numeric">507.2</td>
+                      <td class="numeric">473.9</td>
+                      <td class="numeric">456.1</td>
+                      <td class="numeric">472.8</td>
+                      <td class="numeric estimations-cell-warning" data-gap-days="4" title="No data — entire month has no data"><span class="estimations-warning-icon" aria-hidden="true"><i class="fa-solid fa-triangle-exclamation"></i></span> No data</td>
+                      <td class="numeric estimations-cell-warning" data-gap-days="4" title="No data — entire month has no data"><span class="estimations-warning-icon" aria-hidden="true"><i class="fa-solid fa-triangle-exclamation"></i></span> No data</td>
+                    </tr>
+                    <tr>
+                      <td>Sky Ridge Medical Center</td>
+                      <td>kWh</td>
+                      <td class="numeric">234.6</td>
+                      <td class="numeric">258.3</td>
+                      <td class="numeric">241.7</td>
+                      <td class="numeric">251.3</td>
+                      <td class="numeric">264.8</td>
+                      <td class="numeric">259.2</td>
+                      <td class="numeric">272.4</td>
+                      <td class="numeric">265.8</td>
+                      <td class="numeric">248.9</td>
+                      <td class="numeric">256.5</td>
+                      <td class="numeric">262.8</td>
+                      <td class="numeric">269.1</td>
+                    </tr>
+                    <tr>
+                      <td>Swedish Medical Center</td>
+                      <td>kWh</td>
+                      <td class="numeric">892.4</td>
+                      <td class="numeric">915.7</td>
+                      <td class="numeric">868.3</td>
+                      <td class="numeric">934.2</td>
+                      <td class="numeric">887.6</td>
+                      <td class="numeric">951.3</td>
+                      <td class="numeric">903.8</td>
+                      <td class="numeric">926.1</td>
+                      <td class="numeric">879.5</td>
+                      <td class="numeric">896.2</td>
+                      <td class="numeric">907.3</td>
+                      <td class="numeric estimations-cell-warning" data-gap-days="4" title="No data — entire month has no data"><span class="estimations-warning-icon" aria-hidden="true"><i class="fa-solid fa-triangle-exclamation"></i></span> No data</td>
+                    </tr>
+                    <tr>
+                      <td>Platte Valley Medical Center</td>
+                      <td>kWh</td>
+                      <td class="numeric">72.5</td>
+                      <td class="numeric">68.9</td>
+                      <td class="numeric">75.2</td>
+                      <td class="numeric">71.4</td>
+                      <td class="numeric">78.6</td>
+                      <td class="numeric">69.3</td>
+                      <td class="numeric">76.8</td>
+                      <td class="numeric">74.1</td>
+                      <td class="numeric">70.7</td>
+                      <td class="numeric">77.2</td>
+                      <td class="numeric">76.4</td>
+                      <td class="numeric estimations-cell-warning" data-gap-days="4" title="No data — entire month has no data"><span class="estimations-warning-icon" aria-hidden="true"><i class="fa-solid fa-triangle-exclamation"></i></span> No data</td>
+                    </tr>
+                    <tr>
+                      <td>Littleton Adventist Hospital</td>
+                      <td>kWh</td>
+                      <td class="numeric">345.8</td>
+                      <td class="numeric">362.1</td>
+                      <td class="numeric">328.4</td>
+                      <td class="numeric">351.7</td>
+                      <td class="numeric">378.9</td>
+                      <td class="numeric">339.2</td>
+                      <td class="numeric">365.6</td>
+                      <td class="numeric">342.3</td>
+                      <td class="numeric">389.4</td>
+                      <td class="numeric">371.2</td>
+                      <td class="numeric">364.8</td>
+                      <td class="numeric">358.5</td>
+                    </tr>
+                    <tr>
+                      <td>Parker Adventist Hospital</td>
+                      <td>kWh</td>
+                      <td class="numeric">198.3</td>
+                      <td class="numeric">212.6</td>
+                      <td class="numeric">185.4</td>
+                      <td class="numeric">224.7</td>
+                      <td class="numeric">201.9</td>
+                      <td class="numeric">218.2</td>
+                      <td class="numeric">192.5</td>
+                      <td class="numeric">235.8</td>
+                      <td class="numeric">207.1</td>
+                      <td class="numeric">196.7</td>
+                      <td class="numeric">213.0</td>
+                      <td class="numeric estimations-cell-warning" data-gap-days="4" title="No data — entire month has no data"><span class="estimations-warning-icon" aria-hidden="true"><i class="fa-solid fa-triangle-exclamation"></i></span> No data</td>
+                    </tr>
+                  </tbody>
+                </table>
+                </div>
+              </div>
+            </div>
+            <div class="estimations-pagination">
+              <span class="estimations-pagination-count">Showing 1–10 of 500 records</span>
+              <div class="estimations-pagination-controls">
+                <button type="button" class="btn btn-ghost btn-icon" aria-label="Previous page" disabled><i class="fa-light fa-chevron-left"></i></button>
+                <button type="button" class="btn btn-ghost btn-sm estimations-page-btn active" aria-current="page">1</button>
+                <button type="button" class="btn btn-ghost btn-sm estimations-page-btn">2</button>
+                <span class="estimations-pagination-ellipsis">…</span>
+                <button type="button" class="btn btn-ghost btn-sm estimations-page-btn">50</button>
+                <button type="button" class="btn btn-ghost btn-icon" aria-label="Next page"><i class="fa-light fa-chevron-right"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Estimations data point details drawer -->
+        <div class="estimations-drawer-backdrop" id="estimations-drawer-backdrop" onclick="if(event.target===this) closeEstimationsCellDetails()" aria-hidden="true"></div>
+        <div class="estimations-cell-drawer" id="estimations-cell-popover" role="dialog" aria-labelledby="estimations-cell-details-title" aria-hidden="true">
+          <div class="estimations-cell-popover-header">
+            <h3 class="estimations-cell-popover-title" id="estimations-cell-details-title">Data point details</h3>
+            <button type="button" class="estimations-cell-popover-close" onclick="closeEstimationsCellDetails()" aria-label="Close"><i class="fa-light fa-times"></i></button>
+          </div>
+          <div class="estimations-cell-popover-body">
+            <div class="activity-row-detail-row"><span class="activity-row-detail-label">Business entity</span><span class="activity-row-detail-value" id="estimations-detail-entity"></span></div>
+            <div class="activity-row-detail-row"><span class="activity-row-detail-label">Period</span><span class="activity-row-detail-value" id="estimations-detail-period"></span></div>
+            <div class="activity-row-detail-row"><span class="activity-row-detail-label" id="estimations-detail-value-label">Value</span><span class="activity-row-detail-value" id="estimations-detail-value"></span></div>
+            <div class="activity-row-detail-row estimations-detail-date-range-wrap" id="estimations-detail-date-range-wrap" style="display: none;"><span class="activity-row-detail-label">Date range of data</span><span class="activity-row-detail-value" id="estimations-detail-date-range"></span></div>
+            <div class="activity-row-detail-row estimations-gap-reason-row" id="estimations-detail-gap-reason-row" style="display: none;"><span class="activity-row-detail-label" id="estimations-detail-gap-reason-label">Reason for gap alert</span><span class="activity-row-detail-value" id="estimations-detail-gap-reason"></span></div>
+            <div class="activity-row-detail-row"><span class="activity-row-detail-label">Activity type</span><span class="activity-row-detail-value" id="estimations-detail-data-type"></span></div>
+            <div class="activity-row-detail-row estimations-detail-entries-wrap" id="estimations-detail-entries-wrap" style="display: none;"><span class="activity-row-detail-label" id="estimations-detail-entries-label">Entries</span><div class="activity-row-detail-entries-list" id="estimations-detail-entries"></div></div>
+            <div class="estimations-cell-fill-gap" id="estimations-cell-fill-gap" style="display: none;">
+              <div class="estimations-cell-fill-gap-divider"></div>
+              <button type="button" class="btn btn-primary estimations-fill-gap-btn" id="estimations-fill-gap-reveal-btn" onclick="openAddActivityDataModal()">
+                <i class="fa-light fa-pen-to-square" aria-hidden="true"></i>
+                Fill gap manually
+              </button>
+              <div class="estimations-cell-fill-gap-input-row" id="estimations-cell-fill-gap-input-row" style="display: none;">
+                <input type="text" class="form-input" id="estimations-fill-gap-input" placeholder="Enter value" aria-label="Value to fill gap" style="flex: 1; min-width: 0;">
+                <button type="button" class="btn btn-primary btn-sm" id="estimations-fill-gap-save" onclick="saveEstimationsFillGap()">Save</button>
+              </div>
+              <div class="estimations-cell-approve-gap" id="estimations-cell-approve-gap" style="display: none;">
+                <div class="estimations-cell-fill-gap-divider"></div>
+                <button type="button" class="btn btn-secondary estimations-fill-gap-btn" id="estimations-approve-gap-btn" onclick="revealApproveGapReason()">
+                  <i class="fa-light fa-circle-check" aria-hidden="true"></i>
+                  Approve gap
+                </button>
+                <div id="estimations-approve-gap-form" style="display: none;">
+                  <label class="form-label" for="estimations-approve-gap-reason">Explain why the gap was approved <span aria-hidden="true">*</span></label>
+                  <textarea class="form-input estimations-cell-approve-reason" id="estimations-approve-gap-reason" placeholder="e.g. Meter was under maintenance; data not available for this period" aria-required="true"></textarea>
+                  <button type="button" class="btn btn-primary btn-sm" onclick="submitApproveGap()">Submit approval</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Add activity data modal (Fill gap manually) -->
+        <div class="modal-backdrop add-activity-data-backdrop" id="add-activity-data-backdrop" onclick="if(event.target===this) closeAddActivityDataModal()">
+          <div class="modal add-activity-data-modal" id="add-activity-data-modal" onclick="event.stopPropagation()">
+            <div class="modal-header">
+              <div>
+                <h2 class="modal-title">Add activity data</h2>
+                <p class="add-activity-data-description">After you save, the activity data will be added to the right source data table.</p>
+                <p class="add-activity-data-column" id="add-activity-data-column-wrap" style="display: none;">Adding to column: <strong id="add-activity-data-column-name"></strong></p>
+                <div class="add-activity-data-progress" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="2">
+                  <div class="add-activity-data-progress-fill" id="add-activity-data-progress-fill" style="width: 50%;"></div>
+                </div>
+              </div>
+              <button type="button" class="modal-close" onclick="closeAddActivityDataModal()" aria-label="Close"><i class="fa-light fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+              <div class="add-activity-data-step active" id="add-activity-data-step1">
+                <div class="form-group">
+                  <label class="form-label" for="add-activity-entity">Entity <span aria-hidden="true">*</span> <i class="fa-solid fa-circle-info info-icon" aria-hidden="true" title="Select the business entity"></i></label>
+                  <select class="form-select" id="add-activity-entity" aria-required="true">
+                    <option value="">Select</option>
+                    <option value="Alaska Regional Hospital">Alaska Regional Hospital</option>
+                    <option value="West Hills Hospital &amp; Medical Center">West Hills Hospital &amp; Medical Center</option>
+                    <option value="North Suburban Medical Center">North Suburban Medical Center</option>
+                    <option value="Presbyterian / St. Luke's Medical Center">Presbyterian / St. Luke's Medical Center</option>
+                    <option value="Rose Medical Center">Rose Medical Center</option>
+                    <option value="Sky Ridge Medical Center">Sky Ridge Medical Center</option>
+                    <option value="Swedish Medical Center">Swedish Medical Center</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="add-activity-date-from">Activity date <span aria-hidden="true">*</span> <i class="fa-solid fa-circle-info info-icon" aria-hidden="true" title="Date range for the activity"></i></label>
+                  <div class="add-activity-data-date-range">
+                    <input type="date" class="form-input" id="add-activity-date-from" aria-label="From date" aria-describedby="add-activity-data-date-error">
+                    <span class="to-text">to</span>
+                    <input type="date" class="form-input" id="add-activity-date-to" aria-label="To date" aria-describedby="add-activity-data-date-error">
+                  </div>
+                  <div class="add-activity-data-date-error" id="add-activity-data-date-error" role="alert" style="display: none;"></div>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="add-activity-type">Activity type <span aria-hidden="true">*</span> <i class="fa-solid fa-circle-info info-icon" aria-hidden="true" title="Type of activity"></i></label>
+                  <select class="form-select" id="add-activity-type" aria-required="true">
+                    <option value="">Select</option>
+                    <option value="Electric power" selected>Electric power</option>
+                    <option value="Natural gas">Natural gas</option>
+                    <option value="Fuel">Fuel</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+              </div>
+              <div class="add-activity-data-step" id="add-activity-data-step2">
+                <div class="add-activity-data-values-section">
+                  <div class="add-activity-data-values-title">Values - enter details for at least one data type <span aria-hidden="true">*</span> <i class="fa-solid fa-circle-info info-icon" aria-hidden="true" title="At least one value is required"></i></div>
+                  <div class="add-activity-data-value-row">
+                    <div>
+                      <label class="form-label" for="add-activity-usage-value">Usage value</label>
+                      <input type="number" class="form-input" id="add-activity-usage-value" placeholder="Number" min="0" step="any" aria-label="Usage value">
+                    </div>
+                    <div>
+                      <label class="form-label" for="add-activity-usage-uom">Unit of measure</label>
+                      <select class="form-select" id="add-activity-usage-uom" aria-label="Usage unit of measure">
+                        <option value="">Select</option>
+                        <option value="kWh">kWh</option>
+                        <option value="MWh">MWh</option>
+                        <option value="m³">m³</option>
+                        <option value="litres">litres</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="add-activity-data-value-row">
+                    <div>
+                      <label class="form-label" for="add-activity-spend-value">Spend value</label>
+                      <input type="number" class="form-input" id="add-activity-spend-value" placeholder="Number" min="0" step="any" aria-label="Spend value">
+                    </div>
+                    <div>
+                      <label class="form-label" for="add-activity-spend-uom">Unit of measure</label>
+                      <select class="form-select" id="add-activity-spend-uom" aria-label="Spend unit of measure">
+                        <option value="">Select</option>
+                        <option value="USD">USD</option>
+                        <option value="EUR">EUR</option>
+                        <option value="GBP">GBP</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="add-activity-data-radio-group">
+                  <div class="group-label">Record type <span aria-hidden="true">*</span> <i class="fa-solid fa-circle-info info-icon" aria-hidden="true" title="Type of record"></i></div>
+                  <div class="add-activity-data-radio-options">
+                    <label><input type="radio" name="add-activity-record-type" value="Invoice"> Invoice</label>
+                    <label><input type="radio" name="add-activity-record-type" value="Meter reading" checked> Meter reading</label>
+                    <label><input type="radio" name="add-activity-record-type" value="Estimate"> Estimate</label>
+                  </div>
+                </div>
+                <div class="add-activity-data-radio-group">
+                  <div class="group-label">Is the activity sourced from renewable energy? <span aria-hidden="true">*</span> <i class="fa-solid fa-circle-info info-icon" aria-hidden="true" title="Renewable energy source"></i></div>
+                  <div class="add-activity-data-radio-options">
+                    <label><input type="radio" name="add-activity-renewable" value="Yes"> Yes</label>
+                    <label><input type="radio" name="add-activity-renewable" value="No" checked> No</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="footer-cancel" id="add-activity-data-cancel" onclick="closeAddActivityDataModal()">Cancel</button>
+              <button type="button" class="btn btn-secondary" id="add-activity-data-back-btn" onclick="backAddActivityDataStep()" style="display: none;">Back</button>
+              <button type="button" class="btn btn-primary" id="add-activity-data-next-btn" onclick="nextAddActivityDataStep()">Next</button>
+              <button type="button" class="btn btn-primary" id="add-activity-data-save-btn" onclick="saveAddActivityData()" style="display: none;">Save</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Run Electricity Estimation modal -->
+        <div class="modal-backdrop run-estimation-backdrop" id="run-estimation-backdrop" onclick="if(event.target===this) closeRunElectricityEstimationModal()">
+          <div class="modal run-estimation-modal" id="run-estimation-modal" onclick="event.stopPropagation()">
+            <div class="modal-header">
+              <h2 class="modal-title">Run Electricity Estimation</h2>
+              <button type="button" class="modal-close" onclick="closeRunElectricityEstimationModal()" aria-label="Close"><i class="fa-light fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+              <div class="run-estimation-date-range-wrap">
+                <label class="form-label run-estimation-required">Gap filling date range <span class="asterisk" aria-hidden="true">*</span></label>
+                <div class="run-estimation-date-input" id="run-estimation-date-display">
+                  <i class="fa-light fa-calendar" aria-hidden="true"></i>
+                  <span class="date-text">08/01/2024 - 07/31/2025</span>
+                  <i class="fa-light fa-chevron-down" aria-hidden="true"></i>
+                </div>
+              </div>
+              <div class="run-estimation-cards">
+                <div class="run-estimation-card" id="run-estimation-card-summary">
+                  <div class="run-estimation-card-header" onclick="toggleRunEstimationCard('summary')">
+                    <span>Summary</span>
+                    <span class="toggle-link" id="run-estimation-toggle-summary">Less <i class="fa-light fa-chevron-up"></i></span>
+                  </div>
+                  <div class="run-estimation-card-body">
+                    <div class="run-estimation-summary-line">Activity type: <strong>Electric Power</strong></div>
+                    <div class="run-estimation-summary-line">Gaps to be filled: <strong>500</strong></div>
+                    <div class="run-estimation-summary-line">Entities affected: <strong>480</strong></div>
+                  </div>
+                </div>
+                <div class="run-estimation-card collapsed" id="run-estimation-card-methods">
+                  <div class="run-estimation-card-header" onclick="toggleRunEstimationCard('methods')">
+                    <span>Methods</span>
+                    <span class="toggle-link" id="run-estimation-toggle-methods">More <i class="fa-light fa-chevron-down"></i></span>
+                  </div>
+                  <div class="run-estimation-card-body">
+                    <p class="run-estimation-methods-desc">The methods are used in order of priority. If the first doesn't succeed, the system will try the next, continuing down the list until one works.</p>
+                    <div class="run-estimation-method-item">
+                      <span class="run-estimation-method-num active">1</span>
+                      <span class="run-estimation-method-text">Value from same month of prior year (Max of 2 years prior).</span>
+                    </div>
+                    <div class="run-estimation-method-item">
+                      <span class="run-estimation-method-num active">2</span>
+                      <span class="run-estimation-method-text">Average value of surrounding months (+/- 2 surrounding months).</span>
+                    </div>
+                    <div class="run-estimation-method-item">
+                      <span class="run-estimation-method-num active">3</span>
+                      <span class="run-estimation-method-text">Average value from past 6 months.</span>
+                    </div>
+                    <div class="run-estimation-method-item">
+                      <span class="run-estimation-method-num excluded">4</span>
+                      <span class="run-estimation-method-text">Last known value within prior 4 months.</span>
+                      <span class="run-estimation-method-excluded-pill">Excluded</span>
+                    </div>
+                    <div class="run-estimation-method-item">
+                      <span class="run-estimation-method-num excluded">5</span>
+                      <span class="run-estimation-method-text">Value from Gaussian Process Regression.</span>
+                      <span class="run-estimation-method-excluded-pill">Excluded</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="run-estimation-card collapsed" id="run-estimation-card-preferences">
+                  <div class="run-estimation-card-header" onclick="toggleRunEstimationCard('preferences')">
+                    <span>Preferences</span>
+                    <span class="toggle-link" id="run-estimation-toggle-preferences">More <i class="fa-light fa-chevron-down"></i></span>
+                  </div>
+                  <div class="run-estimation-card-body">
+                    <div class="run-estimation-summary-line">Maximum number of periods since last actual value: N/A</div>
+                    <div class="run-estimation-summary-line">Forward fill into future for the following months: N/A</div>
+                    <div class="run-estimation-summary-line">Overwrite estimates that were entered by the system during a prior run: N/A</div>
+                  </div>
+                </div>
+              </div>
+              <div class="run-estimation-intensity-wrap">
+                <label class="run-estimation-intensity-checkbox-label">
+                  <input type="checkbox" class="run-estimation-intensity-checkbox" id="run-estimation-intensity-checkbox" onchange="toggleRunEstimationIntensityDropdown()" aria-controls="run-estimation-intensity-dropdown-wrap">
+                  <span>Run intensity estimation to complete unfilled gaps</span>
+                </label>
+                <div class="run-estimation-intensity-dropdown-wrap" id="run-estimation-intensity-dropdown-wrap" hidden>
+                  <label class="form-label" for="run-estimation-intensity-routine">Intensity estimation routine</label>
+                  <select class="form-select run-estimation-intensity-select" id="run-estimation-intensity-routine" aria-label="Intensity estimation routine">
+                    <option value="">Select routine</option>
+                    <option value="Revenue-based">Revenue-based</option>
+                    <option value="Floor area-based">Floor area-based</option>
+                    <option value="FTE-based">FTE-based</option>
+                    <option value="Output-based">Output-based</option>
+                  </select>
+                </div>
+              </div>
+              <div class="run-estimation-time-banner">
+                <i class="fa-light fa-clock" aria-hidden="true"></i>
+                <span>Will take about 2 hours to complete.</span>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" onclick="closeRunElectricityEstimationModal()">Cancel</button>
+              <button type="button" class="btn btn-primary" id="run-estimation-run-btn" onclick="startGapFillingRoutine()">Run routine</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gap filling progress overlay -->
+        <div class="gap-filling-progress-backdrop" id="gap-filling-progress-backdrop">
+          <div class="gap-filling-progress-card">
+            <h3 class="gap-filling-progress-title">Gap filling in progress</h3>
+            <p class="gap-filling-progress-subtitle">Electricity estimation is running. You can leave this page; we'll notify you when it's done.</p>
+            <div class="gap-filling-progress-bar-wrap">
+              <div class="gap-filling-progress-bar-fill" id="gap-filling-progress-fill" style="width: 15%;"></div>
+            </div>
+            <p class="gap-filling-progress-time" id="gap-filling-progress-time">About 1 hour 45 min remaining</p>
+            <button type="button" class="btn btn-ghost btn-sm gap-filling-progress-skip" id="gap-filling-skip-btn" onclick="skipGapFillingToEnd()">Skip to end (prototype)</button>
+          </div>
+        </div>
+
+        <!-- Create new routine modal (gap filling) -->
+        <div class="modal-backdrop create-routine-backdrop" id="create-routine-backdrop" onclick="if(event.target===this) closeCreateRoutineModal()">
+          <div class="modal create-routine-modal" id="create-routine-modal" onclick="event.stopPropagation()">
+            <div class="modal-header">
+              <div>
+                <h2 class="modal-title">Create new routine</h2>
+                <p class="modal-subtitle">Routines are manually triggered and fill cost/usage gaps for selected entities and months.</p>
+              </div>
+              <button type="button" class="modal-close" onclick="closeCreateRoutineModal()" aria-label="Close"><i class="fa-light fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+              <div class="create-routine-section">
+                <h3 class="create-routine-section-title">Details</h3>
+                <div class="create-routine-details-row">
+                  <div class="form-group">
+                    <label class="form-label" for="create-routine-name">Routine name <span aria-hidden="true">*</span></label>
+                    <input type="text" class="form-input" id="create-routine-name" placeholder="e.g. Electric power routine" aria-required="true">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="create-routine-scope">Scope and category <span aria-hidden="true">*</span></label>
+                    <select class="form-select" id="create-routine-scope" aria-required="true" onchange="createRoutineDetailsChange()">
+                      <option value="">Select</option>
+                      <option value="Scope 1">Scope 1</option>
+                      <option value="Scope 2" selected>Scope 2</option>
+                      <option value="Scope 3">Scope 3</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="create-routine-activity">Activity type <span aria-hidden="true">*</span></label>
+                    <select class="form-select" id="create-routine-activity" aria-required="true" onchange="createRoutineDetailsChange()">
+                      <option value="">Select</option>
+                      <option value="Electric power" selected>Electric power</option>
+                      <option value="Natural gas">Natural gas</option>
+                      <option value="District heating / cooling">District heating / cooling</option>
+                      <option value="Fuel oil">Fuel oil</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="create-routine-section">
+                <h3 class="create-routine-section-title">Gap filling methods</h3>
+                <p class="create-routine-methods-desc">Order the methods by priority of which one you want used for gap filling. Toggle off the methods you don't want the routine to use.</p>
+                <div class="create-routine-methods-list" id="create-routine-methods-list">
+                  <div class="create-routine-method-row" draggable="true" ondragstart="createRoutineMethodDragStart(event)" ondragover="createRoutineMethodDragOver(event)" ondragleave="createRoutineMethodDragLeave(event)" ondrop="createRoutineMethodDrop(event)" ondragend="createRoutineMethodDragEnd(event)" role="option">
+                    <span class="create-routine-method-drag" aria-hidden="true"><i class="fa-light fa-grip-vertical"></i></span>
+                    <span class="create-routine-method-text">Average value of surrounding months (+/- 2 months).</span>
+                    <span class="create-routine-method-badge included">Included</span>
+                    <span class="create-routine-method-toggle"><span class="create-routine-toggle-switch on" onclick="toggleCreateRoutineMethod(this)" role="button" tabindex="0" aria-pressed="true"><span class="knob"></span></span></span>
+                  </div>
+                  <div class="create-routine-method-row" draggable="true" ondragstart="createRoutineMethodDragStart(event)" ondragover="createRoutineMethodDragOver(event)" ondragleave="createRoutineMethodDragLeave(event)" ondrop="createRoutineMethodDrop(event)" ondragend="createRoutineMethodDragEnd(event)" role="option">
+                    <span class="create-routine-method-drag" aria-hidden="true"><i class="fa-light fa-grip-vertical"></i></span>
+                    <span class="create-routine-method-text">Average value from past 6 months.</span>
+                    <span class="create-routine-method-badge included">Included</span>
+                    <span class="create-routine-method-toggle"><span class="create-routine-toggle-switch on" onclick="toggleCreateRoutineMethod(this)" role="button" tabindex="0" aria-pressed="true"><span class="knob"></span></span></span>
+                  </div>
+                  <div class="create-routine-method-row" draggable="true" ondragstart="createRoutineMethodDragStart(event)" ondragover="createRoutineMethodDragOver(event)" ondragleave="createRoutineMethodDragLeave(event)" ondrop="createRoutineMethodDrop(event)" ondragend="createRoutineMethodDragEnd(event)" role="option">
+                    <span class="create-routine-method-drag" aria-hidden="true"><i class="fa-light fa-grip-vertical"></i></span>
+                    <span class="create-routine-method-text">Last known value within prior 4 months.</span>
+                    <span class="create-routine-method-badge included">Included</span>
+                    <span class="create-routine-method-toggle"><span class="create-routine-toggle-switch on" onclick="toggleCreateRoutineMethod(this)" role="button" tabindex="0" aria-pressed="true"><span class="knob"></span></span></span>
+                  </div>
+                  <div class="create-routine-method-row" draggable="true" ondragstart="createRoutineMethodDragStart(event)" ondragover="createRoutineMethodDragOver(event)" ondragleave="createRoutineMethodDragLeave(event)" ondrop="createRoutineMethodDrop(event)" ondragend="createRoutineMethodDragEnd(event)" role="option">
+                    <span class="create-routine-method-drag" aria-hidden="true"><i class="fa-light fa-grip-vertical"></i></span>
+                    <span class="create-routine-method-text">Value from same month of prior year (Max of 2 years).</span>
+                    <span class="create-routine-method-badge included">Included</span>
+                    <span class="create-routine-method-toggle"><span class="create-routine-toggle-switch on" onclick="toggleCreateRoutineMethod(this)" role="button" tabindex="0" aria-pressed="true"><span class="knob"></span></span></span>
+                  </div>
+                  <div class="create-routine-method-row" draggable="true" ondragstart="createRoutineMethodDragStart(event)" ondragover="createRoutineMethodDragOver(event)" ondragleave="createRoutineMethodDragLeave(event)" ondrop="createRoutineMethodDrop(event)" ondragend="createRoutineMethodDragEnd(event)" role="option">
+                    <span class="create-routine-method-drag" aria-hidden="true"><i class="fa-light fa-grip-vertical"></i></span>
+                    <span class="create-routine-method-text">Value from Gaussian Process Regression. <a href="#">See Configurations</a></span>
+                    <span class="create-routine-method-badge excluded" id="create-routine-method-5-badge">Excluded</span>
+                    <span class="create-routine-method-toggle"><span class="create-routine-toggle-switch" id="create-routine-method-5-toggle" onclick="toggleCreateRoutineMethod(this)" role="button" tabindex="0" aria-pressed="false"><span class="knob"></span></span></span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="create-routine-section">
+                <h3 class="create-routine-section-title">Other Preferences</h3>
+                <div class="create-routine-pref-row">
+                  <span class="create-routine-pref-label">Maximum number of periods since last actual value <i class="fa-solid fa-circle-info info-icon" title="Maximum periods"></i></span>
+                  <div class="create-routine-pref-control">
+                    <select class="form-select" id="create-routine-max-periods" style="min-width: 160px;">
+                      <option value="none">No maximum</option>
+                      <option value="1">1</option>
+                      <option value="3">3</option>
+                      <option value="6">6</option>
+                      <option value="12">12</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="create-routine-pref-row">
+                  <span class="create-routine-pref-label">Activity type to fill gap for <i class="fa-solid fa-circle-info info-icon" title="Activity type"></i></span>
+                  <div class="create-routine-pref-control create-routine-segmented" role="group" aria-label="Activity type">
+                    <button type="button" class="active" onclick="createRoutineSegmented(this, 'usage')">Usage</button>
+                    <button type="button" onclick="createRoutineSegmented(this, 'spend')">Spend</button>
+                    <button type="button" onclick="createRoutineSegmented(this, 'fuel')">Fuel</button>
+                  </div>
+                </div>
+                <div class="create-routine-pref-row">
+                  <span class="create-routine-pref-label">Overwrite estimates that were entered by the system during a prior run <i class="fa-solid fa-circle-info info-icon" title="Overwrite"></i></span>
+                  <span class="create-routine-toggle-switch" id="create-routine-overwrite-toggle" onclick="toggleCreateRoutineMethod(this)" role="button" tabindex="0" aria-pressed="false"><span class="knob"></span></span>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" onclick="saveCreateRoutine()">Save</button>
+              <button type="button" class="btn btn-secondary" onclick="saveCreateRoutineDraft()">Save as draft</button>
+              <button type="button" class="btn btn-secondary" onclick="closeCreateRoutineModal()">Cancel</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Routine saved confirmation modal -->
+        <div class="modal-backdrop" id="routine-saved-confirm-backdrop" onclick="if(event.target===this) closeRoutineSavedConfirm()">
+          <div class="modal routine-saved-confirm-modal" id="routine-saved-confirm-modal" onclick="event.stopPropagation()" style="max-width: 440px;">
+            <div class="modal-header">
+              <h2 class="modal-title" id="routine-saved-confirm-title">Routine saved</h2>
+              <button type="button" class="modal-close" onclick="closeRoutineSavedConfirm()" aria-label="Close"><i class="fa-light fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+              <p class="routine-saved-confirm-message" id="routine-saved-confirm-message">If you want to edit the routine, you can go to <strong>Settings</strong>, then <strong>Estimation settings</strong>.</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" onclick="closeRoutineSavedConfirm()">OK</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Create intensity routine modal -->
+        <div class="modal-backdrop create-routine-backdrop" id="create-intensity-routine-backdrop" onclick="if(event.target===this) closeCreateIntensityRoutineModal()">
+          <div class="modal create-routine-modal" id="create-intensity-routine-modal" onclick="event.stopPropagation()">
+            <div class="modal-header">
+              <div>
+                <h2 class="modal-title">Create new routine</h2>
+                <p class="modal-subtitle">Routines are manually triggered and run intensity estimation for selected entities.</p>
+              </div>
+              <button type="button" class="modal-close" onclick="closeCreateIntensityRoutineModal()" aria-label="Close"><i class="fa-light fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+              <div class="create-routine-section">
+                <h3 class="create-routine-section-title">Details</h3>
+                <div class="create-routine-details-row">
+                  <div class="form-group">
+                    <label class="form-label" for="create-intensity-name">Routine name <span aria-hidden="true">*</span></label>
+                    <input type="text" class="form-input" id="create-intensity-name" placeholder="e.g. Electric power intensity" aria-required="true">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="create-intensity-scope">Scope and category <span aria-hidden="true">*</span></label>
+                    <select class="form-select" id="create-intensity-scope" aria-required="true" onchange="createIntensityRoutineDetailsChange()">
+                      <option value="">Select</option>
+                      <option value="Scope 1">Scope 1</option>
+                      <option value="Scope 2" selected>Scope 2</option>
+                      <option value="Scope 3">Scope 3</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="create-intensity-activity">Activity type <span aria-hidden="true">*</span></label>
+                    <select class="form-select" id="create-intensity-activity" aria-required="true" onchange="createIntensityRoutineDetailsChange()">
+                      <option value="">Select</option>
+                      <option value="Electric power" selected>Electric power</option>
+                      <option value="Natural gas">Natural gas</option>
+                      <option value="District heating / cooling">District heating / cooling</option>
+                      <option value="Fuel oil">Fuel oil</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="create-routine-section">
+                <h3 class="create-routine-section-title">Intensity calculation preference</h3>
+                <div class="create-intensity-pref-row">
+                  <span class="create-intensity-pref-label">Minimum how many months of data exists for the entity <i class="fa-solid fa-circle-info info-icon" title="Minimum months of data"></i></span>
+                  <select class="form-select" id="create-intensity-min-months" style="min-width: 140px;">
+                    <option value="1">1 month</option>
+                    <option value="3">3 months</option>
+                    <option value="6" selected>6 months</option>
+                    <option value="12">12 months</option>
+                  </select>
+                </div>
+                <div class="create-intensity-pref-row">
+                  <label class="create-intensity-pref-label" style="cursor: pointer;">
+                    <input type="checkbox" id="create-intensity-actual-only" style="margin: 0; margin-right: 8px; accent-color: var(--ghg-primary);">
+                    Only actual data is included for intensity calculation
+                  </label>
+                </div>
+                <div class="create-intensity-pref-row">
+                  <span class="create-intensity-pref-label">Maximum intensity value before going to the fallback <i class="fa-solid fa-circle-info info-icon" title="Above this value, the system uses the fallback (e.g. CBECS)"></i></span>
+                  <input type="number" class="form-input" id="create-intensity-max-value" min="0" step="0.1" placeholder="e.g. 0.5" style="min-width: 120px; max-width: 140px;" aria-label="Maximum intensity value before fallback">
+                </div>
+                <div class="create-intensity-cbecs-note"><span class="create-intensity-cbecs-icon" aria-hidden="true">i</span><span>Default fallback is CBECS values.</span></div>
+              </div>
+
+              <div class="create-routine-section">
+                <h3 class="create-routine-section-title">Include for estimation</h3>
+                <p class="create-routine-section-desc">Entities that use the selected activity type. Estimation will apply to entities' active period (Open date and Close date).</p>
+                <div class="create-routine-sites-empty" id="create-intensity-sites-empty">
+                  <i class="fa-light fa-folder"></i>
+                  The list of entities that use the activity type you select will show here.
+                </div>
+                <div id="create-intensity-sites-content" style="display: none;">
+                  <div class="create-routine-sites-toolbar">
+                    <span class="create-routine-sites-count">Showing 500 records</span>
+                    <div class="search-input-wrapper create-routine-sites-search">
+                      <i class="fa-light fa-search"></i>
+                      <input type="text" class="form-input" placeholder="Search for entities" aria-label="Search for entities">
+                    </div>
+                    <button type="button" class="btn btn-secondary" aria-label="Filter entities"><i class="fa-light fa-filter"></i></button>
+                  </div>
+                  <div class="create-routine-sites-table-wrap">
+                    <table class="create-routine-sites-table" id="create-intensity-sites-table">
+                      <thead>
+                        <tr>
+                          <th class="col-checkbox"><input type="checkbox" id="create-intensity-sites-select-all" onclick="toggleCreateIntensityEntitiesSelectAll()" aria-label="Select all"></th>
+                          <th class="col-expand"></th>
+                          <th>Entities</th>
+                          <th class="col-entities"># of entities within</th>
+                          <th class="col-status">Status</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td class="col-checkbox"><input type="checkbox" class="create-intensity-site-cb"></td>
+                          <td class="col-expand"><button type="button" class="create-routine-site-expand" onclick="toggleCreateRoutineEntityRow(this)" aria-expanded="false"><i class="fa-light fa-chevron-right"></i></button></td>
+                          <td class="create-routine-site-name">1234 Elm St, Springfield, IL 62704</td>
+                          <td>2</td>
+                          <td><span class="create-routine-status-dot multiple">Multiple</span></td>
+                        </tr>
+                        <tr>
+                          <td class="col-checkbox"><input type="checkbox" class="create-intensity-site-cb"></td>
+                          <td class="col-expand"><button type="button" class="create-routine-site-expand" onclick="toggleCreateRoutineEntityRow(this)" aria-expanded="false"><i class="fa-light fa-chevron-right"></i></button></td>
+                          <td class="create-routine-site-name">5678 Oak Ave, Metropolis, IL 62960</td>
+                          <td>5</td>
+                          <td><span class="create-routine-status-dot active">Active</span></td>
+                        </tr>
+                        <tr>
+                          <td class="col-checkbox"><input type="checkbox" class="create-intensity-site-cb"></td>
+                          <td class="col-expand"><button type="button" class="create-routine-site-expand" onclick="toggleCreateRoutineEntityRow(this)" aria-expanded="false"><i class="fa-light fa-chevron-right"></i></button></td>
+                          <td class="create-routine-site-name">4444 Cedar Ct, Lakeview, FL 32123</td>
+                          <td>4</td>
+                          <td><span class="create-routine-status-dot multiple">Multiple</span></td>
+                        </tr>
+                        <tr>
+                          <td class="col-checkbox"><input type="checkbox" class="create-intensity-site-cb"></td>
+                          <td class="col-expand"><button type="button" class="create-routine-site-expand" onclick="toggleCreateRoutineEntityRow(this)" aria-expanded="false"><i class="fa-light fa-chevron-right"></i></button></td>
+                          <td class="create-routine-site-name">9012 Pine Rd, Denver, CO 80202</td>
+                          <td>3</td>
+                          <td><span class="create-routine-status-dot inactive">All Inactive</span></td>
+                        </tr>
+                        <tr>
+                          <td class="col-checkbox"><input type="checkbox" class="create-intensity-site-cb"></td>
+                          <td class="col-expand"><button type="button" class="create-routine-site-expand" onclick="toggleCreateRoutineEntityRow(this)" aria-expanded="false"><i class="fa-light fa-chevron-right"></i></button></td>
+                          <td class="create-routine-site-name">3456 Maple Dr, Seattle, WA 98101</td>
+                          <td>2</td>
+                          <td><span class="create-routine-status-dot closed">Closed</span></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="estimations-pagination" style="margin-top: 12px;">
+                    <span class="estimations-pagination-count">Showing 1–10 of 500 records</span>
+                    <div class="estimations-pagination-controls">
+                      <button type="button" class="btn btn-ghost btn-icon" aria-label="Previous"><i class="fa-light fa-chevron-left"></i></button>
+                      <button type="button" class="btn btn-ghost btn-sm estimations-page-btn active">1</button>
+                      <button type="button" class="btn btn-ghost btn-sm estimations-page-btn">2</button>
+                      <span class="estimations-pagination-ellipsis">…</span>
+                      <button type="button" class="btn btn-ghost btn-sm estimations-page-btn">50</button>
+                      <button type="button" class="btn btn-ghost btn-icon" aria-label="Next"><i class="fa-light fa-chevron-right"></i></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" onclick="saveCreateIntensityRoutine()">Save</button>
+              <button type="button" class="btn btn-secondary" onclick="saveCreateIntensityRoutineDraft()">Save as draft</button>
+              <button type="button" class="btn btn-secondary" onclick="closeCreateIntensityRoutineModal()">Cancel</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Add intensity model wizard modal -->
+        <div class="modal-backdrop create-routine-backdrop" id="add-intensity-model-wizard-backdrop" onclick="if(event.target===this) closeAddIntensityModelWizard()">
+          <div class="modal create-routine-modal add-intensity-model-wizard-modal" id="add-intensity-model-wizard-modal" onclick="event.stopPropagation()">
+            <div class="modal-header">
+              <div>
+                <h2 class="modal-title">Add intensity estimation model</h2>
+                <p class="modal-subtitle">Configure a new intensity model in a few steps.</p>
+              </div>
+              <button type="button" class="modal-close" onclick="closeAddIntensityModelWizard()" aria-label="Close"><i class="fa-light fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+              <div class="add-intensity-model-wizard-stepper-wrap">
+                <div class="wizard-stepper add-intensity-model-wizard-stepper" id="add-intensity-model-wizard-stepper" role="tablist">
+                  <div class="wizard-step active" data-step="1" role="tab" onclick="var s=parseInt(this.getAttribute('data-step'),10);if(!isNaN(s)) setAddIntensityModelWizardStep(s);"><span class="step-circle">1</span><span class="step-label">Model</span></div>
+                  <div class="step-connector"></div>
+                  <div class="wizard-step" data-step="2" role="tab" onclick="var s=parseInt(this.getAttribute('data-step'),10);if(!isNaN(s)) setAddIntensityModelWizardStep(s);"><span class="step-circle">2</span><span class="step-label">Intensity</span></div>
+                  <div class="step-connector"></div>
+                  <div class="wizard-step" data-step="3" role="tab" onclick="var s=parseInt(this.getAttribute('data-step'),10);if(!isNaN(s)) setAddIntensityModelWizardStep(s);"><span class="step-circle">3</span><span class="step-label">UoM</span></div>
+                  <div class="step-connector"></div>
+                  <div class="wizard-step" data-step="4" role="tab" onclick="var s=parseInt(this.getAttribute('data-step'),10);if(!isNaN(s)) setAddIntensityModelWizardStep(s);"><span class="step-circle">4</span><span class="step-label">Inclusions</span></div>
+                  <div class="step-connector"></div>
+                  <div class="wizard-step" data-step="5" role="tab" onclick="var s=parseInt(this.getAttribute('data-step'),10);if(!isNaN(s)) setAddIntensityModelWizardStep(s);"><span class="step-circle">5</span><span class="step-label">Thresholds</span></div>
+                  <div class="step-connector"></div>
+                  <div class="wizard-step" data-step="6" role="tab" onclick="var s=parseInt(this.getAttribute('data-step'),10);if(!isNaN(s)) setAddIntensityModelWizardStep(s);"><span class="step-circle">6</span><span class="step-label">Aggregation</span></div>
+                  <div class="step-connector"></div>
+                  <div class="wizard-step" data-step="7" role="tab" onclick="var s=parseInt(this.getAttribute('data-step'),10);if(!isNaN(s)) setAddIntensityModelWizardStep(s);"><span class="step-circle">7</span><span class="step-label">Review</span></div>
+                </div>
+              </div>
+              <div class="add-intensity-model-wizard-content-wrap">
+                <div class="wizard-step-content active" data-step="1" id="add-intensity-model-step-1">
+                  <h3 class="add-intensity-model-step-title">Model details</h3>
+                  <p class="add-intensity-model-step-desc">Define the model name, description, and basic settings for this intensity model.</p>
+                  <div class="form-group" style="margin-top: 12px;"><label class="form-label" for="add-intensity-model-name">Model name</label><input type="text" class="form-input" id="add-intensity-model-name" placeholder="e.g. Electric power intensity"></div>
+                  <div class="form-group" style="margin-top: 12px;"><label class="form-label" for="add-intensity-model-description">Description</label><textarea class="form-input" id="add-intensity-model-description" placeholder="Optional description of this intensity model" rows="3" style="resize: vertical; min-height: 72px;"></textarea></div>
+                </div>
+                <div class="wizard-step-content" data-step="2" id="add-intensity-model-step-2">
+                  <h3 class="add-intensity-model-step-title">Usage intensity preferences</h3>
+                  <p class="add-intensity-model-step-2-intro">Usage Intensity estimates should only be calculated after running any other configured gap filling and estimation methods. The results should be used to fill in entity-level data estimates for entities that do not have any actual data through the matrix upload report for the underlying entity group and date range.</p>
+                  <div class="add-intensity-model-radio-group">
+                    <div class="add-intensity-model-radio-options">
+                      <label><input type="radio" name="add-intensity-source" value="inventory" checked> Use intensities based on our inventory</label>
+                      <label><input type="radio" name="add-intensity-source" value="standard"> Use a standard intensity set</label>
+                    </div>
+                  </div>
+                  <h4 class="add-intensity-model-setup-heading">Intensity Calculation Setup</h4>
+                  <div class="form-group">
+                    <label class="form-label" for="add-intensity-date-from">Date Range</label>
+                    <div class="add-intensity-model-date-range-row">
+                      <div class="add-intensity-model-date-wrap">
+                        <input type="text" class="form-input" id="add-intensity-date-from" placeholder="mm/dd/yyyy" aria-label="From date">
+                        <i class="fa-light fa-calendar" aria-hidden="true"></i>
+                      </div>
+                      <span class="date-arrow" aria-hidden="true">→</span>
+                      <div class="add-intensity-model-date-wrap">
+                        <input type="text" class="form-input" id="add-intensity-date-to" placeholder="mm/dd/yyyy" aria-label="To date">
+                        <i class="fa-light fa-calendar" aria-hidden="true"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="add-intensity-data-types-trigger">Activity types</label>
+                    <div class="add-intensity-data-types-dropdown" id="add-intensity-data-types-dropdown">
+                      <button type="button" class="add-intensity-data-types-trigger form-input" id="add-intensity-data-types-trigger" onclick="toggleDataTypesDropdown(event)" aria-expanded="false" aria-haspopup="listbox" aria-label="Activity types">
+                        <span class="add-intensity-data-types-tags" id="add-intensity-data-types-tags"></span>
+                        <span class="add-intensity-data-types-placeholder" id="add-intensity-data-types-placeholder">Select data types...</span>
+                        <i class="fa-light fa-chevron-down add-intensity-data-types-chevron" aria-hidden="true"></i>
+                      </button>
+                      <div class="add-intensity-data-types-panel" id="add-intensity-data-types-panel" role="listbox" aria-hidden="true">
+                        <label class="add-intensity-data-types-option"><input type="checkbox" value="Electric power" onchange="updateDataTypesTags()"> Electric power</label>
+                        <label class="add-intensity-data-types-option"><input type="checkbox" value="Natural gas" onchange="updateDataTypesTags()"> Natural gas</label>
+                        <label class="add-intensity-data-types-option"><input type="checkbox" value="District heating / cooling" onchange="updateDataTypesTags()"> District heating / cooling</label>
+                        <label class="add-intensity-data-types-option"><input type="checkbox" value="Fuel oil" onchange="updateDataTypesTags()"> Fuel oil</label>
+                        <label class="add-intensity-data-types-option"><input type="checkbox" value="Fleet / Diesel" onchange="updateDataTypesTags()"> Fleet / Diesel</label>
+                        <label class="add-intensity-data-types-option"><input type="checkbox" value="Fleet / Gasoline" onchange="updateDataTypesTags()"> Fleet / Gasoline</label>
+                        <label class="add-intensity-data-types-option"><input type="checkbox" value="Refrigerants" onchange="updateDataTypesTags()"> Refrigerants</label>
+                        <label class="add-intensity-data-types-option"><input type="checkbox" value="Business travel" onchange="updateDataTypesTags()"> Business travel</label>
+                        <label class="add-intensity-data-types-option"><input type="checkbox" value="Employee commuting" onchange="updateDataTypesTags()"> Employee commuting</label>
+                        <label class="add-intensity-data-types-option"><input type="checkbox" value="Waste" onchange="updateDataTypesTags()"> Waste</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="add-intensity-site-group">Intensity Entity Group</label>
+                    <input type="text" class="form-input" id="add-intensity-site-group" value="All Divisions" readonly aria-label="Intensity entity group">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="add-intensity-size-indicator">Size Indicator</label>
+                    <select class="form-select" id="add-intensity-size-indicator" aria-label="Size indicator">
+                      <option value="Floor size" selected>Floor size</option>
+                      <option value="Production pounds">Production pounds</option>
+                      <option value="Headcount">Headcount</option>
+                      <option value="Operational hours">Operational hours</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="wizard-step-content" data-step="3" id="add-intensity-model-step-3">
+                  <h3 class="add-intensity-model-step-title">Units of measure</h3>
+                  <p class="add-intensity-model-step-desc">Select units of measure for each data type. The data types shown depend on the data types selected on the Intensity step.</p>
+                  <div class="add-intensity-uom-search-wrap">
+                    <i class="fa-light fa-search add-intensity-uom-search-icon" aria-hidden="true"></i>
+                    <input type="text" class="form-input add-intensity-uom-search" id="add-intensity-uom-search" placeholder="Search all UOMs..." aria-label="Search all UOMs" oninput="filterAddIntensityUomBySearch()">
+                  </div>
+                  <div class="add-intensity-uom-list" id="add-intensity-uom-list"></div>
+                </div>
+                <div class="wizard-step-content" data-step="6" id="add-intensity-model-step-6">
+                  <h3 class="add-intensity-model-step-title">Aggregation groups</h3>
+                  <p class="add-intensity-model-step-desc">An <strong>aggregation group</strong> is a combination of one primary attribute (row) and one secondary attribute (column). Each cell in the matrix below is one aggregation group. Select primary and secondary attributes from the dropdowns to define the groups; the intensity value for that group is used when enough entities fall into it.</p>
+                  <div class="add-intensity-aggregation-min-entities-inline">
+                    <label class="form-label" for="add-intensity-min-entities-per-group">Minimum entities in aggregation group to use its intensity value</label>
+                    <input type="number" class="form-input" id="add-intensity-min-entities-per-group" value="5" min="1" aria-label="Minimum entities per aggregation group">
+                  </div>
+                  <div class="add-intensity-aggregation-matrix-with-legend">
+                  <div class="add-intensity-aggregation-matrix-wrap">
+                    <div class="add-intensity-aggregation-matrix-outer">
+                      <div class="add-intensity-aggregation-axis-left">Primary attributes</div>
+                      <div class="add-intensity-aggregation-matrix-inner">
+                        <div class="add-intensity-aggregation-matrix-toolbar" id="add-intensity-sera-toolbar">
+                          <div class="sera-toolbar-initial">
+                            <button type="button" class="btn btn-secondary btn-sm" id="add-intensity-sera-fill-btn" onclick="fillAggregationWithSera()"><i class="fa-light fa-wand-magic-sparkles" aria-hidden="true"></i> Fill with Sera</button>
+                          </div>
+                          <div class="sera-toolbar-thinking hidden" id="add-intensity-sera-thinking">
+                            <span class="sera-thinking-spinner" aria-hidden="true"></span>
+                            <span class="sera-thinking-text">Sera is choosing attributes…</span>
+                          </div>
+                          <div class="sera-toolbar-actions hidden" id="add-intensity-sera-actions">
+                            <button type="button" class="btn btn-secondary btn-sm" onclick="tryAgainSera()">Try again</button>
+                            <button type="button" class="btn btn-outline-secondary btn-sm" id="add-intensity-sera-explain-btn" onclick="toggleSeraExplainPopover(event)">Explain choices</button>
+                          </div>
+                        </div>
+                        <div class="add-intensity-aggregation-axis-top">Secondary attributes</div>
+                    <div class="add-intensity-aggregation-matrix" id="add-intensity-aggregation-matrix" role="grid" aria-label="Aggregation matrix">
+                      <div class="matrix-corner" role="presentation"></div>
+                      <div class="matrix-col-header" role="columnheader">
+                        <select class="form-select" id="add-intensity-matrix-col-0" aria-label="Column 1 dimension" onchange="updateAggregationMatrixCounts()">
+                          <option value="" disabled selected>Select secondary attribute</option>
+                          <option value="storage">Storage</option>
+                          <option value="warehouse">Warehouse</option>
+                          <option value="office">Office</option>
+                          <option value="retail">Retail</option>
+                          <option value="outlet">Outlet</option>
+                          <option value="distribution">Distribution</option>
+                          <option value="showroom">Showroom</option>
+                          <option value="data-center">Data center</option>
+                        </select>
+                      </div>
+                      <div class="matrix-col-header" role="columnheader">
+                        <select class="form-select" id="add-intensity-matrix-col-1" aria-label="Column 2 dimension" onchange="updateAggregationMatrixCounts()">
+                          <option value="" disabled selected>Select secondary attribute</option>
+                          <option value="storage">Storage</option>
+                          <option value="warehouse">Warehouse</option>
+                          <option value="office">Office</option>
+                          <option value="retail">Retail</option>
+                          <option value="outlet">Outlet</option>
+                          <option value="distribution">Distribution</option>
+                          <option value="showroom">Showroom</option>
+                          <option value="data-center">Data center</option>
+                        </select>
+                      </div>
+                      <div class="matrix-col-header" role="columnheader">
+                        <select class="form-select" id="add-intensity-matrix-col-2" aria-label="Column 3 dimension" onchange="updateAggregationMatrixCounts()">
+                          <option value="" disabled selected>Select secondary attribute</option>
+                          <option value="storage">Storage</option>
+                          <option value="warehouse">Warehouse</option>
+                          <option value="office">Office</option>
+                          <option value="retail">Retail</option>
+                          <option value="outlet">Outlet</option>
+                          <option value="distribution">Distribution</option>
+                          <option value="showroom">Showroom</option>
+                          <option value="data-center">Data center</option>
+                        </select>
+                      </div>
+                      <div class="matrix-row-header" role="rowheader">
+                        <select class="form-select" id="add-intensity-matrix-row-0" aria-label="Row 1 dimension" onchange="updateAggregationMatrixCounts()">
+                          <option value="" disabled selected>Select primary attribute</option>
+                          <option value="global">Global</option>
+                          <option value="region">Region</option>
+                          <option value="country">Country</option>
+                          <option value="state">State</option>
+                        </select>
+                      </div>
+                      <div class="matrix-cell matrix-cell-unfilled" role="gridcell" data-row="0" data-col="0"><span class="matrix-cell-entity-count empty" id="agg-cell-0-0">— entities</span></div>
+                      <div class="matrix-cell matrix-cell-unfilled" role="gridcell" data-row="0" data-col="1"><span class="matrix-cell-entity-count empty" id="agg-cell-0-1">— entities</span></div>
+                      <div class="matrix-cell matrix-cell-unfilled" role="gridcell" data-row="0" data-col="2"><span class="matrix-cell-entity-count empty" id="agg-cell-0-2">— entities</span></div>
+                      <div class="matrix-row-header" role="rowheader">
+                        <select class="form-select" id="add-intensity-matrix-row-1" aria-label="Row 2 dimension" onchange="updateAggregationMatrixCounts()">
+                          <option value="" disabled selected>Select primary attribute</option>
+                          <option value="global">Global</option>
+                          <option value="region">Region</option>
+                          <option value="country">Country</option>
+                          <option value="state">State</option>
+                        </select>
+                      </div>
+                      <div class="matrix-cell matrix-cell-unfilled" role="gridcell" data-row="1" data-col="0"><span class="matrix-cell-entity-count empty" id="agg-cell-1-0">— entities</span></div>
+                      <div class="matrix-cell matrix-cell-unfilled" role="gridcell" data-row="1" data-col="1"><span class="matrix-cell-entity-count empty" id="agg-cell-1-1">— entities</span></div>
+                      <div class="matrix-cell matrix-cell-unfilled" role="gridcell" data-row="1" data-col="2"><span class="matrix-cell-entity-count empty" id="agg-cell-1-2">— entities</span></div>
+                      <div class="matrix-row-header" role="rowheader">
+                        <select class="form-select" id="add-intensity-matrix-row-2" aria-label="Row 3 dimension" onchange="updateAggregationMatrixCounts()">
+                          <option value="" disabled selected>Select primary attribute</option>
+                          <option value="global">Global</option>
+                          <option value="region">Region</option>
+                          <option value="country">Country</option>
+                          <option value="state">State</option>
+                        </select>
+                      </div>
+                      <div class="matrix-cell matrix-cell-unfilled" role="gridcell" data-row="2" data-col="0"><span class="matrix-cell-entity-count empty" id="agg-cell-2-0">— entities</span></div>
+                      <div class="matrix-cell matrix-cell-unfilled" role="gridcell" data-row="2" data-col="1"><span class="matrix-cell-entity-count empty" id="agg-cell-2-1">— entities</span></div>
+                      <div class="matrix-cell matrix-cell-unfilled" role="gridcell" data-row="2" data-col="2"><span class="matrix-cell-entity-count empty" id="agg-cell-2-2">— entities</span></div>
+                    </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="add-intensity-aggregation-matrix-legend">
+                    <span class="legend-label">Color density</span>
+                    <span class="legend-desc">More granular (higher quality) aggregation groups appear darker.</span>
+                    <div class="legend-scale">
+                      <span style="background: #e3f2fd;" title="Least granular"></span>
+                      <span style="background: #bbdefb;"></span>
+                      <span style="background: #90caf9;"></span>
+                      <span style="background: #64b5f6;"></span>
+                      <span style="background: #42a5f5;" title="Most granular"></span>
+                    </div>
+                  </div>
+                  </div>
+                  <div class="sera-explain-popover hidden" id="add-intensity-sera-explain-popover">
+                    <div class="sera-explain-popover-caret" id="add-intensity-sera-explain-popover-caret" aria-hidden="true"></div>
+                    <h4 class="sera-explain-popover-title">Why these attributes?</h4>
+                    <div class="sera-explain-popover-body">
+                      <div class="sera-explain-popover-list" id="add-intensity-sera-explain-popover-list"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="wizard-step-content" data-step="7" id="add-intensity-model-step-7">
+                  <h3 class="add-intensity-model-step-title">Review</h3>
+                  <p class="add-intensity-model-step-desc">Review your configuration below. Go back to any step to edit, or create the model when ready. Intensity values estimate for entities by matching aggregation groups (most granular match is used).</p>
+                  <div class="estimation-settings-section">
+                    <h2 class="estimation-settings-section-title">Final intensity values by aggregation group</h2>
+                    <p class="estimation-settings-section-desc">Each row is one aggregation group defined by your primary and secondary attribute choices on the Aggregation step.</p>
+                    <div class="add-intensity-review-table-wrap">
+                      <table class="add-intensity-review-table" aria-label="Aggregation groups summary">
+                        <thead>
+                          <tr>
+                            <th>Primary attribute</th>
+                            <th>Secondary attribute</th>
+                            <th>Entities</th>
+                            <th>Intensity value</th>
+                          </tr>
+                        </thead>
+                        <tbody id="add-intensity-review-aggregation-tbody">
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                <div class="wizard-step-content" data-step="4" id="add-intensity-model-step-4">
+                  <h3 class="add-intensity-model-step-title">Inclusions</h3>
+                  <p class="add-intensity-model-step-desc">Specify which sites, entities, or categories to include in this model.</p>
+                  <div class="add-intensity-model-radio-group" style="margin-top: 16px;">
+                    <div class="add-intensity-model-radio-options">
+                      <label>
+                        <input type="radio" name="add-intensity-sites-pref" value="all" checked> All Entities
+                      </label>
+                      <div class="add-intensity-sites-pref-option">
+                        <label>
+                          <input type="radio" name="add-intensity-sites-pref" value="actual"> Entities with at least
+                        </label>
+                        <select class="form-select" id="add-intensity-sites-actual-duration" aria-label="Minimum duration for actual data">
+                          <option value="3">3 months</option>
+                          <option value="6" selected>6 months</option>
+                          <option value="12">12 months</option>
+                        </select>
+                        <span>actual data</span>
+                      </div>
+                      <div class="add-intensity-sites-pref-option">
+                        <label>
+                          <input type="radio" name="add-intensity-sites-pref" value="any"> Entities with at least
+                        </label>
+                        <select class="form-select" id="add-intensity-sites-any-duration" aria-label="Minimum duration for actual and estimated data">
+                          <option value="3">3 months</option>
+                          <option value="6" selected>6 months</option>
+                          <option value="12">12 months</option>
+                        </select>
+                        <span>actual and estimated data</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="wizard-step-content" data-step="5" id="add-intensity-model-step-5">
+                  <h3 class="add-intensity-model-step-title">Thresholds</h3>
+                  <p class="add-intensity-model-step-desc">Set minimum or maximum thresholds for data quality or applicability.</p>
+                  <div class="add-intensity-thresholds-section" style="margin-top: 20px;">
+                    <h4 class="add-intensity-model-setup-heading">Fallback Intensity</h4>
+                    <div class="form-group" style="margin-top: 8px;">
+                      <label class="form-label" for="add-intensity-fallback-set">Fallback intensity set</label>
+                      <select class="form-select" id="add-intensity-fallback-set" aria-label="Fallback intensity set">
+                        <option value="cbecs" selected>CBECS</option>
+                        <option value="ashrae">ASHRAE</option>
+                        <option value="custom">Custom set</option>
+                      </select>
+                    </div>
+                    <div class="form-group" style="margin-top: 12px;">
+                      <label class="form-label" for="add-intensity-cbecs-attribute">Entity Attribute Comparison</label>
+                      <select class="form-select" id="add-intensity-cbecs-attribute" aria-label="Entity attribute comparison">
+                        <option value="CBECS Property Type" selected>CBECS Property Type</option>
+                        <option value="Building Type">Building Type</option>
+                        <option value="Sector">Sector</option>
+                      </select>
+                    </div>
+                    <p class="add-intensity-model-step-desc" style="margin: 8px 0 0 0; font-size: 12px;">CBECs intensities are limited to kWh, cf, and gallons for Electric Power, Natural Gas, and Water.</p>
+                  </div>
+                  <div class="add-intensity-thresholds-section">
+                    <h4 class="add-intensity-model-setup-heading">Outlier Threshold</h4>
+                    <div class="add-intensity-model-radio-group">
+                      <div class="add-intensity-model-radio-options">
+                        <label><input type="radio" name="add-intensity-outlier" value="max"> Set Maximum Entity Outlier Threshold</label>
+                        <label><input type="radio" name="add-intensity-outlier" value="fallback" checked> Set Threshold Based on Fallback Intensity</label>
+                      </div>
+                    </div>
+                    <div class="form-group" style="margin-top: 12px;">
+                      <label class="form-label" for="add-intensity-outlier-threshold">Threshold</label>
+                      <div class="add-intensity-threshold-inline">
+                        <input type="number" class="form-input" id="add-intensity-outlier-threshold" value="3.00" step="0.01" min="0" aria-label="Outlier threshold multiplier">
+                        <span class="threshold-unit">x fallback value</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="add-intensity-dataset-preview add-intensity-dataset-preview-persistent" id="add-intensity-dataset-preview-persistent" style="display: none;">
+                  <div class="add-intensity-dataset-preview-header">
+                    <div>
+                      <h4 class="add-intensity-dataset-preview-title">Dataset Preview</h4>
+                      <p class="add-intensity-dataset-preview-desc">This preview shows which entities are included in the intensity estimation model. The number of entities is filtered down at each step of the wizard (UoM, Inclusions, Thresholds, Aggregation) so you can see the impact of your choices.</p>
+                    </div>
+                    <div class="add-intensity-columns-dropdown" id="add-intensity-columns-dropdown">
+                      <button type="button" class="add-intensity-columns-btn" onclick="toggleIntensityColumnsPanel(event)" aria-expanded="false" aria-haspopup="true">
+                        <i class="fa-light fa-table-columns" aria-hidden="true"></i> Columns <i class="fa-light fa-chevron-down" aria-hidden="true"></i>
+                      </button>
+                      <div class="add-intensity-columns-panel" id="add-intensity-columns-panel" role="dialog" aria-label="Customize columns">
+                        <div class="add-intensity-columns-list" id="add-intensity-columns-list" ondragover="handleIntensityColumnDragover(event)" ondrop="handleIntensityColumnDrop(event)" ondragstart="handleIntensityColumnDragstart(event)" ondragend="handleIntensityColumnDragend(event)">
+                          <div class="add-intensity-columns-row" draggable="true"><span class="add-intensity-columns-drag" aria-hidden="true"><i class="fa-light fa-grip-vertical"></i></span><span class="col-name">PARTICIPANT_LEVEL</span><label class="add-intensity-columns-toggle-wrap"><input type="checkbox" data-col-index="0" checked><span class="add-intensity-columns-toggle"></span></label></div>
+                          <div class="add-intensity-columns-row" draggable="true"><span class="add-intensity-columns-drag" aria-hidden="true"><i class="fa-light fa-grip-vertical"></i></span><span class="col-name">CLIENT_HIER_ID</span><label class="add-intensity-columns-toggle-wrap"><input type="checkbox" data-col-index="1" checked><span class="add-intensity-columns-toggle"></span></label></div>
+                          <div class="add-intensity-columns-row" draggable="true"><span class="add-intensity-columns-drag" aria-hidden="true"><i class="fa-light fa-grip-vertical"></i></span><span class="col-name">SITEGROUP_NAME</span><label class="add-intensity-columns-toggle-wrap"><input type="checkbox" data-col-index="2" checked><span class="add-intensity-columns-toggle"></span></label></div>
+                          <div class="add-intensity-columns-row" draggable="true"><span class="add-intensity-columns-drag" aria-hidden="true"><i class="fa-light fa-grip-vertical"></i></span><span class="col-name">DIVISION</span><label class="add-intensity-columns-toggle-wrap"><input type="checkbox" data-col-index="3" checked><span class="add-intensity-columns-toggle"></span></label></div>
+                          <div class="add-intensity-columns-row" draggable="true"><span class="add-intensity-columns-drag" aria-hidden="true"><i class="fa-light fa-grip-vertical"></i></span><span class="col-name">PARTICIPANT_NAME</span><label class="add-intensity-columns-toggle-wrap"><input type="checkbox" data-col-index="4" checked><span class="add-intensity-columns-toggle"></span></label></div>
+                          <div class="add-intensity-columns-row" draggable="true"><span class="add-intensity-columns-drag" aria-hidden="true"><i class="fa-light fa-grip-vertical"></i></span><span class="col-name">SITE_STATUS</span><label class="add-intensity-columns-toggle-wrap"><input type="checkbox" data-col-index="5" checked><span class="add-intensity-columns-toggle"></span></label></div>
+                          <div class="add-intensity-columns-row" draggable="true"><span class="add-intensity-columns-drag" aria-hidden="true"><i class="fa-light fa-grip-vertical"></i></span><span class="col-name">SITE_REFERENCE_NUMBER</span><label class="add-intensity-columns-toggle-wrap"><input type="checkbox" data-col-index="6" checked><span class="add-intensity-columns-toggle"></span></label></div>
+                          <div class="add-intensity-columns-row" draggable="true"><span class="add-intensity-columns-drag" aria-hidden="true"><i class="fa-light fa-grip-vertical"></i></span><span class="col-name">ADDRESS</span><label class="add-intensity-columns-toggle-wrap"><input type="checkbox" data-col-index="7" checked><span class="add-intensity-columns-toggle"></span></label></div>
+                          <div class="add-intensity-columns-row" draggable="true"><span class="add-intensity-columns-drag" aria-hidden="true"><i class="fa-light fa-grip-vertical"></i></span><span class="col-name">CITY</span><label class="add-intensity-columns-toggle-wrap"><input type="checkbox" data-col-index="8" checked><span class="add-intensity-columns-toggle"></span></label></div>
+                          <div class="add-intensity-columns-row" draggable="true"><span class="add-intensity-columns-drag" aria-hidden="true"><i class="fa-light fa-grip-vertical"></i></span><span class="col-name">STATE</span><label class="add-intensity-columns-toggle-wrap"><input type="checkbox" data-col-index="9" checked><span class="add-intensity-columns-toggle"></span></label></div>
+                          <div class="add-intensity-columns-row" draggable="true"><span class="add-intensity-columns-drag" aria-hidden="true"><i class="fa-light fa-grip-vertical"></i></span><span class="col-name">COUNTRY</span><label class="add-intensity-columns-toggle-wrap"><input type="checkbox" data-col-index="10" checked><span class="add-intensity-columns-toggle"></span></label></div>
+                          <div class="add-intensity-columns-row" draggable="true"><span class="add-intensity-columns-drag" aria-hidden="true"><i class="fa-light fa-grip-vertical"></i></span><span class="col-name">ZIPCODE</span><label class="add-intensity-columns-toggle-wrap"><input type="checkbox" data-col-index="11" checked><span class="add-intensity-columns-toggle"></span></label></div>
+                          <div class="add-intensity-columns-row" draggable="true"><span class="add-intensity-columns-drag" aria-hidden="true"><i class="fa-light fa-grip-vertical"></i></span><span class="col-name">COMMODITY_ID</span><label class="add-intensity-columns-toggle-wrap"><input type="checkbox" data-col-index="12" checked><span class="add-intensity-columns-toggle"></span></label></div>
+                          <div class="add-intensity-columns-row" draggable="true"><span class="add-intensity-columns-drag" aria-hidden="true"><i class="fa-light fa-grip-vertical"></i></span><span class="col-name">DATA_STREAM</span><label class="add-intensity-columns-toggle-wrap"><input type="checkbox" data-col-index="13" checked><span class="add-intensity-columns-toggle"></span></label></div>
+                          <div class="add-intensity-columns-row" draggable="true"><span class="add-intensity-columns-drag" aria-hidden="true"><i class="fa-light fa-grip-vertical"></i></span><span class="col-name">MONTH</span><label class="add-intensity-columns-toggle-wrap"><input type="checkbox" data-col-index="14" checked><span class="add-intensity-columns-toggle"></span></label></div>
+                          <div class="add-intensity-columns-row" draggable="true"><span class="add-intensity-columns-drag" aria-hidden="true"><i class="fa-light fa-grip-vertical"></i></span><span class="col-name">QUARTER</span><label class="add-intensity-columns-toggle-wrap"><input type="checkbox" data-col-index="15" checked><span class="add-intensity-columns-toggle"></span></label></div>
+                          <div class="add-intensity-columns-row" draggable="true"><span class="add-intensity-columns-drag" aria-hidden="true"><i class="fa-light fa-grip-vertical"></i></span><span class="col-name">YEAR</span><label class="add-intensity-columns-toggle-wrap"><input type="checkbox" data-col-index="16" checked><span class="add-intensity-columns-toggle"></span></label></div>
+                          <div class="add-intensity-columns-row" draggable="true"><span class="add-intensity-columns-drag" aria-hidden="true"><i class="fa-light fa-grip-vertical"></i></span><span class="col-name">SERVICE_MONTH</span><label class="add-intensity-columns-toggle-wrap"><input type="checkbox" data-col-index="17" checked><span class="add-intensity-columns-toggle"></span></label></div>
+                          <div class="add-intensity-columns-row" draggable="true"><span class="add-intensity-columns-drag" aria-hidden="true"><i class="fa-light fa-grip-vertical"></i></span><span class="col-name">TOTAL_COST</span><label class="add-intensity-columns-toggle-wrap"><input type="checkbox" data-col-index="18" checked><span class="add-intensity-columns-toggle"></span></label></div>
+                          <div class="add-intensity-columns-row" draggable="true"><span class="add-intensity-columns-drag" aria-hidden="true"><i class="fa-light fa-grip-vertical"></i></span><span class="col-name">ACTUAL_COST</span><label class="add-intensity-columns-toggle-wrap"><input type="checkbox" data-col-index="19" checked><span class="add-intensity-columns-toggle"></span></label></div>
+                          <div class="add-intensity-columns-row" draggable="true"><span class="add-intensity-columns-drag" aria-hidden="true"><i class="fa-light fa-grip-vertical"></i></span><span class="col-name">ESTIMATED_COST</span><label class="add-intensity-columns-toggle-wrap"><input type="checkbox" data-col-index="20" checked><span class="add-intensity-columns-toggle"></span></label></div>
+                          <div class="add-intensity-columns-row" draggable="true"><span class="add-intensity-columns-drag" aria-hidden="true"><i class="fa-light fa-grip-vertical"></i></span><span class="col-name">UNIT_COST</span><label class="add-intensity-columns-toggle-wrap"><input type="checkbox" data-col-index="21" checked><span class="add-intensity-columns-toggle"></span></label></div>
+                          <div class="add-intensity-columns-row" draggable="true"><span class="add-intensity-columns-drag" aria-hidden="true"><i class="fa-light fa-grip-vertical"></i></span><span class="col-name">COST_UOM</span><label class="add-intensity-columns-toggle-wrap"><input type="checkbox" data-col-index="22" checked><span class="add-intensity-columns-toggle"></span></label></div>
+                          <div class="add-intensity-columns-row" draggable="true"><span class="add-intensity-columns-drag" aria-hidden="true"><i class="fa-light fa-grip-vertical"></i></span><span class="col-name">TOTAL_USAGE</span><label class="add-intensity-columns-toggle-wrap"><input type="checkbox" data-col-index="23" checked><span class="add-intensity-columns-toggle"></span></label></div>
+                          <div class="add-intensity-columns-row" draggable="true"><span class="add-intensity-columns-drag" aria-hidden="true"><i class="fa-light fa-grip-vertical"></i></span><span class="col-name">ACTUAL_USAGE</span><label class="add-intensity-columns-toggle-wrap"><input type="checkbox" data-col-index="24" checked><span class="add-intensity-columns-toggle"></span></label></div>
+                          <div class="add-intensity-columns-row" draggable="true"><span class="add-intensity-columns-drag" aria-hidden="true"><i class="fa-light fa-grip-vertical"></i></span><span class="col-name">ESTIMATED_USAGE</span><label class="add-intensity-columns-toggle-wrap"><input type="checkbox" data-col-index="25" checked><span class="add-intensity-columns-toggle"></span></label></div>
+                          <div class="add-intensity-columns-row" draggable="true"><span class="add-intensity-columns-drag" aria-hidden="true"><i class="fa-light fa-grip-vertical"></i></span><span class="col-name">BILLED_VOLUME</span><label class="add-intensity-columns-toggle-wrap"><input type="checkbox" data-col-index="26" checked><span class="add-intensity-columns-toggle"></span></label></div>
+                          <div class="add-intensity-columns-row" draggable="true"><span class="add-intensity-columns-drag" aria-hidden="true"><i class="fa-light fa-grip-vertical"></i></span><span class="col-name">USAGE_UOM</span><label class="add-intensity-columns-toggle-wrap"><input type="checkbox" data-col-index="27" checked><span class="add-intensity-columns-toggle"></span></label></div>
+                          <div class="add-intensity-columns-row" draggable="true"><span class="add-intensity-columns-drag" aria-hidden="true"><i class="fa-light fa-grip-vertical"></i></span><span class="col-name">USAGE_UOM_ID</span><label class="add-intensity-columns-toggle-wrap"><input type="checkbox" data-col-index="28" checked><span class="add-intensity-columns-toggle"></span></label></div>
+                          <div class="add-intensity-columns-row" draggable="true"><span class="add-intensity-columns-drag" aria-hidden="true"><i class="fa-light fa-grip-vertical"></i></span><span class="col-name">DEMAND</span><label class="add-intensity-columns-toggle-wrap"><input type="checkbox" data-col-index="29" checked><span class="add-intensity-columns-toggle"></span></label></div>
+                          <div class="add-intensity-columns-row" draggable="true"><span class="add-intensity-columns-drag" aria-hidden="true"><i class="fa-light fa-grip-vertical"></i></span><span class="col-name">DEMAND_UOM</span><label class="add-intensity-columns-toggle-wrap"><input type="checkbox" data-col-index="30" checked><span class="add-intensity-columns-toggle"></span></label></div>
+                        </div>
+                        <div class="add-intensity-columns-actions">
+                          <button type="button" class="btn btn-primary" onclick="applyIntensityDatasetColumns()">Apply</button>
+                          <button type="button" class="btn btn-secondary" onclick="resetIntensityDatasetColumns()">Reset</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="add-intensity-dataset-preview-table-block">
+                    <div class="add-intensity-dataset-preview-table-wrap">
+                    <table class="add-intensity-dataset-preview-table" aria-label="Dataset preview">
+                      <thead>
+                        <tr>
+                          <th>Participant level</th>
+                          <th>Client hier id</th>
+                          <th>Sitegroup name</th>
+                          <th>Division</th>
+                          <th>Participant name</th>
+                          <th>Site status</th>
+                          <th>Site reference number</th>
+                          <th>Address</th>
+                          <th>City</th>
+                          <th>State</th>
+                          <th>Country</th>
+                          <th>Zipcode</th>
+                          <th>Commodity id</th>
+                          <th>Data stream</th>
+                          <th>Month</th>
+                          <th>Quarter</th>
+                          <th>Year</th>
+                          <th>Service month</th>
+                          <th>Total cost</th>
+                          <th>Actual cost</th>
+                          <th>Estimated cost</th>
+                          <th>Unit cost</th>
+                          <th>Cost uom</th>
+                          <th>Total usage</th>
+                          <th>Actual usage</th>
+                          <th>Estimated usage</th>
+                          <th>Billed volume</th>
+                          <th>Usage uom</th>
+                          <th>Usage uom id</th>
+                          <th>Demand</th>
+                          <th>Demand uom</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr><td>Entity</td><td>541982</td><td>The North Face (TNF)</td><td>The North Face (TNF)</td><td>TNF - REHOBOTH EA…</td><td>Active</td><td>NF321-524613</td><td>123 Main St</td><td>Rehoboth</td><td>DE</td><td>USA</td><td>19971</td><td>ENG-001</td><td>Electric</td><td>1</td><td>Q1</td><td>2025</td><td>202501</td><td>12500.00</td><td>12000.00</td><td>500.00</td><td>0.85</td><td>USD</td><td>14520</td><td>14200</td><td>320</td><td>14520</td><td>kWh</td><td>1</td><td>1200</td><td>kWh</td></tr>
+                        <tr><td>Entity</td><td>298719</td><td>Vans</td><td>Vans</td><td>OLY-V London Camden…</td><td>Active</td><td>301811-542V11</td><td>45 High St</td><td>London</td><td>—</td><td>UK</td><td>NW1 2AB</td><td>GAS-002</td><td>Natural gas</td><td>1</td><td>Q1</td><td>2025</td><td>202501</td><td>8200.00</td><td>8000.00</td><td>200.00</td><td>0.42</td><td>USD</td><td>18500</td><td>18200</td><td>300</td><td>18500</td><td>kWh</td><td>1</td><td>950</td><td>kWh</td></tr>
+                        <tr><td>Entity</td><td>285520</td><td>Vans</td><td>Vans</td><td>OLY-V London Camden…</td><td>Active</td><td>301811-285520</td><td>45 High St</td><td>London</td><td>—</td><td>UK</td><td>NW1 2AB</td><td>ENG-001</td><td>Electric</td><td>2</td><td>Q1</td><td>2025</td><td>202502</td><td>13200.00</td><td>13000.00</td><td>200.00</td><td>0.88</td><td>USD</td><td>15000</td><td>14800</td><td>200</td><td>15000</td><td>kWh</td><td>1</td><td>1100</td><td>kWh</td></tr>
+                        <tr><td>Entity</td><td>543707</td><td>Shared</td><td>Shared</td><td>Shared - Sao Paulo…</td><td>Closed</td><td>VFSA17</td><td>Av. Paulista 1000</td><td>São Paulo</td><td>SP</td><td>Brazil</td><td>01310-100</td><td>ENG-001</td><td>Electric</td><td>1</td><td>Q1</td><td>2025</td><td>202501</td><td>9800.00</td><td>9500.00</td><td>300.00</td><td>0.65</td><td>USD</td><td>15100</td><td>15000</td><td>100</td><td>15100</td><td>kWh</td><td>1</td><td>980</td><td>kWh</td></tr>
+                        <tr><td>Entity</td><td>526101</td><td>Shared</td><td>Shared</td><td>Shared - Shanghai…</td><td>Active</td><td>526101-SH</td><td>Nanjing Rd 88</td><td>Shanghai</td><td>—</td><td>China</td><td>200001</td><td>ENG-001</td><td>Electric</td><td>3</td><td>Q1</td><td>2025</td><td>202503</td><td>15800.00</td><td>15500.00</td><td>300.00</td><td>0.92</td><td>USD</td><td>17200</td><td>17000</td><td>200</td><td>17200</td><td>kWh</td><td>1</td><td>1350</td><td>kWh</td></tr>
+                        <tr><td>Entity</td><td>512340</td><td>The North Face (TNF)</td><td>The North Face (TNF)</td><td>TNF - Denver Flagship…</td><td>Active</td><td>NF321-512340</td><td>1600 Broadway</td><td>Denver</td><td>CO</td><td>USA</td><td>80202</td><td>ENG-001</td><td>Electric</td><td>1</td><td>Q1</td><td>2025</td><td>202501</td><td>22100.00</td><td>21800.00</td><td>300.00</td><td>0.78</td><td>USD</td><td>28300</td><td>28000</td><td>300</td><td>28300</td><td>kWh</td><td>1</td><td>2100</td><td>kWh</td></tr>
+                        <tr><td>Entity</td><td>298720</td><td>Vans</td><td>Vans</td><td>Shared - Sukabumi…</td><td>Active</td><td>VFSA-SUK-01</td><td>Jl. Siliwangi 50</td><td>Sukabumi</td><td>West Java</td><td>Indonesia</td><td>43122</td><td>GAS-002</td><td>Natural gas</td><td>2</td><td>Q1</td><td>2025</td><td>202502</td><td>4100.00</td><td>4000.00</td><td>100.00</td><td>0.38</td><td>USD</td><td>10800</td><td>10600</td><td>200</td><td>10800</td><td>kWh</td><td>1</td><td>620</td><td>kWh</td></tr>
+                        <tr><td>Entity</td><td>541983</td><td>Shared</td><td>Shared</td><td>Shared - Singapore Hub…</td><td>Active</td><td>541983-SG</td><td>Orchard Rd 200</td><td>Singapore</td><td>—</td><td>Singapore</td><td>238861</td><td>ENG-001</td><td>Electric</td><td>1</td><td>Q1</td><td>2025</td><td>202501</td><td>18900.00</td><td>18500.00</td><td>400.00</td><td>0.95</td><td>USD</td><td>19900</td><td>19600</td><td>300</td><td>19900</td><td>kWh</td><td>1</td><td>1550</td><td>kWh</td></tr>
+                        <tr><td>Entity</td><td>285521</td><td>The North Face (TNF)</td><td>The North Face (TNF)</td><td>TNF - Boston Store…</td><td>Active</td><td>NF321-285521-BO</td><td>300 Boylston St</td><td>Boston</td><td>MA</td><td>USA</td><td>02116</td><td>ENG-001</td><td>Electric</td><td>2</td><td>Q1</td><td>2025</td><td>202502</td><td>14200.00</td><td>13900.00</td><td>300.00</td><td>0.82</td><td>USD</td><td>17300</td><td>17000</td><td>300</td><td>17300</td><td>kWh</td><td>1</td><td>1280</td><td>kWh</td></tr>
+                        <tr><td>Entity</td><td>543708</td><td>Shared</td><td>Shared</td><td>Shared - Mexico City…</td><td>Active</td><td>VFSA18-MX</td><td>Av. Reforma 222</td><td>Mexico City</td><td>CDMX</td><td>Mexico</td><td>06600</td><td>ENG-001</td><td>Electric</td><td>1</td><td>Q1</td><td>2025</td><td>202501</td><td>11200.00</td><td>11000.00</td><td>200.00</td><td>0.72</td><td>USD</td><td>15500</td><td>15300</td><td>200</td><td>15500</td><td>kWh</td><td>1</td><td>1050</td><td>kWh</td></tr>
+                      </tbody>
+                    </table>
+                    </div>
+                  </div>
+                  <div class="add-intensity-dataset-preview-footer">
+                    <div class="records-select">
+                      <select id="add-intensity-preview-records-per-page" aria-label="Records per page" onchange="updateIntensityPreviewRecordsLabel()">
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                        <option value="50" selected>50</option>
+                        <option value="100">100</option>
+                      </select>
+                      <span>records</span>
+                    </div>
+                    <span class="previewing-text" id="add-intensity-previewing-text">Previewing top 50 records of 422,365</span>
+                  </div>
+                </div>
+            </div>
+            <div class="modal-footer add-intensity-model-wizard-footer">
+              <button type="button" class="btn btn-secondary" onclick="closeAddIntensityModelWizard()">Cancel</button>
+              <button type="button" class="btn btn-secondary" id="add-intensity-model-wizard-back-btn" onclick="addIntensityModelWizardPrev()" style="display: none;">Back</button>
+              <button type="button" class="btn btn-primary" id="add-intensity-model-wizard-next-btn" onclick="addIntensityModelWizardNext()">Next</button>
+              <button type="button" class="btn btn-primary" id="add-intensity-model-wizard-create-btn" onclick="closeAddIntensityModelWizard()" style="display: none;">Create model</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gap filling report detail modal (full page) -->
+        <div class="modal-backdrop report-detail-modal" id="gap-report-detail-backdrop" onclick="if(event.target===this) closeGapFillingReportDetail()">
+          <div class="modal" id="gap-report-detail-modal" onclick="event.stopPropagation()">
+            <div class="modal-header">
+              <h2 class="modal-title" id="gap-report-detail-title">Gap filling report</h2>
+              <button type="button" class="modal-close" onclick="closeGapFillingReportDetail()" aria-label="Close"><i class="fa-light fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+              <div class="report-detail-section">
+                <h3 class="report-detail-section-title">Run summary</h3>
+                <p id="gap-report-summary" style="margin: 0; font-size: 14px; color: var(--ghg-text-secondary);">Electric power routine — Mar 5, 2025, 2:30 PM. 42 gaps filled, 8 unable to fill.</p>
+              </div>
+              <div class="report-detail-section">
+                <h3 class="report-detail-section-title">Gaps filled and methods used</h3>
+                <p style="margin: 0 0 12px 0; font-size: 13px; color: var(--ghg-text-secondary);">Toggle to view as a time series table (entity × period). Click a filled or unfilled cell to see which method was used or why it could not be filled.</p>
+                <div class="gap-report-view-toggle">
+                  <button type="button" class="active" data-view="list" onclick="switchGapReportView('list')">List</button>
+                  <button type="button" data-view="timeseries" onclick="switchGapReportView('timeseries')">Time series table</button>
+                </div>
+                <div class="gap-report-list-wrap" id="gap-report-list-wrap">
+                  <div style="overflow-x: auto;">
+                    <table class="report-gap-table" id="gap-report-detail-table" onclick="handleGapReportListCellClick(event)">
+                      <thead>
+                        <tr>
+                          <th>Entity</th>
+                          <th>Period</th>
+                          <th>Method used</th>
+                          <th>Higher-priority attempts (if any)</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr data-entity="Alaska Regional Hospital" data-period="Jan 24" data-value="512.4" data-method-used="Average value of surrounding months (+/- 2 months)" data-method-failed="—" data-filled="true">
+                          <td>Alaska Regional Hospital</td>
+                          <td>Jan 24</td>
+                          <td class="method-used">Average value of surrounding months (+/- 2 months)</td>
+                          <td class="method-failed">—</td>
+                        </tr>
+                        <tr data-entity="West Hills Hospital &amp; Medical Center" data-period="Jun 24" data-value="289.4" data-method-used="Average value from past 6 months" data-method-failed="Method 1: Insufficient surrounding data" data-filled="true">
+                          <td>West Hills Hospital &amp; Medical Center</td>
+                          <td>Jun 24</td>
+                          <td class="method-used">Average value from past 6 months</td>
+                          <td class="method-failed">Method 1: Insufficient surrounding data</td>
+                        </tr>
+                        <tr data-entity="North Suburban Medical Center" data-period="Nov 24" data-value="188.6" data-method-used="Last known value within prior 4 months" data-method-failed="Method 1–2: No data in range" data-filled="true">
+                          <td>North Suburban Medical Center</td>
+                          <td>Nov 24</td>
+                          <td class="method-used">Last known value within prior 4 months</td>
+                          <td class="method-failed">Method 1–2: No data in range</td>
+                        </tr>
+                        <tr data-entity="Rose Medical Center" data-period="Sep 24" data-value="471.5" data-method-used="Value from same month of prior year" data-method-failed="Methods 1–3: Not applicable" data-filled="true">
+                          <td>Rose Medical Center</td>
+                          <td>Sep 24</td>
+                          <td class="method-used">Value from same month of prior year</td>
+                          <td class="method-failed">Methods 1–3: Not applicable</td>
+                        </tr>
+                        <tr data-entity="Sky Ridge Medical Center" data-period="Dec 24" data-value="" data-method-used="" data-method-failed="Unable to fill: No prior data available (all methods tried)" data-filled="false">
+                          <td>Sky Ridge Medical Center</td>
+                          <td>Dec 24</td>
+                          <td>—</td>
+                          <td class="method-failed">Unable to fill: No prior data available (all methods tried)</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="gap-report-timeseries-wrap" id="gap-report-timeseries-wrap">
+                  <div style="overflow-x: auto;">
+                    <table class="report-gap-table report-timeseries-table" id="gap-report-timeseries-table" onclick="handleGapReportTimeseriesCellClick(event)">
+                      <thead>
+                        <tr id="gap-report-timeseries-thead">
+                          <th>Business entity</th>
+                          <th>Unit of measure</th>
+                          <th class="numeric">Jul 24</th>
+                          <th class="numeric">Aug 24</th>
+                          <th class="numeric">Sep 24</th>
+                          <th class="numeric">Oct 24</th>
+                          <th class="numeric">Nov 24</th>
+                          <th class="numeric">Dec 24</th>
+                          <th class="numeric">Jan 24</th>
+                          <th class="numeric">Feb 24</th>
+                          <th class="numeric">Mar 24</th>
+                          <th class="numeric">Apr 24</th>
+                          <th class="numeric">May 24</th>
+                          <th class="numeric">Jun 24</th>
+                        </tr>
+                      </thead>
+                      <tbody id="gap-report-timeseries-tbody"></tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="report-cell-popover" id="report-cell-popover" role="tooltip">
+          <div class="report-cell-popover-title" id="report-cell-popover-title"></div>
+          <div class="report-cell-popover-method" id="report-cell-popover-method"></div>
+          <div class="report-cell-popover-reason" id="report-cell-popover-reason"></div>
+          <div class="report-cell-popover-factor" id="report-cell-popover-factor" style="display: none;"></div>
+          <div class="report-cell-popover-source" id="report-cell-popover-source" style="display: none;"></div>
+        </div>
+
+        <!-- Intensity report detail modal (full page, list + time series) -->
+        <div class="modal-backdrop report-detail-modal" id="intensity-report-detail-backdrop" onclick="if(event.target===this) closeIntensityReportDetail()">
+          <div class="modal" id="intensity-report-detail-modal" onclick="event.stopPropagation()">
+            <div class="modal-header">
+              <h2 class="modal-title" id="intensity-report-detail-title">Intensity estimation report</h2>
+              <button type="button" class="modal-close" onclick="closeIntensityReportDetail()" aria-label="Close"><i class="fa-light fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+              <div class="report-detail-section">
+                <h3 class="report-detail-section-title">Run summary</h3>
+                <p id="intensity-report-summary" style="margin: 0; font-size: 14px; color: var(--ghg-text-secondary);">Electric power intensity — Mar 4, 2025, 10:15 AM.</p>
+                <div class="report-intensity-summary" id="intensity-report-factor-block" style="margin-top: 12px;">
+                  <div class="report-intensity-factor">Intensity factor used: <strong id="intensity-report-factor-value">0.28</strong> kWh per sq ft</div>
+                  <div class="report-intensity-source" id="intensity-report-source">Calculated from intensity of <strong>12 entities</strong> with sufficient data (min 6 months). Weighted average of entity-level intensities.</div>
+                </div>
+              </div>
+              <div class="report-detail-section">
+                <h3 class="report-detail-section-title">Gaps filled (intensity applied)</h3>
+                <p style="margin: 0 0 12px 0; font-size: 13px; color: var(--ghg-text-secondary);">Toggle to view as a time series table. Click a filled cell to see the intensity factor and source used.</p>
+                <div class="intensity-report-view-toggle">
+                  <button type="button" class="active" data-view="list" onclick="switchIntensityReportView('list')">List</button>
+                  <button type="button" data-view="timeseries" onclick="switchIntensityReportView('timeseries')">Time series table</button>
+                </div>
+                <div class="intensity-report-list-wrap" id="intensity-report-list-wrap">
+                  <div style="overflow-x: auto;">
+                    <table class="report-gap-table" id="intensity-report-detail-table" onclick="handleIntensityReportListCellClick(event)">
+                      <thead>
+                        <tr>
+                          <th>Entity</th>
+                          <th>Period</th>
+                          <th>Value (kWh)</th>
+                          <th>Source</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr data-entity="Alaska Regional Hospital" data-period="Jan 24" data-value="512.4" data-factor="0.28" data-source="Entity data">
+                          <td>Alaska Regional Hospital</td>
+                          <td>Jan 24</td>
+                          <td>512.4</td>
+                          <td>Entity data</td>
+                        </tr>
+                        <tr data-entity="West Hills Hospital &amp; Medical Center" data-period="Jun 24" data-value="289.4" data-factor="0.28" data-source="Entity data">
+                          <td>West Hills Hospital &amp; Medical Center</td>
+                          <td>Jun 24</td>
+                          <td>289.4</td>
+                          <td>Entity data</td>
+                        </tr>
+                        <tr data-entity="North Suburban Medical Center" data-period="Nov 24" data-value="188.6" data-factor="0.28" data-source="Entity data">
+                          <td>North Suburban Medical Center</td>
+                          <td>Nov 24</td>
+                          <td>188.6</td>
+                          <td>Entity data</td>
+                        </tr>
+                        <tr data-entity="Rose Medical Center" data-period="Sep 24" data-value="471.5" data-factor="0.28" data-source="Entity data">
+                          <td>Rose Medical Center</td>
+                          <td>Sep 24</td>
+                          <td>471.5</td>
+                          <td>Entity data</td>
+                        </tr>
+                        <tr data-entity="Sky Ridge Medical Center" data-period="Dec 24" data-value="268.2" data-factor="0.28" data-source="Entity data">
+                          <td>Sky Ridge Medical Center</td>
+                          <td>Dec 24</td>
+                          <td>268.2</td>
+                          <td>Entity data</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="intensity-report-timeseries-wrap" id="intensity-report-timeseries-wrap">
+                  <div style="overflow-x: auto;">
+                    <table class="report-gap-table report-timeseries-table" id="intensity-report-timeseries-table" onclick="handleIntensityReportTimeseriesCellClick(event)">
+                      <thead>
+                        <tr>
+                          <th>Business entity</th>
+                          <th>Unit of measure</th>
+                          <th class="numeric">Jul 24</th>
+                          <th class="numeric">Aug 24</th>
+                          <th class="numeric">Sep 24</th>
+                          <th class="numeric">Oct 24</th>
+                          <th class="numeric">Nov 24</th>
+                          <th class="numeric">Dec 24</th>
+                          <th class="numeric">Jan 24</th>
+                          <th class="numeric">Feb 24</th>
+                          <th class="numeric">Mar 24</th>
+                          <th class="numeric">Apr 24</th>
+                          <th class="numeric">May 24</th>
+                          <th class="numeric">Jun 24</th>
+                        </tr>
+                      </thead>
+                      <tbody id="intensity-report-timeseries-tbody"></tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Toast container for notifications -->
+        <div class="toast-container" id="toast-container" aria-live="polite"></div>
+
+        <!-- ============================================== -->
+        <!-- VIEW: ESTIMATION SETTINGS (Settings)            -->
+        <!-- ============================================== -->
+        <div id="view-estimation-settings" class="view">
+          <div class="page-header">
+            <div class="page-header-left">
+              <div class="page-breadcrumb">
+                <a href="#">Settings</a>
+                <i class="fa-light fa-chevron-right"></i>
+                <span>Estimation settings</span>
+              </div>
+              <h1 class="page-title">Estimation settings</h1>
+              <p class="page-subtitle">Manage gap filling and intensity estimation routines. View and edit settings, and see past routine reports.</p>
+            </div>
+          </div>
+          <div class="content-container">
+            <div class="estimation-settings-tabs" role="tablist">
+              <button type="button" class="estimation-settings-tab active" role="tab" aria-selected="true" id="est-settings-tab-routines" onclick="switchEstimationSettingsTab('routines')">Routines</button>
+              <button type="button" class="estimation-settings-tab" role="tab" aria-selected="false" id="est-settings-tab-reports" onclick="switchEstimationSettingsTab('reports')">Past reports</button>
+            </div>
+
+            <div id="estimation-settings-panel-routines" class="estimation-settings-panel active">
+              <div class="estimation-settings-section">
+                <div class="estimation-settings-section-header">
+                  <h2 class="estimation-settings-section-title">Gap filling routines</h2>
+                  <button type="button" class="btn btn-primary" onclick="openCreateRoutineModal();"><i class="fa-light fa-plus" aria-hidden="true"></i> Create routine</button>
+                </div>
+                <p class="estimation-settings-section-desc">View and edit your gap filling routines. Each routine defines activity type, entities, methods (in priority order), and preferences.</p>
+                <div class="estimation-settings-table-wrap">
+                  <table class="estimation-settings-table" id="estimation-gap-routines-table">
+                    <thead>
+                      <tr>
+                        <th>Routine name</th>
+                        <th>Activity type</th>
+                        <th>Scope</th>
+                        <th>Status</th>
+                        <th class="col-actions"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr data-routine-id="gf-1">
+                        <td>Electric power routine</td>
+                        <td>Electric power</td>
+                        <td>Scope 2</td>
+                        <td><span class="create-routine-status-dot active">Active</span></td>
+                        <td class="col-actions"><button type="button" class="btn btn-ghost btn-sm" onclick="openEditGapRoutine('gf-1')">Edit</button></td>
+                      </tr>
+                      <tr data-routine-id="gf-2">
+                        <td>Natural gas gap filling</td>
+                        <td>Natural gas</td>
+                        <td>Scope 1</td>
+                        <td><span class="create-routine-status-dot active">Active</span></td>
+                        <td class="col-actions"><button type="button" class="btn btn-ghost btn-sm" onclick="openEditGapRoutine('gf-2')">Edit</button></td>
+                      </tr>
+                      <tr data-routine-id="gf-3">
+                        <td>District heating draft</td>
+                        <td>District heating / cooling</td>
+                        <td>Scope 1</td>
+                        <td><span class="create-routine-status-dot inactive">Draft</span></td>
+                        <td class="col-actions"><button type="button" class="btn btn-ghost btn-sm" onclick="openEditGapRoutine('gf-3')">Edit</button></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="estimation-settings-section">
+                <div class="estimation-settings-section-header">
+                  <h2 class="estimation-settings-section-title">Intensity estimation routines</h2>
+                  <button type="button" class="btn btn-primary" onclick="openCreateIntensityRoutineModal();"><i class="fa-light fa-plus" aria-hidden="true"></i> Create routine</button>
+                </div>
+                <p class="estimation-settings-section-desc">View and edit intensity estimation routines. Configure minimum months of data, maximum intensity before fallback (CBECS), and which entities to include.</p>
+                <div class="estimation-settings-table-wrap">
+                  <table class="estimation-settings-table" id="estimation-intensity-routines-table">
+                    <thead>
+                      <tr>
+                        <th>Routine name</th>
+                        <th>Activity type</th>
+                        <th>Min months</th>
+                        <th>Max before fallback</th>
+                        <th>Status</th>
+                        <th class="col-actions"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr data-routine-id="int-1">
+                        <td>Electric power intensity</td>
+                        <td>Electric power</td>
+                        <td>6 months</td>
+                        <td>0.5</td>
+                        <td><span class="create-routine-status-dot active">Active</span></td>
+                        <td class="col-actions"><button type="button" class="btn btn-ghost btn-sm" onclick="openEditIntensityRoutine('int-1')">Edit</button></td>
+                      </tr>
+                      <tr data-routine-id="int-2">
+                        <td>Natural gas intensity</td>
+                        <td>Natural gas</td>
+                        <td>3 months</td>
+                        <td>—</td>
+                        <td><span class="create-routine-status-dot active">Active</span></td>
+                        <td class="col-actions"><button type="button" class="btn btn-ghost btn-sm" onclick="openEditIntensityRoutine('int-2')">Edit</button></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <div id="estimation-settings-panel-reports" class="estimation-settings-panel">
+              <div class="estimation-settings-section">
+                <h2 class="estimation-settings-section-title">Past routine reports</h2>
+                <p class="estimation-settings-section-desc">View reports from past gap filling and intensity estimation runs. Gap filling reports show which gaps were filled and which methods were used (or why higher-priority methods did not apply). Intensity reports show the factor used and whether it came from entity data or CBECS fallback.</p>
+                <div class="estimation-settings-table-wrap">
+                  <table class="estimation-settings-table estimation-reports-table" id="estimation-past-reports-table">
+                    <thead>
+                      <tr>
+                        <th class="col-date">Date run</th>
+                        <th class="col-type">Type</th>
+                        <th class="col-routine">Routine</th>
+                        <th>Summary</th>
+                        <th class="col-actions"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr data-report-id="r-gf-1">
+                        <td>Mar 5, 2025, 2:30 PM</td>
+                        <td>Gap filling</td>
+                        <td>Electric power routine</td>
+                        <td>42 gaps filled, 8 unable to fill</td>
+                        <td class="col-actions"><button type="button" class="btn btn-ghost btn-sm" onclick="openGapFillingReportDetail('r-gf-1')">View report</button></td>
+                      </tr>
+                      <tr data-report-id="r-int-1">
+                        <td>Mar 4, 2025, 10:15 AM</td>
+                        <td>Intensity estimation</td>
+                        <td>Electric power intensity</td>
+                        <td>Factor 0.28 from entity data (12 entities)</td>
+                        <td class="col-actions"><button type="button" class="btn btn-ghost btn-sm" onclick="openIntensityReportDetail('r-int-1')">View report</button></td>
+                      </tr>
+                      <tr data-report-id="r-int-2">
+                        <td>Mar 3, 2025, 4:00 PM</td>
+                        <td>Intensity estimation</td>
+                        <td>Electric power intensity</td>
+                        <td>Factor 0.35 — CBECS fallback (insufficient data)</td>
+                        <td class="col-actions"><button type="button" class="btn btn-ghost btn-sm" onclick="openIntensityReportDetail('r-int-2')">View report</button></td>
+                      </tr>
+                      <tr data-report-id="r-gf-2">
+                        <td>Mar 2, 2025, 9:00 AM</td>
+                        <td>Gap filling</td>
+                        <td>Natural gas gap filling</td>
+                        <td>15 gaps filled, 2 unable to fill</td>
+                        <td class="col-actions"><button type="button" class="btn btn-ghost btn-sm" onclick="openGapFillingReportDetail('r-gf-2')">View report</button></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </div>
+  <script src="app-shell.js"></script>
+  <script src="estimations-export.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      window.__switchSection('monitor');
+      switchView('estimations');
+      var prevSection = 'monitor';
+      document.querySelectorAll('.sidebar-item[data-section]').forEach(function(btn) {
+        btn.addEventListener('mousedown', function() {
+          var a = document.querySelector('.sidebar-item[data-section].active');
+          prevSection = a ? a.getAttribute('data-section') : null;
+        });
+        btn.addEventListener('click', function() {
+          var s = btn.getAttribute('data-section');
+          setTimeout(function() {
+            if (s === prevSection) return;
+            if (s === 'monitor') switchView('estimations');
+            if (s === 'settings') switchView('estimation-settings');
+          }, 0);
+        });
+      });
+    });
+  </script>
+</body>
+</html>
