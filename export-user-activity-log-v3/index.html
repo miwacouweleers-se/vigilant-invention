@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User activity log V3 – Prototype</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://kit.fontawesome.com/e1f0748a31.js" crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="view-user-activity-log-v3" class="view">
+    <div class="page-header">
+      <div class="page-header-left">
+        <div class="page-breadcrumb">
+          <a href="#">Settings</a>
+          <i class="fa-light fa-chevron-right"></i>
+          <span>User activity log V3</span>
+        </div>
+        <h1 class="page-title">User activity log V3</h1>
+        <p class="page-subtitle">Track all activities in the platform. View audit trails for specific objects.</p>
+      </div>
+    </div>
+    <div class="content-container">
+      <div class="activity-log-product-row">
+        <label for="activity-log-product-v3" class="activity-log-product-label">Product</label>
+        <select class="form-select" id="activity-log-product-v3" aria-label="Product filter" onchange="activityLogProductChangeV3()" style="width: 200px;">
+          <option value="Carbon Performance" selected>Carbon Performance</option>
+          <option value="Climate Risk">Climate Risk</option>
+          <option value="Reporting and Compliance">Reporting and Compliance</option>
+          <option value="all">All products</option>
+        </select>
+      </div>
+      <div class="activity-log-toolbar">
+        <div class="activity-log-v2-search-wrapper" style="width: 420px;">
+          <div class="search-input-wrapper" style="width: 100%;">
+            <i class="fa-light fa-search"></i>
+            <input type="text" class="form-input" id="activity-log-search-v3" placeholder="Search..." aria-label="Search activity log" oninput="activityLogApplyFiltersV3()">
+          </div>
+          <button type="button" class="activity-log-v2-search-clear" id="activity-log-v3-search-clear" onclick="clearAuditFilterV3()" aria-label="Clear audit trail filter" title="Clear audit trail filter"><i class="fa-light fa-times"></i></button>
+        </div>
+        <button type="button" class="btn btn-secondary" id="activity-log-filters-btn-v3" onclick="toggleActivityLogFiltersV3(event)" aria-haspopup="true" aria-expanded="false">
+          <i class="fa-light fa-filter"></i> Filters
+          <span class="activity-log-filter-badge" id="activity-log-filter-badge-v3" style="display: none;"></span>
+        </button>
+        <div class="activity-log-filters-backdrop-v3" id="activity-log-filters-backdrop-v3" onclick="closeActivityLogFiltersDrawerV3()" aria-hidden="true"></div>
+        <div class="activity-log-filters-drawer-v3" id="activity-log-filters-drawer-v3" role="dialog" aria-labelledby="activity-log-filters-drawer-title-v3" aria-modal="true">
+          <div class="activity-log-filters-drawer-header">
+            <h2 class="activity-log-filters-drawer-title" id="activity-log-filters-drawer-title-v3">Filters</h2>
+            <button type="button" class="activity-log-filters-drawer-close" onclick="closeActivityLogFiltersDrawerV3()" aria-label="Close filters">&times;</button>
+          </div>
+          <div class="activity-log-filters-drawer-body">
+            <div class="activity-log-filter-accordion-item" data-accordion="user">
+              <button type="button" class="activity-log-filter-accordion-header" onclick="toggleActivityLogFilterAccordionV3('user')">
+                <span>User</span>
+                <i class="fa-light fa-chevron-right activity-log-filter-accordion-chevron"></i>
+              </button>
+              <div class="activity-log-filter-accordion-body">
+                <div class="activity-log-filter-multi-options" id="activity-log-filter-user-options-v3"></div>
+              </div>
+            </div>
+            <div class="activity-log-filter-accordion-item" data-accordion="action">
+              <button type="button" class="activity-log-filter-accordion-header" onclick="toggleActivityLogFilterAccordionV3('action')">
+                <span>Action</span>
+                <i class="fa-light fa-chevron-right activity-log-filter-accordion-chevron"></i>
+              </button>
+              <div class="activity-log-filter-accordion-body">
+                <div class="activity-log-filter-multi-options" id="activity-log-filter-action-options-v3">
+                  <label><input type="checkbox" value="created" onchange="activityLogApplyFiltersV3(); updateActivityLogFilterBadgeV3(); renderActivityLogFilterPillsV3();"> Created</label>
+                  <label><input type="checkbox" value="updated" onchange="activityLogApplyFiltersV3(); updateActivityLogFilterBadgeV3(); renderActivityLogFilterPillsV3();"> Updated</label>
+                  <label><input type="checkbox" value="deleted" onchange="activityLogApplyFiltersV3(); updateActivityLogFilterBadgeV3(); renderActivityLogFilterPillsV3();"> Deleted</label>
+                  <label><input type="checkbox" value="viewed" onchange="activityLogApplyFiltersV3(); updateActivityLogFilterBadgeV3(); renderActivityLogFilterPillsV3();"> Viewed</label>
+                </div>
+              </div>
+            </div>
+            <div class="activity-log-filter-accordion-item" data-accordion="objectType">
+              <button type="button" class="activity-log-filter-accordion-header" onclick="toggleActivityLogFilterAccordionV3('objectType')">
+                <span>Object type</span>
+                <i class="fa-light fa-chevron-right activity-log-filter-accordion-chevron"></i>
+              </button>
+              <div class="activity-log-filter-accordion-body">
+                <div class="activity-log-filter-multi-options" id="activity-log-filter-object-options-v3"></div>
+              </div>
+            </div>
+            <div class="activity-log-filter-accordion-item" data-accordion="page">
+              <button type="button" class="activity-log-filter-accordion-header" onclick="toggleActivityLogFilterAccordionV3('page')">
+                <span>Page</span>
+                <i class="fa-light fa-chevron-right activity-log-filter-accordion-chevron"></i>
+              </button>
+              <div class="activity-log-filter-accordion-body">
+                <div class="activity-log-filter-multi-options" id="activity-log-filter-page-options-v3"></div>
+              </div>
+            </div>
+            <div class="activity-log-filter-accordion-item" id="activity-log-filter-accordion-product-v3" data-accordion="product" style="display: none;">
+              <button type="button" class="activity-log-filter-accordion-header" onclick="toggleActivityLogFilterAccordionV3('product')">
+                <span>Product</span>
+                <i class="fa-light fa-chevron-right activity-log-filter-accordion-chevron"></i>
+              </button>
+              <div class="activity-log-filter-accordion-body">
+                <div class="activity-log-filter-multi-options" id="activity-log-filter-product-options-v3">
+                  <label><input type="checkbox" value="Carbon Performance" onchange="activityLogApplyFiltersV3(); updateActivityLogFilterBadgeV3(); renderActivityLogFilterPillsV3();"> Carbon Performance</label>
+                  <label><input type="checkbox" value="Climate Risk" onchange="activityLogApplyFiltersV3(); updateActivityLogFilterBadgeV3(); renderActivityLogFilterPillsV3();"> Climate Risk</label>
+                  <label><input type="checkbox" value="Reporting and Compliance" onchange="activityLogApplyFiltersV3(); updateActivityLogFilterBadgeV3(); renderActivityLogFilterPillsV3();"> Reporting and Compliance</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <select class="form-select" id="activity-log-timeframe-v3" aria-label="Timeframe" onchange="activityLogTimeframeChangeV3()" style="width: 160px;">
+          <option value="">All time</option>
+          <option value="today">Today</option>
+          <option value="yesterday">Yesterday</option>
+          <option value="last7">Last 7 days</option>
+          <option value="last30">Last 30 days</option>
+          <option value="custom">Custom</option>
+        </select>
+        <span class="activity-log-custom-dates" id="activity-log-custom-dates-v3" style="display: none; align-items: center; gap: 8px;">
+          <label for="activity-log-from-v3" class="activity-log-custom-dates-label">From</label>
+          <input type="date" class="form-input" id="activity-log-from-v3" aria-label="From date" style="width: 140px;" onchange="activityLogApplyFiltersV3()">
+          <label for="activity-log-to-v3" class="activity-log-custom-dates-label">To</label>
+          <input type="date" class="form-input" id="activity-log-to-v3" aria-label="To date" style="width: 140px;" onchange="activityLogApplyFiltersV3()">
+        </span>
+        <button type="button" class="btn btn-secondary" onclick="exportActivityLogV3()" aria-label="Export activity log">
+          <i class="fa-light fa-download"></i> Export
+        </button>
+      </div>
+      <div class="activity-log-filter-pills-wrap">
+        <div id="activity-log-filter-pills-v3" class="activity-log-filter-pills-list"></div>
+        <button type="button" class="activity-log-filter-clear-all" id="activity-log-filter-clear-all-v3" onclick="clearAllActivityLogFiltersV3()" style="display: none;">Clear all</button>
+      </div>
+      <div class="card">
+        <div class="card-body activity-log-card-body">
+          <div class="activity-log-table-wrap">
+            <table class="data-table activity-log-table activity-log-table-v3" id="activity-log-table-v3" aria-label="User activity log V3">
+              <thead>
+                <tr>
+                  <th class="activity-log-ts-col">Timestamp</th>
+                  <th id="activity-log-th-product-v3" class="activity-log-product-col" style="display: none;">Product</th>
+                  <th class="activity-log-user-col">User</th>
+                  <th class="activity-log-action-col">Action</th>
+                  <th class="activity-log-where-col">Page</th>
+                  <th class="activity-log-affected-col">Affected item</th>
+                  <th class="activity-log-details-col">Details</th>
+                  <th class="activity-log-agent-col">Agent Assisted <i class="fa-light fa-circle-info activity-log-th-tooltip" title="The AI agent assisted in this activity" aria-label="The AI agent assisted in this activity"></i></th>
+                </tr>
+              </thead>
+              <tbody id="activity-log-tbody-v3">
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Activity row detail drawer (details + audit trail) -->
+  <div class="audit-trail-backdrop" id="activity-row-detail-backdrop-v2" onclick="if(event.target===this) closeActivityRowDetailDrawerV2()"></div>
+  <div class="audit-trail-drawer" id="activity-row-detail-drawer-v2" role="dialog" aria-labelledby="activity-row-detail-title-v2" aria-modal="true">
+    <div class="audit-trail-drawer-header">
+      <h2 class="audit-trail-drawer-title" id="activity-row-detail-title-v2">Activity details</h2>
+      <button type="button" class="audit-trail-drawer-close" onclick="closeActivityRowDetailDrawerV2()" aria-label="Close"><i class="fa-light fa-times"></i></button>
+    </div>
+    <div class="audit-trail-drawer-body activity-row-drawer-body-single" id="activity-row-detail-body-v2">
+      <div class="activity-row-drawer-details-block">
+        <div class="activity-row-detail-row"><span class="activity-row-detail-label">Timestamp</span><span class="activity-row-detail-value" id="activity-row-detail-timestamp-v2"></span></div>
+        <div class="activity-row-detail-row"><span class="activity-row-detail-label">User</span><span class="activity-row-detail-value activity-row-detail-user-wrap" id="activity-row-detail-who-v2"></span></div>
+        <div class="activity-row-detail-row"><span class="activity-row-detail-label">Action</span><span class="activity-row-detail-value" id="activity-row-detail-action-v2"></span></div>
+        <div class="activity-row-detail-row"><span class="activity-row-detail-label">Page</span><span class="activity-row-detail-value" id="activity-row-detail-where-v2"></span></div>
+        <div class="activity-row-detail-row"><span class="activity-row-detail-label">Affected item</span><span class="activity-row-detail-value" id="activity-row-detail-object-v2"></span></div>
+        <div class="activity-row-detail-row activity-row-detail-entity-type" id="activity-row-detail-entity-type-row-v2"><span class="activity-row-detail-label">Business entity</span><span class="activity-row-detail-value" id="activity-row-detail-entity-v2"></span></div>
+        <div class="activity-row-detail-row activity-row-detail-entity-type" id="activity-row-detail-activity-type-row-v2"><span class="activity-row-detail-label">Activity type</span><span class="activity-row-detail-value" id="activity-row-detail-activity-type-v2"></span></div>
+        <div class="activity-row-detail-row"><span class="activity-row-detail-label">Details</span><span class="activity-row-detail-value activity-row-detail-value-full" id="activity-row-detail-value-v2"></span></div>
+      </div>
+      <div class="activity-row-drawer-audit-block">
+        <h3 class="activity-row-drawer-audit-heading" id="audit-trail-heading-v2">Audit trail</h3>
+        <div class="audit-trail-timeline" id="audit-trail-timeline-v2">
+          <div class="audit-trail-timeline-body" id="audit-trail-timeline-body-v2">
+            <div class="audit-trail-timeline-events" id="audit-trail-timeline-events-v2"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="padding: 16px 24px; border-top: 1px solid var(--ghg-border); flex-shrink: 0;"><button type="button" class="btn btn-primary btn-sm" onclick="closeActivityRowDetailDrawerV2()">Close</button></div>
+  </div>
+
+  <!-- Full details modal -->
+  <div class="modal-backdrop" id="activity-log-full-details-modal" onclick="if(event.target===this) closeActivityLogFullDetails()">
+    <div class="modal modal-md" role="dialog" aria-labelledby="activity-log-full-details-title" aria-modal="true">
+      <div class="modal-header">
+        <h2 class="modal-title" id="activity-log-full-details-title">Details</h2>
+        <button type="button" class="modal-close" onclick="closeActivityLogFullDetails()" aria-label="Close"><i class="fa-light fa-times"></i></button>
+      </div>
+      <div class="modal-body">
+        <div id="activity-log-full-details-content" style="white-space: pre-wrap; word-break: break-word; font-size: 14px; color: var(--ghg-text); max-height: 60vh; overflow-y: auto;"></div>
+        <div style="margin-top: 16px;"><button type="button" class="btn btn-primary btn-sm" onclick="closeActivityLogFullDetails()">Close</button></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Record preview popover -->
+  <div id="activity-record-preview-popover" class="activity-record-preview-popover" role="tooltip" aria-hidden="true" style="display: none;">
+    <div class="activity-record-preview-popover-title">Summary</div>
+    <div class="activity-record-preview-popover-body" id="activity-record-preview-popover-body"></div>
+  </div>
+
+  <script src="app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      activityLogPopulateFiltersV3();
+      activityLogRenderV3();
+      bindActivityRecordPreviewPopover();
+    });
+  </script>
+</body>
+</html>
