@@ -9,56 +9,138 @@
   <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="app-shell">
+  <div class="app-shell">
+    
+    <!-- Icon Sidebar -->
     <aside class="icon-sidebar">
       <div class="sidebar-top">
         <button class="sidebar-item menu-toggle" title="Menu">
           <i class="fa-light fa-arrow-right-to-line"></i>
           <span class="sidebar-label">Menu</span>
         </button>
+        
+        <button class="sidebar-item" data-section="home" title="Home">
+          <i class="fa-light fa-home"></i>
+          <span class="sidebar-label">Home</span>
+        </button>
+        
+        <button class="sidebar-item" data-section="collect" title="Collect">
+          <i class="fa-light fa-database"></i>
+          <span class="sidebar-label">Collect</span>
+        </button>
+        
         <button class="sidebar-item active" data-section="monitor" title="Monitor">
           <i class="fa-light fa-chart-line-up"></i>
           <span class="sidebar-label">Monitor</span>
         </button>
+        
+        <button class="sidebar-item" data-section="reports" title="Reports">
+          <i class="fa-light fa-file-lines"></i>
+          <span class="sidebar-label">Reports</span>
+        </button>
+        
         <button class="sidebar-item" data-section="settings" title="Settings">
           <i class="fa-light fa-sliders"></i>
           <span class="sidebar-label">Settings</span>
         </button>
       </div>
+      
       <div class="sidebar-bottom">
         <div class="sidebar-logo">
-          <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="14" stroke="#06B6D4" stroke-width="2" fill="none"/>
-          <path d="M10 16 L14 20 L22 12" stroke="#06B6D4" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="16" cy="16" r="14" stroke="#06B6D4" stroke-width="2" fill="none"/>
+            <path d="M10 16 L14 20 L22 12" stroke="#06B6D4" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
         </div>
       </div>
     </aside>
-    <aside class="submenu-panel" id="submenuPanel">
-      <div class="submenu-content" data-section="monitor">
-        <h2 class="submenu-title">GHG Monitoring</h2>
+    
+    <!-- Submenu Panel -->
+    <aside class="submenu-panel collapsed" id="submenuPanel">
+      <div class="submenu-content hidden" data-section="home">
+        <h2 class="submenu-title">Home</h2>
         <nav class="submenu-nav">
-          <a href="#" class="submenu-item active" data-view="estimations" onclick="event.preventDefault(); goEstimations();">Estimations</a>
+          <a href="#" class="submenu-item active">Dashboard</a>
         </nav>
       </div>
+      
+      <div class="submenu-content hidden" data-section="collect">
+        <h2 class="submenu-title">Data Collection</h2>
+        <nav class="submenu-nav">
+          <a href="#data-campaigns" class="submenu-item" id="submenu-item-data-campaigns" data-view="campaigns-overview" onclick="event.preventDefault(); if(typeof switchView==='function'){switchView('campaigns-overview');} else { location.hash='data-campaigns'; }">Data Campaigns</a>
+          <a href="#data-owner-directory" class="submenu-item" data-view="ownership-register" onclick="event.preventDefault(); if(typeof switchView==='function'){switchView('ownership-register');}">Data Owner Directory</a>
+          <a href="../../../platform/prototypes/activity-data-upload/index.html#upload" class="submenu-item">Imports</a>
+          <a href="../../../platform/prototypes/activity-data-upload/index.html#records" class="submenu-item">Activity Records</a>
+          <a href="../../../platform/prototypes/activity-normalization-mapping/index.html" class="submenu-item">Activity Mapping</a>
+        </nav>
+      </div>
+      
+      <div class="submenu-content hidden" data-section="monitor">
+        <h2 class="submenu-title">GHG Monitoring</h2>
+        <nav class="submenu-nav">
+          <a href="#" class="submenu-item active" data-view="inventory-list">Inventory List</a>
+          <a href="#" class="submenu-item" data-view="estimations" onclick="event.preventDefault(); goEstimations();">Estimations</a>
+          <a href="../../../platform/prototypes/calculation-method/index.html" class="submenu-item">Calculation Methods</a>
+          <a href="#" class="submenu-item" data-view="ef-library">EF Library</a>
+          <a href="#" class="submenu-item" data-view="ef-selection-review">EF Selection</a>
+        </nav>
+      </div>
+      
+      <div class="submenu-content hidden" data-section="reports">
+        <h2 class="submenu-title">Reports</h2>
+        <nav class="submenu-nav">
+          <a href="#" class="submenu-item">Report Builder</a>
+          <a href="#" class="submenu-item">Templates</a>
+        </nav>
+      </div>
+      
       <div class="submenu-content hidden" data-section="settings">
         <h2 class="submenu-title">Settings</h2>
         <nav class="submenu-nav">
+          <a href="#" class="submenu-item">Organization</a>
+          <a href="#" class="submenu-item">Users</a>
           <a href="#" class="submenu-item" data-view="estimation-settings" onclick="event.preventDefault(); goEstimationSettings();">Estimation settings</a>
+          <a href="#" class="submenu-item" data-view="entity-type-settings" onclick="event.preventDefault(); if(typeof switchView==='function'){switchView('entity-type-settings');}">Entity type settings</a>
+          <a href="#" class="submenu-item" data-view="intensity-estimation-models" onclick="event.preventDefault(); if(typeof switchView==='function'){switchView('intensity-estimation-models');}">Intensity estimation models</a>
+          <a href="#" class="submenu-item" data-view="user-activity-log" onclick="event.preventDefault(); if(typeof switchView==='function'){switchView('user-activity-log');}">User activity log</a>
+          <a href="#" class="submenu-item" data-view="user-activity-log-v2" onclick="event.preventDefault(); if(typeof switchView==='function'){switchView('user-activity-log-v2');}">User activity log (V2)</a>
+          <a href="#" class="submenu-item" data-view="user-activity-log-v3" onclick="event.preventDefault(); if(typeof switchView==='function'){switchView('user-activity-log-v3');}">User activity log V3</a>
+          <a href="#" class="submenu-item" data-view="unit-measure">Unit of measurement conversions</a>
+          <a href="#" class="submenu-item" data-view="unit-measure-v2">Unit of measurement conversions (v2)</a>
+          <a href="#" class="submenu-item" data-view="unit-measure-view-only">View only</a>
         </nav>
       </div>
     </aside>
+    
+    <!-- Main Content Area -->
     <div class="main-wrapper">
       <header class="app-header">
         <div class="header-left">
           <i class="fa-light fa-leaf header-app-icon"></i>
-          <span class="header-app-name">Estimations prototype</span>
+          <span class="header-app-name">Create New Inventory</span>
         </div>
+        
         <div class="header-right">
-          <button class="header-icon-btn" title="Help"><i class="fa-light fa-circle-question"></i></button>
-          <button class="header-avatar" title="User"><img src="https://ui-avatars.com/api/?name=User&background=06B6D4&color=fff&size=32" alt=""></button>
+          <button class="header-icon-btn" title="Notifications">
+            <i class="fa-light fa-bell"></i>
+          </button>
+          <button class="header-icon-btn" title="Apps">
+            <i class="fa-solid fa-grid"></i>
+          </button>
+          <button class="header-icon-btn" title="Help">
+            <i class="fa-light fa-circle-question"></i>
+          </button>
+          <button class="header-avatar" title="User Menu">
+            <img src="https://ui-avatars.com/api/?name=Sarah+Chen&background=06B6D4&color=fff&size=32" alt="User Avatar">
+          </button>
         </div>
       </header>
+      
       <main class="content-area">
-        <div class="prototype-banner">Estimations · Estimation settings — export</div>
+        <!-- PROTOTYPE BANNER -->
+        <div class="prototype-banner" id="prototype-banner">
+          🎨 PROTOTYPE - <span id="prototype-banner-page-name">Create New Inventory</span> - Built with Cursor
+        </div>
 
         <div id="view-estimations" class="view">
           <div class="page-header">
@@ -1711,23 +1793,7 @@
   <script src="estimations-export.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      window.__switchSection('monitor');
       switchView('estimations');
-      var prevSection = 'monitor';
-      document.querySelectorAll('.sidebar-item[data-section]').forEach(function(btn) {
-        btn.addEventListener('mousedown', function() {
-          var a = document.querySelector('.sidebar-item[data-section].active');
-          prevSection = a ? a.getAttribute('data-section') : null;
-        });
-        btn.addEventListener('click', function() {
-          var s = btn.getAttribute('data-section');
-          setTimeout(function() {
-            if (s === prevSection) return;
-            if (s === 'monitor') switchView('estimations');
-            if (s === 'settings') switchView('estimation-settings');
-          }, 0);
-        });
-      });
     });
   </script>
 </body>

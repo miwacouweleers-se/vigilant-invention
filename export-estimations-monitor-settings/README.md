@@ -1,6 +1,6 @@
-# Estimations (Monitor) + Estimation settings (Settings)
+# Estimations + Estimation settings (export)
 
-Static export with **Monitor** and **Settings** in the icon sidebar. Use the submenu to open **Estimations** or **Estimation settings**.
+Same **header, icon sidebar, and submenu** as the Create New Inventory prototype. Only **Estimations** and **Estimation settings** views are included; other nav items are unchanged visually but only those two pages work in this export.
 
 ## Run locally
 
@@ -26,4 +26,4 @@ python3 scripts/build-estimations-export.py
 - `app-shell.js` — sidebar behaviour
 - `estimations-export.js` — view switching, estimations, intensity model wizard, estimation settings, reports, cell drawer
 
-**Navigation:** Use **Monitor → Estimations** and **Settings → Estimation settings** in the submenu, or click the **Monitor** / **Settings** icons (switching section updates the page). Estimations **⋯** menu items open Estimation settings in-page.
+**Navigation:** **Monitor → Estimations** and **Settings → Estimation settings**. `goEstimations()` / `goEstimationSettings()` expand the correct submenu section. Estimations **⋯** menu opens Estimation settings in-page.

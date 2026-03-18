@@ -9,9 +9,9 @@ function switchView(viewId) {
   });
   targetView.classList.add('active');
   targetView.style.display = 'block';
-  var banner = document.querySelector('.prototype-banner');
+  var nameSpan = document.getElementById('prototype-banner-page-name');
   var t = targetView.querySelector('.page-title');
-  if (banner && t) banner.textContent = t.textContent.trim() + ' — export';
+  if (nameSpan && t) nameSpan.textContent = t.textContent.trim();
   document.querySelectorAll('.submenu-item[data-view]').forEach(function(item) {
     item.classList.toggle('active', item.getAttribute('data-view') === viewId);
   });

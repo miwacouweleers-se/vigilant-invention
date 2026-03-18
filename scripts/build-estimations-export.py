@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-Build export-estimations-monitor-settings/: Estimations (Monitor) + Estimation settings (Settings)
-with trimmed side nav. Run from repo root:
-  python3 scripts/build-estimations-export.py
+Build export-estimations-monitor-settings/: Estimations + Estimation settings.
+Uses the same header, icon sidebar, and submenu panel as create-new-inventory.
+Run from repo root: python3 scripts/build-estimations-export.py
 """
 from pathlib import Path
 
@@ -28,57 +28,16 @@ shell_css = STYLES.read_text(encoding="utf-8")
 # Main content: view-estimations + drawer + modals + toast + view-estimation-settings
 main_html = slice_1based(12716, 14358)
 
-SHELL = """    <div class="app-shell">
-    <aside class="icon-sidebar">
-      <div class="sidebar-top">
-        <button class="sidebar-item menu-toggle" title="Menu">
-          <i class="fa-light fa-arrow-right-to-line"></i>
-          <span class="sidebar-label">Menu</span>
-        </button>
-        <button class="sidebar-item active" data-section="monitor" title="Monitor">
-          <i class="fa-light fa-chart-line-up"></i>
-          <span class="sidebar-label">Monitor</span>
-        </button>
-        <button class="sidebar-item" data-section="settings" title="Settings">
-          <i class="fa-light fa-sliders"></i>
-          <span class="sidebar-label">Settings</span>
-        </button>
-      </div>
-      <div class="sidebar-bottom">
-        <div class="sidebar-logo">
-          <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="14" stroke="#06B6D4" stroke-width="2" fill="none"/>
-          <path d="M10 16 L14 20 L22 12" stroke="#06B6D4" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
-        </div>
-      </div>
-    </aside>
-    <aside class="submenu-panel" id="submenuPanel">
-      <div class="submenu-content" data-section="monitor">
-        <h2 class="submenu-title">GHG Monitoring</h2>
-        <nav class="submenu-nav">
-          <a href="#" class="submenu-item active" data-view="estimations" onclick="event.preventDefault(); goEstimations();">Estimations</a>
-        </nav>
-      </div>
-      <div class="submenu-content hidden" data-section="settings">
-        <h2 class="submenu-title">Settings</h2>
-        <nav class="submenu-nav">
-          <a href="#" class="submenu-item" data-view="estimation-settings" onclick="event.preventDefault(); goEstimationSettings();">Estimation settings</a>
-        </nav>
-      </div>
-    </aside>
-    <div class="main-wrapper">
-      <header class="app-header">
-        <div class="header-left">
-          <i class="fa-light fa-leaf header-app-icon"></i>
-          <span class="header-app-name">Estimations prototype</span>
-        </div>
-        <div class="header-right">
-          <button class="header-icon-btn" title="Help"><i class="fa-light fa-circle-question"></i></button>
-          <button class="header-avatar" title="User"><img src="https://ui-avatars.com/api/?name=User&background=06B6D4&color=fff&size=32" alt=""></button>
-        </div>
-      </header>
-      <main class="content-area">
-        <div class="prototype-banner">Estimations · Estimation settings — export</div>
-"""
+# Full app shell from prototype (lines 11297–11428): sidebar, submenu, header, prototype banner
+SHELL = slice_1based(11297, 11428)
+SHELL = SHELL.replace(
+    'onclick="event.preventDefault(); if(typeof switchView===\'function\') switchView(\'estimations\');"',
+    'onclick="event.preventDefault(); goEstimations();"',
+)
+SHELL = SHELL.replace(
+    'onclick="event.preventDefault(); if(typeof switchView===\'function\'){switchView(\'estimation-settings\');}"',
+    'onclick="event.preventDefault(); goEstimationSettings();"',
+)
 
 # JS: switchView + estimations + intensity wizard + settings tabs + reports + cell drawer
 js_a = slice_1based(26393, 26839)
@@ -96,9 +55,9 @@ switch_fn = r"""
       });
       targetView.classList.add('active');
       targetView.style.display = 'block';
-      var banner = document.querySelector('.prototype-banner');
+      var nameSpan = document.getElementById('prototype-banner-page-name');
       var t = targetView.querySelector('.page-title');
-      if (banner && t) banner.textContent = t.textContent.trim() + ' — export';
+      if (nameSpan && t) nameSpan.textContent = t.textContent.trim();
       document.querySelectorAll('.submenu-item[data-view]').forEach(function(item) {
         item.classList.toggle('active', item.getAttribute('data-view') === viewId);
       });
@@ -190,23 +149,7 @@ html = f"""<!DOCTYPE html>
   <script src="estimations-export.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {{
-      window.__switchSection('monitor');
       switchView('estimations');
-      var prevSection = 'monitor';
-      document.querySelectorAll('.sidebar-item[data-section]').forEach(function(btn) {{
-        btn.addEventListener('mousedown', function() {{
-          var a = document.querySelector('.sidebar-item[data-section].active');
-          prevSection = a ? a.getAttribute('data-section') : null;
-        }});
-        btn.addEventListener('click', function() {{
-          var s = btn.getAttribute('data-section');
-          setTimeout(function() {{
-            if (s === prevSection) return;
-            if (s === 'monitor') switchView('estimations');
-            if (s === 'settings') switchView('estimation-settings');
-          }}, 0);
-        }});
-      }});
     }});
   </script>
 </body>
@@ -215,9 +158,9 @@ html = f"""<!DOCTYPE html>
 
 (OUT / "index.html").write_text(html, encoding="utf-8")
 
-readme = """# Estimations (Monitor) + Estimation settings (Settings)
+readme = """# Estimations + Estimation settings (export)
 
-Static export with **Monitor** and **Settings** in the icon sidebar. Use the submenu to open **Estimations** or **Estimation settings**.
+Same **header, icon sidebar, and submenu** as the Create New Inventory prototype. Only **Estimations** and **Estimation settings** views are included; other nav items are unchanged visually but only those two pages work in this export.
 
 ## Run locally
 
@@ -243,7 +186,7 @@ python3 scripts/build-estimations-export.py
 - `app-shell.js` — sidebar behaviour
 - `estimations-export.js` — view switching, estimations, intensity model wizard, estimation settings, reports, cell drawer
 
-**Navigation:** Use **Monitor → Estimations** and **Settings → Estimation settings** in the submenu, or click the **Monitor** / **Settings** icons (switching section updates the page). Estimations **⋯** menu items open Estimation settings in-page.
+**Navigation:** **Monitor → Estimations** and **Settings → Estimation settings**. `goEstimations()` / `goEstimationSettings()` expand the correct submenu section. Estimations **⋯** menu opens Estimation settings in-page.
 """
 (OUT / "README.md").write_text(readme, encoding="utf-8")
 print("Wrote", OUT)
