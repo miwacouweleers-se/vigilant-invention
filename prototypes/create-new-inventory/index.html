@@ -11385,7 +11385,10 @@
           <a href="#" class="submenu-item">Organization</a>
           <a href="#" class="submenu-item">Users</a>
           <a href="#" class="submenu-item" data-view="estimation-settings" onclick="event.preventDefault(); if(typeof switchView==='function'){switchView('estimation-settings');}">Estimation settings</a>
-          <a href="#" class="submenu-item" data-view="entity-type-settings" onclick="event.preventDefault(); if(typeof switchView==='function'){switchView('entity-type-settings');}">Entity type settings</a>
+          <a href="#entity-type-settings" class="submenu-item" data-view="entity-type-settings" onclick="event.preventDefault(); if(typeof switchView==='function'){switchView('entity-type-settings');} else { location.hash='entity-type-settings'; }">Entity type settings</a>
+          <a href="../entity-type-fields-ux-concepts/index.html" class="submenu-item">Entity fields — UX concepts</a>
+          <a href="../entity-type-create-flow/index.html" class="submenu-item">Create entity type (interactive)</a>
+          <a href="../entity-type-fields-checkbox-view/index.html" class="submenu-item">Entity fields (checkbox layout)</a>
           <a href="#" class="submenu-item" data-view="intensity-estimation-models" onclick="event.preventDefault(); if(typeof switchView==='function'){switchView('intensity-estimation-models');}">Intensity estimation models</a>
           <a href="#" class="submenu-item" data-view="user-activity-log" onclick="event.preventDefault(); if(typeof switchView==='function'){switchView('user-activity-log');}">User activity log</a>
           <a href="#" class="submenu-item" data-view="user-activity-log-v2" onclick="event.preventDefault(); if(typeof switchView==='function'){switchView('user-activity-log-v2');}">User activity log (V2)</a>
@@ -24657,7 +24660,8 @@ Thank you.</div>
         'unit-measure-view-only': 'unit-measure-view-only',
         'data-campaigns': 'campaigns-overview',
         'data-owner-directory': 'ownership-register',
-        'ownership': 'ownership-register'
+        'ownership': 'ownership-register',
+        'entity-type-settings': 'entity-type-settings'
       };
       if (hash && hashToView[hash]) {
         switchView(hashToView[hash]);

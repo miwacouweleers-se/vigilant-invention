@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create entity type — full flow prototype</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/e1f0748a31.js" crossorigin="anonymous"></script>
+  <style>
+    :root {
+      --bg: #F4F6F8;
+      --surface: #FFFFFF;
+      --elevated: #F1F5F9;
+      --border: #E2E8F0;
+      --text: #0F172A;
+      --muted: #64748B;
+      --faint: #94A3B8;
+      --primary: #008029;
+      --primary-hover: #006622;
+      --primary-soft: #DCFCE7;
+      --primary-ring: rgba(0, 128, 41, 0.25);
+      --danger: #B91C1C;
+      --danger-soft: #FEE2E2;
+      --info: #2563EB;
+      --info-soft: #DBEAFE;
+      --purple: #7C3AED;
+      --purple-soft: #EDE9FE;
+      --pink: #DB2777;
+      --pink-soft: #FCE7F3;
+      --teal: #0D9488;
+      --teal-soft: #CCFBF1;
+      --radius: 10px;
+      --font: 'Nunito Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
+      --shadow-lg: 0 25px 50px -12px rgba(15, 23, 42, 0.18);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 14px;
+      line-height: 1.5;
+      min-height: 100vh;
+    }
+    button { font-family: inherit; cursor: pointer; }
+    input, select, textarea { font-family: inherit; font-size: 14px; }
+
+    .app-header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .app-header-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .logo-mark {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: var(--primary-soft);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 14px;
+    }
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--muted);
+      flex-wrap: wrap;
+    }
+    .breadcrumb a {
+      color: var(--muted);
+      text-decoration: none;
+    }
+    .breadcrumb a:hover { color: var(--primary); text-decoration: underline; }
+    .breadcrumb .current { color: var(--text); font-weight: 600; }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      max-width: 1280px;
+      margin: 0 auto;
+      min-height: calc(100vh - 61px);
+    }
+    @media (max-width: 900px) {
+      .layout { grid-template-columns: 1fr; }
+      .steps-rail { border-right: none; border-bottom: 1px solid var(--border); }
+    }
+
+    .steps-rail {
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      padding: 24px 16px;
+    }
+    .steps-rail-title {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--faint);
+      margin: 0 0 16px 8px;
+    }
+    .step-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 10px;
+      border-radius: 10px;
+      border: none;
+      background: transparent;
+      width: 100%;
+      text-align: left;
+      margin-bottom: 4px;
+      color: var(--muted);
+      transition: background 0.15s, color 0.15s;
+    }
+    .step-item:hover { background: var(--elevated); color: var(--text); }
+    .step-item.active {
+      background: var(--primary-soft);
+      color: var(--primary);
+    }
+    .step-item.done:not(.active) { color: var(--text); }
+    .step-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 2px solid currentColor;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+    .step-item.active .step-num {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: white;
+    }
+    .step-item.done .step-num {
+      border-color: var(--primary);
+      background: var(--primary);
+      color: white;
+      font-size: 11px;
+    }
+    .step-label { font-weight: 700; font-size: 13px; }
+    .step-hint { font-size: 11px; opacity: 0.85; margin-top: 2px; font-weight: 500; }
+
+    .main-panel {
+      padding: 28px 32px 48px;
+    }
+    .panel-title {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin: 0 0 6px;
+    }
+    .panel-desc {
+      color: var(--muted);
+      margin: 0 0 24px;
+      max-width: 640px;
+    }
+
+    .callout {
+      display: flex;
+      gap: 12px;
+      padding: 12px 14px;
+      background: var(--info-soft);
+      border: 1px solid #BFDBFE;
+      border-radius: var(--radius);
+      font-size: 12px;
+      color: #1E40AF;
+      margin-bottom: 24px;
+      max-width: 720px;
+    }
+    .callout i { margin-top: 2px; flex-shrink: 0; }
+
+    .form-grid {
+      display: grid;
+      gap: 18px;
+      max-width: 480px;
+    }
+    .field label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    .field label .req { color: var(--danger); }
+    .field input[type="text"],
+    .field textarea,
+    .field select {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--surface);
+    }
+    .field input:focus,
+    .field textarea:focus,
+    .field select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-ring);
+    }
+    .field textarea { min-height: 88px; resize: vertical; }
+    .hint-under { font-size: 11px; color: var(--faint); margin-top: 4px; }
+
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 8px;
+    }
+    .toggle-row input { width: 18px; height: 18px; accent-color: var(--primary); }
+
+    .footer-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 32px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 14px;
+      border: none;
+      transition: background 0.15s, transform 0.1s;
+    }
+    .btn:active { transform: scale(0.98); }
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+    .btn-primary:hover { background: var(--primary-hover); }
+    .btn-secondary {
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-secondary:hover { background: var(--elevated); }
+    .btn-ghost {
+      background: transparent;
+      color: var(--muted);
+    }
+    .btn-ghost:hover { color: var(--text); background: var(--elevated); }
+
+    .hidden { display: none !important; }
+
+    /* Step 2 — field builder */
+    .builder-stats {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .stat-pill {
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 12px;
+      background: var(--elevated);
+      border-radius: 999px;
+      color: var(--muted);
+    }
+    .stat-pill strong { color: var(--text); }
+
+    .builder-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+    @media (max-width: 960px) {
+      .builder-grid { grid-template-columns: 1fr; }
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .card-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+      background: var(--elevated);
+    }
+    .card-head h3 {
+      margin: 0;
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+    }
+    .card-body { padding: 14px 16px; max-height: 420px; overflow-y: auto; }
+
+    .search-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .search-row input {
+      flex: 1;
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+
+    .lib-category {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin-bottom: 10px;
+      overflow: hidden;
+    }
+    .lib-cat-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      padding: 10px 12px;
+      background: var(--surface);
+      border: none;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      text-align: left;
+    }
+    .lib-cat-head:hover { background: var(--elevated); }
+    .lib-cat-head i.fa-chevron-right { transition: transform 0.2s; font-size: 10px; color: var(--faint); }
+    .lib-category.open .lib-cat-head i.fa-chevron-right { transform: rotate(90deg); }
+    .lib-cat-meta { margin-left: auto; font-size: 11px; font-weight: 600; color: var(--faint); }
+    .lib-cat-body { display: none; border-top: 1px solid var(--border); background: var(--bg); }
+    .lib-category.open .lib-cat-body { display: block; }
+
+    .lib-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+    }
+    .lib-row:last-child { border-bottom: none; }
+    .lib-row.added { opacity: 0.45; pointer-events: none; }
+    .type-badge {
+      font-size: 10px;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+    }
+    .tb-text { background: var(--info-soft); color: var(--info); }
+    .tb-date { background: var(--pink-soft); color: var(--pink); }
+    .tb-bool { background: var(--teal-soft); color: var(--teal); }
+    .tb-enum { background: var(--purple-soft); color: var(--purple); }
+
+    .btn-add-lib {
+      margin-left: auto;
+      padding: 4px 10px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--primary);
+      background: transparent;
+      border: none;
+      border-radius: 6px;
+    }
+    .btn-add-lib:hover { background: var(--primary-soft); }
+    .btn-add-lib:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    .selected-list { min-height: 120px; }
+    .sel-row {
+      display: grid;
+      grid-template-columns: 1fr auto auto auto;
+      gap: 10px;
+      align-items: center;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin-bottom: 8px;
+      background: var(--surface);
+    }
+    .sel-row.custom { border-color: var(--primary-border); background: var(--primary-soft); }
+    .sel-name { font-weight: 600; font-size: 13px; }
+    .sel-name small { display: block; font-weight: 500; color: var(--muted); font-size: 11px; margin-top: 2px; }
+    .seg {
+      display: flex;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .seg button {
+      padding: 6px 10px;
+      font-size: 11px;
+      font-weight: 700;
+      border: none;
+      background: var(--surface);
+      color: var(--muted);
+    }
+    .seg button.on { background: var(--primary-soft); color: var(--primary); }
+    .seg button.on.req { background: var(--danger-soft); color: var(--danger); }
+    .order-inp {
+      width: 44px;
+      padding: 6px;
+      text-align: center;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+    }
+    .btn-icon {
+      width: 32px;
+      height: 32px;
+      border: none;
+      background: transparent;
+      color: var(--faint);
+      border-radius: 6px;
+    }
+    .btn-icon:hover { background: var(--danger-soft); color: var(--danger); }
+
+    .empty-selected {
+      text-align: center;
+      padding: 32px 16px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* Modal */
+    .backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.45);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+    }
+    .backdrop.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .modal {
+      background: var(--surface);
+      border-radius: 14px;
+      width: 100%;
+      max-width: 520px;
+      max-height: 90vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow-lg);
+      transform: translateY(12px);
+      transition: transform 0.2s;
+    }
+    .backdrop.open .modal { transform: translateY(0); }
+
+    .modal-head {
+      padding: 18px 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    .modal-breadcrumb {
+      font-size: 11px;
+      color: var(--faint);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .modal-breadcrumb button {
+      background: none;
+      border: none;
+      color: var(--primary);
+      font-weight: 600;
+      font-size: 11px;
+      padding: 0;
+      cursor: pointer;
+    }
+    .modal-breadcrumb button:hover { text-decoration: underline; }
+    .modal-title {
+      font-size: 18px;
+      font-weight: 800;
+      margin: 0;
+    }
+    .modal-sub {
+      font-size: 13px;
+      color: var(--muted);
+      margin: 4px 0 0;
+    }
+    .modal-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 36px;
+      height: 36px;
+      border: none;
+      background: var(--elevated);
+      border-radius: 8px;
+      color: var(--muted);
+    }
+    .modal-close:hover { background: var(--border); color: var(--text); }
+    .modal-head-wrap { position: relative; padding-right: 48px; }
+
+    .modal-tabs {
+      display: flex;
+      border-bottom: 1px solid var(--border);
+      padding: 0 20px;
+    }
+    .modal-tabs button {
+      padding: 12px 16px;
+      border: none;
+      background: none;
+      font-weight: 700;
+      font-size: 13px;
+      color: var(--muted);
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+    }
+    .modal-tabs button.active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
+
+    .modal-body {
+      padding: 20px;
+      overflow-y: auto;
+      flex: 1;
+    }
+    .modal-foot {
+      padding: 16px 20px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      background: var(--elevated);
+    }
+
+    /* Nested sheet (enum) — Shopify / Stripe pattern */
+    .modal-inner {
+      position: relative;
+    }
+    .sub-sheet {
+      position: absolute;
+      inset: 0;
+      background: var(--surface);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      transform: translateX(100%);
+      transition: transform 0.25s ease;
+    }
+    .sub-sheet.open { transform: translateX(0); }
+    .sub-sheet-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .sub-sheet-head button.back {
+      padding: 6px 10px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--surface);
+      font-weight: 600;
+      font-size: 12px;
+    }
+    .sub-sheet-head h4 { margin: 0; font-size: 15px; flex: 1; }
+    .sub-sheet-body { padding: 16px 20px; flex: 1; overflow-y: auto; }
+    .enum-rows { display: flex; flex-direction: column; gap: 10px; margin-bottom: 12px; }
+    .enum-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr auto;
+      gap: 8px;
+      align-items: center;
+    }
+    .enum-row input {
+      padding: 8px 10px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+    .link-add {
+      background: none;
+      border: none;
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 13px;
+      padding: 4px 0;
+    }
+    .link-add:hover { text-decoration: underline; }
+
+    .pick-list {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+    .pick-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+    }
+    .pick-row:last-child { border-bottom: none; }
+    .pick-row:hover { background: var(--elevated); }
+    .pick-row input { accent-color: var(--primary); }
+
+    /* Review table */
+    .review-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    .review-table th,
+    .review-table td {
+      text-align: left;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .review-table th { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; }
+
+    .back-link-top {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--primary);
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 13px;
+      margin-bottom: 16px;
+    }
+    .back-link-top:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <header class="app-header">
+    <div class="app-header-left">
+      <div class="logo-mark" aria-hidden="true">GH</div>
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="../create-new-inventory/index.html#entity-type-settings">Settings</a>
+        <i class="fa-light fa-chevron-right" style="font-size:10px;"></i>
+        <a href="../create-new-inventory/index.html#entity-type-settings">Entity types</a>
+        <i class="fa-light fa-chevron-right" style="font-size:10px;"></i>
+        <span class="current">New entity type</span>
+      </nav>
+    </div>
+    <button type="button" class="btn btn-ghost" onclick="if(confirm('Discard draft?')) location.href='../create-new-inventory/index.html#entity-type-settings'">Exit</button>
+  </header>
+
+  <div class="layout">
+    <aside class="steps-rail" aria-label="Steps">
+      <p class="steps-rail-title">Setup</p>
+      <button type="button" class="step-item active" data-go="1" id="rail-1">
+        <span class="step-num">1</span>
+        <span>
+          <span class="step-label">Basics</span>
+          <span class="step-hint">Name &amp; description</span>
+        </span>
+      </button>
+      <button type="button" class="step-item" data-go="2" id="rail-2">
+        <span class="step-num">2</span>
+        <span>
+          <span class="step-label">Fields</span>
+          <span class="step-hint">Library &amp; custom</span>
+        </span>
+      </button>
+      <button type="button" class="step-item" data-go="3" id="rail-3">
+        <span class="step-num">3</span>
+        <span>
+          <span class="step-label">Review</span>
+          <span class="step-hint">Publish</span>
+        </span>
+      </button>
+      <p style="margin:24px 8px 0;font-size:11px;color:var(--faint);line-height:1.4;">
+        Pattern: vertical stepper (HubSpot, Salesforce setup), nested sheet for enum options (Shopify, Stripe Billing).
+      </p>
+    </aside>
+
+    <main class="main-panel">
+      <a class="back-link-top" href="../entity-type-fields-ux-concepts/index.html"><i class="fa-light fa-arrow-left"></i> UX concept index</a>
+    <a class="back-link-top" href="../entity-type-fields-checkbox-view/index.html" style="margin-left:12px;"><i class="fa-light fa-table-list"></i> Checkbox field layout</a>
+
+      <!-- Step 1 -->
+      <section id="panel-1" class="step-panel">
+        <h1 class="panel-title">Entity type basics</h1>
+        <p class="panel-desc">Define how this type appears in your inventory. Internal keys are used in APIs and imports (similar to Salesforce “API name” or Intercom “data attribute name”).</p>
+        <div class="callout">
+          <i class="fa-light fa-lightbulb"></i>
+          <span><strong>SaaS pattern:</strong> Separate <em>display name</em> (for users) from <em>internal identifier</em> (immutable after creation in many products) so labels can change without breaking integrations.</span>
+        </div>
+        <div class="form-grid">
+          <div class="field">
+            <label for="et-name">Display name <span class="req">*</span></label>
+            <input type="text" id="et-name" placeholder="e.g. Legal Entity" value="Regional Hospital">
+          </div>
+          <div class="field">
+            <label for="et-key">Internal key <span class="req">*</span></label>
+            <input type="text" id="et-key" placeholder="e.g. legal_entity" value="regional_hospital" readonly style="background:var(--elevated);color:var(--muted);" title="Updates from display name until first publish">
+            <p class="hint-under">Auto-generated from name; locked after publish in production apps.</p>
+          </div>
+          <div class="field">
+            <label for="et-desc">Description</label>
+            <textarea id="et-desc" placeholder="When should someone use this type?"></textarea>
+          </div>
+          <div class="field">
+            <div class="toggle-row">
+              <input type="checkbox" id="et-draft" checked>
+              <label for="et-draft" style="margin:0;font-weight:600;color:var(--text);">Save as draft (not visible to contributors)</label>
+            </div>
+            <p class="hint-under">Zendesk / HubSpot-style: draft types can be configured fully before go-live.</p>
+          </div>
+        </div>
+        <div class="footer-actions">
+          <button type="button" class="btn btn-primary" onclick="goStep(2)">Continue to fields <i class="fa-light fa-arrow-right"></i></button>
+        </div>
+      </section>
+
+      <!-- Step 2 -->
+      <section id="panel-2" class="step-panel hidden">
+        <h1 class="panel-title">Fields for this entity type</h1>
+        <p class="panel-desc">Add fields from your organization’s library (grouped by data asset / category), then refine requirement and order. Custom fields open in a focused modal; enum options use a nested panel so you never lose the parent context.</p>
+
+        <div class="builder-stats">
+          <span class="stat-pill" id="stat-count"><strong>0</strong> fields on this type</span>
+          <span class="stat-pill" id="stat-req"><strong>0</strong> required</span>
+          <button type="button" class="btn btn-primary" style="margin-left:auto;" onclick="openCustomModal()"><i class="fa-light fa-plus"></i> Add custom field</button>
+        </div>
+
+        <div class="builder-grid">
+          <div class="card">
+            <div class="card-head">
+              <h3>On this type</h3>
+              <span style="font-size:12px;color:var(--muted);" id="on-type-label">Reorder with order #</span>
+            </div>
+            <div class="card-body">
+              <div class="selected-list" id="selected-list">
+                <div class="empty-selected" id="selected-empty">No fields yet. Add from the library or create a custom field.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-head">
+              <h3>Field library</h3>
+            </div>
+            <div class="card-body">
+              <div class="search-row">
+                <input type="search" id="lib-search" placeholder="Search fields and categories…" autocomplete="off">
+              </div>
+              <div id="library-root"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-actions">
+          <button type="button" class="btn btn-secondary" onclick="goStep(1)"><i class="fa-light fa-arrow-left"></i> Back</button>
+          <button type="button" class="btn btn-primary" onclick="goStep(3)">Continue to review</button>
+        </div>
+      </section>
+
+      <!-- Step 3 -->
+      <section id="panel-3" class="step-panel hidden">
+        <h1 class="panel-title">Review &amp; publish</h1>
+        <p class="panel-desc">Summary of what contributors will see when adding an entity of this type. Same pattern as Salesforce “field audit” or Notion database schema confirmation.</p>
+        <div class="card" style="max-width:800px;">
+          <div class="card-head">
+            <h3>Summary</h3>
+          </div>
+          <div class="card-body" style="max-height:none;">
+            <p style="margin:0 0 12px;font-size:14px;"><strong id="rev-name">—</strong> <span style="color:var(--muted);">(<span id="rev-key">—</span>)</span></p>
+            <p style="margin:0 0 20px;color:var(--muted);font-size:13px;" id="rev-desc">—</p>
+            <table class="review-table" id="review-table">
+              <thead>
+                <tr>
+                  <th>Field</th>
+                  <th>Source</th>
+                  <th>Type</th>
+                  <th>Requirement</th>
+                  <th>Order</th>
+                </tr>
+              </thead>
+              <tbody id="review-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="footer-actions">
+          <button type="button" class="btn btn-secondary" onclick="goStep(2)"><i class="fa-light fa-arrow-left"></i> Edit fields</button>
+          <button type="button" class="btn btn-primary" onclick="alert('Prototype: would call API to save entity type.');"><i class="fa-light fa-rocket-launch"></i> Publish entity type</button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Custom field modal -->
+  <div class="backdrop" id="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal modal-inner" id="custom-modal">
+      <div class="modal-head modal-head-wrap">
+        <div id="modal-bc" class="modal-breadcrumb">
+          <button type="button" id="bc-root" class="hidden">Custom field</button>
+        </div>
+        <h2 class="modal-title" id="modal-title">Add custom field</h2>
+        <p class="modal-sub" id="modal-sub">Adding to category <strong id="modal-cat-name">Standard</strong></p>
+        <button type="button" class="modal-close" onclick="closeCustomModal()" aria-label="Close"><i class="fa-light fa-xmark"></i></button>
+      </div>
+      <div class="modal-tabs" id="modal-tabs">
+        <button type="button" class="active" data-tab="create">Create new field</button>
+        <button type="button" data-tab="pick">Pick existing field</button>
+      </div>
+      <div class="modal-body" id="modal-body-create">
+        <div class="form-grid" style="max-width:none;">
+          <div class="field">
+            <label for="cf-name">Name <span class="req">*</span></label>
+            <input type="text" id="cf-name" placeholder="Field label shown to users">
+          </div>
+          <div class="field">
+            <label for="cf-desc">Description</label>
+            <textarea id="cf-desc" placeholder="Optional help text" style="min-height:64px;"></textarea>
+          </div>
+          <div class="field">
+            <div class="toggle-row">
+              <input type="checkbox" id="cf-pub">
+              <label for="cf-pub" style="margin:0;font-weight:600;">Published</label>
+            </div>
+          </div>
+          <div class="field">
+            <label for="cf-type">Data type <span class="req">*</span></label>
+            <select id="cf-type">
+              <option value="text">Text</option>
+              <option value="date">Date</option>
+              <option value="boolean">Boolean</option>
+              <option value="enum">Enum (single select)</option>
+            </select>
+          </div>
+          <div id="enum-trigger-wrap" class="hidden">
+            <button type="button" class="btn btn-secondary" style="width:100%;justify-content:center;" onclick="openEnumSheet()">
+              <i class="fa-light fa-list-ul"></i>
+              <span id="enum-btn-label">Configure select options…</span>
+            </button>
+            <p class="hint-under">Opens a nested panel (child view) so the parent form stays mounted—common for long option lists.</p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-body hidden" id="modal-body-pick">
+        <p style="font-size:13px;color:var(--muted);margin:0 0 12px;">Reuse a field already defined in your org (HubSpot “clone property”, Airtable linked field catalog).</p>
+        <div class="pick-list">
+          <label class="pick-row"><input type="radio" name="pickf" value="legacy-id"> <span><strong>Legacy facility ID</strong><br><span style="font-size:12px;color:var(--muted);">Text · used on 3 types</span></span></label>
+          <label class="pick-row"><input type="radio" name="pickf" value="taxonomy"> <span><strong>NAICS code</strong><br><span style="font-size:12px;color:var(--muted);">Enum · shared value set</span></span></label>
+        </div>
+      </div>
+
+      <!-- Nested enum sheet -->
+      <div class="sub-sheet" id="enum-sheet">
+        <div class="sub-sheet-head">
+          <button type="button" class="back" onclick="closeEnumSheet()"><i class="fa-light fa-arrow-left"></i> Back</button>
+          <h4>Select options</h4>
+          <span style="font-size:12px;color:var(--muted);" id="enum-count">0 values</span>
+        </div>
+        <div class="sub-sheet-body">
+          <p style="font-size:13px;color:var(--muted);margin:0 0 14px;">Each option has a stable <strong>value</strong> (API) and a user-facing <strong>label</strong>. Pattern: Salesforce picklist entries, Shopify variant options.</p>
+          <div class="enum-rows" id="enum-rows"></div>
+          <button type="button" class="link-add" onclick="addEnumRow()"><i class="fa-light fa-plus"></i> Add value</button>
+        </div>
+        <div class="modal-foot" style="background:var(--surface);">
+          <button type="button" class="btn btn-secondary" onclick="closeEnumSheet()">Cancel</button>
+          <button type="button" class="btn btn-primary" onclick="saveEnumSheet()">Save options</button>
+        </div>
+      </div>
+
+      <div class="modal-foot" id="modal-main-foot">
+        <button type="button" class="btn btn-secondary" onclick="closeCustomModal()">Cancel</button>
+        <button type="button" class="btn btn-primary" onclick="submitCustomField()"><i class="fa-light fa-plus"></i> Create &amp; add to type</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var LIBRARY = [
+      {
+        id: 'std',
+        name: 'Standard',
+        desc: 'Core business entity attributes',
+        fields: [
+          { id: 'name', label: 'Name', type: 'text', tb: 'tb-text' },
+          { id: 'open_date', label: 'Open Date', type: 'date', tb: 'tb-date' },
+          { id: 'entity_cat', label: 'Entity Category', type: 'enum', tb: 'tb-enum' },
+          { id: 'notes', label: 'Notes', type: 'text', tb: 'tb-text' }
+        ]
+      },
+      {
+        id: 'loc',
+        name: 'Location',
+        desc: 'Where geography matters',
+        fields: [
+          { id: 'addr', label: 'Address line 1', type: 'text', tb: 'tb-text' },
+          { id: 'country', label: 'Country', type: 'enum', tb: 'tb-enum' }
+        ]
+      },
+      {
+        id: 'acct',
+        name: 'Account',
+        desc: 'Child of a site / utility context',
+        fields: [
+          { id: 'acct_name', label: 'Account Name', type: 'text', tb: 'tb-text' },
+          { id: 'acct_open', label: 'Account Open Date', type: 'date', tb: 'tb-date' }
+        ]
+      }
+    ];
+
+    var selected = [];
+    var addedIds = {};
+    var enumOptions = [{ v: 'inpatient', l: 'Inpatient' }, { v: 'outpatient', l: 'Outpatient' }];
+    var modalCategory = 'Standard';
+
+    function el(tag, cls, html) {
+      var e = document.createElement(tag);
+      if (cls) e.className = cls;
+      if (html != null) e.innerHTML = html;
+      return e;
+    }
+
+    function renderLibrary() {
+      var root = document.getElementById('library-root');
+      var q = (document.getElementById('lib-search').value || '').toLowerCase();
+      root.innerHTML = '';
+      LIBRARY.forEach(function (cat) {
+        var matchCat = cat.name.toLowerCase().indexOf(q) >= 0 || cat.desc.toLowerCase().indexOf(q) >= 0;
+        var fields = cat.fields.filter(function (f) {
+          return matchCat || f.label.toLowerCase().indexOf(q) >= 0 || f.type.indexOf(q) >= 0;
+        });
+        if (fields.length === 0 && q) return;
+
+        var wrap = el('div', 'lib-category open');
+        var head = el('button', 'lib-cat-head');
+        head.type = 'button';
+        head.innerHTML = '<i class="fa-light fa-folder" style="color:#CA8A04;"></i><span>' + cat.name + '</span><span class="lib-cat-meta">' + cat.fields.length + ' fields</span><i class="fa-light fa-chevron-right"></i>';
+        head.onclick = function () { wrap.classList.toggle('open'); };
+        var body = el('div', 'lib-cat-body');
+        (q ? fields : cat.fields).forEach(function (f) {
+          var row = el('div', 'lib-row');
+          var fid = cat.id + ':' + f.id;
+          if (addedIds[fid]) row.classList.add('added');
+          row.innerHTML = '<span style="min-width:16px;">' + (addedIds[fid] ? '<i class="fa-light fa-check" style="color:var(--primary);"></i>' : '') + '</span><span style="flex:1;font-weight:600;">' + f.label + '</span><span class="type-badge ' + f.tb + '">' + f.type + '</span>';
+          var btn = el('button', 'btn-add-lib', addedIds[fid] ? 'Added' : '+ Add');
+          btn.disabled = !!addedIds[fid];
+          btn.onclick = function () { addFromLibrary(cat.name, fid, f); };
+          row.appendChild(btn);
+          body.appendChild(row);
+        });
+        wrap.appendChild(head);
+        wrap.appendChild(body);
+        root.appendChild(wrap);
+      });
+    }
+
+    function addFromLibrary(catName, fid, f) {
+      if (addedIds[fid]) return;
+      addedIds[fid] = true;
+      selected.push({
+        id: fid,
+        label: f.label,
+        type: f.type,
+        tb: f.tb,
+        source: 'Library · ' + catName,
+        required: false,
+        order: selected.length + 1,
+        custom: false
+      });
+      renderSelected();
+      renderLibrary();
+    }
+
+    function renderSelected() {
+      var list = document.getElementById('selected-list');
+      var empty = document.getElementById('selected-empty');
+      list.querySelectorAll('.sel-row').forEach(function (n) { n.remove(); });
+      var reqC = 0;
+      selected.forEach(function (s, i) {
+        if (s.required) reqC++;
+        var row = el('div', 'sel-row' + (s.custom ? ' custom' : ''));
+        var seg = '<div class="seg"><button type="button" class="' + (!s.required ? 'on' : '') + '">Optional</button><button type="button" class="' + (s.required ? 'on req' : '') + '">Required</button></div>';
+        row.innerHTML = '<div class="sel-name">' + s.label + '<small>' + s.source + '</small></div><span class="type-badge ' + s.tb + '">' + s.type + '</span>' + seg +
+          '<input type="number" class="order-inp" min="1" value="' + s.order + '" aria-label="Order">' +
+          '<button type="button" class="btn-icon" title="Remove" aria-label="Remove"><i class="fa-light fa-trash-can"></i></button>';
+        var segEl = row.querySelectorAll('.seg button');
+        segEl[0].onclick = function () { s.required = false; renderSelected(); updateStats(); };
+        segEl[1].onclick = function () { s.required = true; renderSelected(); updateStats(); };
+        row.querySelector('.order-inp').onchange = function () {
+          s.order = parseInt(this.value, 10) || i + 1;
+          normalizeOrder();
+          renderSelected();
+        };
+        row.querySelector('.btn-icon').onclick = function () {
+          if (s.id) delete addedIds[s.id];
+          selected = selected.filter(function (x) { return x !== s; });
+          renderSelected();
+          renderLibrary();
+          updateStats();
+        };
+        list.appendChild(row);
+      });
+      empty.classList.toggle('hidden', selected.length > 0);
+      updateStats();
+    }
+
+    function normalizeOrder() {
+      selected.sort(function (a, b) { return a.order - b.order; });
+      selected.forEach(function (s, i) { s.order = i + 1; });
+    }
+
+    function updateStats() {
+      var req = selected.filter(function (s) { return s.required; }).length;
+      document.getElementById('stat-count').innerHTML = '<strong>' + selected.length + '</strong> fields on this type';
+      document.getElementById('stat-req').innerHTML = '<strong>' + req + '</strong> required';
+    }
+
+    function goStep(n) {
+      for (var i = 1; i <= 3; i++) {
+        document.getElementById('panel-' + i).classList.toggle('hidden', i !== n);
+        var rail = document.getElementById('rail-' + i);
+        rail.classList.toggle('active', i === n);
+        rail.classList.toggle('done', i < n);
+      }
+      if (n === 3) buildReview();
+    }
+
+    document.querySelectorAll('.step-item[data-go]').forEach(function (b) {
+      b.onclick = function () {
+        var g = parseInt(b.getAttribute('data-go'), 10);
+        goStep(g);
+      };
+    });
+
+    document.getElementById('lib-search').oninput = renderLibrary;
+
+    function buildReview() {
+      document.getElementById('rev-name').textContent = document.getElementById('et-name').value || '—';
+      document.getElementById('rev-key').textContent = document.getElementById('et-key').value || '—';
+      var d = document.getElementById('et-desc').value.trim();
+      document.getElementById('rev-desc').textContent = d || 'No description.';
+      var tb = document.getElementById('review-tbody');
+      tb.innerHTML = '';
+      var sorted = selected.slice().sort(function (a, b) { return a.order - b.order; });
+      sorted.forEach(function (s) {
+        var tr = document.createElement('tr');
+        tr.innerHTML = '<td><strong>' + s.label + '</strong></td><td>' + s.source + '</td><td><span class="type-badge ' + s.tb + '">' + s.type + '</span></td><td>' + (s.required ? '<span style=color:var(--danger);font-weight:700;">Required</span>' : 'Optional') + '</td><td>' + s.order + '</td>';
+        tb.appendChild(tr);
+      });
+      if (sorted.length === 0) {
+        var tr = document.createElement('tr');
+        tr.innerHTML = '<td colspan="5" style="color:var(--muted);">No fields configured.</td>';
+        tb.appendChild(tr);
+      }
+    }
+
+    /* Modal */
+    function openCustomModal() {
+      document.getElementById('modal-cat-name').textContent = modalCategory;
+      document.getElementById('cf-name').value = '';
+      document.getElementById('cf-desc').value = '';
+      document.getElementById('cf-type').value = 'text';
+      document.getElementById('enum-trigger-wrap').classList.add('hidden');
+      document.getElementById('enum-sheet').classList.remove('open');
+      document.getElementById('bc-root').classList.add('hidden');
+      document.getElementById('modal-main-foot').classList.remove('hidden');
+      document.getElementById('modal-main-foot').innerHTML =
+        '<button type="button" class="btn btn-secondary" onclick="closeCustomModal()">Cancel</button>' +
+        '<button type="button" class="btn btn-primary" onclick="submitCustomField()"><i class="fa-light fa-plus"></i> Create &amp; add to type</button>';
+      switchModalTab('create');
+      document.getElementById('modal-backdrop').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeCustomModal() {
+      document.getElementById('modal-backdrop').classList.remove('open');
+      document.body.style.overflow = '';
+      closeEnumSheet();
+    }
+
+    document.getElementById('cf-type').onchange = function () {
+      document.getElementById('enum-trigger-wrap').classList.toggle('hidden', this.value !== 'enum');
+    };
+
+    document.querySelectorAll('.modal-tabs button').forEach(function (t) {
+      t.onclick = function () { switchModalTab(t.getAttribute('data-tab')); };
+    });
+
+    function switchModalTab(name) {
+      document.querySelectorAll('.modal-tabs button').forEach(function (b) {
+        b.classList.toggle('active', b.getAttribute('data-tab') === name);
+      });
+      document.getElementById('modal-body-create').classList.toggle('hidden', name !== 'create');
+      document.getElementById('modal-body-pick').classList.toggle('hidden', name !== 'pick');
+      document.getElementById('modal-main-foot').classList.toggle('hidden', name === 'pick');
+      if (name === 'pick') {
+        var foot = document.getElementById('modal-main-foot');
+        foot.classList.remove('hidden');
+        foot.innerHTML = '<button type="button" class="btn btn-secondary" onclick="closeCustomModal()">Cancel</button><button type="button" class="btn btn-primary" onclick="pickExistingField()">Add selected to type</button>';
+      } else {
+        document.getElementById('modal-main-foot').innerHTML = '<button type="button" class="btn btn-secondary" onclick="closeCustomModal()">Cancel</button><button type="button" class="btn btn-primary" onclick="submitCustomField()"><i class="fa-light fa-plus"></i> Create &amp; add to type</button>';
+      }
+    }
+
+    function pickExistingField() {
+      var r = document.querySelector('input[name="pickf"]:checked');
+      if (!r) { alert('Select a field.'); return; }
+      var map = {
+        'legacy-id': { label: 'Legacy facility ID', type: 'text', tb: 'tb-text' },
+        'taxonomy': { label: 'NAICS code', type: 'enum', tb: 'tb-enum' }
+      };
+      var m = map[r.value];
+      var fid = 'pick:' + r.value;
+      if (addedIds[fid]) { closeCustomModal(); return; }
+      addedIds[fid] = true;
+      selected.push({
+        id: fid,
+        label: m.label,
+        type: m.type,
+        tb: m.tb,
+        source: 'Existing org field',
+        required: false,
+        order: selected.length + 1,
+        custom: false
+      });
+      renderSelected();
+      renderLibrary();
+      closeCustomModal();
+    }
+
+    function openEnumSheet() {
+      document.getElementById('enum-rows').innerHTML = '';
+      enumOptions.forEach(function (o) { addEnumRow(o.v, o.l); });
+      document.getElementById('enum-sheet').classList.add('open');
+      document.getElementById('bc-root').classList.remove('hidden');
+      document.getElementById('bc-root').textContent = 'Custom field';
+      document.getElementById('modal-main-foot').classList.add('hidden');
+      updateEnumCount();
+    }
+
+    function closeEnumSheet() {
+      document.getElementById('enum-sheet').classList.remove('open');
+      document.getElementById('bc-root').classList.add('hidden');
+      document.getElementById('modal-main-foot').classList.remove('hidden');
+      var t = document.getElementById('cf-type').value;
+      document.getElementById('enum-btn-label').textContent = t === 'enum'
+        ? ('Configure select options (' + enumOptions.length + ')')
+        : 'Configure select options…';
+    }
+
+    function addEnumRow(v, l) {
+      var rows = document.getElementById('enum-rows');
+      var row = el('div', 'enum-row');
+      row.innerHTML = '<input type="text" placeholder="API value" class="ev" value="' + (v || '') + '"><input type="text" placeholder="Label" class="el" value="' + (l || '') + '"><button type="button" class="btn-icon" aria-label="Remove row"><i class="fa-light fa-trash-can"></i></button>';
+      row.querySelector('.btn-icon').onclick = function () { row.remove(); updateEnumCount(); };
+      row.querySelectorAll('input').forEach(function (inp) { inp.oninput = updateEnumCount; });
+      rows.appendChild(row);
+      updateEnumCount();
+    }
+
+    function updateEnumCount() {
+      var n = document.getElementById('enum-rows').querySelectorAll('.enum-row').length;
+      document.getElementById('enum-count').textContent = n + ' values';
+    }
+
+    function saveEnumSheet() {
+      var rows = document.querySelectorAll('#enum-rows .enum-row');
+      enumOptions = [];
+      rows.forEach(function (r) {
+        var v = r.querySelector('.ev').value.trim();
+        var l = r.querySelector('.el').value.trim();
+        if (v || l) enumOptions.push({ v: v || l, l: l || v });
+      });
+      document.getElementById('enum-btn-label').textContent = 'Configure select options (' + enumOptions.length + ')';
+      closeEnumSheet();
+    }
+
+    function submitCustomField() {
+      var name = document.getElementById('cf-name').value.trim();
+      if (!name) { alert('Enter a field name.'); return; }
+      var type = document.getElementById('cf-type').value;
+      if (type === 'enum' && enumOptions.length === 0) {
+        alert('Add at least one enum option (Configure select options).');
+        return;
+      }
+      var tb = { text: 'tb-text', date: 'tb-date', boolean: 'tb-bool', enum: 'tb-enum' }[type];
+      var fid = 'custom:' + Date.now();
+      addedIds[fid] = true;
+      selected.push({
+        id: fid,
+        label: name,
+        type: type,
+        tb: tb,
+        source: 'Custom · ' + modalCategory,
+        required: false,
+        order: selected.length + 1,
+        custom: true
+      });
+      renderSelected();
+      closeCustomModal();
+    }
+
+    document.getElementById('modal-backdrop').onclick = function (e) {
+      if (e.target === this) closeCustomModal();
+    };
+
+    renderLibrary();
+    updateStats();
+
+    function slugify(s) {
+      return (s || '').toLowerCase().trim().replace(/[^a-z0-9]+/g, '_').replace(/^_|_$/g, '') || 'entity_type';
+    }
+    document.getElementById('et-name').addEventListener('input', function () {
+      document.getElementById('et-key').value = slugify(this.value);
+    });
+  </script>
+</body>
+</html>

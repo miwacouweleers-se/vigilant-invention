@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Entity type fields — UX concept explorations</title>
+  <link rel="stylesheet" href="../../style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/e1f0748a31.js" crossorigin="anonymous"></script>
+  <style>
+    :root {
+      --bg: #FAFBFC;
+      --surface: #FFFFFF;
+      --elevated: #F1F5F9;
+      --border: #E2E8F0;
+      --text: #0F172A;
+      --muted: #64748B;
+      --faint: #94A3B8;
+      --primary: #008029;
+      --primary-soft: #DCFCE7;
+      --primary-border: #86EFAC;
+      --danger: #B91C1C;
+      --danger-soft: #FEE2E2;
+      --info: #2563EB;
+      --info-soft: #DBEAFE;
+      --purple: #7C3AED;
+      --purple-soft: #EDE9FE;
+      --pink: #DB2777;
+      --pink-soft: #FCE7F3;
+      --radius: 10px;
+      --font: 'Nunito Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      font-size: 15px;
+    }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 32px 24px 80px; }
+    .page-title {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin: 0 0 8px;
+    }
+    .lede {
+      color: var(--muted);
+      max-width: 720px;
+      margin: 0 0 24px;
+      font-size: 16px;
+    }
+    .tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--primary);
+      background: var(--primary-soft);
+      padding: 4px 10px;
+      border-radius: 999px;
+      margin-bottom: 16px;
+    }
+    .toc {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 24px 0 40px;
+      padding: 16px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+    }
+    .toc a {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--primary);
+      text-decoration: none;
+      padding: 6px 12px;
+      border-radius: 8px;
+      background: var(--elevated);
+    }
+    .toc a:hover { background: var(--primary-soft); }
+    .concept {
+      margin-bottom: 56px;
+      scroll-margin-top: 24px;
+    }
+    .concept-header {
+      margin-bottom: 16px;
+    }
+    .concept-header h2 {
+      font-size: 20px;
+      font-weight: 800;
+      margin: 0 0 6px;
+      letter-spacing: -0.02em;
+    }
+    .inspired {
+      font-size: 13px;
+      color: var(--muted);
+      margin: 0 0 10px;
+    }
+    .inspired strong { color: var(--text); }
+    .principle {
+      font-size: 14px;
+      color: var(--text);
+      margin: 0 0 16px;
+      max-width: 680px;
+    }
+    .mock {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
+    }
+    .mock-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      background: var(--elevated);
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .mock-body { padding: 16px; }
+
+    /* Wizard steps */
+    .steps {
+      display: flex;
+      gap: 0;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .step {
+      flex: 1;
+      padding: 12px 16px;
+      font-size: 12px;
+      font-weight: 600;
+      text-align: center;
+      background: var(--surface);
+      color: var(--muted);
+      border-right: 1px solid var(--border);
+    }
+    .step:last-child { border-right: none; }
+    .step.done { background: var(--primary-soft); color: var(--primary); }
+    .step.active { background: var(--primary); color: white; }
+    .form-row { margin-bottom: 14px; }
+    .form-row label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+    .form-row input {
+      width: 100%;
+      max-width: 400px;
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-family: inherit;
+    }
+    .review-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .review-list li {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+    }
+    .review-list li:last-child { border-bottom: none; }
+
+    /* Split pane */
+    .split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      min-height: 280px;
+    }
+    @media (max-width: 800px) {
+      .split { grid-template-columns: 1fr; }
+    }
+    .split-pane {
+      padding: 14px;
+      border-right: 1px solid var(--border);
+    }
+    .split-pane:last-child { border-right: none; }
+    @media (max-width: 800px) {
+      .split-pane { border-right: none; border-bottom: 1px solid var(--border); }
+      .split-pane:last-child { border-bottom: none; }
+    }
+    .pane-title {
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+      margin: 0 0 10px;
+    }
+    .search-mini {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 13px;
+      margin-bottom: 12px;
+    }
+    .chip-list { display: flex; flex-direction: column; gap: 6px; }
+    .field-chip {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 10px;
+      background: var(--elevated);
+      border-radius: 8px;
+      font-size: 13px;
+      border: 1px solid transparent;
+    }
+    .field-chip.on-type {
+      background: var(--primary-soft);
+      border-color: var(--primary-border);
+    }
+    .field-chip .meta { font-size: 11px; color: var(--muted); }
+    .badge-req {
+      font-size: 10px;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: var(--danger-soft);
+      color: var(--danger);
+    }
+    .badge-opt {
+      font-size: 10px;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: var(--elevated);
+      color: var(--muted);
+    }
+    .type-pill {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 999px;
+    }
+    .type-text { background: var(--info-soft); color: var(--info); }
+    .type-date { background: var(--pink-soft); color: var(--pink); }
+    .type-enum { background: var(--purple-soft); color: var(--purple); }
+
+    /* Drawer layout */
+    .drawer-layout {
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 0;
+      min-height: 260px;
+    }
+    @media (max-width: 700px) {
+      .drawer-layout { grid-template-columns: 1fr; }
+    }
+    .table-mini {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+    .table-mini th {
+      text-align: left;
+      padding: 8px 10px;
+      color: var(--muted);
+      font-weight: 700;
+      border-bottom: 1px solid var(--border);
+    }
+    .table-mini td {
+      padding: 8px 10px;
+      border-bottom: 1px solid var(--border);
+    }
+    .table-mini tr.selected td { background: var(--primary-soft); }
+    .drawer {
+      border-left: 1px solid var(--border);
+      background: var(--elevated);
+      padding: 14px;
+    }
+    @media (max-width: 700px) {
+      .drawer { border-left: none; border-top: 1px solid var(--border); }
+    }
+    .drawer h4 {
+      margin: 0 0 12px;
+      font-size: 14px;
+    }
+    .seg {
+      display: flex;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      margin-bottom: 12px;
+    }
+    .seg button {
+      flex: 1;
+      padding: 8px;
+      border: none;
+      background: var(--surface);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: default;
+    }
+    .seg button.on-req { background: var(--danger-soft); color: var(--danger); }
+    .seg button.on-opt { background: var(--primary-soft); color: var(--primary); }
+
+    /* Enum value set */
+    .enum-choice {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .radio-card {
+      display: flex;
+      gap: 12px;
+      padding: 12px;
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      align-items: flex-start;
+    }
+    .radio-card.pick {
+      border-color: var(--primary);
+      background: var(--primary-soft);
+    }
+    .radio-card input { margin-top: 3px; }
+    .radio-card .rc-title { font-weight: 700; font-size: 13px; }
+    .radio-card .rc-desc { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+    /* Category checkbox row */
+    .cat-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin-bottom: 8px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .cat-row .indet {
+      width: 16px;
+      height: 16px;
+      border-radius: 4px;
+      border: 2px solid var(--primary);
+      background: linear-gradient(var(--primary), var(--primary)) center/10px 2px no-repeat;
+      background-color: var(--surface);
+    }
+    .hint {
+      font-size: 11px;
+      color: var(--faint);
+      font-weight: 500;
+      margin-left: auto;
+      max-width: 200px;
+      text-align: right;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--primary);
+      text-decoration: none;
+      margin-bottom: 20px;
+    }
+    .back-link:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <a class="back-link" href="../create-new-inventory/index.html#entity-type-settings"><i class="fa-light fa-arrow-left"></i> Back to Entity type settings</a>
+    <a class="back-link" href="../entity-type-create-flow/index.html" style="margin-left:16px;"><i class="fa-light fa-wand-magic-sparkles"></i> Interactive create flow</a>
+
+    <span class="tag">Prototype · UX explorations</span>
+    <h1 class="page-title">Improving “entity type fields”</h1>
+    <p class="lede">
+      Your current design combines a deep hierarchy (categories → fields), per-row configuration (required, order), and custom field creation with enum options. Below are <strong>five patterns</strong> borrowed from products that handle complex configuration well. Each block is a <strong>static mock</strong>—meant to spark discussion, not ship as final UI.
+    </p>
+
+    <nav class="toc" aria-label="Concepts">
+      <a href="#concept-wizard">1. Stepped wizard</a>
+      <a href="#concept-split">2. Two-pane builder</a>
+      <a href="#concept-drawer">3. List + detail drawer</a>
+      <a href="#concept-enum">4. Reusable value sets</a>
+      <a href="#concept-bulk">5. Honest category selection</a>
+    </nav>
+
+    <!-- 1. Wizard -->
+    <section class="concept" id="concept-wizard">
+      <div class="concept-header">
+        <h2>1. Stepped wizard (progressive disclosure)</h2>
+        <p class="inspired"><strong>Inspired by:</strong> Stripe (Connect onboarding), Typeform, HubSpot “create object” flows</p>
+        <p class="principle">
+          Split “define the entity type” from “choose and order fields” and “confirm.” Users see one job at a time, which reduces cognitive load when many categories and toggles exist. A review step catches missing required fields before publish.
+        </p>
+      </div>
+      <div class="mock">
+        <div class="mock-bar">
+          <span><i class="fa-light fa-layer-group"></i> New entity type</span>
+          <span style="color:var(--muted);font-weight:500;">Draft</span>
+        </div>
+        <div class="mock-body">
+          <div class="steps">
+            <div class="step done">1 · Details</div>
+            <div class="step active">2 · Fields</div>
+            <div class="step">3 · Review</div>
+          </div>
+          <p style="font-size:13px;color:var(--muted);margin:0 0 14px;">Step 2 of 3 — Add fields from your library or create custom fields. You’ll set required/optional and order in the next pass or inline per section.</p>
+          <div class="form-row">
+            <label>Search fields &amp; categories</label>
+            <input type="text" placeholder="e.g. Account, GHG, Date…" readonly>
+          </div>
+          <div style="display:flex;gap:10px;margin-top:16px;">
+            <button type="button" style="padding:10px 18px;border-radius:8px;border:1px solid var(--border);background:var(--surface);font-weight:600;cursor:default;">Back</button>
+            <button type="button" style="padding:10px 18px;border-radius:8px;border:none;background:var(--primary);color:white;font-weight:600;cursor:default;">Continue to review</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Split pane -->
+    <section class="concept" id="concept-split">
+      <div class="concept-header">
+        <h2>2. Two-pane “on this type” vs “library”</h2>
+        <p class="inspired"><strong>Inspired by:</strong> Notion (database properties), Airtable (field list vs table), Figma (assets panel)</p>
+        <p class="principle">
+          The left column is the <em>contract</em> for this entity type only: what appears when someone adds an entity, in order. The right column is the searchable library (by category). Adding is explicit (plus or drag), so users never confuse “browsing the catalog” with “this type uses the field.”
+        </p>
+      </div>
+      <div class="mock">
+        <div class="mock-bar">
+          <span>Legal Entity — field builder</span>
+          <button type="button" class="btn-secondary" style="padding:6px 12px;font-size:12px;border-radius:8px;border:1px solid var(--border);background:var(--surface);font-weight:600;">+ Custom field</button>
+        </div>
+        <div class="split">
+          <div class="split-pane">
+            <p class="pane-title">On this entity type (7)</p>
+            <div class="chip-list">
+              <div class="field-chip on-type">
+                <span>Name <span class="type-pill type-text">Text</span></span>
+                <span class="badge-req">Required</span>
+              </div>
+              <div class="field-chip on-type">
+                <span>Entity Category <span class="type-pill type-enum">Enum</span></span>
+                <span class="badge-opt">Optional</span>
+              </div>
+              <div class="field-chip on-type">
+                <span>Account Name <span class="type-pill type-text">Text</span></span>
+                <span class="badge-req">Required</span>
+              </div>
+            </div>
+            <p style="font-size:11px;color:var(--faint);margin:12px 0 0;">Reorder via drag handle (not shown) · Empty states explain “nothing on this type yet”</p>
+          </div>
+          <div class="split-pane" style="background:var(--bg);">
+            <p class="pane-title">Library — by category</p>
+            <input class="search-mini" type="text" placeholder="Search Standard, Location, Account…" readonly>
+            <div class="chip-list">
+              <div class="field-chip">
+                <span>Open Date <span class="meta">Standard</span></span>
+                <span style="color:var(--primary);font-weight:700;font-size:12px;">+ Add</span>
+              </div>
+              <div class="field-chip">
+                <span>Notes <span class="meta">Standard</span></span>
+                <span style="color:var(--primary);font-weight:700;font-size:12px;">+ Add</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Drawer -->
+    <section class="concept" id="concept-drawer">
+      <div class="concept-header">
+        <h2>3. Sparse table + configuration drawer</h2>
+        <p class="inspired"><strong>Inspired by:</strong> Linear (list → issue detail), Shopify (resource list → edit panel), Gmail (row → side peek)</p>
+        <p class="principle">
+          Keep the main grid readable: name, type, category. Move required/optional, order, and enum editing into a fixed drawer that opens for the <em>selected</em> row. Inactive rows stay clean—addressing the “greyed controls everywhere” problem in dense tables.
+        </p>
+      </div>
+      <div class="mock">
+        <div class="mock-bar">
+          <span>Business entity fields</span>
+          <span style="font-size:12px;color:var(--muted);">Selected: Entity Category</span>
+        </div>
+        <div class="drawer-layout">
+          <div style="padding:12px;">
+            <table class="table-mini">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Category</th>
+                  <th>Type</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Name</td>
+                  <td>Standard</td>
+                  <td><span class="type-pill type-text">Text</span></td>
+                </tr>
+                <tr class="selected">
+                  <td>Entity Category</td>
+                  <td>Standard</td>
+                  <td><span class="type-pill type-enum">Enum</span></td>
+                </tr>
+                <tr>
+                  <td>Account Name</td>
+                  <td>Account</td>
+                  <td><span class="type-pill type-text">Text</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="drawer">
+            <h4>Configure for this type</h4>
+            <label style="font-size:11px;font-weight:700;color:var(--muted);">Included</label>
+            <div style="margin:6px 0 14px;font-size:13px;"><i class="fa-light fa-check-circle" style="color:var(--primary);"></i> Yes</div>
+            <label style="font-size:11px;font-weight:700;color:var(--muted);">Requirement</label>
+            <div class="seg">
+              <button type="button" class="on-opt">Optional</button>
+              <button type="button">Required</button>
+            </div>
+            <label style="font-size:11px;font-weight:700;color:var(--muted);">Display order</label>
+            <input type="text" value="4" readonly style="width:100%;padding:8px;border:1px solid var(--border);border-radius:8px;margin-top:4px;">
+            <button type="button" style="margin-top:14px;width:100%;padding:8px;border-radius:8px;border:1px solid var(--border);background:var(--surface);font-weight:600;font-size:12px;">
+              Edit enum options…
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Enum reuse -->
+    <section class="concept" id="concept-enum">
+      <div class="concept-header">
+        <h2>4. Reusable enum “value sets”</h2>
+        <p class="inspired"><strong>Inspired by:</strong> Salesforce (global picklists), HubSpot (groups + shared dropdowns), Contentful (taxonomy)</p>
+        <p class="principle">
+          When many entity types need the same dropdown, duplicating options in every “Add Field” flow creates drift. Let admins link an existing org-wide value set or fork it. Creation still supports custom one-off enums when needed.
+        </p>
+      </div>
+      <div class="mock">
+        <div class="mock-bar">
+          <span>Add field → Data type: Enum</span>
+        </div>
+        <div class="mock-body">
+          <p style="font-size:13px;margin:0 0 12px;color:var(--muted);">How should options be defined?</p>
+          <div class="enum-choice">
+            <label class="radio-card pick">
+              <input type="radio" checked disabled>
+              <div>
+                <div class="rc-title">Use existing value set</div>
+                <div class="rc-desc">GHG Protocol accounting category · 6 values · last edited Mar 2</div>
+              </div>
+            </label>
+            <label class="radio-card">
+              <input type="radio" disabled>
+              <div>
+                <div class="rc-title">Create new value set</div>
+                <div class="rc-desc">Name it once; other types can reuse it later.</div>
+              </div>
+            </label>
+            <label class="radio-card">
+              <input type="radio" disabled>
+              <div>
+                <div class="rc-title">One-off options (this field only)</div>
+                <div class="rc-desc">Fast for prototypes; not recommended for regulated labels.</div>
+              </div>
+            </label>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Category bulk -->
+    <section class="concept" id="concept-bulk">
+      <div class="concept-header">
+        <h2>5. Explicit category selection semantics</h2>
+        <p class="inspired"><strong>Inspired by:</strong> Gmail (select all in thread), macOS Finder, Asana (multi-select patterns)</p>
+        <p class="principle">
+          A folder-level checkbox should never be ambiguous. Show <strong>indeterminate</strong> state when only some children are selected, and pair actions with short copy: “Select all 9 fields in Standard” vs “Clear category.” Prevents accidental bulk inclusion.
+        </p>
+      </div>
+      <div class="mock">
+        <div class="mock-bar">
+          <span>Standard · 9 fields</span>
+        </div>
+        <div class="mock-body">
+          <div class="cat-row">
+            <span style="width:16px;height:16px;border:2px solid var(--primary);border-radius:4px;background:var(--primary);display:inline-flex;align-items:center;justify-content:center;color:white;font-size:10px;">✓</span>
+            <span>Standard (all 9 selected)</span>
+            <span class="hint">Checkbox = entire category</span>
+          </div>
+          <div class="cat-row">
+            <span class="indet" title="indeterminate"></span>
+            <span>Location (3 of 9 selected)</span>
+            <span class="hint">Indeterminate = partial</span>
+          </div>
+          <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;">
+            <button type="button" style="padding:6px 12px;font-size:12px;border-radius:8px;border:1px solid var(--border);background:var(--surface);font-weight:600;">Select all in Location</button>
+            <button type="button" style="padding:6px 12px;font-size:12px;border-radius:8px;border:none;background:transparent;color:var(--muted);font-weight:600;text-decoration:underline;">Clear Location</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <p style="font-size:13px;color:var(--muted);max-width:640px;margin-top:48px;">
+      <strong>Combining ideas:</strong> A wizard for first-time setup, a two-pane builder for power users, and reusable value sets for enums is a common enterprise pattern (progressive complexity without losing depth).
+    </p>
+  </div>
+</body>
+</html>

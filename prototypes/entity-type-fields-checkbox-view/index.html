@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Entity type fields — checkbox layout</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/e1f0748a31.js" crossorigin="anonymous"></script>
+  <style>
+    :root {
+      --bg: #F4F6F8;
+      --surface: #FFFFFF;
+      --elevated: #F1F5F9;
+      --border: #E2E8F0;
+      --text: #0F172A;
+      --muted: #64748B;
+      --faint: #94A3B8;
+      --primary: #008029;
+      --primary-soft: #DCFCE7;
+      --primary-border: #86EFAC;
+      --danger: #B91C1C;
+      --danger-soft: #FEE2E2;
+      --info: #2563EB;
+      --info-soft: #DBEAFE;
+      --purple: #7C3AED;
+      --purple-soft: #EDE9FE;
+      --pink: #DB2777;
+      --pink-soft: #FCE7F3;
+      --teal: #0D9488;
+      --teal-soft: #CCFBF1;
+      --font: 'Nunito Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    button, input { font-family: inherit; font-size: 14px; }
+
+    .top {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .breadcrumb a { color: var(--primary); font-weight: 600; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 24px; }
+    h1 { font-size: 22px; font-weight: 800; margin: 0 0 8px; letter-spacing: -0.02em; }
+    .sub { color: var(--muted); margin: 0 0 20px; max-width: 720px; font-size: 14px; }
+
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
+    }
+    .panel-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--border);
+      background: var(--elevated);
+    }
+    .panel-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 15px;
+    }
+    .panel-title .meta { font-size: 12px; font-weight: 600; color: var(--muted); }
+    .toolbar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .toolbar input[type="search"] {
+      width: 260px;
+      max-width: 100%;
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+    .chk-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--muted);
+      cursor: pointer;
+      user-select: none;
+    }
+    .chk-label input { accent-color: var(--primary); width: 16px; height: 16px; }
+    .link-btn {
+      background: none;
+      border: none;
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .link-btn:hover { text-decoration: underline; }
+
+    .summary-line {
+      padding: 10px 18px;
+      font-size: 13px;
+      color: var(--muted);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .summary-line strong { color: var(--text); }
+
+    .grid-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    .grid-table th {
+      text-align: left;
+      padding: 10px 12px;
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+    }
+    .grid-table th:nth-child(1) { width: 40px; }
+    .grid-table th:nth-child(2) { width: 36px; }
+
+    .cat-row td {
+      padding: 12px 14px;
+      background: var(--elevated);
+      border-bottom: 1px solid var(--border);
+      font-weight: 700;
+      font-size: 13px;
+    }
+    .cat-row .cat-inner {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .cat-toggle {
+      border: none;
+      background: none;
+      padding: 4px;
+      color: var(--muted);
+      cursor: pointer;
+    }
+    .cat-toggle i { transition: transform 0.2s; }
+    .cat-row.collapsed .cat-toggle i { transform: rotate(-90deg); }
+
+    .cat-cb-wrap {
+      position: relative;
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+    .cat-cb-wrap input {
+      position: absolute;
+      inset: 0;
+      margin: 0;
+      width: 18px;
+      height: 18px;
+      accent-color: var(--primary);
+      cursor: pointer;
+      opacity: 0;
+      z-index: 1;
+    }
+    .cat-cb-visual {
+      position: absolute;
+      inset: 0;
+      border: 2px solid var(--primary);
+      border-radius: 4px;
+      background: var(--surface);
+      pointer-events: none;
+    }
+    .cat-cb-wrap.all .cat-cb-visual {
+      background: var(--primary);
+    }
+    .cat-cb-wrap.all .cat-cb-visual::after {
+      content: '✓';
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 11px;
+      font-weight: 800;
+    }
+    .cat-cb-wrap.some .cat-cb-visual {
+      background: linear-gradient(var(--primary), var(--primary)) center/10px 2px no-repeat;
+    }
+
+    .cat-desc { font-weight: 500; color: var(--muted); font-size: 12px; margin-left: 8px; }
+    .cat-actions { margin-left: auto; display: flex; align-items: center; gap: 12px; }
+    .cat-count { font-size: 12px; color: var(--faint); font-weight: 600; }
+
+    .field-row td {
+      padding: 0;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      background: var(--surface);
+    }
+    .field-row.selected td { background: var(--primary-soft); }
+    .field-row.hidden-row { display: none; }
+
+    .field-main {
+      display: grid;
+      grid-template-columns: 40px 36px 1fr 100px 140px 56px;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 12px;
+      min-height: 48px;
+    }
+    @media (max-width: 800px) {
+      .field-main {
+        grid-template-columns: 40px 36px 1fr;
+        grid-template-rows: auto auto;
+      }
+      .field-main .fm-type { grid-column: 3; grid-row: 1; justify-self: end; }
+      .field-main .fm-req { grid-column: 1 / -1; grid-row: 2; justify-self: stretch; }
+      .field-main .fm-order { grid-column: 1 / -1; }
+    }
+
+    .expand-hit {
+      border: none;
+      background: none;
+      color: var(--faint);
+      padding: 4px;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    .expand-hit:hover { background: var(--elevated); color: var(--text); }
+    .expand-hit i { transition: transform 0.2s; }
+    .field-row.expanded .expand-hit i { transform: rotate(90deg); }
+
+    .fm-check { display: flex; justify-content: center; }
+    .fm-check input { width: 18px; height: 18px; accent-color: var(--primary); cursor: pointer; }
+
+    .fm-name .label { font-weight: 600; }
+    .fm-name .peek {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .type-badge {
+      font-size: 10px;
+      font-weight: 800;
+      padding: 4px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+    .tb-text { background: var(--info-soft); color: var(--info); }
+    .tb-date { background: var(--pink-soft); color: var(--pink); }
+    .tb-bool { background: var(--teal-soft); color: var(--teal); }
+    .tb-enum { background: var(--purple-soft); color: var(--purple); }
+
+    .seg {
+      display: flex;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      opacity: 0.45;
+      pointer-events: none;
+    }
+    .seg.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .seg button {
+      flex: 1;
+      padding: 6px 8px;
+      border: none;
+      background: var(--surface);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
+      cursor: pointer;
+    }
+    .seg button.on-opt { background: var(--primary-soft); color: var(--primary); }
+    .seg button.on-req { background: var(--danger-soft); color: var(--danger); }
+
+    .order-inp {
+      width: 48px;
+      padding: 6px;
+      text-align: center;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--surface);
+      opacity: 0.45;
+      pointer-events: none;
+    }
+    .order-inp.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .detail-drawer {
+      display: none;
+      padding: 0 12px 14px 86px;
+      border-top: 1px dashed var(--border);
+      background: var(--surface);
+    }
+    .field-row.selected .detail-drawer { background: var(--primary-soft); }
+    .field-row.expanded .detail-drawer { display: block; }
+
+    .detail-block { padding-top: 12px; }
+    .detail-block h4 {
+      margin: 0 0 6px;
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--faint);
+    }
+    .detail-block p {
+      margin: 0;
+      font-size: 13px;
+      color: var(--text);
+      max-width: 640px;
+    }
+    .enum-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 4px;
+    }
+    .enum-opt {
+      padding: 8px 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 12px;
+    }
+    .field-row.selected .enum-opt {
+      background: var(--surface);
+      border-color: var(--primary-border);
+    }
+    .enum-opt .lab { font-weight: 700; display: block; }
+    .enum-opt .api {
+      font-size: 10px;
+      color: var(--faint);
+      font-family: ui-monospace, monospace;
+      margin-top: 2px;
+    }
+
+    .cat-body.collapsed { display: none; }
+
+    .note {
+      margin-top: 20px;
+      padding: 14px 16px;
+      background: var(--info-soft);
+      border-radius: 10px;
+      font-size: 13px;
+      color: #1E40AF;
+      max-width: 720px;
+    }
+  </style>
+</head>
+<body>
+  <div class="top">
+    <nav class="breadcrumb">
+      <a href="../create-new-inventory/index.html#entity-type-settings">Settings</a>
+      <i class="fa-light fa-chevron-right" style="font-size:10px;color:var(--faint);"></i>
+      <a href="../entity-type-create-flow/index.html">Create entity type</a>
+      <i class="fa-light fa-chevron-right" style="font-size:10px;color:var(--faint);"></i>
+      <span style="color:var(--text);font-weight:600;">Checkbox field layout</span>
+    </nav>
+    <a href="../entity-type-create-flow/index.html" style="font-size:13px;font-weight:600;color:var(--primary);">Compare: two-panel flow</a>
+  </div>
+
+  <div class="wrap">
+    <h1>Fields for this entity type (checkbox layout)</h1>
+    <p class="sub">
+      Each row can be expanded to read the full <strong>description</strong> and, for enums, every <strong>select option</strong> (label + API value).
+      Check a field to include it on this type, then set <strong>Required</strong> or <strong>Optional</strong> and <strong>Order</strong>.
+      Use the category checkbox to select or clear <em>all</em> fields in that group (indeterminate when partially selected).
+    </p>
+
+    <div class="panel">
+      <div class="panel-head">
+        <div class="panel-title">
+          <i class="fa-light fa-database" style="color:var(--primary);"></i>
+          Business entity fields
+          <span class="meta" id="head-meta">—</span>
+        </div>
+        <div class="toolbar">
+          <input type="search" id="search" placeholder="Search fields, descriptions, options…" autocomplete="off">
+          <label class="chk-label"><input type="checkbox" id="filter-selected"> Selected only</label>
+          <button type="button" class="link-btn" id="expand-all"><i class="fa-light fa-arrows-maximize"></i> Expand all</button>
+        </div>
+      </div>
+      <div class="summary-line">
+        <span id="summary-text"><strong>0</strong> fields selected</span>
+        <span style="font-size:12px;color:var(--faint);">Expand rows for descriptions &amp; enum values</span>
+      </div>
+      <table class="grid-table" role="grid" aria-label="Fields">
+        <thead>
+          <tr>
+            <th></th>
+            <th></th>
+            <th>Name &amp; preview</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Order</th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+
+    <p class="note">
+      <strong>UX note:</strong> Inline expansion keeps context (vs opening a separate modal for every field). For very long enum lists, a “View all N options” link opening a sheet is a common add-on.
+    </p>
+  </div>
+
+  <script>
+    var DATA = [
+      {
+        id: 'std',
+        name: 'Standard',
+        description: 'Standard BE with no special requirements.',
+        fields: [
+          {
+            id: 'name',
+            label: 'Name',
+            type: 'text',
+            tb: 'tb-text',
+            short: 'Legal name of the business entity.',
+            description: 'Legal name of the business entity as registered for tax and compliance. Shown as the primary title in lists and exports.'
+          },
+          {
+            id: 'open_date',
+            label: 'Open Date',
+            type: 'date',
+            tb: 'tb-date',
+            short: 'Date entity became operational.',
+            description: 'The date this entity began operations at this location or under this structure. Used for reporting period boundaries.'
+          },
+          {
+            id: 'entity_cat',
+            label: 'Entity Category',
+            type: 'enum',
+            tb: 'tb-enum',
+            short: 'Classification of the entity.',
+            description: 'High-level classification used for rollups and policy rules across the inventory.',
+            options: [
+              { api: 'subsidiary', label: 'Wholly owned subsidiary' },
+              { api: 'jv', label: 'Joint venture' },
+              { api: 'assoc', label: 'Associated company' },
+              { api: 'branch', label: 'Branch / division' }
+            ]
+          },
+          {
+            id: 'ghg_acct',
+            label: 'GHGP Accounting Category',
+            type: 'enum',
+            tb: 'tb-enum',
+            short: 'GHG Protocol accounting approach.',
+            description: 'Determines how emissions are attributed under the GHG Protocol (equity share, financial control, operational control).',
+            options: [
+              { api: 'equity', label: 'Equity share' },
+              { api: 'financial', label: 'Financial control' },
+              { api: 'operational', label: 'Operational control' }
+            ]
+          }
+        ]
+      },
+      {
+        id: 'acct',
+        name: 'Account',
+        description: 'Attributes of a BE that is a child of a Site BE.',
+        fields: [
+          {
+            id: 'acct_name',
+            label: 'Account Name',
+            type: 'text',
+            tb: 'tb-text',
+            short: 'Name of the utility account.',
+            description: 'Utility or supplier account name as it appears on the bill. Used to match invoices and meter data.'
+          },
+          {
+            id: 'meter_type',
+            label: 'Service type',
+            type: 'enum',
+            tb: 'tb-enum',
+            short: 'Electric, gas, water, etc.',
+            description: 'Primary commodity or service for this account.',
+            options: [
+              { api: 'electric', label: 'Electric power' },
+              { api: 'natural_gas', label: 'Natural gas' },
+              { api: 'water', label: 'Water' },
+              { api: 'steam', label: 'District heating / steam' }
+            ]
+          }
+        ]
+      }
+    ];
+
+    var state = {};
+    var catCollapsed = {};
+    var expanded = {};
+    var expandAllMode = false;
+
+    function ensureState(fid) {
+      if (!state[fid]) {
+        state[fid] = { on: false, req: false, order: 0 };
+      }
+      return state[fid];
+    }
+
+    function nextOrder() {
+      var max = 0;
+      Object.keys(state).forEach(function (k) {
+        if (state[k].on && state[k].order > max) max = state[k].order;
+      });
+      return max + 1;
+    }
+
+    function catFieldIds(cat) {
+      return cat.fields.map(function (f) { return f.id; });
+    }
+
+    function catSelectionMode(cat) {
+      var ids = catFieldIds(cat);
+      var onCount = ids.filter(function (id) { return state[id] && state[id].on; }).length;
+      if (onCount === 0) return 'none';
+      if (onCount === ids.length) return 'all';
+      return 'some';
+    }
+
+    function setCatAll(cat, on) {
+      cat.fields.forEach(function (f) {
+        var s = ensureState(f.id);
+        if (on && !s.on) {
+          s.on = true;
+          s.order = nextOrder();
+        }
+        if (!on) {
+          s.on = false;
+          s.req = false;
+          s.order = 0;
+        }
+      });
+      render();
+    }
+
+    function render() {
+      var tbody = document.getElementById('tbody');
+      var q = (document.getElementById('search').value || '').toLowerCase().trim();
+      var selOnly = document.getElementById('filter-selected').checked;
+
+      var totalSel = 0;
+      var totalReq = 0;
+      Object.keys(state).forEach(function (k) {
+        if (state[k].on) {
+          totalSel++;
+          if (state[k].req) totalReq++;
+        }
+      });
+
+      document.getElementById('summary-text').innerHTML =
+        '<strong>' + totalSel + '</strong> field' + (totalSel !== 1 ? 's' : '') + ' selected' +
+        (totalReq ? ' · <strong>' + totalReq + '</strong> required' : '');
+      document.getElementById('head-meta').textContent =
+        totalSel + ' fields · ' + DATA.reduce(function (a, c) { return a + c.fields.length; }, 0) + ' in library';
+
+      tbody.innerHTML = '';
+
+      DATA.forEach(function (cat) {
+        var mode = catSelectionMode(cat);
+        var catRow = document.createElement('tr');
+        catRow.className = 'cat-row' + (catCollapsed[cat.id] ? ' collapsed' : '');
+        catRow.innerHTML =
+          '<td colspan="6">' +
+            '<div class="cat-inner">' +
+              '<button type="button" class="cat-toggle" aria-expanded="' + !catCollapsed[cat.id] + '" data-cat="' + cat.id + '"><i class="fa-light fa-chevron-down"></i></button>' +
+              '<div class="cat-cb-wrap ' + (mode === 'all' ? 'all' : mode === 'some' ? 'some' : '') + '" title="Select or clear all fields in this category">' +
+                '<input type="checkbox" data-catcb="' + cat.id + '" ' + (mode === 'all' ? 'checked' : '') + ' aria-label="Select all in ' + cat.name + '">' +
+                '<span class="cat-cb-visual" aria-hidden="true"></span>' +
+              '</div>' +
+              '<i class="fa-light fa-folder" style="color:#CA8A04;"></i>' +
+              '<span>' + cat.name + '</span>' +
+              '<span class="cat-desc">' + cat.description + '</span>' +
+              '<div class="cat-actions">' +
+                '<span class="cat-count">' + cat.fields.length + ' fields</span>' +
+              '</div>' +
+            '</div>' +
+          '</td>';
+        catRow.querySelector('.cat-toggle').onclick = function () {
+          catCollapsed[cat.id] = !catCollapsed[cat.id];
+          render();
+        };
+        var catCb = catRow.querySelector('input[data-catcb]');
+        catCb.indeterminate = mode === 'some';
+        catCb.checked = mode === 'all';
+        catCb.onchange = function () {
+          setCatAll(cat, catCb.checked);
+        };
+        tbody.appendChild(catRow);
+
+        var bodyTr = document.createElement('tr');
+        bodyTr.className = 'cat-body' + (catCollapsed[cat.id] ? ' collapsed' : '');
+        bodyTr.innerHTML = '<td colspan="6" style="padding:0;border-bottom:none;">' +
+          '<table class="grid-table" style="border-collapse:collapse;"><tbody id="inner-' + cat.id + '"></tbody></table></td>';
+        tbody.appendChild(bodyTr);
+        var inner = bodyTr.querySelector('#inner-' + cat.id);
+
+        cat.fields.forEach(function (f) {
+          var s = ensureState(f.id);
+          if (selOnly && !s.on) return;
+
+          var textBlob = (f.label + ' ' + f.short + ' ' + f.description + ' ' +
+            (f.options || []).map(function (o) { return o.label + ' ' + o.api; }).join(' ')).toLowerCase();
+          if (q && textBlob.indexOf(q) < 0) return;
+
+          var tr = document.createElement('tr');
+          tr.className = 'field-row' + (s.on ? ' selected' : '') + (expanded[f.id] ? ' expanded' : '');
+          tr.setAttribute('data-fid', f.id);
+
+          var seg = '<div class="seg' + (s.on ? ' active' : '') + '" role="group" aria-label="Requirement">' +
+            '<button type="button" class="' + (!s.req ? 'on-opt' : '') + '" data-act="opt">Optional</button>' +
+            '<button type="button" class="' + (s.req ? 'on-req' : '') + '" data-act="req">Required</button></div>';
+
+          tr.innerHTML =
+            '<td colspan="6">' +
+              '<div class="field-main">' +
+                '<div class="fm-check"><input type="checkbox" data-fcb="' + f.id + '" ' + (s.on ? 'checked' : '') + ' aria-label="Include ' + f.label + '"></div>' +
+                '<button type="button" class="expand-hit" data-exp="' + f.id + '" aria-expanded="' + !!expanded[f.id] + '" aria-label="Show details"><i class="fa-light fa-chevron-right"></i></button>' +
+                '<div class="fm-name">' +
+                  '<div class="label">' + f.label + '</div>' +
+                  '<div class="peek">' + escapeHtml(f.short) + '</div>' +
+                '</div>' +
+                '<div class="fm-type"><span class="type-badge ' + f.tb + '">' + f.type + '</span></div>' +
+                '<div class="fm-req">' + seg + '</div>' +
+                '<div class="fm-order"><input type="number" min="1" class="order-inp' + (s.on ? ' active' : '') + '" data-ord="' + f.id + '" value="' + (s.on ? s.order : '') + '" aria-label="Display order" placeholder="—"></div>' +
+              '</div>' +
+              '<div class="detail-drawer">' +
+                '<div class="detail-block">' +
+                  '<h4>Description</h4>' +
+                  '<p>' + escapeHtml(f.description) + '</p>' +
+                '</div>' +
+                (f.options ? (
+                  '<div class="detail-block" style="margin-top:12px;">' +
+                    '<h4>Select options (' + f.options.length + ')</h4>' +
+                    '<div class="enum-options">' +
+                      f.options.map(function (o) {
+                        return '<div class="enum-opt"><span class="lab">' + escapeHtml(o.label) + '</span><span class="api">' + escapeHtml(o.api) + '</span></div>';
+                      }).join('') +
+                    '</div>' +
+                  '</div>'
+                ) : '') +
+              '</div>' +
+            '</td>';
+
+          tr.querySelector('[data-fcb]').onchange = function () {
+            var st = ensureState(f.id);
+            st.on = this.checked;
+            if (st.on && !st.order) st.order = nextOrder();
+            if (!st.on) {
+              st.req = false;
+              st.order = 0;
+            }
+            render();
+          };
+
+          tr.querySelector('[data-exp]').onclick = function () {
+            expanded[f.id] = !expanded[f.id];
+            render();
+          };
+
+          tr.querySelectorAll('.seg button').forEach(function (b) {
+            b.onclick = function () {
+              var st = ensureState(f.id);
+              if (!st.on) return;
+              st.req = b.getAttribute('data-act') === 'req';
+              render();
+            };
+          });
+
+          tr.querySelector('[data-ord]').onchange = function () {
+            var st = ensureState(f.id);
+            if (!st.on) return;
+            var v = parseInt(this.value, 10);
+            st.order = isNaN(v) ? nextOrder() : v;
+            render();
+          };
+
+          inner.appendChild(tr);
+        });
+      });
+    }
+
+    function escapeHtml(s) {
+      var d = document.createElement('div');
+      d.textContent = s;
+      return d.innerHTML;
+    }
+
+    document.getElementById('search').oninput = render;
+    document.getElementById('filter-selected').onchange = render;
+
+    document.getElementById('expand-all').onclick = function () {
+      expandAllMode = !expandAllMode;
+      DATA.forEach(function (cat) {
+        cat.fields.forEach(function (f) {
+          expanded[f.id] = expandAllMode;
+        });
+      });
+      this.innerHTML = expandAllMode
+        ? '<i class="fa-light fa-arrows-minimize"></i> Collapse all'
+        : '<i class="fa-light fa-arrows-maximize"></i> Expand all';
+      render();
+    };
+
+    ensureState('name').on = true;
+    ensureState('name').order = 1;
+    ensureState('entity_cat').on = true;
+    ensureState('entity_cat').order = 2;
+    ensureState('entity_cat').req = true;
+    render();
+  </script>
+</body>
+</html>
